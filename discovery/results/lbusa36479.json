@@ -1,0 +1,1905 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "DevelopmentTeamDWID",
+   "EntityName",
+   "ParentEntityName",
+   "Street",
+   "Number",
+   "ProjectID",
+   "Longitude",
+   "Latitude",
+   "BBL",
+   "BIN",
+   "Census Tract",
+   "City",
+   "Postcode",
+   "NTA"
+  ]
+ },
+ "sample_rows": 24747,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbusa.t36479",
+   "rows": 24747,
+   "cols": [
+    "DevelopmentTeamDWID",
+    "ProjectID",
+    "Type",
+    "EntityName",
+    "EntityIndividualIndicator",
+    "ParentEntityName",
+    "Number",
+    "Street",
+    "City",
+    "State",
+    "Postcode",
+    "Borough",
+    "Latitude",
+    "Longitude",
+    "Community Board",
+    "Council District",
+    "Census Tract",
+    "BIN",
+    "BBL",
+    "NTA"
+   ],
+   "n_conditional": 72,
+   "conditional": [
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID"
+     ],
+     "cls": "cand",
+     "condition": "(EntityIndividualIndicator = \"Individual\" (39%))",
+     "sql": "(EntityIndividualIndicator = 'Individual')",
+     "support": 0.386,
+     "rows": 9556,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.175,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "EntityIndividualIndicator=v2": "Individual"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID"
+     ],
+     "cls": "cand",
+     "condition": "(Type = \"GENERAL CONTRACTOR\" (11%))",
+     "sql": "(Type = 'GENERAL CONTRACTOR')",
+     "support": 0.109,
+     "rows": 2709,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.158,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Type=v3": "GENERAL CONTRACTOR"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Postcode"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.403,
+     "rows": 9963,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.965,
+     "score": 1.114,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Postcode"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Council District missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.391,
+     "rows": 9679,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.994,
+     "score": 1.098,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Postcode"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.362,
+     "rows": 8956,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.996,
+     "score": 1.056,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "EntityName"
+     ],
+     "cls": "cert",
+     "condition": "(Type = \"BORROWER LEGAL ENTITY\" (30%), EntityIndividualIndicator = \"Entity\" (61%))",
+     "sql": "(Type = 'BORROWER LEGAL ENTITY' AND EntityIndividualIndicator = 'Entity')",
+     "support": 0.137,
+     "rows": 3393,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.866,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Type=v2": "BORROWER LEGAL ENTITY",
+      "EntityIndividualIndicator=v1": "Entity"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "ParentEntityName"
+     ],
+     "cls": "cert",
+     "condition": "(Type = \"BORROWER LEGAL ENTITY\" (30%), EntityIndividualIndicator = \"Entity\" (61%))",
+     "sql": "(Type = 'BORROWER LEGAL ENTITY' AND EntityIndividualIndicator = 'Entity')",
+     "support": 0.137,
+     "rows": 3393,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.866,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Type=v2": "BORROWER LEGAL ENTITY",
+      "EntityIndividualIndicator=v1": "Entity"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "ProjectID"
+     ],
+     "cls": "cand",
+     "condition": "(Type = \"BORROWER LEGAL ENTITY\" (30%), EntityIndividualIndicator = \"Entity\" (61%))",
+     "sql": "(Type = 'BORROWER LEGAL ENTITY' AND EntityIndividualIndicator = 'Entity')",
+     "support": 0.137,
+     "rows": 3393,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.778,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Type=v2": "BORROWER LEGAL ENTITY",
+      "EntityIndividualIndicator=v1": "Entity"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Number"
+     ],
+     "cls": "cert",
+     "condition": "(EntityIndividualIndicator = \"Entity\" (61%), Borough = \"Brooklyn\" (15%))",
+     "sql": "(EntityIndividualIndicator = 'Entity' AND Borough = 'Brooklyn')",
+     "support": 0.091,
+     "rows": 2246,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.705,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "EntityIndividualIndicator=v1": "Entity",
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Postcode"
+     ],
+     "cls": "cert",
+     "condition": "(EntityIndividualIndicator = \"Entity\" (61%), Borough = \"Brooklyn\" (15%))",
+     "sql": "(EntityIndividualIndicator = 'Entity' AND Borough = 'Brooklyn')",
+     "support": 0.091,
+     "rows": 2246,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.056,
+     "score": 0.705,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "EntityIndividualIndicator=v1": "Entity",
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Postcode"
+     ],
+     "cls": "cert",
+     "condition": "(Type = \"SUB CONTRACTOR\" (59%), Borough = \"Brooklyn\" (15%))",
+     "sql": "(Type = 'SUB CONTRACTOR' AND Borough = 'Brooklyn')",
+     "support": 0.081,
+     "rows": 1997,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.052,
+     "score": 0.665,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Type=v1": "SUB CONTRACTOR",
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Number"
+     ],
+     "cls": "cand",
+     "condition": "(EntityIndividualIndicator = \"Entity\" (61%), Borough = \"Manhattan\" (17%))",
+     "sql": "(EntityIndividualIndicator = 'Entity' AND Borough = 'Manhattan')",
+     "support": 0.084,
+     "rows": 2072,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.608,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "EntityIndividualIndicator=v1": "Entity",
+      "Borough=v2": "Manhattan"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Postcode"
+     ],
+     "cls": "cand",
+     "condition": "(EntityIndividualIndicator = \"Entity\" (61%), Borough = \"Manhattan\" (17%))",
+     "sql": "(EntityIndividualIndicator = 'Entity' AND Borough = 'Manhattan')",
+     "support": 0.084,
+     "rows": 2072,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.608,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "EntityIndividualIndicator=v1": "Entity",
+      "Borough=v2": "Manhattan"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Number"
+     ],
+     "cls": "cand",
+     "condition": "(Type = \"SUB CONTRACTOR\" (59%), Borough = \"Brooklyn\" (15%))",
+     "sql": "(Type = 'SUB CONTRACTOR' AND Borough = 'Brooklyn')",
+     "support": 0.081,
+     "rows": 1997,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.597,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Type=v1": "SUB CONTRACTOR",
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Number"
+     ],
+     "cls": "dom",
+     "condition": "(Type = \"BORROWER LEGAL ENTITY\" (30%), EntityIndividualIndicator = \"Entity\" (61%))",
+     "sql": "(Type = 'BORROWER LEGAL ENTITY' AND EntityIndividualIndicator = 'Entity')",
+     "support": 0.137,
+     "rows": 3393,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.014,
+     "score": 0.578,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Type=v2": "BORROWER LEGAL ENTITY",
+      "EntityIndividualIndicator=v1": "Entity"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Longitude"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.403,
+     "rows": 9963,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.971,
+     "score": 0.557,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Latitude"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.403,
+     "rows": 9963,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.971,
+     "score": 0.557,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "BBL"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.403,
+     "rows": 9963,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.557,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Census Tract"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.403,
+     "rows": 9963,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.971,
+     "score": 0.557,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "NTA"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.403,
+     "rows": 9963,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.971,
+     "score": 0.557,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Longitude"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Council District missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.391,
+     "rows": 9679,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.549,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "BBL"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Council District missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.391,
+     "rows": 9679,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.549,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "BIN"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Council District missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.391,
+     "rows": 9679,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.549,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Census Tract"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Council District missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.391,
+     "rows": 9679,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.549,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "NTA"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Council District missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.391,
+     "rows": 9679,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.549,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Longitude"
+     ],
+     "cls": "pos",
+     "condition": "(Postcode missing)",
+     "sql": "(Postcode IS NULL)",
+     "support": 0.389,
+     "rows": 9617,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.547,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Latitude"
+     ],
+     "cls": "pos",
+     "condition": "(Postcode missing)",
+     "sql": "(Postcode IS NULL)",
+     "support": 0.389,
+     "rows": 9617,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.547,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "BBL"
+     ],
+     "cls": "pos",
+     "condition": "(Postcode missing)",
+     "sql": "(Postcode IS NULL)",
+     "support": 0.389,
+     "rows": 9617,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.547,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "BIN"
+     ],
+     "cls": "pos",
+     "condition": "(Postcode missing)",
+     "sql": "(Postcode IS NULL)",
+     "support": 0.389,
+     "rows": 9617,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.547,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Census Tract"
+     ],
+     "cls": "pos",
+     "condition": "(Postcode missing)",
+     "sql": "(Postcode IS NULL)",
+     "support": 0.389,
+     "rows": 9617,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.547,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "NTA"
+     ],
+     "cls": "pos",
+     "condition": "(Postcode missing)",
+     "sql": "(Postcode IS NULL)",
+     "support": 0.389,
+     "rows": 9617,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.547,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Longitude"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.362,
+     "rows": 8956,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.528,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Latitude"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.362,
+     "rows": 8956,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.528,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "BBL"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.362,
+     "rows": 8956,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.528,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "BIN"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.362,
+     "rows": 8956,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.528,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Census Tract"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.362,
+     "rows": 8956,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.528,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "NTA"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.362,
+     "rows": 8956,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.528,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Postcode"
+     ],
+     "cls": "pos",
+     "condition": "(Type = \"BORROWER LEGAL ENTITY\" (30%), EntityIndividualIndicator = \"Entity\" (61%))",
+     "sql": "(Type = 'BORROWER LEGAL ENTITY' AND EntityIndividualIndicator = 'Entity')",
+     "support": 0.137,
+     "rows": 3393,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.229,
+     "score": 0.433,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Type=v2": "BORROWER LEGAL ENTITY",
+      "EntityIndividualIndicator=v1": "Entity"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Street"
+     ],
+     "cls": "cert",
+     "condition": "(EntityIndividualIndicator = \"Entity\" (61%), Borough = \"Brooklyn\" (15%))",
+     "sql": "(EntityIndividualIndicator = 'Entity' AND Borough = 'Brooklyn')",
+     "support": 0.091,
+     "rows": 2246,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.352,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "EntityIndividualIndicator=v1": "Entity",
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Longitude"
+     ],
+     "cls": "cert",
+     "condition": "(EntityIndividualIndicator = \"Entity\" (61%), Borough = \"Brooklyn\" (15%))",
+     "sql": "(EntityIndividualIndicator = 'Entity' AND Borough = 'Brooklyn')",
+     "support": 0.091,
+     "rows": 2246,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.057,
+     "score": 0.352,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "EntityIndividualIndicator=v1": "Entity",
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Latitude"
+     ],
+     "cls": "cert",
+     "condition": "(EntityIndividualIndicator = \"Entity\" (61%), Borough = \"Brooklyn\" (15%))",
+     "sql": "(EntityIndividualIndicator = 'Entity' AND Borough = 'Brooklyn')",
+     "support": 0.091,
+     "rows": 2246,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.057,
+     "score": 0.352,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "EntityIndividualIndicator=v1": "Entity",
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "BBL"
+     ],
+     "cls": "cert",
+     "condition": "(EntityIndividualIndicator = \"Entity\" (61%), Borough = \"Brooklyn\" (15%))",
+     "sql": "(EntityIndividualIndicator = 'Entity' AND Borough = 'Brooklyn')",
+     "support": 0.091,
+     "rows": 2246,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.061,
+     "score": 0.352,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "EntityIndividualIndicator=v1": "Entity",
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "BIN"
+     ],
+     "cls": "cert",
+     "condition": "(EntityIndividualIndicator = \"Entity\" (61%), Borough = \"Brooklyn\" (15%))",
+     "sql": "(EntityIndividualIndicator = 'Entity' AND Borough = 'Brooklyn')",
+     "support": 0.091,
+     "rows": 2246,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.061,
+     "score": 0.352,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "EntityIndividualIndicator=v1": "Entity",
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Census Tract"
+     ],
+     "cls": "cert",
+     "condition": "(EntityIndividualIndicator = \"Entity\" (61%), Borough = \"Brooklyn\" (15%))",
+     "sql": "(EntityIndividualIndicator = 'Entity' AND Borough = 'Brooklyn')",
+     "support": 0.091,
+     "rows": 2246,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.057,
+     "score": 0.352,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "EntityIndividualIndicator=v1": "Entity",
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "NTA"
+     ],
+     "cls": "cert",
+     "condition": "(EntityIndividualIndicator = \"Entity\" (61%), Borough = \"Brooklyn\" (15%))",
+     "sql": "(EntityIndividualIndicator = 'Entity' AND Borough = 'Brooklyn')",
+     "support": 0.091,
+     "rows": 2246,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.057,
+     "score": 0.352,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "EntityIndividualIndicator=v1": "Entity",
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Longitude"
+     ],
+     "cls": "cert",
+     "condition": "(EntityIndividualIndicator = \"Entity\" (61%), Borough = \"Manhattan\" (17%))",
+     "sql": "(EntityIndividualIndicator = 'Entity' AND Borough = 'Manhattan')",
+     "support": 0.084,
+     "rows": 2072,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.339,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "EntityIndividualIndicator=v1": "Entity",
+      "Borough=v2": "Manhattan"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Latitude"
+     ],
+     "cls": "cert",
+     "condition": "(EntityIndividualIndicator = \"Entity\" (61%), Borough = \"Manhattan\" (17%))",
+     "sql": "(EntityIndividualIndicator = 'Entity' AND Borough = 'Manhattan')",
+     "support": 0.084,
+     "rows": 2072,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.339,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "EntityIndividualIndicator=v1": "Entity",
+      "Borough=v2": "Manhattan"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "BBL"
+     ],
+     "cls": "cert",
+     "condition": "(EntityIndividualIndicator = \"Entity\" (61%), Borough = \"Manhattan\" (17%))",
+     "sql": "(EntityIndividualIndicator = 'Entity' AND Borough = 'Manhattan')",
+     "support": 0.084,
+     "rows": 2072,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.016,
+     "score": 0.339,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "EntityIndividualIndicator=v1": "Entity",
+      "Borough=v2": "Manhattan"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "BIN"
+     ],
+     "cls": "cert",
+     "condition": "(EntityIndividualIndicator = \"Entity\" (61%), Borough = \"Manhattan\" (17%))",
+     "sql": "(EntityIndividualIndicator = 'Entity' AND Borough = 'Manhattan')",
+     "support": 0.084,
+     "rows": 2072,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.016,
+     "score": 0.339,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "EntityIndividualIndicator=v1": "Entity",
+      "Borough=v2": "Manhattan"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Census Tract"
+     ],
+     "cls": "cert",
+     "condition": "(EntityIndividualIndicator = \"Entity\" (61%), Borough = \"Manhattan\" (17%))",
+     "sql": "(EntityIndividualIndicator = 'Entity' AND Borough = 'Manhattan')",
+     "support": 0.084,
+     "rows": 2072,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.339,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "EntityIndividualIndicator=v1": "Entity",
+      "Borough=v2": "Manhattan"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Street"
+     ],
+     "cls": "cert",
+     "condition": "(Type = \"SUB CONTRACTOR\" (59%), Borough = \"Brooklyn\" (15%))",
+     "sql": "(Type = 'SUB CONTRACTOR' AND Borough = 'Brooklyn')",
+     "support": 0.081,
+     "rows": 1997,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 0.332,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Type=v1": "SUB CONTRACTOR",
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Longitude"
+     ],
+     "cls": "cert",
+     "condition": "(Type = \"SUB CONTRACTOR\" (59%), Borough = \"Brooklyn\" (15%))",
+     "sql": "(Type = 'SUB CONTRACTOR' AND Borough = 'Brooklyn')",
+     "support": 0.081,
+     "rows": 1997,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.052,
+     "score": 0.332,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Type=v1": "SUB CONTRACTOR",
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Latitude"
+     ],
+     "cls": "cert",
+     "condition": "(Type = \"SUB CONTRACTOR\" (59%), Borough = \"Brooklyn\" (15%))",
+     "sql": "(Type = 'SUB CONTRACTOR' AND Borough = 'Brooklyn')",
+     "support": 0.081,
+     "rows": 1997,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.052,
+     "score": 0.332,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Type=v1": "SUB CONTRACTOR",
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "BBL"
+     ],
+     "cls": "cert",
+     "condition": "(Type = \"SUB CONTRACTOR\" (59%), Borough = \"Brooklyn\" (15%))",
+     "sql": "(Type = 'SUB CONTRACTOR' AND Borough = 'Brooklyn')",
+     "support": 0.081,
+     "rows": 1997,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.059,
+     "score": 0.332,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Type=v1": "SUB CONTRACTOR",
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "BIN"
+     ],
+     "cls": "cert",
+     "condition": "(Type = \"SUB CONTRACTOR\" (59%), Borough = \"Brooklyn\" (15%))",
+     "sql": "(Type = 'SUB CONTRACTOR' AND Borough = 'Brooklyn')",
+     "support": 0.081,
+     "rows": 1997,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.059,
+     "score": 0.332,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Type=v1": "SUB CONTRACTOR",
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Census Tract"
+     ],
+     "cls": "cert",
+     "condition": "(Type = \"SUB CONTRACTOR\" (59%), Borough = \"Brooklyn\" (15%))",
+     "sql": "(Type = 'SUB CONTRACTOR' AND Borough = 'Brooklyn')",
+     "support": 0.081,
+     "rows": 1997,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.052,
+     "score": 0.332,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Type=v1": "SUB CONTRACTOR",
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "NTA"
+     ],
+     "cls": "cert",
+     "condition": "(Type = \"SUB CONTRACTOR\" (59%), Borough = \"Brooklyn\" (15%))",
+     "sql": "(Type = 'SUB CONTRACTOR' AND Borough = 'Brooklyn')",
+     "support": 0.081,
+     "rows": 1997,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.052,
+     "score": 0.332,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Type=v1": "SUB CONTRACTOR",
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Street"
+     ],
+     "cls": "cand",
+     "condition": "(EntityIndividualIndicator = \"Entity\" (61%), Borough = \"Manhattan\" (17%))",
+     "sql": "(EntityIndividualIndicator = 'Entity' AND Borough = 'Manhattan')",
+     "support": 0.084,
+     "rows": 2072,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.304,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "EntityIndividualIndicator=v1": "Entity",
+      "Borough=v2": "Manhattan"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Street"
+     ],
+     "cls": "dom",
+     "condition": "(Type = \"BORROWER LEGAL ENTITY\" (30%), EntityIndividualIndicator = \"Entity\" (61%))",
+     "sql": "(Type = 'BORROWER LEGAL ENTITY' AND EntityIndividualIndicator = 'Entity')",
+     "support": 0.137,
+     "rows": 3393,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.013,
+     "score": 0.289,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Type=v2": "BORROWER LEGAL ENTITY",
+      "EntityIndividualIndicator=v1": "Entity"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "City",
+      "Postcode"
+     ],
+     "cls": "dom",
+     "condition": "(Type = \"BORROWER LEGAL ENTITY\" (30%), EntityIndividualIndicator = \"Entity\" (61%))",
+     "sql": "(Type = 'BORROWER LEGAL ENTITY' AND EntityIndividualIndicator = 'Entity')",
+     "support": 0.137,
+     "rows": 3393,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.229,
+     "score": 0.257,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Type=v2": "BORROWER LEGAL ENTITY",
+      "EntityIndividualIndicator=v1": "Entity"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Longitude"
+     ],
+     "cls": "pos",
+     "condition": "(Type = \"BORROWER LEGAL ENTITY\" (30%), EntityIndividualIndicator = \"Entity\" (61%))",
+     "sql": "(Type = 'BORROWER LEGAL ENTITY' AND EntityIndividualIndicator = 'Entity')",
+     "support": 0.137,
+     "rows": 3393,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.235,
+     "score": 0.217,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Type=v2": "BORROWER LEGAL ENTITY",
+      "EntityIndividualIndicator=v1": "Entity"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Latitude"
+     ],
+     "cls": "pos",
+     "condition": "(Type = \"BORROWER LEGAL ENTITY\" (30%), EntityIndividualIndicator = \"Entity\" (61%))",
+     "sql": "(Type = 'BORROWER LEGAL ENTITY' AND EntityIndividualIndicator = 'Entity')",
+     "support": 0.137,
+     "rows": 3393,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.235,
+     "score": 0.217,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Type=v2": "BORROWER LEGAL ENTITY",
+      "EntityIndividualIndicator=v1": "Entity"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "BBL"
+     ],
+     "cls": "pos",
+     "condition": "(Type = \"BORROWER LEGAL ENTITY\" (30%), EntityIndividualIndicator = \"Entity\" (61%))",
+     "sql": "(Type = 'BORROWER LEGAL ENTITY' AND EntityIndividualIndicator = 'Entity')",
+     "support": 0.137,
+     "rows": 3393,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.245,
+     "score": 0.217,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Type=v2": "BORROWER LEGAL ENTITY",
+      "EntityIndividualIndicator=v1": "Entity"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "BIN"
+     ],
+     "cls": "pos",
+     "condition": "(Type = \"BORROWER LEGAL ENTITY\" (30%), EntityIndividualIndicator = \"Entity\" (61%))",
+     "sql": "(Type = 'BORROWER LEGAL ENTITY' AND EntityIndividualIndicator = 'Entity')",
+     "support": 0.137,
+     "rows": 3393,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.245,
+     "score": 0.217,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Type=v2": "BORROWER LEGAL ENTITY",
+      "EntityIndividualIndicator=v1": "Entity"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Census Tract"
+     ],
+     "cls": "pos",
+     "condition": "(Type = \"BORROWER LEGAL ENTITY\" (30%), EntityIndividualIndicator = \"Entity\" (61%))",
+     "sql": "(Type = 'BORROWER LEGAL ENTITY' AND EntityIndividualIndicator = 'Entity')",
+     "support": 0.137,
+     "rows": 3393,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.235,
+     "score": 0.217,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Type=v2": "BORROWER LEGAL ENTITY",
+      "EntityIndividualIndicator=v1": "Entity"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "NTA"
+     ],
+     "cls": "pos",
+     "condition": "(Type = \"BORROWER LEGAL ENTITY\" (30%), EntityIndividualIndicator = \"Entity\" (61%))",
+     "sql": "(Type = 'BORROWER LEGAL ENTITY' AND EntityIndividualIndicator = 'Entity')",
+     "support": 0.137,
+     "rows": 3393,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.235,
+     "score": 0.217,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Type=v2": "BORROWER LEGAL ENTITY",
+      "EntityIndividualIndicator=v1": "Entity"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Longitude",
+      "City"
+     ],
+     "cls": "dom",
+     "condition": "(Type = \"BORROWER LEGAL ENTITY\" (30%), EntityIndividualIndicator = \"Entity\" (61%))",
+     "sql": "(Type = 'BORROWER LEGAL ENTITY' AND EntityIndividualIndicator = 'Entity')",
+     "support": 0.137,
+     "rows": 3393,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.235,
+     "score": 0.128,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Type=v2": "BORROWER LEGAL ENTITY",
+      "EntityIndividualIndicator=v1": "Entity"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Latitude",
+      "City"
+     ],
+     "cls": "dom",
+     "condition": "(Type = \"BORROWER LEGAL ENTITY\" (30%), EntityIndividualIndicator = \"Entity\" (61%))",
+     "sql": "(Type = 'BORROWER LEGAL ENTITY' AND EntityIndividualIndicator = 'Entity')",
+     "support": 0.137,
+     "rows": 3393,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.235,
+     "score": 0.128,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Type=v2": "BORROWER LEGAL ENTITY",
+      "EntityIndividualIndicator=v1": "Entity"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "BBL",
+      "City"
+     ],
+     "cls": "dom",
+     "condition": "(Type = \"BORROWER LEGAL ENTITY\" (30%), EntityIndividualIndicator = \"Entity\" (61%))",
+     "sql": "(Type = 'BORROWER LEGAL ENTITY' AND EntityIndividualIndicator = 'Entity')",
+     "support": 0.137,
+     "rows": 3393,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.245,
+     "score": 0.128,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Type=v2": "BORROWER LEGAL ENTITY",
+      "EntityIndividualIndicator=v1": "Entity"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "BIN",
+      "City"
+     ],
+     "cls": "dom",
+     "condition": "(Type = \"BORROWER LEGAL ENTITY\" (30%), EntityIndividualIndicator = \"Entity\" (61%))",
+     "sql": "(Type = 'BORROWER LEGAL ENTITY' AND EntityIndividualIndicator = 'Entity')",
+     "support": 0.137,
+     "rows": 3393,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.245,
+     "score": 0.128,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Type=v2": "BORROWER LEGAL ENTITY",
+      "EntityIndividualIndicator=v1": "Entity"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "Census Tract",
+      "City"
+     ],
+     "cls": "dom",
+     "condition": "(Type = \"BORROWER LEGAL ENTITY\" (30%), EntityIndividualIndicator = \"Entity\" (61%))",
+     "sql": "(Type = 'BORROWER LEGAL ENTITY' AND EntityIndividualIndicator = 'Entity')",
+     "support": 0.137,
+     "rows": 3393,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.235,
+     "score": 0.128,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Type=v2": "BORROWER LEGAL ENTITY",
+      "EntityIndividualIndicator=v1": "Entity"
+     }
+    },
+    {
+     "table": "lbusa.t36479",
+     "K": [
+      "DevelopmentTeamDWID",
+      "City",
+      "NTA"
+     ],
+     "cls": "dom",
+     "condition": "(Type = \"BORROWER LEGAL ENTITY\" (30%), EntityIndividualIndicator = \"Entity\" (61%))",
+     "sql": "(Type = 'BORROWER LEGAL ENTITY' AND EntityIndividualIndicator = 'Entity')",
+     "support": 0.137,
+     "rows": 3393,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.235,
+     "score": 0.128,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Type=v2": "BORROWER LEGAL ENTITY",
+      "EntityIndividualIndicator=v1": "Entity"
+     }
+    }
+   ],
+   "unconditional": {}
+  }
+ ]
+}

@@ -1,0 +1,5863 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 12,
+  "max_const_card_narrow": 30,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 600
+ },
+ "tables": [
+  {
+   "table": "Hockey.Coaches",
+   "rows": 1812,
+   "cols": [
+    "coachID",
+    "year",
+    "tmID",
+    "lgID",
+    "stint",
+    "notes",
+    "g",
+    "w",
+    "l",
+    "t",
+    "postg",
+    "postw",
+    "postl",
+    "postt"
+   ],
+   "n_conditional": 209,
+   "n_approximate": 20,
+   "conditional": [
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "year"
+     ],
+     "cls": "cand",
+     "condition": "(postg present [same rows: postw present, postl present, postt present])",
+     "sql": "(postg IS NOT NULL)",
+     "support": 0.512,
+     "rows": 927,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.253,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "stint"
+     ],
+     "cls": "cand",
+     "condition": "(postg present [same rows: postw present, postl present, postt present])",
+     "sql": "(postg IS NOT NULL)",
+     "support": 0.512,
+     "rows": 927,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.003,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "year",
+      "tmID"
+     ],
+     "cls": "cand",
+     "condition": "stint in {v1, v2}",
+     "sql": "(stint = :v1) OR (stint = :v2)",
+     "support": 0.98,
+     "rows": 1776,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.848,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "stint=v1": "3788188144485792696",
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "g"
+     ],
+     "cls": "cert",
+     "condition": "(postg present [same rows: postw present, postl present, postt present])",
+     "sql": "(postg IS NOT NULL)",
+     "support": 0.512,
+     "rows": 927,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 1.116,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "w"
+     ],
+     "cls": "cert",
+     "condition": "(postg present [same rows: postw present, postl present, postt present])",
+     "sql": "(postg IS NOT NULL)",
+     "support": 0.512,
+     "rows": 927,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 1.116,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "l"
+     ],
+     "cls": "cert",
+     "condition": "(postg present [same rows: postw present, postl present, postt present])",
+     "sql": "(postg IS NOT NULL)",
+     "support": 0.512,
+     "rows": 927,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 1.116,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "t"
+     ],
+     "cls": "cert",
+     "condition": "(postg present [same rows: postw present, postl present, postt present])",
+     "sql": "(postg IS NOT NULL)",
+     "support": 0.512,
+     "rows": 927,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 1.116,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "year",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(postg missing [same rows: postw missing, postl missing, postt missing])",
+     "sql": "(postg IS NULL)",
+     "support": 0.488,
+     "rows": 885,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.978,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "year",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "stint in {v1, v2}",
+     "sql": "(stint = :v1) OR (stint = :v2)",
+     "support": 0.98,
+     "rows": 1776,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.924,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "stint=v1": "3788188144485792696",
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "year",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "stint in {v1, v2}",
+     "sql": "(stint = :v1) OR (stint = :v2)",
+     "support": 0.98,
+     "rows": 1776,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.924,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "stint=v1": "3788188144485792696",
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "year",
+      "g"
+     ],
+     "cls": "cand",
+     "condition": "(postg missing [same rows: postw missing, postl missing, postt missing])",
+     "sql": "(postg IS NULL)",
+     "support": 0.488,
+     "rows": 885,
+     "uncond": "dom",
+     "gain": 3,
+     "nulls_in_scope": 0.0,
+     "score": 0.699,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "year",
+      "w"
+     ],
+     "cls": "cand",
+     "condition": "(postg missing [same rows: postw missing, postl missing, postt missing])",
+     "sql": "(postg IS NULL)",
+     "support": 0.488,
+     "rows": 885,
+     "uncond": "dom",
+     "gain": 3,
+     "nulls_in_scope": 0.0,
+     "score": 0.699,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "stint"
+     ],
+     "cls": "cand",
+     "condition": "(lgID = v2 (6%))",
+     "sql": "(lgID = :v2)",
+     "support": 0.061,
+     "rows": 111,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.693,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "lgID=v2": "-2281771351617117238"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "year",
+      "g"
+     ],
+     "cls": "cand",
+     "condition": "stint in {v1, v2}",
+     "sql": "(stint = :v1) OR (stint = :v2)",
+     "support": 0.98,
+     "rows": 1776,
+     "uncond": "dom",
+     "gain": 3,
+     "nulls_in_scope": 0.0,
+     "score": 0.66,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "stint=v1": "3788188144485792696",
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "year",
+      "w"
+     ],
+     "cls": "cand",
+     "condition": "stint in {v1, v2}",
+     "sql": "(stint = :v1) OR (stint = :v2)",
+     "support": 0.98,
+     "rows": 1776,
+     "uncond": "dom",
+     "gain": 3,
+     "nulls_in_scope": 0.0,
+     "score": 0.66,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "stint=v1": "3788188144485792696",
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "g"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v1 (21%))",
+     "sql": "(postl = :v1)",
+     "support": 0.209,
+     "rows": 379,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.64,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "postl=v1": "-7336743997426260411"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "w"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v1 (21%))",
+     "sql": "(postl = :v1)",
+     "support": 0.209,
+     "rows": 379,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.64,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "postl=v1": "-7336743997426260411"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v1 (21%))",
+     "sql": "(postl = :v1)",
+     "support": 0.209,
+     "rows": 379,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.64,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "postl=v1": "-7336743997426260411"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v1 (21%))",
+     "sql": "(postl = :v1)",
+     "support": 0.209,
+     "rows": 379,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.64,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "postl=v1": "-7336743997426260411"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "year"
+     ],
+     "cls": "cand",
+     "condition": "postl in {v1, v2, v3, v4, v5, v6, v7}",
+     "sql": "(postl = :v1) OR (postl = :v2) OR (postl = :v3) OR (postl = :v4) OR (postl = :v5) OR (postl = :v6) OR (postl = :v7)",
+     "support": 0.472,
+     "rows": 856,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.541,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "postl=v1": "-7336743997426260411",
+      "postl=v2": "-8358141127831460906",
+      "postl=v3": "407211082895075940",
+      "postl=v4": "8493001333469288333",
+      "postl=v5": "6482162115759618249",
+      "postl=v6": "7369686128406551275",
+      "postl=v7": "3788188144485792696"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "g"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%))",
+     "sql": "(stint = :v2)",
+     "support": 0.144,
+     "rows": 261,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.531,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "w"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%))",
+     "sql": "(stint = :v2)",
+     "support": 0.144,
+     "rows": 261,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.531,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%))",
+     "sql": "(stint = :v2)",
+     "support": 0.144,
+     "rows": 261,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.531,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%))",
+     "sql": "(stint = :v2)",
+     "support": 0.144,
+     "rows": 261,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.531,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "stint"
+     ],
+     "cls": "cand",
+     "condition": "postl in {v1, v2, v3, v4, v5, v6, v7}",
+     "sql": "(postl = :v1) OR (postl = :v2) OR (postl = :v3) OR (postl = :v4) OR (postl = :v5) OR (postl = :v6) OR (postl = :v7)",
+     "support": 0.472,
+     "rows": 856,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.481,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "postl=v1": "-7336743997426260411",
+      "postl=v2": "-8358141127831460906",
+      "postl=v3": "407211082895075940",
+      "postl=v4": "8493001333469288333",
+      "postl=v5": "6482162115759618249",
+      "postl=v6": "7369686128406551275",
+      "postl=v7": "3788188144485792696"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "year",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(lgID = v2 (6%))",
+     "sql": "(lgID = :v2)",
+     "support": 0.061,
+     "rows": 111,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.347,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "lgID=v2": "-2281771351617117238"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "year",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(lgID = v2 (6%))",
+     "sql": "(lgID = :v2)",
+     "support": 0.061,
+     "rows": 111,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.347,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "lgID=v2": "-2281771351617117238"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "g"
+     ],
+     "cls": "cand",
+     "condition": "(lgID = v2 (6%))",
+     "sql": "(lgID = :v2)",
+     "support": 0.061,
+     "rows": 111,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.347,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "lgID=v2": "-2281771351617117238"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v4 (5%))",
+     "sql": "(postl = :v4)",
+     "support": 0.046,
+     "rows": 84,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.339,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "postl=v4": "8493001333469288333"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "g"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v2 (6%))",
+     "sql": "(postl = :v2)",
+     "support": 0.056,
+     "rows": 101,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.331,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "postl=v2": "-8358141127831460906"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "w"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v2 (6%))",
+     "sql": "(postl = :v2)",
+     "support": 0.056,
+     "rows": 101,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.331,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "postl=v2": "-8358141127831460906"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v2 (6%))",
+     "sql": "(postl = :v2)",
+     "support": 0.056,
+     "rows": 101,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.331,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "postl=v2": "-8358141127831460906"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v2 (6%))",
+     "sql": "(postl = :v2)",
+     "support": 0.056,
+     "rows": 101,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.331,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "postl=v2": "-8358141127831460906"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "tmID",
+      "w"
+     ],
+     "cls": "cert",
+     "condition": "(postl = v5 (4%))",
+     "sql": "(postl = :v5)",
+     "support": 0.045,
+     "rows": 81,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.012,
+     "score": 0.33,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "postl=v5": "6482162115759618249"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "tmID",
+      "l"
+     ],
+     "cls": "cert",
+     "condition": "(postl = v5 (4%))",
+     "sql": "(postl = :v5)",
+     "support": 0.045,
+     "rows": 81,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.012,
+     "score": 0.33,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "postl=v5": "6482162115759618249"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postg missing [same rows: postw missing, postl missing, postt missing])",
+     "sql": "(stint = :v2 AND postg IS NULL)",
+     "support": 0.094,
+     "rows": 170,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.322,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postg missing [same rows: postw missing, postl missing, postt missing])",
+     "sql": "(stint = :v2 AND postg IS NULL)",
+     "support": 0.094,
+     "rows": 170,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.322,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "tmID",
+      "w"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v3 (5%))",
+     "sql": "(postl = :v3)",
+     "support": 0.047,
+     "rows": 86,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.305,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "postl=v3": "407211082895075940"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "tmID",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v3 (5%))",
+     "sql": "(postl = :v3)",
+     "support": 0.047,
+     "rows": 86,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.305,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "postl=v3": "407211082895075940"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "g"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v3 (5%))",
+     "sql": "(postl = :v3)",
+     "support": 0.047,
+     "rows": 86,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.305,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "postl=v3": "407211082895075940"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "w"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v3 (5%))",
+     "sql": "(postl = :v3)",
+     "support": 0.047,
+     "rows": 86,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.305,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v3": "407211082895075940"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v3 (5%))",
+     "sql": "(postl = :v3)",
+     "support": 0.047,
+     "rows": 86,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.305,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v3": "407211082895075940"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v3 (5%))",
+     "sql": "(postl = :v3)",
+     "support": 0.047,
+     "rows": 86,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.305,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v3": "407211082895075940"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "tmID",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v4 (5%))",
+     "sql": "(postl = :v4)",
+     "support": 0.046,
+     "rows": 84,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.301,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v4": "8493001333469288333"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "g"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v4 (5%))",
+     "sql": "(postl = :v4)",
+     "support": 0.046,
+     "rows": 84,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.301,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v4": "8493001333469288333"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "w"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v4 (5%))",
+     "sql": "(postl = :v4)",
+     "support": 0.046,
+     "rows": 84,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.301,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v4": "8493001333469288333"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v4 (5%))",
+     "sql": "(postl = :v4)",
+     "support": 0.046,
+     "rows": 84,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.301,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v4": "8493001333469288333"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v4 (5%))",
+     "sql": "(postl = :v4)",
+     "support": 0.046,
+     "rows": 84,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.301,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v4": "8493001333469288333"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w",
+      "postw"
+     ],
+     "cls": "pos",
+     "condition": "(postg missing [same rows: postw missing, postl missing, postt missing])",
+     "sql": "(postg IS NULL)",
+     "support": 0.488,
+     "rows": 885,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w",
+      "postl"
+     ],
+     "cls": "pos",
+     "condition": "(postg missing [same rows: postw missing, postl missing, postt missing])",
+     "sql": "(postg IS NULL)",
+     "support": 0.488,
+     "rows": 885,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w",
+      "postt"
+     ],
+     "cls": "pos",
+     "condition": "(postg missing [same rows: postw missing, postl missing, postt missing])",
+     "sql": "(postg IS NULL)",
+     "support": 0.488,
+     "rows": 885,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "l",
+      "postw"
+     ],
+     "cls": "pos",
+     "condition": "(postg missing [same rows: postw missing, postl missing, postt missing])",
+     "sql": "(postg IS NULL)",
+     "support": 0.488,
+     "rows": 885,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "l",
+      "postl"
+     ],
+     "cls": "pos",
+     "condition": "(postg missing [same rows: postw missing, postl missing, postt missing])",
+     "sql": "(postg IS NULL)",
+     "support": 0.488,
+     "rows": 885,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "l",
+      "postt"
+     ],
+     "cls": "pos",
+     "condition": "(postg missing [same rows: postw missing, postl missing, postt missing])",
+     "sql": "(postg IS NULL)",
+     "support": 0.488,
+     "rows": 885,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "t",
+      "postw"
+     ],
+     "cls": "pos",
+     "condition": "(postg missing [same rows: postw missing, postl missing, postt missing])",
+     "sql": "(postg IS NULL)",
+     "support": 0.488,
+     "rows": 885,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "w",
+      "postw"
+     ],
+     "cls": "pos",
+     "condition": "(postg missing [same rows: postw missing, postl missing, postt missing])",
+     "sql": "(postg IS NULL)",
+     "support": 0.488,
+     "rows": 885,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "g"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v6 (4%))",
+     "sql": "(postl = :v6)",
+     "support": 0.038,
+     "rows": 68,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.271,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v6": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "w"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v6 (4%))",
+     "sql": "(postl = :v6)",
+     "support": 0.038,
+     "rows": 68,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.271,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v6": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v6 (4%))",
+     "sql": "(postl = :v6)",
+     "support": 0.038,
+     "rows": 68,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.271,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v6": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v6 (4%))",
+     "sql": "(postl = :v6)",
+     "support": 0.038,
+     "rows": 68,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.271,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v6": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "g"
+     ],
+     "cls": "cert",
+     "condition": "postl in {v1, v2, v3, v4, v5, v6, v7}",
+     "sql": "(postl = :v1) OR (postl = :v2) OR (postl = :v3) OR (postl = :v4) OR (postl = :v5) OR (postl = :v6) OR (postl = :v7)",
+     "support": 0.472,
+     "rows": 856,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.268,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v1": "-7336743997426260411",
+      "postl=v2": "-8358141127831460906",
+      "postl=v3": "407211082895075940",
+      "postl=v4": "8493001333469288333",
+      "postl=v5": "6482162115759618249",
+      "postl=v6": "7369686128406551275",
+      "postl=v7": "3788188144485792696"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "w"
+     ],
+     "cls": "cert",
+     "condition": "postl in {v1, v2, v3, v4, v5, v6, v7}",
+     "sql": "(postl = :v1) OR (postl = :v2) OR (postl = :v3) OR (postl = :v4) OR (postl = :v5) OR (postl = :v6) OR (postl = :v7)",
+     "support": 0.472,
+     "rows": 856,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.268,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v1": "-7336743997426260411",
+      "postl=v2": "-8358141127831460906",
+      "postl=v3": "407211082895075940",
+      "postl=v4": "8493001333469288333",
+      "postl=v5": "6482162115759618249",
+      "postl=v6": "7369686128406551275",
+      "postl=v7": "3788188144485792696"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "l"
+     ],
+     "cls": "cert",
+     "condition": "postl in {v1, v2, v3, v4, v5, v6, v7}",
+     "sql": "(postl = :v1) OR (postl = :v2) OR (postl = :v3) OR (postl = :v4) OR (postl = :v5) OR (postl = :v6) OR (postl = :v7)",
+     "support": 0.472,
+     "rows": 856,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.268,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v1": "-7336743997426260411",
+      "postl=v2": "-8358141127831460906",
+      "postl=v3": "407211082895075940",
+      "postl=v4": "8493001333469288333",
+      "postl=v5": "6482162115759618249",
+      "postl=v6": "7369686128406551275",
+      "postl=v7": "3788188144485792696"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "t"
+     ],
+     "cls": "cert",
+     "condition": "postl in {v1, v2, v3, v4, v5, v6, v7}",
+     "sql": "(postl = :v1) OR (postl = :v2) OR (postl = :v3) OR (postl = :v4) OR (postl = :v5) OR (postl = :v6) OR (postl = :v7)",
+     "support": 0.472,
+     "rows": 856,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.268,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v1": "-7336743997426260411",
+      "postl=v2": "-8358141127831460906",
+      "postl=v3": "407211082895075940",
+      "postl=v4": "8493001333469288333",
+      "postl=v5": "6482162115759618249",
+      "postl=v6": "7369686128406551275",
+      "postl=v7": "3788188144485792696"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "g",
+      "w"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%))",
+     "sql": "(stint = :v2)",
+     "support": 0.144,
+     "rows": 261,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.266,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "g",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%))",
+     "sql": "(stint = :v2)",
+     "support": 0.144,
+     "rows": 261,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.266,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "g",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%))",
+     "sql": "(stint = :v2)",
+     "support": 0.144,
+     "rows": 261,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.266,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%))",
+     "sql": "(stint = :v2)",
+     "support": 0.144,
+     "rows": 261,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.266,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%))",
+     "sql": "(stint = :v2)",
+     "support": 0.144,
+     "rows": 261,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.266,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "l",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%))",
+     "sql": "(stint = :v2)",
+     "support": 0.144,
+     "rows": 261,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.266,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "g",
+      "w"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%))",
+     "sql": "(stint = :v2)",
+     "support": 0.144,
+     "rows": 261,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.266,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "tmID",
+      "g",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%))",
+     "sql": "(stint = :v2)",
+     "support": 0.144,
+     "rows": 261,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.266,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "g"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v7 (3%))",
+     "sql": "(postl = :v7)",
+     "support": 0.031,
+     "rows": 57,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.248,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v7": "3788188144485792696"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "w"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v7 (3%))",
+     "sql": "(postl = :v7)",
+     "support": 0.031,
+     "rows": 57,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.248,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v7": "3788188144485792696"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v7 (3%))",
+     "sql": "(postl = :v7)",
+     "support": 0.031,
+     "rows": 57,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.248,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v7": "3788188144485792696"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v7 (3%))",
+     "sql": "(postl = :v7)",
+     "support": 0.031,
+     "rows": 57,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.248,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v7": "3788188144485792696"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "year",
+      "g"
+     ],
+     "cls": "cand",
+     "condition": "(lgID = v2 (6%))",
+     "sql": "(lgID = :v2)",
+     "support": 0.061,
+     "rows": 111,
+     "uncond": "dom",
+     "gain": 3,
+     "nulls_in_scope": 0.0,
+     "score": 0.248,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v2": "-2281771351617117238"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "year",
+      "w"
+     ],
+     "cls": "cand",
+     "condition": "(lgID = v2 (6%))",
+     "sql": "(lgID = :v2)",
+     "support": 0.061,
+     "rows": 111,
+     "uncond": "dom",
+     "gain": 3,
+     "nulls_in_scope": 0.0,
+     "score": 0.248,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v2": "-2281771351617117238"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postg present [same rows: postw present, postl present, postt present])",
+     "sql": "(stint = :v2 AND postg IS NOT NULL)",
+     "support": 0.05,
+     "rows": 91,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.235,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postt = v1 (48%))",
+     "sql": "(stint = :v2 AND postt = :v1)",
+     "support": 0.049,
+     "rows": 88,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.231,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275",
+      "postt=v1": "-3308600590093167056"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "tmID",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postg present [same rows: postw present, postl present, postt present])",
+     "sql": "(stint = :v2 AND postg IS NOT NULL)",
+     "support": 0.05,
+     "rows": 91,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.209,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "tmID",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postg present [same rows: postw present, postl present, postt present])",
+     "sql": "(stint = :v2 AND postg IS NOT NULL)",
+     "support": 0.05,
+     "rows": 91,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.209,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "tmID",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postt = v1 (48%))",
+     "sql": "(stint = :v2 AND postt = :v1)",
+     "support": 0.049,
+     "rows": 88,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.206,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275",
+      "postt=v1": "-3308600590093167056"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "tmID",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postt = v1 (48%))",
+     "sql": "(stint = :v2 AND postt = :v1)",
+     "support": 0.049,
+     "rows": 88,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.206,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275",
+      "postt=v1": "-3308600590093167056"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "w"
+     ],
+     "cls": "cand",
+     "condition": "(lgID = v2 (6%), stint = v1 (84%))",
+     "sql": "(lgID = :v2 AND stint = :v1)",
+     "support": 0.045,
+     "rows": 82,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.199,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v2": "-2281771351617117238",
+      "stint=v1": "3788188144485792696"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(lgID = v2 (6%), stint = v1 (84%))",
+     "sql": "(lgID = :v2 AND stint = :v1)",
+     "support": 0.045,
+     "rows": 82,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.199,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v2": "-2281771351617117238",
+      "stint=v1": "3788188144485792696"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(lgID = v2 (6%), stint = v1 (84%))",
+     "sql": "(lgID = :v2 AND stint = :v1)",
+     "support": 0.045,
+     "rows": 82,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.199,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v2": "-2281771351617117238",
+      "stint=v1": "3788188144485792696"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w",
+      "postg"
+     ],
+     "cls": "dom",
+     "condition": "(stint = v2 (14%))",
+     "sql": "(stint = :v2)",
+     "support": 0.144,
+     "rows": 261,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.651,
+     "score": 0.197,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w",
+      "postw"
+     ],
+     "cls": "dom",
+     "condition": "(stint = v2 (14%))",
+     "sql": "(stint = :v2)",
+     "support": 0.144,
+     "rows": 261,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.651,
+     "score": 0.197,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w",
+      "postl"
+     ],
+     "cls": "dom",
+     "condition": "(stint = v2 (14%))",
+     "sql": "(stint = :v2)",
+     "support": 0.144,
+     "rows": 261,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.651,
+     "score": 0.197,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w",
+      "postt"
+     ],
+     "cls": "dom",
+     "condition": "(stint = v2 (14%))",
+     "sql": "(stint = :v2)",
+     "support": 0.144,
+     "rows": 261,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.651,
+     "score": 0.197,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "l",
+      "postg"
+     ],
+     "cls": "dom",
+     "condition": "(stint = v2 (14%))",
+     "sql": "(stint = :v2)",
+     "support": 0.144,
+     "rows": 261,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.651,
+     "score": 0.197,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "l",
+      "postw"
+     ],
+     "cls": "dom",
+     "condition": "(stint = v2 (14%))",
+     "sql": "(stint = :v2)",
+     "support": 0.144,
+     "rows": 261,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.651,
+     "score": 0.197,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "l",
+      "postl"
+     ],
+     "cls": "dom",
+     "condition": "(stint = v2 (14%))",
+     "sql": "(stint = :v2)",
+     "support": 0.144,
+     "rows": 261,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.651,
+     "score": 0.197,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(lgID = v1 (88%), postl = v6 (4%))",
+     "sql": "(lgID = :v1 AND postl = :v6)",
+     "support": 0.034,
+     "rows": 62,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.194,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v1": "8925760856993695661",
+      "postl=v6": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w",
+      "postl"
+     ],
+     "cls": "cert",
+     "condition": "(lgID = v2 (6%))",
+     "sql": "(lgID = :v2)",
+     "support": 0.061,
+     "rows": 111,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.523,
+     "score": 0.193,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v2": "-2281771351617117238"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "l",
+      "postg"
+     ],
+     "cls": "cert",
+     "condition": "(lgID = v2 (6%))",
+     "sql": "(lgID = :v2)",
+     "support": 0.061,
+     "rows": 111,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.523,
+     "score": 0.193,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v2": "-2281771351617117238"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w"
+     ],
+     "cls": "cand",
+     "condition": "(lgID = v2 (6%), postg missing [same rows: postw missing, postl missing, postt missing])",
+     "sql": "(lgID = :v2 AND postg IS NULL)",
+     "support": 0.032,
+     "rows": 58,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.188,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v2": "-2281771351617117238"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(lgID = v2 (6%), postg missing [same rows: postw missing, postl missing, postt missing])",
+     "sql": "(lgID = :v2 AND postg IS NULL)",
+     "support": 0.032,
+     "rows": 58,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.188,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v2": "-2281771351617117238"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "g",
+      "w"
+     ],
+     "cls": "cand",
+     "condition": "(lgID = v2 (6%))",
+     "sql": "(lgID = :v2)",
+     "support": 0.061,
+     "rows": 111,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.173,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v2": "-2281771351617117238"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "l",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(lgID = v2 (6%))",
+     "sql": "(lgID = :v2)",
+     "support": 0.061,
+     "rows": 111,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.173,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v2": "-2281771351617117238"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "w",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(lgID = v2 (6%))",
+     "sql": "(lgID = :v2)",
+     "support": 0.061,
+     "rows": 111,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.173,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v2": "-2281771351617117238"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "tmID",
+      "g",
+      "w"
+     ],
+     "cls": "cand",
+     "condition": "(lgID = v2 (6%))",
+     "sql": "(lgID = :v2)",
+     "support": 0.061,
+     "rows": 111,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.173,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v2": "-2281771351617117238"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "tmID",
+      "l",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(lgID = v2 (6%))",
+     "sql": "(lgID = :v2)",
+     "support": 0.061,
+     "rows": 111,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.173,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v2": "-2281771351617117238"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "w",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v2 (6%))",
+     "sql": "(postl = :v2)",
+     "support": 0.056,
+     "rows": 101,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.165,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v2": "-8358141127831460906"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "w",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v2 (6%))",
+     "sql": "(postl = :v2)",
+     "support": 0.056,
+     "rows": 101,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.165,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v2": "-8358141127831460906"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w",
+      "postw"
+     ],
+     "cls": "cert",
+     "condition": "(postl = v5 (4%))",
+     "sql": "(postl = :v5)",
+     "support": 0.045,
+     "rows": 81,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.012,
+     "score": 0.165,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v5": "6482162115759618249"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "l",
+      "postg"
+     ],
+     "cls": "cert",
+     "condition": "(postl = v5 (4%))",
+     "sql": "(postl = :v5)",
+     "support": 0.045,
+     "rows": 81,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.012,
+     "score": 0.165,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v5": "6482162115759618249"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "l",
+      "postw"
+     ],
+     "cls": "cert",
+     "condition": "(postl = v5 (4%))",
+     "sql": "(postl = :v5)",
+     "support": 0.045,
+     "rows": 81,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.012,
+     "score": 0.165,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v5": "6482162115759618249"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w",
+      "postg"
+     ],
+     "cls": "cert",
+     "condition": "postl in {v3, v5}",
+     "sql": "(postl = :v3) OR (postl = :v5)",
+     "support": 0.092,
+     "rows": 167,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 0.158,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v3": "407211082895075940",
+      "postl=v5": "6482162115759618249"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v3 (5%))",
+     "sql": "(postl = :v3)",
+     "support": 0.047,
+     "rows": 86,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.152,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v3": "407211082895075940"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w",
+      "postg"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v3 (5%))",
+     "sql": "(postl = :v3)",
+     "support": 0.047,
+     "rows": 86,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.152,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v3": "407211082895075940"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w",
+      "postw"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v3 (5%))",
+     "sql": "(postl = :v3)",
+     "support": 0.047,
+     "rows": 86,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.152,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v3": "407211082895075940"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "t",
+      "postg"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v3 (5%))",
+     "sql": "(postl = :v3)",
+     "support": 0.047,
+     "rows": 86,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.152,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v3": "407211082895075940"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "t",
+      "postw"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v3 (5%))",
+     "sql": "(postl = :v3)",
+     "support": 0.047,
+     "rows": 86,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.152,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v3": "407211082895075940"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "g",
+      "w"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v3 (5%))",
+     "sql": "(postl = :v3)",
+     "support": 0.047,
+     "rows": 86,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.152,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v3": "407211082895075940"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "w",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v3 (5%))",
+     "sql": "(postl = :v3)",
+     "support": 0.047,
+     "rows": 86,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.152,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v3": "407211082895075940"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "w",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v3 (5%))",
+     "sql": "(postl = :v3)",
+     "support": 0.047,
+     "rows": 86,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.152,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v3": "407211082895075940"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "g",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v4 (5%))",
+     "sql": "(postl = :v4)",
+     "support": 0.046,
+     "rows": 84,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.151,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v4": "8493001333469288333"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "l",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v4 (5%))",
+     "sql": "(postl = :v4)",
+     "support": 0.046,
+     "rows": 84,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.151,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v4": "8493001333469288333"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "t",
+      "postg"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v4 (5%))",
+     "sql": "(postl = :v4)",
+     "support": 0.046,
+     "rows": 84,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.151,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v4": "8493001333469288333"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "t",
+      "postw"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v4 (5%))",
+     "sql": "(postl = :v4)",
+     "support": 0.046,
+     "rows": 84,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.151,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v4": "8493001333469288333"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "l",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "postl in {v2, v3}",
+     "sql": "(postl = :v2) OR (postl = :v3)",
+     "support": 0.103,
+     "rows": 187,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.15,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v2": "-8358141127831460906",
+      "postl=v3": "407211082895075940"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "l",
+      "postg"
+     ],
+     "cls": "cand",
+     "condition": "postl in {v2, v3}",
+     "sql": "(postl = :v2) OR (postl = :v3)",
+     "support": 0.103,
+     "rows": 187,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.15,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v2": "-8358141127831460906",
+      "postl=v3": "407211082895075940"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "l",
+      "postw"
+     ],
+     "cls": "cand",
+     "condition": "postl in {v2, v3}",
+     "sql": "(postl = :v2) OR (postl = :v3)",
+     "support": 0.103,
+     "rows": 187,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.15,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v2": "-8358141127831460906",
+      "postl=v3": "407211082895075940"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "t",
+      "postg"
+     ],
+     "cls": "pos",
+     "condition": "(stint = v2 (14%))",
+     "sql": "(stint = :v2)",
+     "support": 0.144,
+     "rows": 261,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.651,
+     "score": 0.148,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "t",
+      "postw"
+     ],
+     "cls": "pos",
+     "condition": "(stint = v2 (14%))",
+     "sql": "(stint = :v2)",
+     "support": 0.144,
+     "rows": 261,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.651,
+     "score": 0.148,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "w",
+      "postg"
+     ],
+     "cls": "pos",
+     "condition": "(stint = v2 (14%))",
+     "sql": "(stint = :v2)",
+     "support": 0.144,
+     "rows": 261,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.651,
+     "score": 0.148,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "w",
+      "postw"
+     ],
+     "cls": "pos",
+     "condition": "(stint = v2 (14%))",
+     "sql": "(stint = :v2)",
+     "support": 0.144,
+     "rows": 261,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.651,
+     "score": 0.148,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "w",
+      "postg"
+     ],
+     "cls": "cand",
+     "condition": "postl in {v3, v4}",
+     "sql": "(postl = :v3) OR (postl = :v4)",
+     "support": 0.094,
+     "rows": 170,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.143,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v3": "407211082895075940",
+      "postl=v4": "8493001333469288333"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "w",
+      "postw"
+     ],
+     "cls": "cand",
+     "condition": "postl in {v3, v4}",
+     "sql": "(postl = :v3) OR (postl = :v4)",
+     "support": 0.094,
+     "rows": 170,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.143,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v3": "407211082895075940",
+      "postl=v4": "8493001333469288333"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "tmID",
+      "g",
+      "w"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postg missing [same rows: postw missing, postl missing, postt missing])",
+     "sql": "(stint = :v2 AND postg IS NULL)",
+     "support": 0.094,
+     "rows": 170,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.143,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "l",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "postl in {v3, v6}",
+     "sql": "(postl = :v3) OR (postl = :v6)",
+     "support": 0.085,
+     "rows": 154,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.136,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v3": "407211082895075940",
+      "postl=v6": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "g",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v6 (4%))",
+     "sql": "(postl = :v6)",
+     "support": 0.038,
+     "rows": 68,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.136,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v6": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "w",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v6 (4%))",
+     "sql": "(postl = :v6)",
+     "support": 0.038,
+     "rows": 68,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.136,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v6": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "w",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v6 (4%))",
+     "sql": "(postl = :v6)",
+     "support": 0.038,
+     "rows": 68,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.136,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v6": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "g",
+      "w"
+     ],
+     "cls": "cand",
+     "condition": "postl in {v3, v7}",
+     "sql": "(postl = :v3) OR (postl = :v7)",
+     "support": 0.079,
+     "rows": 143,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.131,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v3": "407211082895075940",
+      "postl=v7": "3788188144485792696"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "g",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "postl in {v3, v7}",
+     "sql": "(postl = :v3) OR (postl = :v7)",
+     "support": 0.079,
+     "rows": 143,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.131,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v3": "407211082895075940",
+      "postl=v7": "3788188144485792696"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "postl in {v2, v4, v7}",
+     "sql": "(postl = :v2) OR (postl = :v4) OR (postl = :v7)",
+     "support": 0.134,
+     "rows": 242,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.128,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v2": "-8358141127831460906",
+      "postl=v4": "8493001333469288333",
+      "postl=v7": "3788188144485792696"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "tmID",
+      "g",
+      "w"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v7 (3%))",
+     "sql": "(postl = :v7)",
+     "support": 0.031,
+     "rows": 57,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.124,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v7": "3788188144485792696"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "tmID",
+      "w",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v7 (3%))",
+     "sql": "(postl = :v7)",
+     "support": 0.031,
+     "rows": 57,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.124,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v7": "3788188144485792696"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "g",
+      "l"
+     ],
+     "cls": "dom",
+     "condition": "(postl = v5 (4%))",
+     "sql": "(postl = :v5)",
+     "support": 0.045,
+     "rows": 81,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.012,
+     "score": 0.11,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v5": "6482162115759618249"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "w",
+      "t"
+     ],
+     "cls": "dom",
+     "condition": "(postl = v5 (4%))",
+     "sql": "(postl = :v5)",
+     "support": 0.045,
+     "rows": 81,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.012,
+     "score": 0.11,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v5": "6482162115759618249"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "tmID",
+      "w",
+      "l"
+     ],
+     "cls": "dom",
+     "condition": "(postl = v5 (4%))",
+     "sql": "(postl = :v5)",
+     "support": 0.045,
+     "rows": 81,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.012,
+     "score": 0.11,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v5": "6482162115759618249"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "tmID",
+      "l",
+      "t"
+     ],
+     "cls": "dom",
+     "condition": "(postl = v5 (4%))",
+     "sql": "(postl = :v5)",
+     "support": 0.045,
+     "rows": 81,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.012,
+     "score": 0.11,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v5": "6482162115759618249"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "w",
+      "l"
+     ],
+     "cls": "dom",
+     "condition": "postl in {v2, v5}",
+     "sql": "(postl = :v2) OR (postl = :v5)",
+     "support": 0.1,
+     "rows": 182,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.005,
+     "score": 0.11,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v2": "-8358141127831460906",
+      "postl=v5": "6482162115759618249"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v2 (6%), postt = v1 (48%))",
+     "sql": "(postl = :v2 AND postt = :v1)",
+     "support": 0.051,
+     "rows": 93,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.106,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v2": "-8358141127831460906",
+      "postt=v1": "-3308600590093167056"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "l",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(postl = v2 (6%), postt = v1 (48%))",
+     "sql": "(postl = :v2 AND postt = :v1)",
+     "support": 0.051,
+     "rows": 93,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.106,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v2": "-8358141127831460906",
+      "postt=v1": "-3308600590093167056"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w",
+      "t"
+     ],
+     "cls": "dom",
+     "condition": "postl in {v3, v5}",
+     "sql": "(postl = :v3) OR (postl = :v5)",
+     "support": 0.092,
+     "rows": 167,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.006,
+     "score": 0.105,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v3": "407211082895075940",
+      "postl=v5": "6482162115759618249"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "l",
+      "t"
+     ],
+     "cls": "dom",
+     "condition": "postl in {v3, v5}",
+     "sql": "(postl = :v3) OR (postl = :v5)",
+     "support": 0.092,
+     "rows": 167,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.006,
+     "score": 0.105,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v3": "407211082895075940",
+      "postl=v5": "6482162115759618249"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "l",
+      "postg"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postg present [same rows: postw present, postl present, postt present])",
+     "sql": "(stint = :v2 AND postg IS NOT NULL)",
+     "support": 0.05,
+     "rows": 91,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.105,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "l",
+      "postw"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postg present [same rows: postw present, postl present, postt present])",
+     "sql": "(stint = :v2 AND postg IS NOT NULL)",
+     "support": 0.05,
+     "rows": 91,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.105,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "l",
+      "postl"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postg present [same rows: postw present, postl present, postt present])",
+     "sql": "(stint = :v2 AND postg IS NOT NULL)",
+     "support": 0.05,
+     "rows": 91,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.105,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "t",
+      "postg"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postg present [same rows: postw present, postl present, postt present])",
+     "sql": "(stint = :v2 AND postg IS NOT NULL)",
+     "support": 0.05,
+     "rows": 91,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.105,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "t",
+      "postw"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postg present [same rows: postw present, postl present, postt present])",
+     "sql": "(stint = :v2 AND postg IS NOT NULL)",
+     "support": 0.05,
+     "rows": 91,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.105,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "g",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postg present [same rows: postw present, postl present, postt present])",
+     "sql": "(stint = :v2 AND postg IS NOT NULL)",
+     "support": 0.05,
+     "rows": 91,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.105,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "w",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postg present [same rows: postw present, postl present, postt present])",
+     "sql": "(stint = :v2 AND postg IS NOT NULL)",
+     "support": 0.05,
+     "rows": 91,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.105,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "w",
+      "postg"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postg present [same rows: postw present, postl present, postt present])",
+     "sql": "(stint = :v2 AND postg IS NOT NULL)",
+     "support": 0.05,
+     "rows": 91,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.105,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "w",
+      "postw"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postg present [same rows: postw present, postl present, postt present])",
+     "sql": "(stint = :v2 AND postg IS NOT NULL)",
+     "support": 0.05,
+     "rows": 91,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.105,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "l",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(lgID = v1 (88%), postl = v2 (6%))",
+     "sql": "(lgID = :v1 AND postl = :v2)",
+     "support": 0.05,
+     "rows": 91,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.105,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v1": "8925760856993695661",
+      "postl=v2": "-8358141127831460906"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "l",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postg present [same rows: postw present, postl present, postt present])",
+     "sql": "(stint = :v2 AND postg IS NOT NULL)",
+     "support": 0.05,
+     "rows": 91,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.105,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "tmID",
+      "g",
+      "w"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postg present [same rows: postw present, postl present, postt present])",
+     "sql": "(stint = :v2 AND postg IS NOT NULL)",
+     "support": 0.05,
+     "rows": 91,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.105,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "tmID",
+      "w",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postg present [same rows: postw present, postl present, postt present])",
+     "sql": "(stint = :v2 AND postg IS NOT NULL)",
+     "support": 0.05,
+     "rows": 91,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.105,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "tmID",
+      "w",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postg present [same rows: postw present, postl present, postt present])",
+     "sql": "(stint = :v2 AND postg IS NOT NULL)",
+     "support": 0.05,
+     "rows": 91,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.105,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "l",
+      "postg"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postt = v1 (48%))",
+     "sql": "(stint = :v2 AND postt = :v1)",
+     "support": 0.049,
+     "rows": 88,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.103,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275",
+      "postt=v1": "-3308600590093167056"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "l",
+      "postw"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postt = v1 (48%))",
+     "sql": "(stint = :v2 AND postt = :v1)",
+     "support": 0.049,
+     "rows": 88,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.103,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275",
+      "postt=v1": "-3308600590093167056"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "l",
+      "postl"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postt = v1 (48%))",
+     "sql": "(stint = :v2 AND postt = :v1)",
+     "support": 0.049,
+     "rows": 88,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.103,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275",
+      "postt=v1": "-3308600590093167056"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "t",
+      "postg"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postt = v1 (48%))",
+     "sql": "(stint = :v2 AND postt = :v1)",
+     "support": 0.049,
+     "rows": 88,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.103,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275",
+      "postt=v1": "-3308600590093167056"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "t",
+      "postw"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postt = v1 (48%))",
+     "sql": "(stint = :v2 AND postt = :v1)",
+     "support": 0.049,
+     "rows": 88,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.103,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275",
+      "postt=v1": "-3308600590093167056"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "g",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postt = v1 (48%))",
+     "sql": "(stint = :v2 AND postt = :v1)",
+     "support": 0.049,
+     "rows": 88,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.103,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275",
+      "postt=v1": "-3308600590093167056"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "w",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postt = v1 (48%))",
+     "sql": "(stint = :v2 AND postt = :v1)",
+     "support": 0.049,
+     "rows": 88,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.103,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275",
+      "postt=v1": "-3308600590093167056"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "w",
+      "postg"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postt = v1 (48%))",
+     "sql": "(stint = :v2 AND postt = :v1)",
+     "support": 0.049,
+     "rows": 88,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.103,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275",
+      "postt=v1": "-3308600590093167056"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "w",
+      "postw"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postt = v1 (48%))",
+     "sql": "(stint = :v2 AND postt = :v1)",
+     "support": 0.049,
+     "rows": 88,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.103,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275",
+      "postt=v1": "-3308600590093167056"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "l",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postt = v1 (48%))",
+     "sql": "(stint = :v2 AND postt = :v1)",
+     "support": 0.049,
+     "rows": 88,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.103,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275",
+      "postt=v1": "-3308600590093167056"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "tmID",
+      "g",
+      "w"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postt = v1 (48%))",
+     "sql": "(stint = :v2 AND postt = :v1)",
+     "support": 0.049,
+     "rows": 88,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.103,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275",
+      "postt=v1": "-3308600590093167056"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "tmID",
+      "w",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postt = v1 (48%))",
+     "sql": "(stint = :v2 AND postt = :v1)",
+     "support": 0.049,
+     "rows": 88,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.103,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275",
+      "postt=v1": "-3308600590093167056"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "tmID",
+      "w",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v2 (14%), postt = v1 (48%))",
+     "sql": "(stint = :v2 AND postt = :v1)",
+     "support": 0.049,
+     "rows": 88,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.103,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v2": "7369686128406551275",
+      "postt=v1": "-3308600590093167056"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "l",
+      "t"
+     ],
+     "cls": "dom",
+     "condition": "postl in {v2, v3, v5}",
+     "sql": "(postl = :v2) OR (postl = :v3) OR (postl = :v5)",
+     "support": 0.148,
+     "rows": 268,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.004,
+     "score": 0.1,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v2": "-8358141127831460906",
+      "postl=v3": "407211082895075940",
+      "postl=v5": "6482162115759618249"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "w",
+      "postg"
+     ],
+     "cls": "dom",
+     "condition": "postl in {v3, v4, v5}",
+     "sql": "(postl = :v3) OR (postl = :v4) OR (postl = :v5)",
+     "support": 0.139,
+     "rows": 251,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.004,
+     "score": 0.097,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v3": "407211082895075940",
+      "postl=v4": "8493001333469288333",
+      "postl=v5": "6482162115759618249"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "w",
+      "postw"
+     ],
+     "cls": "dom",
+     "condition": "postl in {v3, v4, v5}",
+     "sql": "(postl = :v3) OR (postl = :v4) OR (postl = :v5)",
+     "support": 0.139,
+     "rows": 251,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.004,
+     "score": 0.097,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v3": "407211082895075940",
+      "postl=v4": "8493001333469288333",
+      "postl=v5": "6482162115759618249"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "t",
+      "postg"
+     ],
+     "cls": "pos",
+     "condition": "(lgID = v2 (6%))",
+     "sql": "(lgID = :v2)",
+     "support": 0.061,
+     "rows": 111,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.523,
+     "score": 0.097,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v2": "-2281771351617117238"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "t",
+      "postw"
+     ],
+     "cls": "pos",
+     "condition": "(lgID = v2 (6%))",
+     "sql": "(lgID = :v2)",
+     "support": 0.061,
+     "rows": 111,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.523,
+     "score": 0.097,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v2": "-2281771351617117238"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "w",
+      "postg"
+     ],
+     "cls": "pos",
+     "condition": "(lgID = v2 (6%))",
+     "sql": "(lgID = :v2)",
+     "support": 0.061,
+     "rows": 111,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.523,
+     "score": 0.097,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v2": "-2281771351617117238"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "w",
+      "postw"
+     ],
+     "cls": "pos",
+     "condition": "(lgID = v2 (6%))",
+     "sql": "(lgID = :v2)",
+     "support": 0.061,
+     "rows": 111,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.523,
+     "score": 0.097,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v2": "-2281771351617117238"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "tmID",
+      "w",
+      "t"
+     ],
+     "cls": "dom",
+     "condition": "postl in {v5, v7}",
+     "sql": "(postl = :v5) OR (postl = :v7)",
+     "support": 0.076,
+     "rows": 138,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.007,
+     "score": 0.096,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v5": "6482162115759618249",
+      "postl=v7": "3788188144485792696"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "g",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v1 (84%), postl = v5 (4%))",
+     "sql": "(stint = :v1 AND postl = :v5)",
+     "support": 0.041,
+     "rows": 74,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.094,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v1": "3788188144485792696",
+      "postl=v5": "6482162115759618249"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v1 (84%), postl = v5 (4%))",
+     "sql": "(stint = :v1 AND postl = :v5)",
+     "support": 0.041,
+     "rows": 74,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.094,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v1": "3788188144485792696",
+      "postl=v5": "6482162115759618249"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v1 (84%), postl = v5 (4%))",
+     "sql": "(stint = :v1 AND postl = :v5)",
+     "support": 0.041,
+     "rows": 74,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.094,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v1": "3788188144485792696",
+      "postl=v5": "6482162115759618249"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "l",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v1 (84%), postl = v5 (4%))",
+     "sql": "(stint = :v1 AND postl = :v5)",
+     "support": 0.041,
+     "rows": 74,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.094,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v1": "3788188144485792696",
+      "postl=v5": "6482162115759618249"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "w",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v1 (84%), postl = v5 (4%))",
+     "sql": "(stint = :v1 AND postl = :v5)",
+     "support": 0.041,
+     "rows": 74,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.094,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v1": "3788188144485792696",
+      "postl=v5": "6482162115759618249"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "w",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v1 (84%), postl = v5 (4%))",
+     "sql": "(stint = :v1 AND postl = :v5)",
+     "support": 0.041,
+     "rows": 74,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.094,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v1": "3788188144485792696",
+      "postl=v5": "6482162115759618249"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "w",
+      "postg"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v1 (84%), postl = v5 (4%))",
+     "sql": "(stint = :v1 AND postl = :v5)",
+     "support": 0.041,
+     "rows": 74,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.094,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v1": "3788188144485792696",
+      "postl=v5": "6482162115759618249"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "w",
+      "postw"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v1 (84%), postl = v5 (4%))",
+     "sql": "(stint = :v1 AND postl = :v5)",
+     "support": 0.041,
+     "rows": 74,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.094,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v1": "3788188144485792696",
+      "postl=v5": "6482162115759618249"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "l",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v1 (84%), postl = v5 (4%))",
+     "sql": "(stint = :v1 AND postl = :v5)",
+     "support": 0.041,
+     "rows": 74,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.094,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v1": "3788188144485792696",
+      "postl=v5": "6482162115759618249"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "tmID",
+      "w",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v1 (84%), postl = v5 (4%))",
+     "sql": "(stint = :v1 AND postl = :v5)",
+     "support": 0.041,
+     "rows": 74,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.094,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v1": "3788188144485792696",
+      "postl=v5": "6482162115759618249"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "tmID",
+      "w",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v1 (84%), postl = v5 (4%))",
+     "sql": "(stint = :v1 AND postl = :v5)",
+     "support": 0.041,
+     "rows": 74,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.094,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v1": "3788188144485792696",
+      "postl=v5": "6482162115759618249"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "tmID",
+      "l",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(stint = v1 (84%), postl = v5 (4%))",
+     "sql": "(stint = :v1 AND postl = :v5)",
+     "support": 0.041,
+     "rows": 74,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.094,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "stint=v1": "3788188144485792696",
+      "postl=v5": "6482162115759618249"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w",
+      "l"
+     ],
+     "cls": "dom",
+     "condition": "postl in {v2, v4, v5, v7}",
+     "sql": "(postl = :v2) OR (postl = :v4) OR (postl = :v5) OR (postl = :v7)",
+     "support": 0.178,
+     "rows": 323,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.003,
+     "score": 0.088,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "postl=v2": "-8358141127831460906",
+      "postl=v4": "8493001333469288333",
+      "postl=v5": "6482162115759618249",
+      "postl=v7": "3788188144485792696"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(lgID = v1 (88%), postl = v6 (4%))",
+     "sql": "(lgID = :v1 AND postl = :v6)",
+     "support": 0.034,
+     "rows": 62,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.086,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v1": "8925760856993695661",
+      "postl=v6": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w",
+      "postg"
+     ],
+     "cls": "cand",
+     "condition": "(lgID = v1 (88%), postl = v6 (4%))",
+     "sql": "(lgID = :v1 AND postl = :v6)",
+     "support": 0.034,
+     "rows": 62,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.086,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v1": "8925760856993695661",
+      "postl=v6": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "w",
+      "postw"
+     ],
+     "cls": "cand",
+     "condition": "(lgID = v1 (88%), postl = v6 (4%))",
+     "sql": "(lgID = :v1 AND postl = :v6)",
+     "support": 0.034,
+     "rows": 62,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.086,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v1": "8925760856993695661",
+      "postl=v6": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "tmID",
+      "w",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(lgID = v1 (88%), postl = v6 (4%))",
+     "sql": "(lgID = :v1 AND postl = :v6)",
+     "support": 0.034,
+     "rows": 62,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.086,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v1": "8925760856993695661",
+      "postl=v6": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "tmID",
+      "w",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(lgID = v1 (88%), postl = v6 (4%))",
+     "sql": "(lgID = :v1 AND postl = :v6)",
+     "support": 0.034,
+     "rows": 62,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.086,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v1": "8925760856993695661",
+      "postl=v6": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "tmID",
+      "l",
+      "t"
+     ],
+     "cls": "cand",
+     "condition": "(lgID = v1 (88%), postl = v6 (4%))",
+     "sql": "(lgID = :v1 AND postl = :v6)",
+     "support": 0.034,
+     "rows": 62,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.086,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v1": "8925760856993695661",
+      "postl=v6": "7369686128406551275"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "g",
+      "w"
+     ],
+     "cls": "cand",
+     "condition": "(lgID = v2 (6%), postg missing [same rows: postw missing, postl missing, postt missing])",
+     "sql": "(lgID = :v2 AND postg IS NULL)",
+     "support": 0.032,
+     "rows": 58,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.083,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v2": "-2281771351617117238"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "g",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(lgID = v2 (6%), postg missing [same rows: postw missing, postl missing, postt missing])",
+     "sql": "(lgID = :v2 AND postg IS NULL)",
+     "support": 0.032,
+     "rows": 58,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.083,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v2": "-2281771351617117238"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "tmID",
+      "g",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(lgID = v2 (6%), postg missing [same rows: postw missing, postl missing, postt missing])",
+     "sql": "(lgID = :v2 AND postg IS NULL)",
+     "support": 0.032,
+     "rows": 58,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.083,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v2": "-2281771351617117238"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "tmID",
+      "w",
+      "l"
+     ],
+     "cls": "cand",
+     "condition": "(lgID = v2 (6%), postg missing [same rows: postw missing, postl missing, postt missing])",
+     "sql": "(lgID = :v2 AND postg IS NULL)",
+     "support": 0.032,
+     "rows": 58,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.083,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v2": "-2281771351617117238"
+     }
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "g",
+      "w"
+     ],
+     "cls": "dom",
+     "condition": "(lgID = v1 (88%), postl = v5 (4%))",
+     "sql": "(lgID = :v1 AND postl = :v5)",
+     "support": 0.041,
+     "rows": 74,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.014,
+     "score": 0.07,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "lgID=v1": "8925760856993695661",
+      "postl=v5": "6482162115759618249"
+     }
+    }
+   ],
+   "approximate": [
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "stint"
+     ],
+     "cls": "cert",
+     "condition": "(lgID = v1 (88%))",
+     "sql": "(lgID = :v1)",
+     "support": 0.879,
+     "violating_pairs": 1,
+     "violating_rows": [
+      901,
+      1572
+     ],
+     "uncond": null
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "stint"
+     ],
+     "cls": "part",
+     "condition": "(lgID = v1 (88%))",
+     "sql": "(lgID = :v1)",
+     "support": 0.879,
+     "violating_pairs": 1,
+     "violating_rows": [
+      901,
+      1572
+     ],
+     "uncond": null
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "stint"
+     ],
+     "cls": "dom",
+     "condition": "(lgID = v1 (88%))",
+     "sql": "(lgID = :v1)",
+     "support": 0.879,
+     "violating_pairs": 1,
+     "violating_rows": [
+      901,
+      1572
+     ],
+     "uncond": null
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "stint"
+     ],
+     "cls": "pos",
+     "condition": "(lgID = v1 (88%))",
+     "sql": "(lgID = :v1)",
+     "support": 0.879,
+     "violating_pairs": 1,
+     "violating_rows": [
+      901,
+      1572
+     ],
+     "uncond": null
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "stint"
+     ],
+     "cls": "cert",
+     "condition": "(postg missing [same rows: postw missing, postl missing, postt missing])",
+     "sql": "(postg IS NULL)",
+     "support": 0.488,
+     "violating_pairs": 1,
+     "violating_rows": [
+      901,
+      1572
+     ],
+     "uncond": null
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "stint"
+     ],
+     "cls": "part",
+     "condition": "(postg missing [same rows: postw missing, postl missing, postt missing])",
+     "sql": "(postg IS NULL)",
+     "support": 0.488,
+     "violating_pairs": 1,
+     "violating_rows": [
+      901,
+      1572
+     ],
+     "uncond": null
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "stint"
+     ],
+     "cls": "dom",
+     "condition": "(postg missing [same rows: postw missing, postl missing, postt missing])",
+     "sql": "(postg IS NULL)",
+     "support": 0.488,
+     "violating_pairs": 1,
+     "violating_rows": [
+      901,
+      1572
+     ],
+     "uncond": null
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "year",
+      "tmID",
+      "stint"
+     ],
+     "cls": "pos",
+     "condition": "(postg missing [same rows: postw missing, postl missing, postt missing])",
+     "sql": "(postg IS NULL)",
+     "support": 0.488,
+     "violating_pairs": 1,
+     "violating_rows": [
+      901,
+      1572
+     ],
+     "uncond": null
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "year",
+      "tmID"
+     ],
+     "cls": "cert",
+     "condition": "(lgID = v2 (6%))",
+     "sql": "(lgID = :v2)",
+     "support": 0.061,
+     "violating_pairs": 1,
+     "violating_rows": [
+      1294,
+      1295
+     ],
+     "uncond": null
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "year",
+      "tmID"
+     ],
+     "cls": "part",
+     "condition": "(lgID = v2 (6%))",
+     "sql": "(lgID = :v2)",
+     "support": 0.061,
+     "violating_pairs": 1,
+     "violating_rows": [
+      1294,
+      1295
+     ],
+     "uncond": null
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "year",
+      "tmID"
+     ],
+     "cls": "dom",
+     "condition": "(lgID = v2 (6%))",
+     "sql": "(lgID = :v2)",
+     "support": 0.061,
+     "violating_pairs": 1,
+     "violating_rows": [
+      1294,
+      1295
+     ],
+     "uncond": null
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "year",
+      "tmID"
+     ],
+     "cls": "pos",
+     "condition": "(lgID = v2 (6%))",
+     "sql": "(lgID = :v2)",
+     "support": 0.061,
+     "violating_pairs": 1,
+     "violating_rows": [
+      1294,
+      1295
+     ],
+     "uncond": null
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "year"
+     ],
+     "cls": "cert",
+     "condition": "(lgID = v2 (6%))",
+     "sql": "(lgID = :v2)",
+     "support": 0.061,
+     "violating_pairs": 2,
+     "violating_rows": [
+      1145,
+      1146,
+      1294,
+      1295
+     ],
+     "uncond": null
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "year"
+     ],
+     "cls": "part",
+     "condition": "(lgID = v2 (6%))",
+     "sql": "(lgID = :v2)",
+     "support": 0.061,
+     "violating_pairs": 2,
+     "violating_rows": [
+      1145,
+      1146,
+      1294,
+      1295
+     ],
+     "uncond": null
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "year"
+     ],
+     "cls": "dom",
+     "condition": "(lgID = v2 (6%))",
+     "sql": "(lgID = :v2)",
+     "support": 0.061,
+     "violating_pairs": 2,
+     "violating_rows": [
+      1145,
+      1146,
+      1294,
+      1295
+     ],
+     "uncond": null
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "year"
+     ],
+     "cls": "pos",
+     "condition": "(lgID = v2 (6%))",
+     "sql": "(lgID = :v2)",
+     "support": 0.061,
+     "violating_pairs": 2,
+     "violating_rows": [
+      1145,
+      1146,
+      1294,
+      1295
+     ],
+     "uncond": null
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "year",
+      "tmID"
+     ],
+     "cls": "cert",
+     "condition": "(postg missing [same rows: postw missing, postl missing, postt missing])",
+     "sql": "(postg IS NULL)",
+     "support": 0.488,
+     "violating_pairs": 3,
+     "violating_rows": [
+      122,
+      123,
+      1183,
+      1184,
+      1294,
+      1295
+     ],
+     "uncond": null
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "year",
+      "tmID"
+     ],
+     "cls": "part",
+     "condition": "(postg missing [same rows: postw missing, postl missing, postt missing])",
+     "sql": "(postg IS NULL)",
+     "support": 0.488,
+     "violating_pairs": 3,
+     "violating_rows": [
+      122,
+      123,
+      1183,
+      1184,
+      1294,
+      1295
+     ],
+     "uncond": null
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "year",
+      "tmID"
+     ],
+     "cls": "dom",
+     "condition": "(postg missing [same rows: postw missing, postl missing, postt missing])",
+     "sql": "(postg IS NULL)",
+     "support": 0.488,
+     "violating_pairs": 3,
+     "violating_rows": [
+      122,
+      123,
+      1183,
+      1184,
+      1294,
+      1295
+     ],
+     "uncond": null
+    },
+    {
+     "table": "Hockey.Coaches",
+     "K": [
+      "coachID",
+      "year",
+      "tmID"
+     ],
+     "cls": "pos",
+     "condition": "(postg missing [same rows: postw missing, postl missing, postt missing])",
+     "sql": "(postg IS NULL)",
+     "support": 0.488,
+     "violating_pairs": 3,
+     "violating_rows": [
+      122,
+      123,
+      1183,
+      1184,
+      1294,
+      1295
+     ],
+     "uncond": null
+    }
+   ],
+   "unconditional": {
+    "coachID,year,stint": "cand",
+    "coachID,year,g": "dom",
+    "coachID,year,w": "dom",
+    "coachID,year,postg": "pos",
+    "coachID,year,postw": "pos",
+    "coachID,year,postl": "pos",
+    "coachID,year,postt": "pos",
+    "year,tmID,postg": "pos",
+    "year,tmID,postw": "pos",
+    "year,tmID,postl": "pos",
+    "year,tmID,postt": "pos"
+   }
+  }
+ ]
+}

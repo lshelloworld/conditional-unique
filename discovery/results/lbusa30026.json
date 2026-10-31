@@ -1,0 +1,897 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "ID_NO",
+   "CREAT_DATE",
+   "the_geom",
+   "SCH_ZONE",
+   "SCHL_1",
+   "SCHL_2",
+   "SCHOOLDIST",
+   "ZONED_DIST",
+   "REGION",
+   "ZONED_REGI",
+   "SCHL_3"
+  ]
+ },
+ "sample_rows": 752,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbusa.t30026",
+   "rows": 752,
+   "cols": [
+    "the_geom",
+    "BORO",
+    "SCHOOLDIST",
+    "SCH_ZONE",
+    "OUT_DIST",
+    "INITIALS",
+    "CREAT_DATE",
+    "ID_NO",
+    "REGION",
+    "ZONED_DIST",
+    "ZONED_REGI",
+    "SCHL_1",
+    "SCHL_2",
+    "SCHL_3"
+   ],
+   "n_conditional": 31,
+   "conditional": [
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO"
+     ],
+     "cls": "cand",
+     "condition": "(SCHL_1 missing [same rows: SCHL_2 missing, SCHL_3 missing])",
+     "sql": "(SCHL_1 IS NULL)",
+     "support": 0.473,
+     "rows": 356,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.408,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO"
+     ],
+     "cls": "cand",
+     "condition": "(INITIALS = \"BG\" (46%))",
+     "sql": "(INITIALS = 'BG')",
+     "support": 0.463,
+     "rows": 348,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.381,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "INITIALS=v1": "BG"
+     }
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO"
+     ],
+     "cls": "cand",
+     "condition": "BORO in {\"BK\", \"MN\", \"SI\"}",
+     "sql": "(BORO = 'BK') OR (BORO = 'MN') OR (BORO = 'SI')",
+     "support": 0.537,
+     "rows": 404,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.283,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "BORO=v1": "BK",
+      "BORO=v4": "MN",
+      "BORO=v5": "SI"
+     }
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO"
+     ],
+     "cls": "cand",
+     "condition": "(SCH_ZONE missing)",
+     "sql": "(SCH_ZONE IS NULL)",
+     "support": 0.07,
+     "rows": 53,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.929,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO",
+      "SCH_ZONE"
+     ],
+     "cls": "cert",
+     "condition": "INITIALS in {\"BG\", \"AMG\"}",
+     "sql": "(INITIALS = 'BG') OR (INITIALS = 'AMG')",
+     "support": 0.515,
+     "rows": 387,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.093,
+     "score": 0.839,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "INITIALS=v1": "BG",
+      "INITIALS=v4": "AMG"
+     }
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO"
+     ],
+     "cls": "cand",
+     "condition": "REGION in {\"7\", \"8\", \"9\", \"6\", \"10\"}",
+     "sql": "(REGION = '7') OR (REGION = '8') OR (REGION = '9') OR (REGION = '6') OR (REGION = '10')",
+     "support": 0.476,
+     "rows": 358,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.805,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "REGION=v2": "7",
+      "REGION=v4": "8",
+      "REGION=v6": "9",
+      "REGION=v9": "6",
+      "REGION=v10": "10"
+     }
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO"
+     ],
+     "cls": "cand",
+     "condition": "(BORO = \"QN\" (27%), INITIALS = \"DMH\" (32%))",
+     "sql": "(BORO = 'QN' AND INITIALS = 'DMH')",
+     "support": 0.1,
+     "rows": 75,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.737,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "BORO=v2": "QN",
+      "INITIALS=v2": "DMH"
+     }
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO"
+     ],
+     "cls": "cand",
+     "condition": "(INITIALS = \"DMH\" (32%), REGION = \"1\" (8%))",
+     "sql": "(INITIALS = 'DMH' AND REGION = '1')",
+     "support": 0.073,
+     "rows": 55,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.631,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "INITIALS=v2": "DMH",
+      "REGION=v8": "1"
+     }
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO"
+     ],
+     "cls": "cand",
+     "condition": "(INITIALS = \"DMH\" (32%), REGION = \"3\" (13%))",
+     "sql": "(INITIALS = 'DMH' AND REGION = '3')",
+     "support": 0.057,
+     "rows": 43,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.558,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "INITIALS=v2": "DMH",
+      "REGION=v1": "3"
+     }
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO",
+      "SCH_ZONE"
+     ],
+     "cls": "cert",
+     "condition": "(INITIALS = \"DMH\" (32%), SCHL_1 present [same rows: SCHL_2 present, SCHL_3 present])",
+     "sql": "(INITIALS = 'DMH' AND SCHL_1 IS NOT NULL)",
+     "support": 0.217,
+     "rows": 163,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.012,
+     "score": 0.545,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "INITIALS=v2": "DMH"
+     }
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO",
+      "SCH_ZONE"
+     ],
+     "cls": "cert",
+     "condition": "(INITIALS = \"DMH\" (32%), SCHL_3 = \"0.0\" (52%))",
+     "sql": "(INITIALS = 'DMH' AND SCHL_3 = '0.0')",
+     "support": 0.214,
+     "rows": 161,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.012,
+     "score": 0.541,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "INITIALS=v2": "DMH",
+      "SCHL_3=v1": "0.0"
+     }
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO",
+      "CREAT_DATE"
+     ],
+     "cls": "cand",
+     "condition": "(REGION = \"5\" (10%))",
+     "sql": "(REGION = '5')",
+     "support": 0.098,
+     "rows": 74,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.494,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "REGION=v5": "5"
+     }
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO"
+     ],
+     "cls": "cand",
+     "condition": "(INITIALS = \"DMH\" (32%), REGION = \"5\" (10%))",
+     "sql": "(INITIALS = 'DMH' AND REGION = '5')",
+     "support": 0.041,
+     "rows": 31,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.474,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "INITIALS=v2": "DMH",
+      "REGION=v5": "5"
+     }
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO",
+      "SCH_ZONE"
+     ],
+     "cls": "cert",
+     "condition": "(BORO = \"BX\" (19%), SCHL_1 present [same rows: SCHL_2 present, SCHL_3 present])",
+     "sql": "(BORO = 'BX' AND SCHL_1 IS NOT NULL)",
+     "support": 0.144,
+     "rows": 108,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.037,
+     "score": 0.443,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "BORO=v3": "BX"
+     }
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO",
+      "SCH_ZONE"
+     ],
+     "cls": "cert",
+     "condition": "(INITIALS = \"AP\" (15%), ZONED_DIST = \"0\" (97%))",
+     "sql": "(INITIALS = 'AP' AND ZONED_DIST = '0')",
+     "support": 0.142,
+     "rows": 107,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.047,
+     "score": 0.441,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "INITIALS=v3": "AP",
+      "ZONED_DIST=v1": "0"
+     }
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO",
+      "SCH_ZONE"
+     ],
+     "cls": "cert",
+     "condition": "(BORO = \"BX\" (19%), SCHL_3 = \"0.0\" (52%))",
+     "sql": "(BORO = 'BX' AND SCHL_3 = '0.0')",
+     "support": 0.141,
+     "rows": 106,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.038,
+     "score": 0.439,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "BORO=v3": "BX",
+      "SCHL_3=v1": "0.0"
+     }
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO",
+      "SCH_ZONE"
+     ],
+     "cls": "cert",
+     "condition": "(OUT_DIST = \"0\" (94%), INITIALS = \"AP\" (15%))",
+     "sql": "(OUT_DIST = '0' AND INITIALS = 'AP')",
+     "support": 0.132,
+     "rows": 99,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.051,
+     "score": 0.425,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "OUT_DIST=v1": "0",
+      "INITIALS=v3": "AP"
+     }
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO",
+      "CREAT_DATE"
+     ],
+     "cls": "cert",
+     "condition": "REGION in {\"7\", \"8\", \"5\", \"9\", \"6\", \"10\"}",
+     "sql": "(REGION = '7') OR (REGION = '8') OR (REGION = '5') OR (REGION = '9') OR (REGION = '6') OR (REGION = '10')",
+     "support": 0.574,
+     "rows": 432,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 0.38,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "REGION=v2": "7",
+      "REGION=v4": "8",
+      "REGION=v5": "5",
+      "REGION=v6": "9",
+      "REGION=v9": "6",
+      "REGION=v10": "10"
+     }
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO",
+      "SCH_ZONE"
+     ],
+     "cls": "cand",
+     "condition": "(INITIALS = \"AMG\" (5%))",
+     "sql": "(INITIALS = 'AMG')",
+     "support": 0.052,
+     "rows": 39,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.359,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "INITIALS=v4": "AMG"
+     }
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO",
+      "SCH_ZONE"
+     ],
+     "cls": "cert",
+     "condition": "REGION in {\"3\", \"7\", \"8\", \"5\", \"9\", \"1\", \"6\", \"10\"}",
+     "sql": "(REGION = '3') OR (REGION = '7') OR (REGION = '8') OR (REGION = '5') OR (REGION = '9') OR (REGION = '1') OR (REGION = '6') OR (REGION = '10')",
+     "support": 0.791,
+     "rows": 595,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.067,
+     "score": 0.347,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "REGION=v1": "3",
+      "REGION=v2": "7",
+      "REGION=v4": "8",
+      "REGION=v5": "5",
+      "REGION=v6": "9",
+      "REGION=v8": "1",
+      "REGION=v9": "6",
+      "REGION=v10": "10"
+     }
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO",
+      "SCH_ZONE"
+     ],
+     "cls": "cert",
+     "condition": "(REGION = \"2\" (9%), SCHL_1 present [same rows: SCHL_2 present, SCHL_3 present])",
+     "sql": "(REGION = '2' AND SCHL_1 IS NOT NULL)",
+     "support": 0.07,
+     "rows": 53,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.038,
+     "score": 0.311,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "REGION=v7": "2"
+     }
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO",
+      "SCH_ZONE"
+     ],
+     "cls": "cert",
+     "condition": "(REGION = \"2\" (9%), SCHL_3 = \"0.0\" (52%))",
+     "sql": "(REGION = '2' AND SCHL_3 = '0.0')",
+     "support": 0.069,
+     "rows": 52,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.038,
+     "score": 0.308,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "REGION=v7": "2",
+      "SCHL_3=v1": "0.0"
+     }
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO",
+      "SCH_ZONE",
+      "SCHL_1"
+     ],
+     "cls": "dom",
+     "condition": "INITIALS in {\"BG\", \"DMH\", \"AMG\"}",
+     "sql": "(INITIALS = 'BG') OR (INITIALS = 'DMH') OR (INITIALS = 'AMG')",
+     "support": 0.839,
+     "rows": 631,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.525,
+     "score": 0.238,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "INITIALS=v1": "BG",
+      "INITIALS=v2": "DMH",
+      "INITIALS=v4": "AMG"
+     }
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO",
+      "SCH_ZONE",
+      "SCHL_2"
+     ],
+     "cls": "dom",
+     "condition": "INITIALS in {\"BG\", \"DMH\", \"AMG\"}",
+     "sql": "(INITIALS = 'BG') OR (INITIALS = 'DMH') OR (INITIALS = 'AMG')",
+     "support": 0.839,
+     "rows": 631,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.525,
+     "score": 0.238,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "INITIALS=v1": "BG",
+      "INITIALS=v2": "DMH",
+      "INITIALS=v4": "AMG"
+     }
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO",
+      "SCH_ZONE",
+      "SCHL_3"
+     ],
+     "cls": "dom",
+     "condition": "INITIALS in {\"BG\", \"DMH\", \"AMG\"}",
+     "sql": "(INITIALS = 'BG') OR (INITIALS = 'DMH') OR (INITIALS = 'AMG')",
+     "support": 0.839,
+     "rows": 631,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.525,
+     "score": 0.238,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "INITIALS=v1": "BG",
+      "INITIALS=v2": "DMH",
+      "INITIALS=v4": "AMG"
+     }
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO",
+      "SCH_ZONE",
+      "SCHL_1"
+     ],
+     "cls": "dom",
+     "condition": "BORO in {\"BK\", \"BX\", \"MN\", \"SI\"}",
+     "sql": "(BORO = 'BK') OR (BORO = 'BX') OR (BORO = 'MN') OR (BORO = 'SI')",
+     "support": 0.726,
+     "rows": 546,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.548,
+     "score": 0.177,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "BORO=v1": "BK",
+      "BORO=v3": "BX",
+      "BORO=v4": "MN",
+      "BORO=v5": "SI"
+     }
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO",
+      "SCH_ZONE",
+      "SCHL_2"
+     ],
+     "cls": "dom",
+     "condition": "BORO in {\"BK\", \"BX\", \"MN\", \"SI\"}",
+     "sql": "(BORO = 'BK') OR (BORO = 'BX') OR (BORO = 'MN') OR (BORO = 'SI')",
+     "support": 0.726,
+     "rows": 546,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.548,
+     "score": 0.177,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "BORO=v1": "BK",
+      "BORO=v3": "BX",
+      "BORO=v4": "MN",
+      "BORO=v5": "SI"
+     }
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO",
+      "SCH_ZONE",
+      "SCHL_3"
+     ],
+     "cls": "dom",
+     "condition": "BORO in {\"BK\", \"BX\", \"MN\", \"SI\"}",
+     "sql": "(BORO = 'BK') OR (BORO = 'BX') OR (BORO = 'MN') OR (BORO = 'SI')",
+     "support": 0.726,
+     "rows": 546,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.548,
+     "score": 0.177,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "BORO=v1": "BK",
+      "BORO=v3": "BX",
+      "BORO=v4": "MN",
+      "BORO=v5": "SI"
+     }
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO",
+      "SCH_ZONE",
+      "SCHL_1"
+     ],
+     "cls": "dom",
+     "condition": "REGION in {\"3\", \"7\", \"8\", \"5\", \"9\", \"2\", \"1\", \"6\", \"10\"}",
+     "sql": "(REGION = '3') OR (REGION = '7') OR (REGION = '8') OR (REGION = '5') OR (REGION = '9') OR (REGION = '2') OR (REGION = '1') OR (REGION = '6') OR (REGION = '10')",
+     "support": 0.876,
+     "rows": 659,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.54,
+     "score": 0.097,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "REGION=v1": "3",
+      "REGION=v2": "7",
+      "REGION=v4": "8",
+      "REGION=v5": "5",
+      "REGION=v6": "9",
+      "REGION=v7": "2",
+      "REGION=v8": "1",
+      "REGION=v9": "6",
+      "REGION=v10": "10"
+     }
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO",
+      "SCH_ZONE",
+      "SCHL_2"
+     ],
+     "cls": "dom",
+     "condition": "REGION in {\"3\", \"7\", \"8\", \"5\", \"9\", \"2\", \"1\", \"6\", \"10\"}",
+     "sql": "(REGION = '3') OR (REGION = '7') OR (REGION = '8') OR (REGION = '5') OR (REGION = '9') OR (REGION = '2') OR (REGION = '1') OR (REGION = '6') OR (REGION = '10')",
+     "support": 0.876,
+     "rows": 659,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.54,
+     "score": 0.097,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "REGION=v1": "3",
+      "REGION=v2": "7",
+      "REGION=v4": "8",
+      "REGION=v5": "5",
+      "REGION=v6": "9",
+      "REGION=v7": "2",
+      "REGION=v8": "1",
+      "REGION=v9": "6",
+      "REGION=v10": "10"
+     }
+    },
+    {
+     "table": "lbusa.t30026",
+     "K": [
+      "ID_NO",
+      "SCH_ZONE",
+      "SCHL_3"
+     ],
+     "cls": "dom",
+     "condition": "REGION in {\"3\", \"7\", \"8\", \"5\", \"9\", \"2\", \"1\", \"6\", \"10\"}",
+     "sql": "(REGION = '3') OR (REGION = '7') OR (REGION = '8') OR (REGION = '5') OR (REGION = '9') OR (REGION = '2') OR (REGION = '1') OR (REGION = '6') OR (REGION = '10')",
+     "support": 0.876,
+     "rows": 659,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.54,
+     "score": 0.097,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "REGION=v1": "3",
+      "REGION=v2": "7",
+      "REGION=v4": "8",
+      "REGION=v5": "5",
+      "REGION=v6": "9",
+      "REGION=v7": "2",
+      "REGION=v8": "1",
+      "REGION=v9": "6",
+      "REGION=v10": "10"
+     }
+    }
+   ],
+   "unconditional": {
+    "the_geom": "cand"
+   }
+  }
+ ]
+}

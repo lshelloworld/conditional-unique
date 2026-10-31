@@ -1,0 +1,115 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "uid",
+   "name_displayname",
+   "descriptor",
+   "description"
+  ]
+ },
+ "sample_rows": 16094,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbsg.t83",
+   "rows": 16094,
+   "cols": [
+    "uid",
+    "descriptor",
+    "vocabulary",
+    "description",
+    "name_displayname"
+   ],
+   "n_conditional": 3,
+   "conditional": [
+    {
+     "table": "lbsg.t83",
+     "K": [
+      "descriptor"
+     ],
+     "cls": "cand",
+     "condition": "(name_displayname present)",
+     "sql": "(name_displayname IS NOT NULL)",
+     "support": 0.543,
+     "rows": 8740,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.579,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t83",
+     "K": [
+      "descriptor"
+     ],
+     "cls": "cand",
+     "condition": "vocabulary in {\"_People\", \"_Geographics\", \"_Organisations\"}",
+     "sql": "(vocabulary = '_People') OR (vocabulary = '_Geographics') OR (vocabulary = '_Organisations')",
+     "support": 0.937,
+     "rows": 15075,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.694,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "vocabulary=v1": "_People",
+      "vocabulary=v2": "_Geographics",
+      "vocabulary=v3": "_Organisations"
+     }
+    },
+    {
+     "table": "lbsg.t83",
+     "K": [
+      "descriptor"
+     ],
+     "cls": "cand",
+     "condition": "(vocabulary = \"_GeoBuildings\" (6%))",
+     "sql": "(vocabulary = '_GeoBuildings')",
+     "support": 0.063,
+     "rows": 1019,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.881,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "vocabulary=v4": "_GeoBuildings"
+     }
+    }
+   ],
+   "unconditional": {
+    "uid": "cand",
+    "name_displayname,descriptor": "dom",
+    "name_displayname,description": "pos",
+    "descriptor,description": "cert",
+    "name_displayname,descriptor,description": "cert"
+   }
+  }
+ ]
+}

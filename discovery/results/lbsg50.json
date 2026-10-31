@@ -1,0 +1,3546 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "identifier_uuid",
+   "identifier_uri",
+   "date_created",
+   "title",
+   "abstract",
+   "rights",
+   "is_referenced_by",
+   "subject_lcsh",
+   "original_publisher",
+   "contributor",
+   "subject_singheritage"
+  ]
+ },
+ "sample_rows": 42261,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbsg.t50",
+   "rows": 42261,
+   "cols": [
+    "identifier_uuid",
+    "identifier_uri",
+    "title",
+    "contributor",
+    "digital_publisher",
+    "original_publisher",
+    "is_referenced_by",
+    "date_created",
+    "abstract",
+    "subject_lcsh",
+    "subject_singheritage",
+    "language",
+    "ispartof_collections",
+    "nlb_type",
+    "rights",
+    "access_rights"
+   ],
+   "n_conditional": 139,
+   "conditional": [
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "title"
+     ],
+     "cls": "dom",
+     "condition": "(original_publisher present)",
+     "sql": "(original_publisher IS NOT NULL)",
+     "support": 0.89,
+     "rows": 37592,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.005,
+     "score": 1.655,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "title"
+     ],
+     "cls": "dom",
+     "condition": "(is_referenced_by present)",
+     "sql": "(is_referenced_by IS NOT NULL)",
+     "support": 0.762,
+     "rows": 32222,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.004,
+     "score": 1.532,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "title",
+      "abstract"
+     ],
+     "cls": "cert",
+     "condition": "(original_publisher present)",
+     "sql": "(original_publisher IS NOT NULL)",
+     "support": 0.89,
+     "rows": 37592,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.026,
+     "score": 1.226,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "title",
+      "subject_lcsh"
+     ],
+     "cls": "cert",
+     "condition": "(original_publisher present)",
+     "sql": "(original_publisher IS NOT NULL)",
+     "support": 0.89,
+     "rows": 37592,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.021,
+     "score": 1.226,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "title",
+      "abstract"
+     ],
+     "cls": "cert",
+     "condition": "(is_referenced_by present)",
+     "sql": "(is_referenced_by IS NOT NULL)",
+     "support": 0.762,
+     "rows": 32222,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.04,
+     "score": 1.135,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "title",
+      "subject_lcsh"
+     ],
+     "cls": "cert",
+     "condition": "(is_referenced_by present)",
+     "sql": "(is_referenced_by IS NOT NULL)",
+     "support": 0.762,
+     "rows": 32222,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.034,
+     "score": 1.135,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(access_rights missing)",
+     "sql": "(access_rights IS NULL)",
+     "support": 0.094,
+     "rows": 3992,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.001,
+     "score": 0.899,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "title"
+     ],
+     "cls": "dom",
+     "condition": "nlb_type in {\"Digitised Periodical {18335985}\", \"Electronic Book {18335721}\", \"Digitised Book {18335805}\"}",
+     "sql": "(nlb_type = 'Digitised Periodical {18335985}') OR (nlb_type = 'Electronic Book {18335721}') OR (nlb_type = 'Digitised Book {18335805}')",
+     "support": 0.94,
+     "rows": 39728,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.016,
+     "score": 0.851,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v1": "Digitised Periodical {18335985}",
+      "nlb_type=v2": "Electronic Book {18335721}",
+      "nlb_type=v3": "Digitised Book {18335805}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(nlb_type = \"Digitised Book {18335805}\" (7%))",
+     "sql": "(nlb_type = 'Digitised Book {18335805}')",
+     "support": 0.069,
+     "rows": 2914,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.016,
+     "score": 0.768,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v3": "Digitised Book {18335805}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(subject_singheritage missing)",
+     "sql": "(subject_singheritage IS NULL)",
+     "support": 0.048,
+     "rows": 2045,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.1,
+     "score": 0.643,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(abstract missing)",
+     "sql": "(abstract IS NULL)",
+     "support": 0.048,
+     "rows": 2038,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.011,
+     "score": 0.642,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "title",
+      "abstract"
+     ],
+     "cls": "cert",
+     "condition": "nlb_type in {\"Digitised Periodical {18335985}\", \"Electronic Book {18335721}\", \"Digitised Book {18335805}\"}",
+     "sql": "(nlb_type = 'Digitised Periodical {18335985}') OR (nlb_type = 'Electronic Book {18335721}') OR (nlb_type = 'Digitised Book {18335805}')",
+     "support": 0.94,
+     "rows": 39728,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.042,
+     "score": 0.63,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v1": "Digitised Periodical {18335985}",
+      "nlb_type=v2": "Electronic Book {18335721}",
+      "nlb_type=v3": "Digitised Book {18335805}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "title",
+      "subject_lcsh"
+     ],
+     "cls": "cert",
+     "condition": "nlb_type in {\"Digitised Periodical {18335985}\", \"Electronic Book {18335721}\", \"Digitised Book {18335805}\"}",
+     "sql": "(nlb_type = 'Digitised Periodical {18335985}') OR (nlb_type = 'Electronic Book {18335721}') OR (nlb_type = 'Digitised Book {18335805}')",
+     "support": 0.94,
+     "rows": 39728,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.038,
+     "score": 0.63,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v1": "Digitised Periodical {18335985}",
+      "nlb_type=v2": "Electronic Book {18335721}",
+      "nlb_type=v3": "Digitised Book {18335805}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(is_referenced_by missing, nlb_type = \"Digitised Periodical {18335985}\" (80%))",
+     "sql": "(is_referenced_by IS NULL AND nlb_type = 'Digitised Periodical {18335985}')",
+     "support": 0.1,
+     "rows": 4244,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.003,
+     "score": 0.618,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v1": "Digitised Periodical {18335985}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(subject_lcsh missing)",
+     "sql": "(subject_lcsh IS NULL)",
+     "support": 0.044,
+     "rows": 1853,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.012,
+     "score": 0.612,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(original_publisher missing, is_referenced_by present)",
+     "sql": "(original_publisher IS NULL AND is_referenced_by IS NOT NULL)",
+     "support": 0.063,
+     "rows": 2670,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.007,
+     "score": 0.49,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(original_publisher missing, nlb_type = \"Digitised Periodical {18335985}\" (80%))",
+     "sql": "(original_publisher IS NULL AND nlb_type = 'Digitised Periodical {18335985}')",
+     "support": 0.06,
+     "rows": 2552,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.01,
+     "score": 0.479,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v1": "Digitised Periodical {18335985}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "title",
+      "abstract"
+     ],
+     "cls": "cert",
+     "condition": "(contributor missing)",
+     "sql": "(contributor IS NULL)",
+     "support": 0.096,
+     "rows": 4046,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.252,
+     "score": 0.402,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "title",
+      "rights"
+     ],
+     "cls": "cert",
+     "condition": "(original_publisher present, is_referenced_by missing)",
+     "sql": "(original_publisher IS NOT NULL AND is_referenced_by IS NULL)",
+     "support": 0.19,
+     "rows": 8040,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.055,
+     "score": 0.378,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "title",
+      "subject_singheritage"
+     ],
+     "cls": "cert",
+     "condition": "(original_publisher present, is_referenced_by missing)",
+     "sql": "(original_publisher IS NOT NULL AND is_referenced_by IS NULL)",
+     "support": 0.19,
+     "rows": 8040,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.062,
+     "score": 0.378,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "date_created"
+     ],
+     "cls": "dom",
+     "condition": "(original_publisher present, access_rights missing)",
+     "sql": "(original_publisher IS NOT NULL AND access_rights IS NULL)",
+     "support": 0.084,
+     "rows": 3561,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.009,
+     "score": 0.34,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title"
+     ],
+     "cls": "pos",
+     "condition": "(identifier_uri present, original_publisher missing)",
+     "sql": "(identifier_uri IS NOT NULL AND original_publisher IS NULL)",
+     "support": 0.08,
+     "rows": 3397,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.14,
+     "score": 0.332,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title",
+      "abstract"
+     ],
+     "cls": "cert",
+     "condition": "(is_referenced_by missing, nlb_type = \"Digitised Periodical {18335985}\" (80%))",
+     "sql": "(is_referenced_by IS NULL AND nlb_type = 'Digitised Periodical {18335985}')",
+     "support": 0.1,
+     "rows": 4244,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.017,
+     "score": 0.33,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v1": "Digitised Periodical {18335985}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "title",
+      "rights"
+     ],
+     "cls": "cert",
+     "condition": "nlb_type in {\"Electronic Book {18335721}\", \"Digitised Book {18335805}\"}",
+     "sql": "(nlb_type = 'Electronic Book {18335721}') OR (nlb_type = 'Digitised Book {18335805}')",
+     "support": 0.144,
+     "rows": 6072,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.086,
+     "score": 0.329,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v2": "Electronic Book {18335721}",
+      "nlb_type=v3": "Digitised Book {18335805}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "title",
+      "subject_singheritage"
+     ],
+     "cls": "cert",
+     "condition": "nlb_type in {\"Electronic Book {18335721}\", \"Digitised Book {18335805}\"}",
+     "sql": "(nlb_type = 'Electronic Book {18335721}') OR (nlb_type = 'Digitised Book {18335805}')",
+     "support": 0.144,
+     "rows": 6072,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.105,
+     "score": 0.329,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v2": "Electronic Book {18335721}",
+      "nlb_type=v3": "Digitised Book {18335805}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "date_created"
+     ],
+     "cls": "dom",
+     "condition": "(subject_singheritage present, access_rights missing)",
+     "sql": "(subject_singheritage IS NOT NULL AND access_rights IS NULL)",
+     "support": 0.075,
+     "rows": 3165,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.009,
+     "score": 0.32,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "date_created",
+      "rights"
+     ],
+     "cls": "part",
+     "condition": "(access_rights missing)",
+     "sql": "(access_rights IS NULL)",
+     "support": 0.094,
+     "rows": 3992,
+     "uncond": "pos",
+     "gain": 2,
+     "nulls_in_scope": 0.176,
+     "score": 0.32,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "date_created"
+     ],
+     "cls": "dom",
+     "condition": "(nlb_type = \"Digitised Periodical {18335985}\" (80%), access_rights missing)",
+     "sql": "(nlb_type = 'Digitised Periodical {18335985}' AND access_rights IS NULL)",
+     "support": 0.066,
+     "rows": 2786,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.002,
+     "score": 0.3,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v1": "Digitised Periodical {18335985}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "date_created"
+     ],
+     "cls": "dom",
+     "condition": "(original_publisher missing, is_referenced_by present)",
+     "sql": "(original_publisher IS NULL AND is_referenced_by IS NOT NULL)",
+     "support": 0.063,
+     "rows": 2670,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.132,
+     "score": 0.294,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title"
+     ],
+     "cls": "pos",
+     "condition": "(original_publisher missing, is_referenced_by present)",
+     "sql": "(original_publisher IS NULL AND is_referenced_by IS NOT NULL)",
+     "support": 0.063,
+     "rows": 2670,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.125,
+     "score": 0.294,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title",
+      "abstract"
+     ],
+     "cls": "cert",
+     "condition": "(contributor missing, abstract present)",
+     "sql": "(contributor IS NULL AND abstract IS NOT NULL)",
+     "support": 0.079,
+     "rows": 3336,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.06,
+     "score": 0.292,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title"
+     ],
+     "cls": "pos",
+     "condition": "(original_publisher missing, nlb_type = \"Digitised Periodical {18335985}\" (80%))",
+     "sql": "(original_publisher IS NULL AND nlb_type = 'Digitised Periodical {18335985}')",
+     "support": 0.06,
+     "rows": 2552,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.121,
+     "score": 0.288,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v1": "Digitised Periodical {18335985}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title",
+      "abstract"
+     ],
+     "cls": "dom",
+     "condition": "(nlb_type = \"Electronic Book {18335721}\" (7%))",
+     "sql": "(nlb_type = 'Electronic Book {18335721}')",
+     "support": 0.075,
+     "rows": 3158,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.076,
+     "score": 0.284,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v2": "Electronic Book {18335721}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title",
+      "abstract"
+     ],
+     "cls": "cert",
+     "condition": "(abstract present, nlb_type = \"Electronic Book {18335721}\" (7%))",
+     "sql": "(abstract IS NOT NULL AND nlb_type = 'Electronic Book {18335721}')",
+     "support": 0.074,
+     "rows": 3123,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.065,
+     "score": 0.283,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v2": "Electronic Book {18335721}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "abstract"
+     ],
+     "cls": "dom",
+     "condition": "(contributor missing)",
+     "sql": "(contributor IS NULL)",
+     "support": 0.096,
+     "rows": 4046,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.252,
+     "score": 0.272,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "abstract"
+     ],
+     "cls": "dom",
+     "condition": "(access_rights missing)",
+     "sql": "(access_rights IS NULL)",
+     "support": 0.094,
+     "rows": 3992,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.21,
+     "score": 0.27,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "rights"
+     ],
+     "cls": "dom",
+     "condition": "(access_rights missing)",
+     "sql": "(access_rights IS NULL)",
+     "support": 0.094,
+     "rows": 3992,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.168,
+     "score": 0.27,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "subject_lcsh"
+     ],
+     "cls": "dom",
+     "condition": "(access_rights missing)",
+     "sql": "(access_rights IS NULL)",
+     "support": 0.094,
+     "rows": 3992,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.207,
+     "score": 0.27,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "contributor"
+     ],
+     "cls": "dom",
+     "condition": "(access_rights missing)",
+     "sql": "(access_rights IS NULL)",
+     "support": 0.094,
+     "rows": 3992,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.169,
+     "score": 0.27,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "subject_singheritage"
+     ],
+     "cls": "dom",
+     "condition": "(access_rights missing)",
+     "sql": "(access_rights IS NULL)",
+     "support": 0.094,
+     "rows": 3992,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.207,
+     "score": 0.27,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "is_referenced_by"
+     ],
+     "cls": "pos",
+     "condition": "(access_rights missing)",
+     "sql": "(access_rights IS NULL)",
+     "support": 0.094,
+     "rows": 3992,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.987,
+     "score": 0.27,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title",
+      "abstract"
+     ],
+     "cls": "cert",
+     "condition": "(nlb_type = \"Digitised Periodical {18335985}\" (80%), access_rights missing)",
+     "sql": "(nlb_type = 'Digitised Periodical {18335985}' AND access_rights IS NULL)",
+     "support": 0.066,
+     "rows": 2786,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.267,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v1": "Digitised Periodical {18335985}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title",
+      "is_referenced_by"
+     ],
+     "cls": "pos",
+     "condition": "(original_publisher missing)",
+     "sql": "(original_publisher IS NULL)",
+     "support": 0.11,
+     "rows": 4669,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.5,
+     "score": 0.259,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "date_created",
+      "rights"
+     ],
+     "cls": "cert",
+     "condition": "(original_publisher present, access_rights missing)",
+     "sql": "(original_publisher IS NOT NULL AND access_rights IS NULL)",
+     "support": 0.084,
+     "rows": 3561,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.117,
+     "score": 0.252,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "date_created",
+      "rights"
+     ],
+     "cls": "cert",
+     "condition": "(contributor present, access_rights missing)",
+     "sql": "(contributor IS NOT NULL AND access_rights IS NULL)",
+     "support": 0.079,
+     "rows": 3319,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.011,
+     "score": 0.243,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title",
+      "abstract"
+     ],
+     "cls": "pos",
+     "condition": "(contributor missing)",
+     "sql": "(contributor IS NULL)",
+     "support": 0.096,
+     "rows": 4046,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.225,
+     "score": 0.241,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title",
+      "is_referenced_by"
+     ],
+     "cls": "pos",
+     "condition": "(contributor missing)",
+     "sql": "(contributor IS NULL)",
+     "support": 0.096,
+     "rows": 4046,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.88,
+     "score": 0.241,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "contributor"
+     ],
+     "cls": "pos",
+     "condition": "(nlb_type = \"Electronic Book {18335721}\" (7%))",
+     "sql": "(nlb_type = 'Electronic Book {18335721}')",
+     "support": 0.075,
+     "rows": 3158,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.784,
+     "score": 0.24,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v2": "Electronic Book {18335721}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title",
+      "abstract"
+     ],
+     "cls": "pos",
+     "condition": "(access_rights missing)",
+     "sql": "(access_rights IS NULL)",
+     "support": 0.094,
+     "rows": 3992,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.216,
+     "score": 0.24,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "title",
+      "rights"
+     ],
+     "cls": "cert",
+     "condition": "(contributor missing, original_publisher present)",
+     "sql": "(contributor IS NULL AND original_publisher IS NOT NULL)",
+     "support": 0.077,
+     "rows": 3233,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.128,
+     "score": 0.24,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "title",
+      "subject_singheritage"
+     ],
+     "cls": "cert",
+     "condition": "(contributor missing, original_publisher present)",
+     "sql": "(contributor IS NULL AND original_publisher IS NOT NULL)",
+     "support": 0.077,
+     "rows": 3233,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.135,
+     "score": 0.24,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "date_created",
+      "abstract"
+     ],
+     "cls": "dom",
+     "condition": "(original_publisher present, is_referenced_by missing)",
+     "sql": "(original_publisher IS NOT NULL AND is_referenced_by IS NULL)",
+     "support": 0.19,
+     "rows": 8040,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.089,
+     "score": 0.227,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "date_created",
+      "rights"
+     ],
+     "cls": "cert",
+     "condition": "(nlb_type = \"Digitised Periodical {18335985}\" (80%), access_rights missing)",
+     "sql": "(nlb_type = 'Digitised Periodical {18335985}' AND access_rights IS NULL)",
+     "support": 0.066,
+     "rows": 2786,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.002,
+     "score": 0.223,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v1": "Digitised Periodical {18335985}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "date_created",
+      "rights"
+     ],
+     "cls": "cert",
+     "condition": "(original_publisher missing, is_referenced_by present)",
+     "sql": "(original_publisher IS NULL AND is_referenced_by IS NOT NULL)",
+     "support": 0.063,
+     "rows": 2670,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.132,
+     "score": 0.218,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "abstract",
+      "rights"
+     ],
+     "cls": "cert",
+     "condition": "(nlb_type = \"Electronic Book {18335721}\" (7%))",
+     "sql": "(nlb_type = 'Electronic Book {18335721}')",
+     "support": 0.075,
+     "rows": 3158,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.011,
+     "score": 0.213,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v2": "Electronic Book {18335721}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "rights",
+      "original_publisher"
+     ],
+     "cls": "cert",
+     "condition": "(nlb_type = \"Electronic Book {18335721}\" (7%))",
+     "sql": "(nlb_type = 'Electronic Book {18335721}')",
+     "support": 0.075,
+     "rows": 3158,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.202,
+     "score": 0.213,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v2": "Electronic Book {18335721}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title"
+     ],
+     "cls": "pos",
+     "condition": "(original_publisher missing, subject_singheritage missing)",
+     "sql": "(original_publisher IS NULL AND subject_singheritage IS NULL)",
+     "support": 0.033,
+     "rows": 1396,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.18,
+     "score": 0.213,
+     "tags": [
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title"
+     ],
+     "cls": "pos",
+     "condition": "(contributor present, subject_singheritage missing)",
+     "sql": "(contributor IS NOT NULL AND subject_singheritage IS NULL)",
+     "support": 0.032,
+     "rows": 1344,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.208,
+     "score": 0.209,
+     "tags": [
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title"
+     ],
+     "cls": "pos",
+     "condition": "(contributor present, abstract missing)",
+     "sql": "(contributor IS NOT NULL AND abstract IS NULL)",
+     "support": 0.031,
+     "rows": 1328,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.266,
+     "score": 0.207,
+     "tags": [
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "date_created",
+      "abstract"
+     ],
+     "cls": "dom",
+     "condition": "(nlb_type = \"Digitised Book {18335805}\" (7%))",
+     "sql": "(nlb_type = 'Digitised Book {18335805}')",
+     "support": 0.069,
+     "rows": 2914,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.106,
+     "score": 0.205,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v3": "Digitised Book {18335805}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "is_referenced_by"
+     ],
+     "cls": "pos",
+     "condition": "nlb_type in {\"Electronic Book {18335721}\", \"Electronic Periodical {18335722}\"}",
+     "sql": "(nlb_type = 'Electronic Book {18335721}') OR (nlb_type = 'Electronic Periodical {18335722}')",
+     "support": 0.114,
+     "rows": 4813,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.976,
+     "score": 0.197,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v2": "Electronic Book {18335721}",
+      "nlb_type=v4": "Electronic Periodical {18335722}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title",
+      "abstract"
+     ],
+     "cls": "dom",
+     "condition": "(contributor missing, access_rights present)",
+     "sql": "(contributor IS NULL AND access_rights IS NOT NULL)",
+     "support": 0.08,
+     "rows": 3373,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.072,
+     "score": 0.196,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title",
+      "abstract"
+     ],
+     "cls": "dom",
+     "condition": "(contributor missing, subject_singheritage present)",
+     "sql": "(contributor IS NULL AND subject_singheritage IS NOT NULL)",
+     "support": 0.079,
+     "rows": 3345,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.071,
+     "score": 0.195,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title",
+      "abstract"
+     ],
+     "cls": "dom",
+     "condition": "(contributor missing, subject_lcsh present)",
+     "sql": "(contributor IS NULL AND subject_lcsh IS NOT NULL)",
+     "support": 0.079,
+     "rows": 3338,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.071,
+     "score": 0.195,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "subject_lcsh"
+     ],
+     "cls": "pos",
+     "condition": "(abstract missing)",
+     "sql": "(abstract IS NULL)",
+     "support": 0.048,
+     "rows": 2038,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.879,
+     "score": 0.193,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "abstract"
+     ],
+     "cls": "dom",
+     "condition": "(contributor missing, nlb_type = \"Electronic Book {18335721}\" (7%))",
+     "sql": "(contributor IS NULL AND nlb_type = 'Electronic Book {18335721}')",
+     "support": 0.059,
+     "rows": 2477,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.011,
+     "score": 0.189,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v2": "Electronic Book {18335721}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "abstract"
+     ],
+     "cls": "dom",
+     "condition": "(is_referenced_by missing, nlb_type = \"Digitised Periodical {18335985}\" (80%))",
+     "sql": "(is_referenced_by IS NULL AND nlb_type = 'Digitised Periodical {18335985}')",
+     "support": 0.1,
+     "rows": 4244,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.003,
+     "score": 0.185,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v1": "Digitised Periodical {18335985}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "abstract"
+     ],
+     "cls": "pos",
+     "condition": "(subject_lcsh missing)",
+     "sql": "(subject_lcsh IS NULL)",
+     "support": 0.044,
+     "rows": 1853,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.967,
+     "score": 0.184,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title",
+      "abstract"
+     ],
+     "cls": "pos",
+     "condition": "(subject_singheritage missing)",
+     "sql": "(subject_singheritage IS NULL)",
+     "support": 0.048,
+     "rows": 2045,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.844,
+     "score": 0.172,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title",
+      "rights"
+     ],
+     "cls": "pos",
+     "condition": "(subject_singheritage missing)",
+     "sql": "(subject_singheritage IS NULL)",
+     "support": 0.048,
+     "rows": 2045,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.454,
+     "score": 0.172,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title",
+      "is_referenced_by"
+     ],
+     "cls": "pos",
+     "condition": "(subject_singheritage missing)",
+     "sql": "(subject_singheritage IS NULL)",
+     "support": 0.048,
+     "rows": 2045,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.663,
+     "score": 0.172,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title",
+      "subject_lcsh"
+     ],
+     "cls": "pos",
+     "condition": "(subject_singheritage missing)",
+     "sql": "(subject_singheritage IS NULL)",
+     "support": 0.048,
+     "rows": 2045,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.856,
+     "score": 0.172,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title",
+      "contributor"
+     ],
+     "cls": "pos",
+     "condition": "(subject_singheritage missing)",
+     "sql": "(subject_singheritage IS NULL)",
+     "support": 0.048,
+     "rows": 2045,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.48,
+     "score": 0.172,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title",
+      "rights"
+     ],
+     "cls": "pos",
+     "condition": "(abstract missing)",
+     "sql": "(abstract IS NULL)",
+     "support": 0.048,
+     "rows": 2038,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.497,
+     "score": 0.171,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title",
+      "is_referenced_by"
+     ],
+     "cls": "pos",
+     "condition": "(abstract missing)",
+     "sql": "(abstract IS NULL)",
+     "support": 0.048,
+     "rows": 2038,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.594,
+     "score": 0.171,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title",
+      "contributor"
+     ],
+     "cls": "pos",
+     "condition": "(abstract missing)",
+     "sql": "(abstract IS NULL)",
+     "support": 0.048,
+     "rows": 2038,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.522,
+     "score": 0.171,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title",
+      "subject_singheritage"
+     ],
+     "cls": "pos",
+     "condition": "(abstract missing)",
+     "sql": "(abstract IS NULL)",
+     "support": 0.048,
+     "rows": 2038,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.884,
+     "score": 0.171,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "abstract"
+     ],
+     "cls": "pos",
+     "condition": "(contributor missing, is_referenced_by missing)",
+     "sql": "(contributor IS NULL AND is_referenced_by IS NULL)",
+     "support": 0.084,
+     "rows": 3530,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.192,
+     "score": 0.169,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "is_referenced_by"
+     ],
+     "cls": "pos",
+     "condition": "(original_publisher missing, abstract present)",
+     "sql": "(original_publisher IS NULL AND abstract IS NOT NULL)",
+     "support": 0.082,
+     "rows": 3446,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.458,
+     "score": 0.167,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "is_referenced_by"
+     ],
+     "cls": "pos",
+     "condition": "(original_publisher missing, subject_lcsh present)",
+     "sql": "(original_publisher IS NULL AND subject_lcsh IS NOT NULL)",
+     "support": 0.081,
+     "rows": 3443,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.458,
+     "score": 0.167,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "date_created",
+      "rights"
+     ],
+     "cls": "dom",
+     "condition": "(is_referenced_by missing, nlb_type = \"Digitised Periodical {18335985}\" (80%))",
+     "sql": "(is_referenced_by IS NULL AND nlb_type = 'Digitised Periodical {18335985}')",
+     "support": 0.1,
+     "rows": 4244,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.02,
+     "score": 0.165,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v1": "Digitised Periodical {18335985}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "date_created",
+      "subject_lcsh"
+     ],
+     "cls": "dom",
+     "condition": "(is_referenced_by missing, nlb_type = \"Digitised Periodical {18335985}\" (80%))",
+     "sql": "(is_referenced_by IS NULL AND nlb_type = 'Digitised Periodical {18335985}')",
+     "support": 0.1,
+     "rows": 4244,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.02,
+     "score": 0.165,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v1": "Digitised Periodical {18335985}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "date_created",
+      "subject_singheritage"
+     ],
+     "cls": "dom",
+     "condition": "(is_referenced_by missing, nlb_type = \"Digitised Periodical {18335985}\" (80%))",
+     "sql": "(is_referenced_by IS NULL AND nlb_type = 'Digitised Periodical {18335985}')",
+     "support": 0.1,
+     "rows": 4244,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.02,
+     "score": 0.165,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v1": "Digitised Periodical {18335985}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "abstract",
+      "rights"
+     ],
+     "cls": "cert",
+     "condition": "(is_referenced_by missing, nlb_type = \"Digitised Periodical {18335985}\" (80%))",
+     "sql": "(is_referenced_by IS NULL AND nlb_type = 'Digitised Periodical {18335985}')",
+     "support": 0.1,
+     "rows": 4244,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.165,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v1": "Digitised Periodical {18335985}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title",
+      "rights"
+     ],
+     "cls": "pos",
+     "condition": "(subject_lcsh missing)",
+     "sql": "(subject_lcsh IS NULL)",
+     "support": 0.044,
+     "rows": 1853,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.54,
+     "score": 0.163,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title",
+      "is_referenced_by"
+     ],
+     "cls": "pos",
+     "condition": "(subject_lcsh missing)",
+     "sql": "(subject_lcsh IS NULL)",
+     "support": 0.044,
+     "rows": 1853,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.65,
+     "score": 0.163,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title",
+      "contributor"
+     ],
+     "cls": "pos",
+     "condition": "(subject_lcsh missing)",
+     "sql": "(subject_lcsh IS NULL)",
+     "support": 0.044,
+     "rows": 1853,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.572,
+     "score": 0.163,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "date_created",
+      "title",
+      "subject_singheritage"
+     ],
+     "cls": "pos",
+     "condition": "(subject_lcsh missing)",
+     "sql": "(subject_lcsh IS NULL)",
+     "support": 0.044,
+     "rows": 1853,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.984,
+     "score": 0.163,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "is_referenced_by"
+     ],
+     "cls": "pos",
+     "condition": "(identifier_uri missing)",
+     "sql": "(identifier_uri IS NULL)",
+     "support": 0.034,
+     "rows": 1443,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.907,
+     "score": 0.162,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "original_publisher"
+     ],
+     "cls": "pos",
+     "condition": "(identifier_uri missing)",
+     "sql": "(identifier_uri IS NULL)",
+     "support": 0.034,
+     "rows": 1443,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.881,
+     "score": 0.162,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "abstract"
+     ],
+     "cls": "dom",
+     "condition": "(subject_singheritage present, nlb_type = \"Electronic Book {18335721}\" (7%))",
+     "sql": "(subject_singheritage IS NOT NULL AND nlb_type = 'Electronic Book {18335721}')",
+     "support": 0.07,
+     "rows": 2946,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.109,
+     "score": 0.154,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v2": "Electronic Book {18335721}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "abstract"
+     ],
+     "cls": "pos",
+     "condition": "(original_publisher missing, is_referenced_by present)",
+     "sql": "(original_publisher IS NULL AND is_referenced_by IS NOT NULL)",
+     "support": 0.063,
+     "rows": 2670,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.301,
+     "score": 0.147,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "subject_lcsh"
+     ],
+     "cls": "pos",
+     "condition": "(original_publisher missing, is_referenced_by present)",
+     "sql": "(original_publisher IS NULL AND is_referenced_by IS NOT NULL)",
+     "support": 0.063,
+     "rows": 2670,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.301,
+     "score": 0.147,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "abstract"
+     ],
+     "cls": "pos",
+     "condition": "(original_publisher missing, nlb_type = \"Digitised Periodical {18335985}\" (80%))",
+     "sql": "(original_publisher IS NULL AND nlb_type = 'Digitised Periodical {18335985}')",
+     "support": 0.06,
+     "rows": 2552,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.306,
+     "score": 0.144,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v1": "Digitised Periodical {18335985}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "subject_lcsh"
+     ],
+     "cls": "pos",
+     "condition": "(original_publisher missing, nlb_type = \"Digitised Periodical {18335985}\" (80%))",
+     "sql": "(original_publisher IS NULL AND nlb_type = 'Digitised Periodical {18335985}')",
+     "support": 0.06,
+     "rows": 2552,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.306,
+     "score": 0.144,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v1": "Digitised Periodical {18335985}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "abstract"
+     ],
+     "cls": "dom",
+     "condition": "(original_publisher present, nlb_type = \"Electronic Book {18335721}\" (7%))",
+     "sql": "(original_publisher IS NOT NULL AND nlb_type = 'Electronic Book {18335721}')",
+     "support": 0.06,
+     "rows": 2521,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.014,
+     "score": 0.143,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v2": "Electronic Book {18335721}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "subject_lcsh"
+     ],
+     "cls": "dom",
+     "condition": "(original_publisher present, nlb_type = \"Electronic Book {18335721}\" (7%))",
+     "sql": "(original_publisher IS NOT NULL AND nlb_type = 'Electronic Book {18335721}')",
+     "support": 0.06,
+     "rows": 2521,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.016,
+     "score": 0.143,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v2": "Electronic Book {18335721}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "abstract",
+      "contributor"
+     ],
+     "cls": "dom",
+     "condition": "(nlb_type = \"Electronic Book {18335721}\" (7%))",
+     "sql": "(nlb_type = 'Electronic Book {18335721}')",
+     "support": 0.075,
+     "rows": 3158,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.787,
+     "score": 0.142,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v2": "Electronic Book {18335721}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "rights"
+     ],
+     "cls": "dom",
+     "condition": "(contributor missing, nlb_type = \"Electronic Book {18335721}\" (7%))",
+     "sql": "(contributor IS NULL AND nlb_type = 'Electronic Book {18335721}')",
+     "support": 0.059,
+     "rows": 2477,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.003,
+     "score": 0.142,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v2": "Electronic Book {18335721}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "subject_lcsh"
+     ],
+     "cls": "dom",
+     "condition": "(contributor missing, nlb_type = \"Electronic Book {18335721}\" (7%))",
+     "sql": "(contributor IS NULL AND nlb_type = 'Electronic Book {18335721}')",
+     "support": 0.059,
+     "rows": 2477,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.017,
+     "score": 0.142,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v2": "Electronic Book {18335721}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "abstract",
+      "contributor"
+     ],
+     "cls": "cert",
+     "condition": "(abstract present, nlb_type = \"Electronic Book {18335721}\" (7%))",
+     "sql": "(abstract IS NOT NULL AND nlb_type = 'Electronic Book {18335721}')",
+     "support": 0.074,
+     "rows": 3123,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.785,
+     "score": 0.141,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v2": "Electronic Book {18335721}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "abstract"
+     ],
+     "cls": "dom",
+     "condition": "(is_referenced_by present, nlb_type = \"Digitised Book {18335805}\" (7%))",
+     "sql": "(is_referenced_by IS NOT NULL AND nlb_type = 'Digitised Book {18335805}')",
+     "support": 0.056,
+     "rows": 2346,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.022,
+     "score": 0.138,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v3": "Digitised Book {18335805}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "abstract",
+      "rights"
+     ],
+     "cls": "cert",
+     "condition": "(nlb_type = \"Digitised Periodical {18335985}\" (80%), access_rights missing)",
+     "sql": "(nlb_type = 'Digitised Periodical {18335985}' AND access_rights IS NULL)",
+     "support": 0.066,
+     "rows": 2786,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.134,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v1": "Digitised Periodical {18335985}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "abstract",
+      "is_referenced_by"
+     ],
+     "cls": "pos",
+     "condition": "(original_publisher missing)",
+     "sql": "(original_publisher IS NULL)",
+     "support": 0.11,
+     "rows": 4669,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.6,
+     "score": 0.13,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "is_referenced_by",
+      "subject_lcsh"
+     ],
+     "cls": "pos",
+     "condition": "(original_publisher missing)",
+     "sql": "(original_publisher IS NULL)",
+     "support": 0.11,
+     "rows": 4669,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.6,
+     "score": 0.13,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "date_created",
+      "abstract"
+     ],
+     "cls": "dom",
+     "condition": "(original_publisher missing, nlb_type = \"Digitised Periodical {18335985}\" (80%))",
+     "sql": "(original_publisher IS NULL AND nlb_type = 'Digitised Periodical {18335985}')",
+     "support": 0.06,
+     "rows": 2552,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.311,
+     "score": 0.128,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v1": "Digitised Periodical {18335985}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "date_created",
+      "rights"
+     ],
+     "cls": "dom",
+     "condition": "(original_publisher missing, nlb_type = \"Digitised Periodical {18335985}\" (80%))",
+     "sql": "(original_publisher IS NULL AND nlb_type = 'Digitised Periodical {18335985}')",
+     "support": 0.06,
+     "rows": 2552,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.13,
+     "score": 0.128,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v1": "Digitised Periodical {18335985}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "date_created",
+      "subject_lcsh"
+     ],
+     "cls": "dom",
+     "condition": "(original_publisher missing, nlb_type = \"Digitised Periodical {18335985}\" (80%))",
+     "sql": "(original_publisher IS NULL AND nlb_type = 'Digitised Periodical {18335985}')",
+     "support": 0.06,
+     "rows": 2552,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.311,
+     "score": 0.128,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v1": "Digitised Periodical {18335985}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "date_created",
+      "subject_singheritage"
+     ],
+     "cls": "dom",
+     "condition": "(original_publisher missing, nlb_type = \"Digitised Periodical {18335985}\" (80%))",
+     "sql": "(original_publisher IS NULL AND nlb_type = 'Digitised Periodical {18335985}')",
+     "support": 0.06,
+     "rows": 2552,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.311,
+     "score": 0.128,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v1": "Digitised Periodical {18335985}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "date_created",
+      "subject_singheritage"
+     ],
+     "cls": "dom",
+     "condition": "(original_publisher present, nlb_type = \"Electronic Book {18335721}\" (7%))",
+     "sql": "(original_publisher IS NOT NULL AND nlb_type = 'Electronic Book {18335721}')",
+     "support": 0.06,
+     "rows": 2521,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.038,
+     "score": 0.127,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v2": "Electronic Book {18335721}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "date_created",
+      "original_publisher"
+     ],
+     "cls": "dom",
+     "condition": "(contributor missing, nlb_type = \"Electronic Book {18335721}\" (7%))",
+     "sql": "(contributor IS NULL AND nlb_type = 'Electronic Book {18335721}')",
+     "support": 0.059,
+     "rows": 2477,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.09,
+     "score": 0.126,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v2": "Electronic Book {18335721}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "date_created",
+      "subject_singheritage"
+     ],
+     "cls": "dom",
+     "condition": "(contributor missing, nlb_type = \"Electronic Book {18335721}\" (7%))",
+     "sql": "(contributor IS NULL AND nlb_type = 'Electronic Book {18335721}')",
+     "support": 0.059,
+     "rows": 2477,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.071,
+     "score": 0.126,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v2": "Electronic Book {18335721}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "abstract",
+      "subject_singheritage"
+     ],
+     "cls": "cert",
+     "condition": "(contributor missing, nlb_type = \"Electronic Book {18335721}\" (7%))",
+     "sql": "(contributor IS NULL AND nlb_type = 'Electronic Book {18335721}')",
+     "support": 0.059,
+     "rows": 2477,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.018,
+     "score": 0.126,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v2": "Electronic Book {18335721}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "original_publisher",
+      "subject_singheritage"
+     ],
+     "cls": "cert",
+     "condition": "(contributor missing, nlb_type = \"Electronic Book {18335721}\" (7%))",
+     "sql": "(contributor IS NULL AND nlb_type = 'Electronic Book {18335721}')",
+     "support": 0.059,
+     "rows": 2477,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.071,
+     "score": 0.126,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v2": "Electronic Book {18335721}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "date_created",
+      "contributor"
+     ],
+     "cls": "dom",
+     "condition": "(is_referenced_by present, nlb_type = \"Digitised Book {18335805}\" (7%))",
+     "sql": "(is_referenced_by IS NOT NULL AND nlb_type = 'Digitised Book {18335805}')",
+     "support": 0.056,
+     "rows": 2346,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.245,
+     "score": 0.123,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v3": "Digitised Book {18335805}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "abstract",
+      "rights"
+     ],
+     "cls": "pos",
+     "condition": "(subject_singheritage missing)",
+     "sql": "(subject_singheritage IS NULL)",
+     "support": 0.048,
+     "rows": 2045,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.833,
+     "score": 0.086,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "abstract",
+      "is_referenced_by"
+     ],
+     "cls": "pos",
+     "condition": "(subject_singheritage missing)",
+     "sql": "(subject_singheritage IS NULL)",
+     "support": 0.048,
+     "rows": 2045,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.971,
+     "score": 0.086,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "abstract",
+      "original_publisher"
+     ],
+     "cls": "pos",
+     "condition": "(subject_singheritage missing)",
+     "sql": "(subject_singheritage IS NULL)",
+     "support": 0.048,
+     "rows": 2045,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.964,
+     "score": 0.086,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "rights",
+      "is_referenced_by"
+     ],
+     "cls": "pos",
+     "condition": "(subject_singheritage missing)",
+     "sql": "(subject_singheritage IS NULL)",
+     "support": 0.048,
+     "rows": 2045,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.546,
+     "score": 0.086,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "rights",
+      "subject_lcsh"
+     ],
+     "cls": "pos",
+     "condition": "(subject_singheritage missing)",
+     "sql": "(subject_singheritage IS NULL)",
+     "support": 0.048,
+     "rows": 2045,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.845,
+     "score": 0.086,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "rights",
+      "original_publisher"
+     ],
+     "cls": "pos",
+     "condition": "(subject_singheritage missing)",
+     "sql": "(subject_singheritage IS NULL)",
+     "support": 0.048,
+     "rows": 2045,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.866,
+     "score": 0.086,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "is_referenced_by",
+      "subject_lcsh"
+     ],
+     "cls": "pos",
+     "condition": "(subject_singheritage missing)",
+     "sql": "(subject_singheritage IS NULL)",
+     "support": 0.048,
+     "rows": 2045,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.978,
+     "score": 0.086,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "subject_lcsh",
+      "original_publisher"
+     ],
+     "cls": "pos",
+     "condition": "(subject_singheritage missing)",
+     "sql": "(subject_singheritage IS NULL)",
+     "support": 0.048,
+     "rows": 2045,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.975,
+     "score": 0.086,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "rights",
+      "original_publisher"
+     ],
+     "cls": "pos",
+     "condition": "(abstract missing)",
+     "sql": "(abstract IS NULL)",
+     "support": 0.048,
+     "rows": 2038,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.789,
+     "score": 0.086,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "original_publisher",
+      "subject_singheritage"
+     ],
+     "cls": "pos",
+     "condition": "(abstract missing)",
+     "sql": "(abstract IS NULL)",
+     "support": 0.048,
+     "rows": 2038,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.883,
+     "score": 0.086,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "rights",
+      "original_publisher"
+     ],
+     "cls": "pos",
+     "condition": "(subject_lcsh missing)",
+     "sql": "(subject_lcsh IS NULL)",
+     "support": 0.044,
+     "rows": 1853,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.864,
+     "score": 0.082,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "original_publisher",
+      "subject_singheritage"
+     ],
+     "cls": "pos",
+     "condition": "(subject_lcsh missing)",
+     "sql": "(subject_lcsh IS NULL)",
+     "support": 0.044,
+     "rows": 1853,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.984,
+     "score": 0.082,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "rights",
+      "original_publisher"
+     ],
+     "cls": "pos",
+     "condition": "(contributor missing, is_referenced_by missing)",
+     "sql": "(contributor IS NULL AND is_referenced_by IS NULL)",
+     "support": 0.084,
+     "rows": 3530,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.318,
+     "score": 0.075,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "original_publisher",
+      "subject_singheritage"
+     ],
+     "cls": "pos",
+     "condition": "(contributor missing, is_referenced_by missing)",
+     "sql": "(contributor IS NULL AND is_referenced_by IS NULL)",
+     "support": 0.084,
+     "rows": 3530,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.32,
+     "score": 0.075,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "abstract",
+      "rights"
+     ],
+     "cls": "pos",
+     "condition": "(identifier_uri present, original_publisher missing)",
+     "sql": "(identifier_uri IS NOT NULL AND original_publisher IS NULL)",
+     "support": 0.08,
+     "rows": 3397,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.358,
+     "score": 0.074,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "abstract",
+      "subject_singheritage"
+     ],
+     "cls": "pos",
+     "condition": "(identifier_uri present, original_publisher missing)",
+     "sql": "(identifier_uri IS NOT NULL AND original_publisher IS NULL)",
+     "support": 0.08,
+     "rows": 3397,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.379,
+     "score": 0.074,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "rights",
+      "subject_lcsh"
+     ],
+     "cls": "pos",
+     "condition": "(identifier_uri present, original_publisher missing)",
+     "sql": "(identifier_uri IS NOT NULL AND original_publisher IS NULL)",
+     "support": 0.08,
+     "rows": 3397,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.358,
+     "score": 0.074,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "title",
+      "subject_lcsh",
+      "subject_singheritage"
+     ],
+     "cls": "pos",
+     "condition": "(identifier_uri present, original_publisher missing)",
+     "sql": "(identifier_uri IS NOT NULL AND original_publisher IS NULL)",
+     "support": 0.08,
+     "rows": 3397,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.379,
+     "score": 0.074,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "rights",
+      "is_referenced_by"
+     ],
+     "cls": "dom",
+     "condition": "(original_publisher present, nlb_type = \"Electronic Book {18335721}\" (7%))",
+     "sql": "(original_publisher IS NOT NULL AND nlb_type = 'Electronic Book {18335721}')",
+     "support": 0.06,
+     "rows": 2521,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.977,
+     "score": 0.064,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v2": "Electronic Book {18335721}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "rights",
+      "contributor"
+     ],
+     "cls": "dom",
+     "condition": "(original_publisher present, nlb_type = \"Electronic Book {18335721}\" (7%))",
+     "sql": "(original_publisher IS NOT NULL AND nlb_type = 'Electronic Book {18335721}')",
+     "support": 0.06,
+     "rows": 2521,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.921,
+     "score": 0.064,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v2": "Electronic Book {18335721}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "rights",
+      "subject_singheritage"
+     ],
+     "cls": "dom",
+     "condition": "(original_publisher present, nlb_type = \"Electronic Book {18335721}\" (7%))",
+     "sql": "(original_publisher IS NOT NULL AND nlb_type = 'Electronic Book {18335721}')",
+     "support": 0.06,
+     "rows": 2521,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.012,
+     "score": 0.064,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v2": "Electronic Book {18335721}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "original_publisher",
+      "contributor"
+     ],
+     "cls": "dom",
+     "condition": "(original_publisher present, nlb_type = \"Electronic Book {18335721}\" (7%))",
+     "sql": "(original_publisher IS NOT NULL AND nlb_type = 'Electronic Book {18335721}')",
+     "support": 0.06,
+     "rows": 2521,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.92,
+     "score": 0.064,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v2": "Electronic Book {18335721}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "original_publisher",
+      "subject_singheritage"
+     ],
+     "cls": "dom",
+     "condition": "(original_publisher present, nlb_type = \"Electronic Book {18335721}\" (7%))",
+     "sql": "(original_publisher IS NOT NULL AND nlb_type = 'Electronic Book {18335721}')",
+     "support": 0.06,
+     "rows": 2521,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.012,
+     "score": 0.064,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v2": "Electronic Book {18335721}"
+     }
+    },
+    {
+     "table": "lbsg.t50",
+     "K": [
+      "identifier_uri",
+      "original_publisher",
+      "subject_singheritage"
+     ],
+     "cls": "dom",
+     "condition": "(contributor missing, nlb_type = \"Electronic Book {18335721}\" (7%))",
+     "sql": "(contributor IS NULL AND nlb_type = 'Electronic Book {18335721}')",
+     "support": 0.059,
+     "rows": 2477,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.073,
+     "score": 0.063,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v2": "Electronic Book {18335721}"
+     }
+    }
+   ],
+   "unconditional": {
+    "identifier_uuid": "cand",
+    "identifier_uri": "pos",
+    "identifier_uri,date_created": "pos",
+    "identifier_uri,title": "pos",
+    "identifier_uri,abstract": "pos",
+    "identifier_uri,rights": "pos",
+    "identifier_uri,is_referenced_by": "pos",
+    "identifier_uri,subject_lcsh": "pos",
+    "identifier_uri,original_publisher": "pos",
+    "identifier_uri,contributor": "pos",
+    "identifier_uri,subject_singheritage": "pos",
+    "identifier_uri,date_created,title": "pos",
+    "identifier_uri,date_created,abstract": "pos",
+    "identifier_uri,date_created,rights": "pos",
+    "identifier_uri,date_created,is_referenced_by": "pos",
+    "identifier_uri,date_created,subject_lcsh": "pos",
+    "identifier_uri,date_created,original_publisher": "pos",
+    "identifier_uri,date_created,contributor": "pos",
+    "identifier_uri,date_created,subject_singheritage": "pos",
+    "identifier_uri,title,abstract": "pos",
+    "identifier_uri,title,rights": "pos",
+    "identifier_uri,title,is_referenced_by": "pos",
+    "identifier_uri,title,subject_lcsh": "pos",
+    "identifier_uri,title,original_publisher": "pos",
+    "identifier_uri,title,contributor": "pos",
+    "identifier_uri,title,subject_singheritage": "pos",
+    "identifier_uri,abstract,rights": "pos",
+    "identifier_uri,abstract,is_referenced_by": "pos",
+    "identifier_uri,abstract,subject_lcsh": "pos",
+    "identifier_uri,abstract,original_publisher": "pos",
+    "identifier_uri,abstract,contributor": "pos",
+    "identifier_uri,abstract,subject_singheritage": "pos",
+    "identifier_uri,rights,is_referenced_by": "pos",
+    "identifier_uri,rights,subject_lcsh": "pos",
+    "identifier_uri,rights,original_publisher": "pos",
+    "identifier_uri,rights,contributor": "pos",
+    "identifier_uri,rights,subject_singheritage": "pos",
+    "identifier_uri,is_referenced_by,subject_lcsh": "pos",
+    "identifier_uri,is_referenced_by,original_publisher": "pos",
+    "identifier_uri,is_referenced_by,contributor": "pos",
+    "identifier_uri,is_referenced_by,subject_singheritage": "pos",
+    "identifier_uri,subject_lcsh,original_publisher": "pos",
+    "identifier_uri,subject_lcsh,contributor": "pos",
+    "identifier_uri,subject_lcsh,subject_singheritage": "pos",
+    "identifier_uri,original_publisher,contributor": "pos",
+    "identifier_uri,original_publisher,subject_singheritage": "pos",
+    "identifier_uri,contributor,subject_singheritage": "pos"
+   }
+  }
+ ]
+}

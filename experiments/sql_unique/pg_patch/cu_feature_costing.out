@@ -1,0 +1,747 @@
+Pager usage is off.
+SET
+DROP SCHEMA
+CREATE SCHEMA
+SET
+CREATE FUNCTION
+CREATE TABLE
+CREATE INDEX
+INSERT 0 1000
+CREATE TABLE
+INSERT 0 5000
+ANALYZE
+(1a) left join on a live-user scope: removable
+SET
+                 QUERY PLAN                 
+--------------------------------------------
+ Hash Left Join
+   Hash Cond: (o.email = u.email)
+   ->  Seq Scan on orders o
+   ->  Hash
+         ->  Seq Scan on users u
+               Filter: (deleted_at IS NULL)
+(6 rows)
+
+SET
+      QUERY PLAN      
+----------------------
+ Seq Scan on orders o
+(1 row)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(1b) without the scope: not removable (deleted users repeat e-mails)
+            QUERY PLAN            
+----------------------------------
+ Hash Left Join
+   Hash Cond: (o.email = u.email)
+   ->  Seq Scan on orders o
+   ->  Hash
+         ->  Seq Scan on users u
+(5 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(1c) semi-join to inner join
+SET
+                 QUERY PLAN                 
+--------------------------------------------
+ Hash Semi Join
+   Hash Cond: (o.email = users.email)
+   ->  Seq Scan on orders o
+   ->  Hash
+         ->  Seq Scan on users
+               Filter: (deleted_at IS NULL)
+(6 rows)
+
+SET
+                 QUERY PLAN                 
+--------------------------------------------
+ Hash Join
+   Hash Cond: (o.email = users.email)
+   ->  Seq Scan on orders o
+   ->  Hash
+         ->  Seq Scan on users
+               Filter: (deleted_at IS NULL)
+(6 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(1d) GROUP BY email, name, id over live users: id and name are redundant
+SET
+                    QUERY PLAN                    
+--------------------------------------------------
+ HashAggregate
+   Group Key: u.email, u.name
+   ->  Hash Join
+         Hash Cond: (o.email = u.email)
+         ->  Seq Scan on orders o
+         ->  Hash
+               ->  Seq Scan on users u
+                     Filter: (deleted_at IS NULL)
+(8 rows)
+
+SET
+                    QUERY PLAN                    
+--------------------------------------------------
+ HashAggregate
+   Group Key: u.email
+   ->  Hash Join
+         Hash Cond: (o.email = u.email)
+         ->  Seq Scan on orders o
+         ->  Hash
+               ->  Seq Scan on users u
+                     Filter: (deleted_at IS NULL)
+(8 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+INSERT 0 900
+ANALYZE
+(2a) status = a: removable
+      QUERY PLAN      
+----------------------
+ Seq Scan on orders o
+(1 row)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(2b) status in (a, b): not removable
+                       QUERY PLAN                       
+--------------------------------------------------------
+ Hash Left Join
+   Hash Cond: (o.amount = c.code)
+   ->  Seq Scan on orders o
+   ->  Hash
+         ->  Seq Scan on codes c
+               Filter: (status = ANY ('{a,b}'::text[]))
+(6 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(2c) status <> c: not removable (a and b rows share codes)
+                 QUERY PLAN                  
+---------------------------------------------
+ Hash Left Join
+   Hash Cond: (o.amount = c.code)
+   ->  Seq Scan on orders o
+   ->  Hash
+         ->  Seq Scan on codes c
+               Filter: (status <> 'c'::text)
+(6 rows)
+
+CREATE TABLE
+CREATE INDEX
+INSERT 0 1100
+ANALYZE
+CREATE TABLE
+INSERT 0 3000
+ANALYZE
+(3) tenant = 3 and active, join on name: removable
+SET
+                   QUERY PLAN                    
+-------------------------------------------------
+ Hash Right Join
+   Hash Cond: (i.name = r.name)
+   ->  Bitmap Heap Scan on items i
+         Recheck Cond: ((tenant = 3) AND active)
+         ->  Bitmap Index Scan on items_tn
+               Index Cond: (tenant = 3)
+   ->  Hash
+         ->  Seq Scan on refs r
+(8 rows)
+
+SET
+     QUERY PLAN     
+--------------------
+ Seq Scan on refs r
+(1 row)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(3b) active only: not removable on name alone
+                QUERY PLAN                 
+-------------------------------------------
+ Hash Right Join
+   Hash Cond: (i.name = r.name)
+   ->  Bitmap Heap Scan on items i
+         Recheck Cond: active
+         ->  Bitmap Index Scan on items_tn
+   ->  Hash
+         ->  Seq Scan on refs r
+(7 rows)
+
+CREATE TABLE
+CREATE INDEX
+INSERT 0 5
+ANALYZE
+(4a) GROUP BY k, v where flag: v is redundant
+SET
+      QUERY PLAN       
+-----------------------
+ HashAggregate
+   Group Key: k, v
+   ->  Seq Scan on nnd
+         Filter: flag
+(4 rows)
+
+SET
+      QUERY PLAN       
+-----------------------
+ HashAggregate
+   Group Key: k
+   ->  Seq Scan on nnd
+         Filter: flag
+(4 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(4b) the same with a nulls-distinct index: not reducible (two null k rows may differ on v)
+CREATE TABLE
+CREATE INDEX
+INSERT 0 3
+ANALYZE
+      QUERY PLAN      
+----------------------
+ HashAggregate
+   Group Key: k, v
+   ->  Seq Scan on nd
+         Filter: flag
+(4 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(4c) ... but with k is not null in the query it is
+                 QUERY PLAN                 
+--------------------------------------------
+ HashAggregate
+   Group Key: k
+   ->  Seq Scan on nd
+         Filter: (flag AND (k IS NOT NULL))
+(4 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+CREATE TABLE
+CREATE TABLE
+CREATE INDEX
+INSERT 0 200
+INSERT 0 20
+INSERT 0 60
+ANALYZE
+(5a) on t2.b = t1.c: the scope of t2 is not fixed, must not be removed
+                   QUERY PLAN                   
+------------------------------------------------
+ Hash Left Join
+   Hash Cond: ((t1.a = t2.a) AND (t1.c = t2.b))
+   ->  Seq Scan on t1
+   ->  Hash
+         ->  Seq Scan on t2
+(5 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(5b) with where t1.c = 1 the planner derives t2.b = 1 for the scan of t2: removable
+    QUERY PLAN     
+-------------------
+ Seq Scan on t1
+   Filter: (c = 1)
+(2 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(5c) inner join on a non-null-scoped index (join.sql test): inner unique is sound here
+CREATE TABLE
+CREATE TABLE
+CREATE INDEX
+                QUERY PLAN                
+------------------------------------------
+ Hash Join
+   Output: j1.id1, j1.id2, j2.id1, j2.id2
+   Inner Unique: true
+   Hash Cond: (j2.id2 = j1.id2)
+   ->  Seq Scan on cu.j2
+         Output: j2.id1, j2.id2
+   ->  Hash
+         Output: j1.id1, j1.id2
+         ->  Seq Scan on cu.j1
+               Output: j1.id1, j1.id2
+(10 rows)
+
+CREATE TABLE
+CREATE INDEX
+                 QUERY PLAN                  
+---------------------------------------------
+ Hash Left Join
+   Hash Cond: (o.amount = ex.k)
+   ->  Seq Scan on orders o
+   ->  Hash
+         ->  Bitmap Heap Scan on ex
+               Recheck Cond: (length(s) > 3)
+               ->  Bitmap Index Scan on ex_k
+(7 rows)
+
+(7a) DISTINCT over the scope of a NULLS NOT DISTINCT index: removable
+   QUERY PLAN    
+-----------------
+ Seq Scan on nnd
+   Filter: flag
+(2 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(7b) DISTINCT over a nulls-distinct scope: not removable (two null k rows form one group)
+      QUERY PLAN      
+----------------------
+ HashAggregate
+   Group Key: k
+   ->  Seq Scan on nd
+         Filter: flag
+(4 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(7c) ... but with k is not null in the query it is
+              QUERY PLAN              
+--------------------------------------
+ Seq Scan on nd
+   Filter: (flag AND (k IS NOT NULL))
+(2 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(7d) more DISTINCT columns than the key: removable
+   QUERY PLAN    
+-----------------
+ Seq Scan on nnd
+   Filter: flag
+(2 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(7e) outside the scope: not removable
+      QUERY PLAN       
+-----------------------
+ HashAggregate
+   Group Key: k
+   ->  Seq Scan on nnd
+(3 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(7f) DISTINCT ON: not touched (DISTINCT over joins: section 8)
+         QUERY PLAN          
+-----------------------------
+ Unique
+   ->  Sort
+         Sort Key: k, v
+         ->  Seq Scan on nnd
+               Filter: flag
+(5 rows)
+
+(7g) live e-mail addresses, NOT NULL key: removable
+           QUERY PLAN           
+--------------------------------
+ Seq Scan on users
+   Filter: (deleted_at IS NULL)
+(2 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+CREATE TABLE
+CREATE INDEX
+INSERT 0 900
+INSERT 0 1000
+INSERT 0 300
+ANALYZE
+(8a) users with their primary address (Discourse pattern): removable
+            QUERY PLAN            
+----------------------------------
+ Hash Join
+   Hash Cond: (u.id = ue.user_id)
+   ->  Seq Scan on users u
+   ->  Hash
+         ->  Seq Scan on ue
+               Filter: "primary"
+(6 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(8b) all addresses: not removable (up to three per user; still unique on (u.id, email) only by data)
+               QUERY PLAN               
+----------------------------------------
+ HashAggregate
+   Group Key: u.id, ue."primary"
+   ->  Hash Join
+         Hash Cond: (ue.user_id = u.id)
+         ->  Seq Scan on ue
+         ->  Hash
+               ->  Seq Scan on users u
+(7 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(8c) left join to the primary address: removable
+            QUERY PLAN            
+----------------------------------
+ Hash Left Join
+   Hash Cond: (u.id = ue.user_id)
+   ->  Seq Scan on users u
+   ->  Hash
+         ->  Seq Scan on ue
+               Filter: "primary"
+(6 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(8d) only the nullable side in DISTINCT: not removable (users without a primary address give null rows)
+               QUERY PLAN               
+----------------------------------------
+ HashAggregate
+   Group Key: ue.email
+   ->  Hash Left Join
+         Hash Cond: (u.id = ue.user_id)
+         ->  Seq Scan on users u
+         ->  Hash
+               ->  Seq Scan on ue
+                     Filter: "primary"
+(8 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(8e) GROUP BY without aggregates over the join: removed
+            QUERY PLAN            
+----------------------------------
+ Hash Join
+   Hash Cond: (u.id = ue.user_id)
+   ->  Seq Scan on users u
+   ->  Hash
+         ->  Seq Scan on ue
+               Filter: "primary"
+(6 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(8f) GROUP BY with count(*): the address drops out of the key
+                     QUERY PLAN                     
+----------------------------------------------------
+ HashAggregate
+   Group Key: u.id
+   ->  Hash Join
+         Hash Cond: (o.email = u.email)
+         ->  Seq Scan on orders o
+         ->  Hash
+               ->  Hash Join
+                     Hash Cond: (u.id = ue.user_id)
+                     ->  Seq Scan on users u
+                     ->  Hash
+                           ->  Seq Scan on ue
+                                 Filter: "primary"
+(12 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(8g) a left join whose ON clause reads an undetermined outer table: key kept
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+INSERT 0 2
+INSERT 0 1
+INSERT 0 1
+ANALYZE
+                        QUERY PLAN                         
+-----------------------------------------------------------
+ GroupAggregate
+   Group Key: o.k, u.y
+   ->  Sort
+         Sort Key: o.k, u.y
+         ->  Nested Loop Left Join
+               Join Filter: ((t.y <> u.y) AND (o.x = u.x))
+               ->  Nested Loop
+                     Join Filter: (o.k = t.a)
+                     ->  Seq Scan on m6o o
+                     ->  Seq Scan on m6t t
+               ->  Materialize
+                     ->  Seq Scan on m6u u
+                           Filter: (d IS NULL)
+(13 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(8h) the inner side of a semi-join adds no rows: removable
+              QUERY PLAN              
+--------------------------------------
+ Hash Join
+   Hash Cond: (u.id = ue.user_id)
+   ->  Seq Scan on users u
+         Filter: (deleted_at IS NULL)
+   ->  Hash
+         ->  HashAggregate
+               Group Key: ue.user_id
+               ->  Seq Scan on ue
+(8 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(8j) a semi-join fixes nothing: customers that bought, by name and state; state kept (TPC-DS q35)
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 2
+INSERT 0 2
+INSERT 0 3
+ANALYZE
+                    QUERY PLAN                    
+--------------------------------------------------
+ GroupAggregate
+   Group Key: a.state, c.name
+   ->  Sort
+         Sort Key: a.state, c.name
+         ->  Nested Loop Semi Join
+               Join Filter: (c.id = cu8s.cid)
+               ->  Nested Loop
+                     Join Filter: (a.id = c.addr)
+                     ->  Seq Scan on cu8c c
+                     ->  Materialize
+                           ->  Seq Scan on cu8a a
+               ->  Materialize
+                     ->  Seq Scan on cu8s
+(13 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(8i) full join: not touched
+               QUERY PLAN               
+----------------------------------------
+ HashAggregate
+   Group Key: u.id, ue.email
+   ->  Hash Full Join
+         Hash Cond: (ue.user_id = u.id)
+         Join Filter: ue."primary"
+         ->  Seq Scan on ue
+         ->  Hash
+               ->  Seq Scan on users u
+(8 rows)
+
+(9a) CHECK (status = 1) on a nullable column: rows with a null status pass it; not removable
+CREATE TABLE
+CREATE INDEX
+INSERT 0 4
+ANALYZE
+      QUERY PLAN       
+-----------------------
+ HashAggregate
+   Group Key: k
+   ->  Seq Scan on c9a
+(3 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(9b) MusicBrainz aliases: CHECK ties a primary alias to a non-null locale; removable
+CREATE TABLE
+CREATE INDEX
+INSERT 0 5
+ANALYZE
+          QUERY PLAN          
+------------------------------
+ Seq Scan on c9b
+   Filter: primary_for_locale
+(2 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(9c) a NOT VALID CHECK may be violated by old rows: not used
+CREATE TABLE
+CREATE INDEX
+INSERT 0 3
+ALTER TABLE
+ANALYZE
+      QUERY PLAN       
+-----------------------
+ HashAggregate
+   Group Key: k
+   ->  Seq Scan on c9c
+(3 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(9d) a NOT ENFORCED CHECK: not used
+CREATE TABLE
+CREATE INDEX
+INSERT 0 3
+ANALYZE
+      QUERY PLAN       
+-----------------------
+ HashAggregate
+   Group Key: k
+   ->  Seq Scan on c9d
+(3 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(9e) CHECK (flag) on a nullable boolean: null flags pass; not removable
+CREATE TABLE
+CREATE INDEX
+INSERT 0 3
+ANALYZE
+      QUERY PLAN       
+-----------------------
+ HashAggregate
+   Group Key: k
+   ->  Seq Scan on c9e
+(3 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(10a) UNIQUE (ns, title), WHERE ns = 0: GROUP BY title, len reduces to title
+CREATE TABLE
+CREATE INDEX
+INSERT 0 3000
+ANALYZE
+        QUERY PLAN        
+--------------------------
+ HashAggregate
+   Group Key: title
+   ->  Seq Scan on c10
+         Filter: (ns = 0)
+(4 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(10b) WHERE ns IN (0, 1): titles repeat across namespaces; kept
+                   QUERY PLAN                    
+-------------------------------------------------
+ HashAggregate
+   Group Key: title, len
+   ->  Seq Scan on c10
+         Filter: (ns = ANY ('{0,1}'::integer[]))
+(4 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+(10c) nullable title: UNIQUE allows several nulls, GROUP BY puts them together; kept
+CREATE TABLE
+CREATE INDEX
+INSERT 0 3
+ANALYZE
+        QUERY PLAN        
+--------------------------
+ HashAggregate
+   Group Key: title, len
+   ->  Seq Scan on c10c
+         Filter: (ns = 0)
+(4 rows)
+
+  cu_check   
+-------------
+ same result
+(1 row)
+
+RESET

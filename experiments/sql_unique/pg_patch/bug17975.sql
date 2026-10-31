@@ -1,0 +1,14 @@
+drop table if exists a, b, c;
+create table a (k int);  create table b (k int, x int);  create table c (x int);
+create unique index on b (k) where x is not null;
+insert into a values (1);
+insert into b values (1, null), (1, 7);
+insert into c values (7);
+analyze a; analyze b; analyze c;
+set enable_hashjoin = off; set enable_mergejoin = off;
+set join_collapse_limit = 1;
+set enable_conditional_unique = off;
+select * from a join b on a.k = b.k join c on b.x = c.x;
+set enable_conditional_unique = on;
+explain (costs off) select * from a join b on a.k = b.k join c on b.x = c.x;
+select * from a join b on a.k = b.k join c on b.x = c.x;

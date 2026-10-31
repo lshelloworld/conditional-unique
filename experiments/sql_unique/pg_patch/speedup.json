@@ -1,0 +1,57 @@
+[
+ {
+  "query": "left join, soft delete",
+  "sql": "select o.id, o.amount from sp.orders o left join sp.users u on u.email = o.email and u.deleted_at is null",
+  "off_ms": 1625.621,
+  "on_ms": 993.028,
+  "speedup": 1.637034403863738,
+  "same_result": true,
+  "rows": 5000000,
+  "plan_off": "Hash Left Join\n  Hash Cond: (o.email = u.email)\n  ->  Seq Scan on orders o\n  ->  Hash\n        ->  Seq Scan on users u\n              Filter: (deleted_at IS NULL)",
+  "plan_on": "Seq Scan on orders o"
+ },
+ {
+  "query": "left join, tenant scope",
+  "sql": "select r.* from sp.refs r left join sp.items i on i.name = r.name and i.tenant = 7 and i.active",
+  "off_ms": 499.875,
+  "on_ms": 112.125,
+  "speedup": 4.45819397993311,
+  "same_result": true,
+  "rows": 2000000,
+  "plan_off": "Hash Right Join\n  Hash Cond: (i.name = r.name)\n  ->  Index Only Scan using items_tn on items i\n        Index Cond: (tenant = 7)\n  ->  Hash\n        ->  Seq Scan on refs r",
+  "plan_on": "Seq Scan on refs r"
+ },
+ {
+  "query": "semi-join, soft delete",
+  "sql": "select o.id from sp.orders o where o.email in (select email from sp.users where deleted_at is null) and o.amount < 5",
+  "off_ms": 632.372,
+  "on_ms": 627.004,
+  "speedup": 1.008561348890916,
+  "same_result": true,
+  "rows": 220000,
+  "plan_off": "Hash Semi Join\n  Hash Cond: (o.email = users.email)\n  ->  Seq Scan on orders o\n        Filter: (amount < 5)\n  ->  Hash\n        ->  Seq Scan on users\n              Filter: (deleted_at IS NULL)",
+  "plan_on": "Hash Join\n  Hash Cond: (o.email = users.email)\n  ->  Seq Scan on orders o\n        Filter: (amount < 5)\n  ->  Hash\n        ->  Seq Scan on users\n              Filter: (deleted_at IS NULL)"
+ },
+ {
+  "query": "GROUP BY, soft delete",
+  "sql": "select u.email, u.name, u.id, count(*) from sp.users u join sp.orders o on o.email = u.email where u.deleted_at is null group by u.email, u.name, u.id",
+  "off_ms": 2472.615,
+  "on_ms": 2340.668,
+  "speedup": 1.0563715144565566,
+  "same_result": true,
+  "rows": 700000,
+  "plan_off": "HashAggregate\n  Group Key: u.id\n  ->  Hash Join\n        Hash Cond: (o.email = u.email)\n        ->  Seq Scan on orders o\n        ->  Hash\n              ->  Seq Scan on users u\n                    Filter: (deleted_at IS NULL)",
+  "plan_on": "HashAggregate\n  Group Key: u.id\n  ->  Hash Join\n        Hash Cond: (o.email = u.email)\n        ->  Seq Scan on orders o\n        ->  Hash\n              ->  Seq Scan on users u\n                    Filter: (deleted_at IS NULL)"
+ },
+ {
+  "query": "DISTINCT, soft delete",
+  "sql": "select distinct email, name from sp.users where deleted_at is null",
+  "off_ms": 535.365,
+  "on_ms": 93.071,
+  "speedup": 5.752221422354976,
+  "same_result": true,
+  "rows": 700000,
+  "plan_off": "HashAggregate\n  Group Key: email, name\n  ->  Seq Scan on users\n        Filter: (deleted_at IS NULL)",
+  "plan_on": "Seq Scan on users\n  Filter: (deleted_at IS NULL)"
+ }
+]

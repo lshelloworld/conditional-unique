@@ -1,0 +1,277 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "Suplr_Mdcr_Stdzd_Pymt_Amt",
+   "DME_Suplr_Sbmtd_Chrgs",
+   "DME_Suplr_Mdcr_Pymt_Amt",
+   "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+   "Rfrg_Prvdr_Zip5"
+  ]
+ },
+ "sample_rows": 108218,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbusa.t345438",
+   "rows": 108218,
+   "cols": [
+    "Rfrg_Prvdr_Type_Flag",
+    "Rfrg_Prvdr_State_Abrvtn",
+    "Rfrg_Prvdr_RUCA",
+    "DME_Suplr_Sbmtd_Chrgs",
+    "DME_Suplr_Mdcr_Pymt_Amt",
+    "Suplr_Mdcr_Stdzd_Pymt_Amt",
+    "Rfrg_Prvdr_Zip5",
+    "POS_Suplr_Mdcr_Stdzd_Pymt_Amt"
+   ],
+   "n_conditional": 10,
+   "conditional": [
+    {
+     "table": "lbusa.t345438",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Sbmtd_Chrgs"
+     ],
+     "cls": "cand",
+     "condition": "(DME_Suplr_Sbmtd_Chrgs present [same rows: DME_Suplr_Mdcr_Pymt_Amt present], POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing)",
+     "sql": "(DME_Suplr_Sbmtd_Chrgs IS NOT NULL AND POS_Suplr_Mdcr_Stdzd_Pymt_Amt IS NULL)",
+     "support": 0.435,
+     "rows": 47056,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.385,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345438",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Sbmtd_Chrgs"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing)",
+     "sql": "(POS_Suplr_Mdcr_Stdzd_Pymt_Amt IS NULL)",
+     "support": 0.491,
+     "rows": 53127,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.114,
+     "score": 1.23,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345438",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Rfrg_Prvdr_Zip5"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing)",
+     "sql": "(POS_Suplr_Mdcr_Stdzd_Pymt_Amt IS NULL)",
+     "support": 0.491,
+     "rows": 53127,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.104,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345438",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Mdcr_Pymt_Amt"
+     ],
+     "cls": "cand",
+     "condition": "(DME_Suplr_Sbmtd_Chrgs present [same rows: DME_Suplr_Mdcr_Pymt_Amt present], POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing)",
+     "sql": "(DME_Suplr_Sbmtd_Chrgs IS NOT NULL AND POS_Suplr_Mdcr_Stdzd_Pymt_Amt IS NULL)",
+     "support": 0.435,
+     "rows": 47056,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.692,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345438",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Mdcr_Pymt_Amt"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing)",
+     "sql": "(POS_Suplr_Mdcr_Stdzd_Pymt_Amt IS NULL)",
+     "support": 0.491,
+     "rows": 53127,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.114,
+     "score": 0.615,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345438",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Rfrg_Prvdr_Zip5"
+     ],
+     "cls": "cand",
+     "condition": "(DME_Suplr_Sbmtd_Chrgs missing [same rows: DME_Suplr_Mdcr_Pymt_Amt missing])",
+     "sql": "(DME_Suplr_Sbmtd_Chrgs IS NULL)",
+     "support": 0.12,
+     "rows": 13003,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.546,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345438",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Mdcr_Pymt_Amt"
+     ],
+     "cls": "pos",
+     "condition": "(DME_Suplr_Sbmtd_Chrgs missing [same rows: DME_Suplr_Mdcr_Pymt_Amt missing])",
+     "sql": "(DME_Suplr_Sbmtd_Chrgs IS NULL)",
+     "support": 0.12,
+     "rows": 13003,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.304,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345438",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "pos",
+     "condition": "(DME_Suplr_Sbmtd_Chrgs missing [same rows: DME_Suplr_Mdcr_Pymt_Amt missing])",
+     "sql": "(DME_Suplr_Sbmtd_Chrgs IS NULL)",
+     "support": 0.12,
+     "rows": 13003,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.467,
+     "score": 0.304,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345438",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "cand",
+     "condition": "(DME_Suplr_Sbmtd_Chrgs missing [same rows: DME_Suplr_Mdcr_Pymt_Amt missing], POS_Suplr_Mdcr_Stdzd_Pymt_Amt present)",
+     "sql": "(DME_Suplr_Sbmtd_Chrgs IS NULL AND POS_Suplr_Mdcr_Stdzd_Pymt_Amt IS NOT NULL)",
+     "support": 0.064,
+     "rows": 6932,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.266,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345438",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_Zip5"
+     ],
+     "cls": "pos",
+     "condition": "(DME_Suplr_Sbmtd_Chrgs missing [same rows: DME_Suplr_Mdcr_Pymt_Amt missing])",
+     "sql": "(DME_Suplr_Sbmtd_Chrgs IS NULL)",
+     "support": 0.12,
+     "rows": 13003,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.152,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    }
+   ],
+   "unconditional": {}
+  }
+ ]
+}

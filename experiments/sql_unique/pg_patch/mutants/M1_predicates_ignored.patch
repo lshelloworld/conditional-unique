@@ -1,0 +1,11 @@
+--- a/src/backend/optimizer/util/condunique.c
++++ b/src/backend/optimizer/util/condunique.c
+@@ -1085,7 +1085,7 @@
+ 			continue;
+ 		while ((a = bms_next_member(pc->p[i].attnos, a)) >= 0)
+ 			ikey |= CU_BIT(cu_col_index_key(ctx, a));	/* registered */
+-		if (!cu_dnf(ctx, (Node *) ind->indpred, &d))
++		if (!cu_dnf(ctx, (Node *) NIL, &d))
+ 			continue;
+ 		pdnf = lappend(pdnf, d);
+ 		pkey = lappend(pkey, palloc_object(uint64));

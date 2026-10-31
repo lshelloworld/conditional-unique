@@ -1,0 +1,4510 @@
+{
+ "seed": 7,
+ "N": 1000,
+ "Q": 20,
+ "stats": {
+  "schemas": 1000,
+  "indexes": 2511,
+  "partial indexes": 2121,
+  "queries": 20000,
+  "queries L": 5040,
+  "plans changed": 5245,
+  "plans changed L": 1381,
+  "L: naive rule licenses removal": 1614,
+  "L: join removed only with the patch": 1381,
+  "queries G": 5072,
+  "queries S": 4957,
+  "queries D": 4931,
+  "plans changed D": 1631,
+  "D: naive rule licenses removal": 3000,
+  "D: DISTINCT removed only with the patch": 1581,
+  "plans changed G": 1172,
+  "plans changed S": 1061,
+  "D: ... and removal is wrong on the data": 727,
+  "L: ... and removal is wrong on the data": 452,
+  "RESULTS DIFFER": 120,
+  "D: ... where the naive rule would have been wrong": 22,
+  "L: ... where the naive rule would have been wrong": 8
+ },
+ "mismatches": [
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ],
+    [
+     "c3",
+     "text",
+     false
+    ],
+    [
+     "c4",
+     "int",
+     false
+    ],
+    [
+     "c5",
+     "bool",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1) where c3 = 'd'",
+    "create unique index t_u1 on x2.t (c4) where c4 <> 3",
+    "create unique index t_u2 on x2.t (c2, c4) where c4 = 1",
+    "create unique index t_u3 on x2.t (c1, c5)"
+   ],
+   "query": "select o.* from x2.o o left join x2.t t on o.c1 = t.c1 and ((not t.c5 and (t.c1)::text = 0::text and t.c1 in (0, 3)) or (t.c4 in (3, 0) and t.c3 is not null and t.c0 is not null))",
+   "knobs": {
+    "enable_hashjoin": false,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "Merge Right Join\n  Merge Cond: (t.c1 = o.c1)\n  ->  Sort\n        Sort Key: t.c1\n        ->  Seq Scan on t\n              Filter: (((NOT c5) AND ((c1)::text = '0'::text) AND (c1 = ANY ('{0,3}'::integer[]))) OR ((c4 = ANY ('{3,0}'::integer[])) AND (c3 IS NOT NULL) AND (c0 IS NOT NULL)))\n  ->  Sort\n        Sort Key: o.c1\n        ->  Seq Scan on o",
+   "plan_on": "Seq Scan on o"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     true
+    ],
+    [
+     "c1",
+     "text",
+     false
+    ],
+    [
+     "c2",
+     "bool",
+     false
+    ],
+    [
+     "c3",
+     "bool",
+     false
+    ],
+    [
+     "c4",
+     "text",
+     false
+    ],
+    [
+     "c5",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c1, c3, c5) where ((c2 is not null and c4 is not null) or (c3 is not null and c3 is not null))",
+    "create unique index t_u1 on x2.t (c1) where c0 = 2 and c0 = 1",
+    "create unique index t_u2 on x2.t (c0, c3, c5) where c5 = 1 and c4 is null",
+    "create unique index t_u3 on x2.t (c1) nulls not distinct where (c3)::text = true::text"
+   ],
+   "query": "select t.c5, t.c2, count(*) from x2.t t where ((t.c1 is null and t.c1 <> 'd' and t.c5 <> 0) or (t.c5 = 3 and t.c4 is null and t.c5 is not null)) group by t.c5, t.c2",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": false,
+    "enable_nestloop": true,
+    "enable_hashagg": false,
+    "enable_sort": true
+   },
+   "plan_off": "GroupAggregate\n  Group Key: c5, c2\n  ->  Sort\n        Sort Key: c5, c2\n        ->  Seq Scan on t\n              Filter: (((c1 IS NULL) AND (c1 <> 'd'::text) AND (c5 <> 0)) OR ((c5 = 3) AND (c4 IS NULL) AND (c5 IS NOT NULL)))",
+   "plan_on": "GroupAggregate\n  Group Key: c5\n  ->  Sort\n        Sort Key: c5\n        ->  Seq Scan on t\n              Filter: (((c1 IS NULL) AND (c1 <> 'd'::text) AND (c5 <> 0)) OR ((c5 = 3) AND (c4 IS NULL) AND (c5 IS NOT NULL)))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     true
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c2) where ((c2 in (3, 1)) or (c2 = 1))",
+    "create unique index t_u1 on x2.t (c0, c1, c2) where c0",
+    "create unique index t_u2 on x2.t (c0, c2) where c2 is null",
+    "create unique index t_u3 on x2.t (c2) where not c0"
+   ],
+   "query": "select distinct t.c0 from x2.t t where t.c2 is null and t.c1 and t.c1 = true",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": false,
+    "enable_hashagg": true,
+    "enable_sort": false
+   },
+   "plan_off": "HashAggregate\n  Group Key: c0\n  ->  Seq Scan on t\n        Filter: ((c2 IS NULL) AND c1 AND c1)",
+   "plan_on": "Seq Scan on t\n  Filter: ((c2 IS NULL) AND c1 AND c1)"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     true
+    ],
+    [
+     "c1",
+     "bool",
+     true
+    ],
+    [
+     "c2",
+     "bool",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1) where c1 is null and c0 is null",
+    "create unique index t_u1 on x2.t (c0, c1, c2) where c0 not in (2, 3)"
+   ],
+   "query": "select t.c2, t.c1, t.c0, count(*) from x2.t t where t.c0 <> 2 and t.c1 = false and t.c0 = 0 group by t.c2, t.c1, t.c0",
+   "knobs": {
+    "enable_hashjoin": false,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c2, c1\n  ->  Seq Scan on t\n        Filter: ((NOT c1) AND (c0 <> 2) AND (c0 = 0))",
+   "plan_on": "HashAggregate\n  Group Key: c1\n  ->  Seq Scan on t\n        Filter: ((NOT c1) AND (c0 <> 2) AND (c0 = 0))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "text",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c2)",
+    "create unique index t_u1 on x2.t (c1) where c1 in (2, 2) and c2 = 'd'"
+   ],
+   "query": "select t.c2, t.c0, t.c1, count(*) from x2.t t where true group by t.c2, t.c0, t.c1",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c2, c0, c1\n  ->  Seq Scan on t",
+   "plan_on": "HashAggregate\n  Group Key: c1\n  ->  Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "text",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c2)",
+    "create unique index t_u1 on x2.t (c1) where c1 in (2, 2) and c2 = 'd'"
+   ],
+   "query": "select t.c2, t.c0, t.c1, count(*) from x2.t t where t.c2 <> 'b' and t.c2 <> 'b' group by t.c2, t.c0, t.c1",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c2, c0, c1\n  ->  Seq Scan on t\n        Filter: ((c2 <> 'b'::text) AND (c2 <> 'b'::text))",
+   "plan_on": "HashAggregate\n  Group Key: c1\n  ->  Seq Scan on t\n        Filter: ((c2 <> 'b'::text) AND (c2 <> 'b'::text))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "text",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     true
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ],
+    [
+     "c3",
+     "int",
+     false
+    ],
+    [
+     "c4",
+     "bool",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1, c2) where c0 is null",
+    "create unique index t_u1 on x2.t (c0, c1, c2) nulls not distinct where c1 is not null",
+    "create unique index t_u2 on x2.t (c3, c4)"
+   ],
+   "query": "select distinct t.c0, t.c1 from x2.t t where t.c4 is null",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": false,
+    "enable_sort": true
+   },
+   "plan_off": "Unique\n  ->  Sort\n        Sort Key: c0, c1\n        ->  Seq Scan on t\n              Filter: (c4 IS NULL)",
+   "plan_on": "Seq Scan on t\n  Filter: (c4 IS NULL)"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     true
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0) where c2 is null"
+   ],
+   "query": "select distinct t.c2 from x2.t t where ((not t.c1) or (not t.c0 and t.c0 is not null))",
+   "knobs": {
+    "enable_hashjoin": false,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c2\n  ->  Seq Scan on t\n        Filter: ((NOT c1) OR ((NOT c0) AND (c0 IS NOT NULL)))",
+   "plan_on": "Seq Scan on t\n  Filter: ((NOT c1) OR ((NOT c0) AND (c0 IS NOT NULL)))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     true
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0) where c2 is null"
+   ],
+   "query": "select distinct t.c1, t.c2, t.c0 from x2.t t where t.c2 <> 1",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "Unique\n  ->  Sort\n        Sort Key: c1, c2, c0\n        ->  Seq Scan on t\n              Filter: (c2 <> 1)",
+   "plan_on": "Seq Scan on t\n  Filter: (c2 <> 1)"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     true
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0) where c2 is null"
+   ],
+   "query": "select t.c1, t.c2, t.c0, count(*) from x2.t t where t.c1 is not null group by t.c1, t.c2, t.c0",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": false,
+    "enable_sort": true
+   },
+   "plan_off": "GroupAggregate\n  Group Key: c1, c2, c0\n  ->  Sort\n        Sort Key: c1, c2, c0\n        ->  Seq Scan on t",
+   "plan_on": "GroupAggregate\n  Group Key: c0\n  ->  Sort\n        Sort Key: c0\n        ->  Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     true
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0) where c2 is null"
+   ],
+   "query": "select o.* from x2.o o left join x2.t t on o.c2 = t.c2 and ((t.c1 is not null and t.c2 is not null) or (t.c1 is not null and t.c2 = 3))",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": false,
+    "enable_sort": true
+   },
+   "plan_off": "Hash Left Join\n  Hash Cond: (o.c2 = t.c2)\n  ->  Seq Scan on o\n  ->  Hash\n        ->  Seq Scan on t\n              Filter: ((c2 IS NOT NULL) OR (c2 = 3))",
+   "plan_on": "Seq Scan on o"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     true
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0) where c2 is null"
+   ],
+   "query": "select distinct t.c0, t.c2, t.c1 from x2.t t where true",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": false
+   },
+   "plan_off": "HashAggregate\n  Group Key: c0, c2, c1\n  ->  Seq Scan on t",
+   "plan_on": "Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     true
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0) where c2 is null"
+   ],
+   "query": "select t.c0, t.c2, t.c1, count(*) from x2.t t where ((t.c1 = true) or (t.c1)) group by t.c0, t.c2, t.c1",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": false,
+    "enable_hashagg": true,
+    "enable_sort": false
+   },
+   "plan_off": "HashAggregate\n  Group Key: c0, c2, c1\n  ->  Seq Scan on t\n        Filter: c1",
+   "plan_on": "HashAggregate\n  Group Key: c0\n  ->  Seq Scan on t\n        Filter: c1"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     true
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0) where c2 is null"
+   ],
+   "query": "select o.* from x2.o o left join x2.t t on o.c1 = t.c1 and true",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "Hash Left Join\n  Hash Cond: (o.c1 = t.c1)\n  ->  Seq Scan on o\n  ->  Hash\n        ->  Seq Scan on t",
+   "plan_on": "Seq Scan on o"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     true
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0) where c2 is null"
+   ],
+   "query": "select t.c0, t.c1, t.c2, count(*) from x2.t t where true group by t.c0, t.c1, t.c2",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": false,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c0, c1, c2\n  ->  Seq Scan on t",
+   "plan_on": "HashAggregate\n  Group Key: c0\n  ->  Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     true
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0) where c2 is null"
+   ],
+   "query": "select distinct t.c2, t.c1 from x2.t t where not t.c1 and not t.c1",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": false,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "Unique\n  ->  Sort\n        Sort Key: c2, c1\n        ->  Seq Scan on t\n              Filter: ((NOT c1) AND (NOT c1))",
+   "plan_on": "Seq Scan on t\n  Filter: ((NOT c1) AND (NOT c1))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     true
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ],
+    [
+     "c3",
+     "int",
+     false
+    ],
+    [
+     "c4",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c1, c2, c3)"
+   ],
+   "query": "select distinct t.c0, t.c2, t.c1 from x2.t t where true",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": false
+   },
+   "plan_off": "HashAggregate\n  Group Key: c0, c2, c1\n  ->  Seq Scan on t",
+   "plan_on": "Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     true
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ],
+    [
+     "c3",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1, c2) where c2 = 0 and c2 is null",
+    "create unique index t_u1 on x2.t (c0, c1, c2) where c3 is not null and not c0",
+    "create unique index t_u2 on x2.t (c3)",
+    "create unique index t_u3 on x2.t (c2, c3) where c0 is null and c1 <> 2"
+   ],
+   "query": "select t.c3, t.c0, count(*) from x2.t t where t.c1 = 3 and t.c1 in (3, 3) and t.c1 <> 2 group by t.c3, t.c0",
+   "knobs": {
+    "enable_hashjoin": false,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": false,
+    "enable_sort": true
+   },
+   "plan_off": "GroupAggregate\n  Group Key: c3, c0\n  ->  Sort\n        Sort Key: c3, c0\n        ->  Seq Scan on t\n              Filter: ((c1 = ANY ('{3,3}'::integer[])) AND (c1 <> 2) AND (c1 = 3))",
+   "plan_on": "GroupAggregate\n  Group Key: c3\n  ->  Sort\n        Sort Key: c3\n        ->  Seq Scan on t\n              Filter: ((c1 = ANY ('{3,3}'::integer[])) AND (c1 <> 2) AND (c1 = 3))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "text",
+     true
+    ],
+    [
+     "c2",
+     "int",
+     true
+    ],
+    [
+     "c3",
+     "bool",
+     false
+    ],
+    [
+     "c4",
+     "text",
+     false
+    ],
+    [
+     "c5",
+     "text",
+     true
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c3, c4, c5) where ((c1 is null and c0 = 0) or (c2 is not null and c2 = 1))",
+    "create unique index t_u1 on x2.t (c2, c3, c4) where c2 <> 2",
+    "create unique index t_u2 on x2.t (c3, c4) where c0 = 1"
+   ],
+   "query": "select o.* from x2.o o left join x2.t t on o.c2 = t.c2 and ((t.c1 is not null and t.c5 is not null and t.c0 is null) or (t.c0 in (1, 3)))",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": false
+   },
+   "plan_off": "Hash Right Join\n  Hash Cond: (t.c2 = o.c2)\n  ->  Seq Scan on t\n        Filter: (((c1 IS NOT NULL) AND (c5 IS NOT NULL) AND (c0 IS NULL)) OR (c0 = ANY ('{1,3}'::integer[])))\n  ->  Hash\n        ->  Seq Scan on o",
+   "plan_on": "Seq Scan on o"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0) nulls not distinct where ((c0 in (1, 2)) or (c2 in (2, 1)))",
+    "create unique index t_u1 on x2.t (c0, c1) where c2 = 3 and c2 = 0",
+    "create unique index t_u2 on x2.t (c1, c2) nulls not distinct where ((c1 is null) or ((c2)::text = 1::text))"
+   ],
+   "query": "select distinct t.c0, t.c2, t.c1 from x2.t t where t.c0 is null",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": false,
+    "enable_sort": true
+   },
+   "plan_off": "Unique\n  ->  Sort\n        Sort Key: c0, c2, c1\n        ->  Seq Scan on t\n              Filter: (c0 IS NULL)",
+   "plan_on": "Seq Scan on t\n  Filter: (c0 IS NULL)"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "bool",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0) where c1 = 3",
+    "create unique index t_u1 on x2.t (c1)"
+   ],
+   "query": "select o.* from x2.o o left join x2.t t on o.c0 = t.c0 and true",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": false,
+    "enable_sort": true
+   },
+   "plan_off": "Hash Left Join\n  Hash Cond: (o.c0 = t.c0)\n  ->  Seq Scan on o\n  ->  Hash\n        ->  Seq Scan on t",
+   "plan_on": "Seq Scan on o"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "bool",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0) where c1 = 3",
+    "create unique index t_u1 on x2.t (c1)"
+   ],
+   "query": "select distinct t.c0 from x2.t t where true",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": false,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": false
+   },
+   "plan_off": "HashAggregate\n  Group Key: c0\n  ->  Seq Scan on t",
+   "plan_on": "Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "text",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     true
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c1, c2) where ((c2 = 0) or (c1 <> 'b' and c1 in ('d', 'a')))",
+    "create unique index t_u1 on x2.t (c0, c1, c2) where ((c0 is null) or (c2 = 2 and c0 is not null))",
+    "create unique index t_u2 on x2.t (c1, c2) where c1 in ('b', 'a') and c1 not in ('c', 'c')"
+   ],
+   "query": "select distinct t.c1, t.c2, t.c0 from x2.t t where true",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": false
+   },
+   "plan_off": "HashAggregate\n  Group Key: c1, c2, c0\n  ->  Seq Scan on t",
+   "plan_on": "Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "text",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     true
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c1, c2) where ((c2 = 0) or (c1 <> 'b' and c1 in ('d', 'a')))",
+    "create unique index t_u1 on x2.t (c0, c1, c2) where ((c0 is null) or (c2 = 2 and c0 is not null))",
+    "create unique index t_u2 on x2.t (c1, c2) where c1 in ('b', 'a') and c1 not in ('c', 'c')"
+   ],
+   "query": "select distinct t.c1, t.c2 from x2.t t where true",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": false,
+    "enable_hashagg": false,
+    "enable_sort": true
+   },
+   "plan_off": "Unique\n  ->  Sort\n        Sort Key: c1, c2\n        ->  Seq Scan on t",
+   "plan_on": "Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "text",
+     false
+    ],
+    [
+     "c1",
+     "text",
+     false
+    ],
+    [
+     "c2",
+     "bool",
+     false
+    ],
+    [
+     "c3",
+     "int",
+     true
+    ],
+    [
+     "c4",
+     "bool",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c1) where c0 in ('d', 'b') and c3 = 2",
+    "create unique index t_u1 on x2.t (c3) nulls not distinct where c0 = 'd' and c3 is null",
+    "create unique index t_u2 on x2.t (c1, c3, c4)"
+   ],
+   "query": "select o.* from x2.o o left join x2.t t on o.c3 = t.c3 and ((t.c1 not in ('c', 'c') and t.c1 = 'd' and t.c0 is not null) or (t.c1 is null))",
+   "knobs": {
+    "enable_hashjoin": false,
+    "enable_mergejoin": false,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "Nested Loop Left Join\n  Join Filter: (o.c3 = t.c3)\n  ->  Seq Scan on o\n  ->  Materialize\n        ->  Seq Scan on t\n              Filter: (((c1 <> ALL ('{c,c}'::text[])) AND (c1 = 'd'::text) AND (c0 IS NOT NULL)) OR (c1 IS NULL))",
+   "plan_on": "Seq Scan on o"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ],
+    [
+     "c3",
+     "text",
+     false
+    ],
+    [
+     "c4",
+     "int",
+     false
+    ],
+    [
+     "c5",
+     "text",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c5) where c0 <> 0 and c0 = 2"
+   ],
+   "query": "select t.c1, t.c5, t.c4, t.c3, t.c2, count(*) from x2.t t where t.c3 is not null and t.c1 is null group by t.c1, t.c5, t.c4, t.c3, t.c2",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c1, c5, c4, c3, c2\n  ->  Seq Scan on t\n        Filter: ((c3 IS NOT NULL) AND (c1 IS NULL))",
+   "plan_on": "HashAggregate\n  Group Key: c5\n  ->  Seq Scan on t\n        Filter: ((c3 IS NOT NULL) AND (c1 IS NULL))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c2) where ((c2 = 3) or (c2 is null))"
+   ],
+   "query": "select distinct t.c0 from x2.t t where true",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": false,
+    "enable_hashagg": false,
+    "enable_sort": true
+   },
+   "plan_off": "Unique\n  ->  Sort\n        Sort Key: c0\n        ->  Seq Scan on t",
+   "plan_on": "Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c2) where ((c2 = 3) or (c2 is null))"
+   ],
+   "query": "select distinct t.c0 from x2.t t where ((t.c0 <> 3) or ((t.c0)::text = 3::text and t.c1 = false))",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": false,
+    "enable_sort": true
+   },
+   "plan_off": "Unique\n  ->  Sort\n        Sort Key: c0\n        ->  Seq Scan on t\n              Filter: ((c0 <> 3) OR (((c0)::text = '3'::text) AND (NOT c1)))",
+   "plan_on": "Seq Scan on t\n  Filter: ((c0 <> 3) OR (((c0)::text = '3'::text) AND (NOT c1)))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c2) where ((c2 = 3) or (c2 is null))"
+   ],
+   "query": "select t.c1, t.c0, t.c2, count(*) from x2.t t where t.c0 is not null and t.c0 = 1 group by t.c1, t.c0, t.c2",
+   "knobs": {
+    "enable_hashjoin": false,
+    "enable_mergejoin": false,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c1, c2\n  ->  Seq Scan on t\n        Filter: ((c0 IS NOT NULL) AND (c0 = 1))",
+   "plan_on": "HashAggregate\n  Group Key: c2\n  ->  Seq Scan on t\n        Filter: ((c0 IS NOT NULL) AND (c0 = 1))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c2) where ((c2 = 3) or (c2 is null))"
+   ],
+   "query": "select t.c1, t.c2, count(*) from x2.t t where t.c0 is null group by t.c1, t.c2",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": false,
+    "enable_nestloop": false,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c1, c2\n  ->  Seq Scan on t\n        Filter: (c0 IS NULL)",
+   "plan_on": "HashAggregate\n  Group Key: c2\n  ->  Seq Scan on t\n        Filter: (c0 IS NULL)"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "text",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0) where ((c0 is not null and c1 is not null) or (c0))",
+    "create unique index t_u1 on x2.t (c0, c1, c2) where (c1)::text = true::text",
+    "create unique index t_u2 on x2.t (c0, c1, c2) where c2 = 'd' and c0",
+    "create unique index t_u3 on x2.t (c0, c1, c2) nulls not distinct"
+   ],
+   "query": "select t.c0, t.c1, t.c2, count(*) from x2.t t where ((t.c2 = 'd' and (t.c1)::text = false::text) or (not t.c0 and t.c0 is not null)) group by t.c0, t.c1, t.c2",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": false,
+    "enable_sort": true
+   },
+   "plan_off": "GroupAggregate\n  Group Key: c0, c1, c2\n  ->  Sort\n        Sort Key: c0, c1, c2\n        ->  Seq Scan on t\n              Filter: (((c2 = 'd'::text) AND ((c1)::text = 'false'::text)) OR ((NOT c0) AND (c0 IS NOT NULL)))",
+   "plan_on": "GroupAggregate\n  Group Key: c0\n  ->  Sort\n        Sort Key: c0\n        ->  Seq Scan on t\n              Filter: (((c2 = 'd'::text) AND ((c1)::text = 'false'::text)) OR ((NOT c0) AND (c0 IS NOT NULL)))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "text",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0) where ((c0 is not null and c1 is not null) or (c0))",
+    "create unique index t_u1 on x2.t (c0, c1, c2) where (c1)::text = true::text",
+    "create unique index t_u2 on x2.t (c0, c1, c2) where c2 = 'd' and c0",
+    "create unique index t_u3 on x2.t (c0, c1, c2) nulls not distinct"
+   ],
+   "query": "select t.c0, t.c1, count(*) from x2.t t where true group by t.c0, t.c1",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c0, c1\n  ->  Seq Scan on t",
+   "plan_on": "HashAggregate\n  Group Key: c0\n  ->  Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "text",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0) where ((c0 is not null and c1 is not null) or (c0))",
+    "create unique index t_u1 on x2.t (c0, c1, c2) where (c1)::text = true::text",
+    "create unique index t_u2 on x2.t (c0, c1, c2) where c2 = 'd' and c0",
+    "create unique index t_u3 on x2.t (c0, c1, c2) nulls not distinct"
+   ],
+   "query": "select t.c1, t.c0, t.c2, count(*) from x2.t t where true group by t.c1, t.c0, t.c2",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": false,
+    "enable_sort": true
+   },
+   "plan_off": "GroupAggregate\n  Group Key: c1, c0, c2\n  ->  Sort\n        Sort Key: c1, c0, c2\n        ->  Seq Scan on t",
+   "plan_on": "GroupAggregate\n  Group Key: c0\n  ->  Sort\n        Sort Key: c0\n        ->  Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "text",
+     false
+    ],
+    [
+     "c3",
+     "text",
+     false
+    ],
+    [
+     "c4",
+     "text",
+     false
+    ],
+    [
+     "c5",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c1) where ((c0 <> 1 and c0 not in (2, 3)) or (c4 in ('d', 'a')))",
+    "create unique index t_u1 on x2.t (c1, c5) nulls not distinct where (((c4)::text = 'c'::text) or ((c0)::text = 1::text and c5 in (3, 2)))",
+    "create unique index t_u2 on x2.t (c1) where c0 = 3 and c5 is not null",
+    "create unique index t_u3 on x2.t (c0, c2, c4) where ((c0 <> 0) or (c2 is not null and c4 is null))"
+   ],
+   "query": "select o.* from x2.o o left join x2.t t on o.c0 = t.c0 and t.c4 is null",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": false,
+    "enable_hashagg": false,
+    "enable_sort": false
+   },
+   "plan_off": "Hash Left Join\n  Hash Cond: (o.c0 = t.c0)\n  ->  Seq Scan on o\n  ->  Hash\n        ->  Seq Scan on t\n              Filter: (c4 IS NULL)",
+   "plan_on": "Seq Scan on o"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "text",
+     false
+    ],
+    [
+     "c3",
+     "text",
+     false
+    ],
+    [
+     "c4",
+     "text",
+     false
+    ],
+    [
+     "c5",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c1) where ((c0 <> 1 and c0 not in (2, 3)) or (c4 in ('d', 'a')))",
+    "create unique index t_u1 on x2.t (c1, c5) nulls not distinct where (((c4)::text = 'c'::text) or ((c0)::text = 1::text and c5 in (3, 2)))",
+    "create unique index t_u2 on x2.t (c1) where c0 = 3 and c5 is not null",
+    "create unique index t_u3 on x2.t (c0, c2, c4) where ((c0 <> 0) or (c2 is not null and c4 is null))"
+   ],
+   "query": "select o.* from x2.o o left join x2.t t on o.c1 = t.c1 and true",
+   "knobs": {
+    "enable_hashjoin": false,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": false
+   },
+   "plan_off": "Nested Loop Left Join\n  Join Filter: (o.c1 = t.c1)\n  ->  Seq Scan on o\n  ->  Materialize\n        ->  Seq Scan on t",
+   "plan_on": "Seq Scan on o"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "text",
+     false
+    ],
+    [
+     "c3",
+     "bool",
+     false
+    ],
+    [
+     "c4",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c1) nulls not distinct where c2 is null"
+   ],
+   "query": "select t.c1, t.c2, t.c4, t.c0, t.c3, count(*) from x2.t t where t.c4 is null group by t.c1, t.c2, t.c4, t.c0, t.c3",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": false,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c1, c2, c4, c0, c3\n  ->  Seq Scan on t\n        Filter: (c4 IS NULL)",
+   "plan_on": "HashAggregate\n  Group Key: c1\n  ->  Seq Scan on t\n        Filter: (c4 IS NULL)"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     true
+    ],
+    [
+     "c1",
+     "text",
+     true
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ],
+    [
+     "c3",
+     "bool",
+     false
+    ],
+    [
+     "c4",
+     "text",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c4) where c3 and c4 is not null"
+   ],
+   "query": "select distinct t.c1, t.c3, t.c4 from x2.t t where true",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": false,
+    "enable_nestloop": true,
+    "enable_hashagg": false,
+    "enable_sort": true
+   },
+   "plan_off": "Unique\n  ->  Sort\n        Sort Key: c1, c3, c4\n        ->  Seq Scan on t",
+   "plan_on": "Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     true
+    ],
+    [
+     "c1",
+     "text",
+     true
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ],
+    [
+     "c3",
+     "bool",
+     false
+    ],
+    [
+     "c4",
+     "text",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c4) where c3 and c4 is not null"
+   ],
+   "query": "select o.* from x2.o o left join x2.t t on o.c4 = t.c4 and true",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": false,
+    "enable_sort": true
+   },
+   "plan_off": "Hash Left Join\n  Hash Cond: (o.c4 = t.c4)\n  ->  Seq Scan on o\n  ->  Hash\n        ->  Seq Scan on t",
+   "plan_on": "Seq Scan on o"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     true
+    ],
+    [
+     "c1",
+     "text",
+     true
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ],
+    [
+     "c3",
+     "bool",
+     false
+    ],
+    [
+     "c4",
+     "text",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c4) where c3 and c4 is not null"
+   ],
+   "query": "select t.c4, t.c2, t.c0, t.c1, count(*) from x2.t t where t.c0 <> 3 and t.c4 is not null group by t.c4, t.c2, t.c0, t.c1",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c4, c2, c0, c1\n  ->  Seq Scan on t\n        Filter: ((c4 IS NOT NULL) AND (c0 <> 3))",
+   "plan_on": "HashAggregate\n  Group Key: c4, c0\n  ->  Seq Scan on t\n        Filter: ((c4 IS NOT NULL) AND (c0 <> 3))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "text",
+     false
+    ],
+    [
+     "c2",
+     "text",
+     false
+    ],
+    [
+     "c3",
+     "bool",
+     false
+    ],
+    [
+     "c4",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c1)",
+    "create unique index t_u1 on x2.t (c3) where c0 in (0, 1)",
+    "create unique index t_u2 on x2.t (c1) where c4 not in (3, 3) and c3",
+    "create unique index t_u3 on x2.t (c1, c4) where ((c3 is null) or (c1 <> 'a'))"
+   ],
+   "query": "select distinct t.c2, t.c1 from x2.t t where true",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c2, c1\n  ->  Seq Scan on t",
+   "plan_on": "Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "text",
+     false
+    ],
+    [
+     "c2",
+     "text",
+     false
+    ],
+    [
+     "c3",
+     "bool",
+     false
+    ],
+    [
+     "c4",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c1)",
+    "create unique index t_u1 on x2.t (c3) where c0 in (0, 1)",
+    "create unique index t_u2 on x2.t (c1) where c4 not in (3, 3) and c3",
+    "create unique index t_u3 on x2.t (c1, c4) where ((c3 is null) or (c1 <> 'a'))"
+   ],
+   "query": "select o.* from x2.o o left join x2.t t on o.c2 = t.c2 and t.c0 is not null",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": false
+   },
+   "plan_off": "Hash Left Join\n  Hash Cond: (o.c2 = t.c2)\n  ->  Seq Scan on o\n  ->  Hash\n        ->  Seq Scan on t\n              Filter: (c0 IS NOT NULL)",
+   "plan_on": "Seq Scan on o"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ],
+    [
+     "c3",
+     "bool",
+     true
+    ],
+    [
+     "c4",
+     "bool",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c2)",
+    "create unique index t_u1 on x2.t (c0) nulls not distinct where (c1)::text = 2::text"
+   ],
+   "query": "select o.* from x2.o o where (o.c3) in (select t.c3 from x2.t t where (t.c0)::text = 0::text)",
+   "knobs": {
+    "enable_hashjoin": false,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "Nested Loop Semi Join\n  Join Filter: (o.c3 = t.c3)\n  ->  Seq Scan on o\n  ->  Materialize\n        ->  Seq Scan on t\n              Filter: ((c0)::text = '0'::text)",
+   "plan_on": "Nested Loop\n  Join Filter: (o.c3 = t.c3)\n  ->  Seq Scan on t\n        Filter: ((c0)::text = '0'::text)\n  ->  Seq Scan on o"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ],
+    [
+     "c3",
+     "bool",
+     true
+    ],
+    [
+     "c4",
+     "bool",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c2)",
+    "create unique index t_u1 on x2.t (c0) nulls not distinct where (c1)::text = 2::text"
+   ],
+   "query": "select t.c1, t.c2, t.c3, t.c0, count(*) from x2.t t where true group by t.c1, t.c2, t.c3, t.c0",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c1, c2, c3, c0\n  ->  Seq Scan on t",
+   "plan_on": "HashAggregate\n  Group Key: c0\n  ->  Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ],
+    [
+     "c3",
+     "bool",
+     true
+    ],
+    [
+     "c4",
+     "bool",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c2)",
+    "create unique index t_u1 on x2.t (c0) nulls not distinct where (c1)::text = 2::text"
+   ],
+   "query": "select t.c3, t.c2, t.c0, count(*) from x2.t t where t.c2 is null group by t.c3, t.c2, t.c0",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c3, c2, c0\n  ->  Seq Scan on t\n        Filter: (c2 IS NULL)",
+   "plan_on": "HashAggregate\n  Group Key: c0\n  ->  Seq Scan on t\n        Filter: (c2 IS NULL)"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ],
+    [
+     "c3",
+     "bool",
+     true
+    ],
+    [
+     "c4",
+     "bool",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c2)",
+    "create unique index t_u1 on x2.t (c0) nulls not distinct where (c1)::text = 2::text"
+   ],
+   "query": "select t.c2, t.c3, t.c4, t.c1, count(*) from x2.t t where true group by t.c2, t.c3, t.c4, t.c1",
+   "knobs": {
+    "enable_hashjoin": false,
+    "enable_mergejoin": true,
+    "enable_nestloop": false,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c2, c3, c4, c1\n  ->  Seq Scan on t",
+   "plan_on": "HashAggregate\n  Group Key: c2\n  ->  Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ],
+    [
+     "c3",
+     "bool",
+     true
+    ],
+    [
+     "c4",
+     "bool",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c2)",
+    "create unique index t_u1 on x2.t (c0) nulls not distinct where (c1)::text = 2::text"
+   ],
+   "query": "select o.* from x2.o o left join x2.t t on o.c4 = t.c4 and t.c1 <> 3 and t.c0 in (2, 1)",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "Hash Left Join\n  Hash Cond: (o.c4 = t.c4)\n  ->  Seq Scan on o\n  ->  Hash\n        ->  Seq Scan on t\n              Filter: ((c1 <> 3) AND (c0 = ANY ('{2,1}'::integer[])))",
+   "plan_on": "Seq Scan on o"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ],
+    [
+     "c3",
+     "bool",
+     true
+    ],
+    [
+     "c4",
+     "bool",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c2)",
+    "create unique index t_u1 on x2.t (c0) nulls not distinct where (c1)::text = 2::text"
+   ],
+   "query": "select t.c1, t.c2, t.c0, count(*) from x2.t t where t.c4 and t.c0 = 1 group by t.c1, t.c2, t.c0",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c1, c2\n  ->  Seq Scan on t\n        Filter: (c4 AND (c0 = 1))",
+   "plan_on": "GroupAggregate\n  ->  Seq Scan on t\n        Filter: (c4 AND (c0 = 1))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ],
+    [
+     "c3",
+     "bool",
+     true
+    ],
+    [
+     "c4",
+     "bool",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c2)",
+    "create unique index t_u1 on x2.t (c0) nulls not distinct where (c1)::text = 2::text"
+   ],
+   "query": "select t.c2, t.c3, t.c4, count(*) from x2.t t where t.c1 in (1, 0) group by t.c2, t.c3, t.c4",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": false,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c2, c3, c4\n  ->  Seq Scan on t\n        Filter: (c1 = ANY ('{1,0}'::integer[]))",
+   "plan_on": "HashAggregate\n  Group Key: c2\n  ->  Seq Scan on t\n        Filter: (c1 = ANY ('{1,0}'::integer[]))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "text",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "text",
+     false
+    ],
+    [
+     "c3",
+     "text",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c2)",
+    "create unique index t_u1 on x2.t (c0, c1, c2) nulls not distinct where c1 = 0",
+    "create unique index t_u2 on x2.t (c2) where c0 = 'a' and c1 <> 2"
+   ],
+   "query": "select t.c0, t.c1, t.c2, t.c3, count(*) from x2.t t where ((t.c1 in (1, 1) and t.c2 not in ('a', 'a')) or ((t.c0)::text = 'a'::text and t.c0 is not null and t.c3 <> 'c')) group by t.c0, t.c1, t.c2, t.c3",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": false,
+    "enable_sort": true
+   },
+   "plan_off": "GroupAggregate\n  Group Key: c0, c1, c2, c3\n  ->  Sort\n        Sort Key: c0, c1, c2, c3\n        ->  Seq Scan on t\n              Filter: (((c1 = ANY ('{1,1}'::integer[])) AND (c2 <> ALL ('{a,a}'::text[]))) OR ((c0 = 'a'::text) AND (c0 IS NOT NULL) AND (c3 <> 'c'::text)))",
+   "plan_on": "GroupAggregate\n  Group Key: c0, c2\n  ->  Sort\n        Sort Key: c0, c2\n        ->  Seq Scan on t\n              Filter: (((c1 = ANY ('{1,1}'::integer[])) AND (c2 <> ALL ('{a,a}'::text[]))) OR ((c0 = 'a'::text) AND (c0 IS NOT NULL) AND (c3 <> 'c'::text)))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     true
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1, c2) where c0 is null",
+    "create unique index t_u1 on x2.t (c0, c2) where ((c2 = 3) or (c2 not in (2, 0) and c2 is null))",
+    "create unique index t_u2 on x2.t (c0, c1, c2) where c1 not in (1, 1) and c0 is null",
+    "create unique index t_u3 on x2.t (c0, c1, c2) where ((c1 is not null and c2 = 3) or (c0 <> 1 and c2 = 1))"
+   ],
+   "query": "select distinct t.c2 from x2.t t where ((t.c2 = 0 and t.c0 not in (0, 2)) or (t.c2 = 1))",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c2\n  ->  Seq Scan on t\n        Filter: (((c2 = 0) AND (c0 <> ALL ('{0,2}'::integer[]))) OR (c2 = 1))",
+   "plan_on": "Seq Scan on t\n  Filter: (((c2 = 0) AND (c0 <> ALL ('{0,2}'::integer[]))) OR (c2 = 1))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "text",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     true
+    ],
+    [
+     "c3",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c2, c3) where ((c2 = 2 and c2 not in (1, 3)) or (c2 not in (3, 0) and c0 is not null))",
+    "create unique index t_u1 on x2.t (c2)",
+    "create unique index t_u2 on x2.t (c0, c1, c2)",
+    "create unique index t_u3 on x2.t (c0, c1, c2) where ((c2 is not null and c0 not in ('a', 'a')) or (c3 = 3))"
+   ],
+   "query": "select distinct t.c1 from x2.t t where t.c3 is null",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "Unique\n  ->  Sort\n        Sort Key: c1\n        ->  Seq Scan on t\n              Filter: (c3 IS NULL)",
+   "plan_on": "Seq Scan on t\n  Filter: (c3 IS NULL)"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "text",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0) nulls not distinct where ((c0 is null and c1 in (2, 2)) or (c2 is null))",
+    "create unique index t_u1 on x2.t (c0, c1, c2) where c2 = 3"
+   ],
+   "query": "select distinct t.c2, t.c0 from x2.t t where ((t.c2 <> 0) or (t.c2 <> 1 and t.c1 is null and t.c0 = 'c'))",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c2, c0\n  ->  Seq Scan on t\n        Filter: ((c2 <> 0) OR ((c2 <> 1) AND (c1 IS NULL) AND (c0 = 'c'::text)))",
+   "plan_on": "Seq Scan on t\n  Filter: ((c2 <> 0) OR ((c2 <> 1) AND (c1 IS NULL) AND (c0 = 'c'::text)))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "text",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0) nulls not distinct where ((c0 is null and c1 in (2, 2)) or (c2 is null))",
+    "create unique index t_u1 on x2.t (c0, c1, c2) where c2 = 3"
+   ],
+   "query": "select o.* from x2.o o left join x2.t t on o.c2 = t.c2 and ((t.c1 is not null) or (t.c1 = 0))",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": false,
+    "enable_sort": true
+   },
+   "plan_off": "Hash Left Join\n  Hash Cond: (o.c2 = t.c2)\n  ->  Seq Scan on o\n  ->  Hash\n        ->  Seq Scan on t\n              Filter: ((c1 IS NOT NULL) OR (c1 = 0))",
+   "plan_on": "Seq Scan on o"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "text",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0) nulls not distinct where ((c0 is null and c1 in (2, 2)) or (c2 is null))",
+    "create unique index t_u1 on x2.t (c0, c1, c2) where c2 = 3"
+   ],
+   "query": "select o.* from x2.o o left join x2.t t on o.c1 = t.c1 and o.c2 = t.c2 and t.c1 <> 0 and t.c2 is not null and t.c2 = 3",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": false,
+    "enable_nestloop": true,
+    "enable_hashagg": false,
+    "enable_sort": true
+   },
+   "plan_off": "Hash Left Join\n  Hash Cond: ((o.c1 = t.c1) AND (o.c2 = t.c2))\n  ->  Seq Scan on o\n  ->  Hash\n        ->  Seq Scan on t\n              Filter: ((c2 IS NOT NULL) AND (c1 <> 0) AND (c2 = 3))",
+   "plan_on": "Seq Scan on o"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "text",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0) nulls not distinct where ((c0 is null and c1 in (2, 2)) or (c2 is null))",
+    "create unique index t_u1 on x2.t (c0, c1, c2) where c2 = 3"
+   ],
+   "query": "select t.c0, t.c2, count(*) from x2.t t where true group by t.c0, t.c2",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c0, c2\n  ->  Seq Scan on t",
+   "plan_on": "HashAggregate\n  Group Key: c0\n  ->  Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "text",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0) nulls not distinct where ((c0 is null and c1 in (2, 2)) or (c2 is null))",
+    "create unique index t_u1 on x2.t (c0, c1, c2) where c2 = 3"
+   ],
+   "query": "select t.c1, t.c0, t.c2, count(*) from x2.t t where true group by t.c1, t.c0, t.c2",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": false
+   },
+   "plan_off": "HashAggregate\n  Group Key: c1, c0, c2\n  ->  Seq Scan on t",
+   "plan_on": "HashAggregate\n  Group Key: c0\n  ->  Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "text",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0) nulls not distinct where ((c0 is null and c1 in (2, 2)) or (c2 is null))",
+    "create unique index t_u1 on x2.t (c0, c1, c2) where c2 = 3"
+   ],
+   "query": "select distinct t.c2 from x2.t t where ((t.c1 is null) or (t.c2 = 2 and t.c0 <> 'a'))",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "Unique\n  ->  Sort\n        Sort Key: c2\n        ->  Seq Scan on t\n              Filter: ((c1 IS NULL) OR ((c2 = 2) AND (c0 <> 'a'::text)))",
+   "plan_on": "Seq Scan on t\n  Filter: ((c1 IS NULL) OR ((c2 = 2) AND (c0 <> 'a'::text)))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "text",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ],
+    [
+     "c3",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c3) where ((c1 and c0 <> 'd') or (c2 not in (1, 3) and c0 is null))"
+   ],
+   "query": "select t.c0, t.c3, t.c2, t.c1, count(*) from x2.t t where t.c2 is not null and t.c0 not in ('c', 'b') and t.c1 is null group by t.c0, t.c3, t.c2, t.c1",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": false
+   },
+   "plan_off": "HashAggregate\n  Group Key: c0, c3, c2, c1\n  ->  Seq Scan on t\n        Filter: ((c2 IS NOT NULL) AND (c1 IS NULL) AND (c0 <> ALL ('{c,b}'::text[])))",
+   "plan_on": "HashAggregate\n  Group Key: c0, c3\n  ->  Seq Scan on t\n        Filter: ((c2 IS NOT NULL) AND (c1 IS NULL) AND (c0 <> ALL ('{c,b}'::text[])))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "text",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ],
+    [
+     "c3",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c3) where ((c1 and c0 <> 'd') or (c2 not in (1, 3) and c0 is null))"
+   ],
+   "query": "select t.c0, t.c3, t.c2, count(*) from x2.t t where ((t.c0 <> 'd' and t.c0 = 'a') or (t.c3 = 0 and t.c1 = false)) group by t.c0, t.c3, t.c2",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": false,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c0, c3, c2\n  ->  Seq Scan on t\n        Filter: (((c0 <> 'd'::text) AND (c0 = 'a'::text)) OR ((c3 = 0) AND (NOT c1)))",
+   "plan_on": "HashAggregate\n  Group Key: c0, c3\n  ->  Seq Scan on t\n        Filter: (((c0 <> 'd'::text) AND (c0 = 'a'::text)) OR ((c3 = 0) AND (NOT c1)))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1, c2) nulls not distinct where c0 is not null and (c2)::text = 0::text",
+    "create unique index t_u1 on x2.t (c2)"
+   ],
+   "query": "select t.c1, t.c2, t.c0, count(*) from x2.t t where true group by t.c1, t.c2, t.c0",
+   "knobs": {
+    "enable_hashjoin": false,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": false,
+    "enable_sort": true
+   },
+   "plan_off": "GroupAggregate\n  Group Key: c1, c2, c0\n  ->  Sort\n        Sort Key: c1, c2, c0\n        ->  Seq Scan on t",
+   "plan_on": "GroupAggregate\n  Group Key: c2\n  ->  Sort\n        Sort Key: c2\n        ->  Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     true
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "text",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1, c2) nulls not distinct",
+    "create unique index t_u1 on x2.t (c1, c2) where c0 = false",
+    "create unique index t_u2 on x2.t (c0, c1, c2) nulls not distinct where c0 is null and c1 = 1"
+   ],
+   "query": "select o.* from x2.o o left join x2.t t on o.c0 = t.c0 and o.c2 = t.c2 and true",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": false,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "Hash Left Join\n  Hash Cond: ((o.c0 = t.c0) AND (o.c2 = t.c2))\n  ->  Seq Scan on o\n  ->  Hash\n        ->  Seq Scan on t",
+   "plan_on": "Seq Scan on o"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "text",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1, c2) nulls not distinct",
+    "create unique index t_u1 on x2.t (c0) where c0 <> 2"
+   ],
+   "query": "select distinct t.c1, t.c0 from x2.t t where true",
+   "knobs": {
+    "enable_hashjoin": false,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c1, c0\n  ->  Seq Scan on t",
+   "plan_on": "Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "text",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1, c2) nulls not distinct",
+    "create unique index t_u1 on x2.t (c0) where c0 <> 2"
+   ],
+   "query": "select distinct t.c0, t.c2 from x2.t t where t.c0 is not null and t.c2 is null",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c0, c2\n  ->  Seq Scan on t\n        Filter: ((c0 IS NOT NULL) AND (c2 IS NULL))",
+   "plan_on": "Seq Scan on t\n  Filter: ((c0 IS NOT NULL) AND (c2 IS NULL))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "text",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1, c2) nulls not distinct",
+    "create unique index t_u1 on x2.t (c0) where c0 <> 2"
+   ],
+   "query": "select t.c2, t.c1, t.c0, count(*) from x2.t t where true group by t.c2, t.c1, t.c0",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": false
+   },
+   "plan_off": "HashAggregate\n  Group Key: c2, c1, c0\n  ->  Seq Scan on t",
+   "plan_on": "HashAggregate\n  Group Key: c0\n  ->  Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "bool",
+     false
+    ],
+    [
+     "c3",
+     "text",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1, c3) where c1",
+    "create unique index t_u1 on x2.t (c0, c3) where c2 is null and c3 <> 'a'"
+   ],
+   "query": "select t.c3, t.c2, t.c1, t.c0, count(*) from x2.t t where ((t.c3 = 'a' and t.c1 is null and t.c1 = true) or (t.c3 is null)) group by t.c3, t.c2, t.c1, t.c0",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c3, c2, c1, c0\n  ->  Seq Scan on t\n        Filter: (((c3 = 'a'::text) AND (c1 IS NULL) AND c1) OR (c3 IS NULL))",
+   "plan_on": "HashAggregate\n  Group Key: c3, c0\n  ->  Seq Scan on t\n        Filter: (((c3 = 'a'::text) AND (c1 IS NULL) AND c1) OR (c3 IS NULL))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "bool",
+     false
+    ],
+    [
+     "c3",
+     "text",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1, c3) where c1",
+    "create unique index t_u1 on x2.t (c0, c3) where c2 is null and c3 <> 'a'"
+   ],
+   "query": "select distinct t.c1, t.c2, t.c3 from x2.t t where t.c3 is null and t.c0 <> 3",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": false
+   },
+   "plan_off": "HashAggregate\n  Group Key: c1, c2, c3\n  ->  Seq Scan on t\n        Filter: ((c3 IS NULL) AND (c0 <> 3))",
+   "plan_on": "Seq Scan on t\n  Filter: ((c3 IS NULL) AND (c0 <> 3))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0)",
+    "create unique index t_u1 on x2.t (c1, c2) nulls not distinct",
+    "create unique index t_u2 on x2.t (c0, c1, c2) where c0 in (3, 1)"
+   ],
+   "query": "select t.c0, t.c1, count(*) from x2.t t where true group by t.c0, t.c1",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c0, c1\n  ->  Seq Scan on t",
+   "plan_on": "HashAggregate\n  Group Key: c0\n  ->  Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "bool",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c1, c2) where c2 is null and c2 is not null",
+    "create unique index t_u1 on x2.t (c1, c2) where ((c0 = 1) or (c0 is not null and c0 is not null))"
+   ],
+   "query": "select o.* from x2.o o left join x2.t t on o.c0 = t.c0 and o.c2 = t.c2 and true",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": false,
+    "enable_sort": true
+   },
+   "plan_off": "Hash Right Join\n  Hash Cond: ((t.c0 = o.c0) AND (t.c2 = o.c2))\n  ->  Seq Scan on t\n  ->  Hash\n        ->  Seq Scan on o",
+   "plan_on": "Seq Scan on o"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "bool",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c1, c2) where c2 is null and c2 is not null",
+    "create unique index t_u1 on x2.t (c1, c2) where ((c0 = 1) or (c0 is not null and c0 is not null))"
+   ],
+   "query": "select distinct t.c1 from x2.t t where t.c1 is null and t.c2 = false",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": false,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c1\n  ->  Seq Scan on t\n        Filter: ((c1 IS NULL) AND (NOT c2))",
+   "plan_on": "Seq Scan on t\n  Filter: ((c1 IS NULL) AND (NOT c2))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "text",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c2)"
+   ],
+   "query": "select distinct t.c1 from x2.t t where t.c1 <> 0 and t.c0 is null",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c1\n  ->  Seq Scan on t\n        Filter: ((c0 IS NULL) AND (c1 <> 0))",
+   "plan_on": "Seq Scan on t\n  Filter: ((c0 IS NULL) AND (c1 <> 0))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     true
+    ],
+    [
+     "c2",
+     "bool",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1, c2) nulls not distinct where c1 is not null"
+   ],
+   "query": "select distinct t.c1 from x2.t t where ((t.c0 in (0, 1) and t.c1 <> 1 and t.c1 is null) or (t.c0 is null))",
+   "knobs": {
+    "enable_hashjoin": false,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c1\n  ->  Seq Scan on t\n        Filter: (((c0 = ANY ('{0,1}'::integer[])) AND (c1 <> 1) AND (c1 IS NULL)) OR (c0 IS NULL))",
+   "plan_on": "Seq Scan on t\n  Filter: (((c0 = ANY ('{0,1}'::integer[])) AND (c1 <> 1) AND (c1 IS NULL)) OR (c0 IS NULL))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     true
+    ],
+    [
+     "c2",
+     "bool",
+     false
+    ],
+    [
+     "c3",
+     "text",
+     false
+    ],
+    [
+     "c4",
+     "text",
+     true
+    ],
+    [
+     "c5",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c2, c3) where c4 <> 'd'",
+    "create unique index t_u1 on x2.t (c0, c1, c4) where c0 not in (1, 0)",
+    "create unique index t_u2 on x2.t (c2, c3) nulls not distinct where ((c5 not in (0, 3)) or (c4 = 'a' and c5 in (1, 3)))",
+    "create unique index t_u3 on x2.t (c1, c3, c4) nulls not distinct where c2 is not null and c1 is not null"
+   ],
+   "query": "select t.c5, t.c1, t.c3, count(*) from x2.t t where t.c0 = 2 and t.c3 is null and t.c5 is null group by t.c5, t.c1, t.c3",
+   "knobs": {
+    "enable_hashjoin": false,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c5, c1, c3\n  ->  Seq Scan on t\n        Filter: ((c3 IS NULL) AND (c5 IS NULL) AND (c0 = 2))",
+   "plan_on": "HashAggregate\n  Group Key: c3\n  ->  Seq Scan on t\n        Filter: ((c3 IS NULL) AND (c5 IS NULL) AND (c0 = 2))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     true
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "text",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1) where ((c2 is null) or (c1 and c0 is null))",
+    "create unique index t_u1 on x2.t (c1, c2) where c2 = 'c'",
+    "create unique index t_u2 on x2.t (c2) where ((not c0 and not c1) or (not c1 and c2 in ('a', 'a')))"
+   ],
+   "query": "select o.* from x2.o o left join x2.t t on o.c0 = t.c0 and o.c1 = t.c1 and t.c0 is not null",
+   "knobs": {
+    "enable_hashjoin": false,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": false,
+    "enable_sort": true
+   },
+   "plan_off": "Merge Right Join\n  Merge Cond: ((t.c1 = o.c1) AND (t.c0 = o.c0))\n  ->  Sort\n        Sort Key: t.c1, t.c0\n        ->  Seq Scan on t\n  ->  Sort\n        Sort Key: o.c1, o.c0\n        ->  Seq Scan on o",
+   "plan_on": "Seq Scan on o"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     true
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "text",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1) where ((c2 is null) or (c1 and c0 is null))",
+    "create unique index t_u1 on x2.t (c1, c2) where c2 = 'c'",
+    "create unique index t_u2 on x2.t (c2) where ((not c0 and not c1) or (not c1 and c2 in ('a', 'a')))"
+   ],
+   "query": "select distinct t.c0 from x2.t t where true",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": false,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c0\n  ->  Seq Scan on t",
+   "plan_on": "Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     true
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "text",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1) where ((c2 is null) or (c1 and c0 is null))",
+    "create unique index t_u1 on x2.t (c1, c2) where c2 = 'c'",
+    "create unique index t_u2 on x2.t (c2) where ((not c0 and not c1) or (not c1 and c2 in ('a', 'a')))"
+   ],
+   "query": "select distinct t.c2, t.c0, t.c1 from x2.t t where true",
+   "knobs": {
+    "enable_hashjoin": false,
+    "enable_mergejoin": false,
+    "enable_nestloop": true,
+    "enable_hashagg": false,
+    "enable_sort": true
+   },
+   "plan_off": "Unique\n  ->  Sort\n        Sort Key: c2, c0, c1\n        ->  Seq Scan on t",
+   "plan_on": "Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     true
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "text",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1) where ((c2 is null) or (c1 and c0 is null))",
+    "create unique index t_u1 on x2.t (c1, c2) where c2 = 'c'",
+    "create unique index t_u2 on x2.t (c2) where ((not c0 and not c1) or (not c1 and c2 in ('a', 'a')))"
+   ],
+   "query": "select o.* from x2.o o left join x2.t t on o.c2 = t.c2 and t.c0 is not null",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": false,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": false
+   },
+   "plan_off": "Hash Left Join\n  Hash Cond: (o.c2 = t.c2)\n  ->  Seq Scan on o\n  ->  Hash\n        ->  Seq Scan on t",
+   "plan_on": "Seq Scan on o"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     true
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "text",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1) where ((c2 is null) or (c1 and c0 is null))",
+    "create unique index t_u1 on x2.t (c1, c2) where c2 = 'c'",
+    "create unique index t_u2 on x2.t (c2) where ((not c0 and not c1) or (not c1 and c2 in ('a', 'a')))"
+   ],
+   "query": "select distinct t.c0, t.c1, t.c2 from x2.t t where not t.c0",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "Unique\n  ->  Sort\n        Sort Key: c0, c1, c2\n        ->  Seq Scan on t\n              Filter: (NOT c0)",
+   "plan_on": "Seq Scan on t\n  Filter: (NOT c0)"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     true
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "text",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1) where ((c2 is null) or (c1 and c0 is null))",
+    "create unique index t_u1 on x2.t (c1, c2) where c2 = 'c'",
+    "create unique index t_u2 on x2.t (c2) where ((not c0 and not c1) or (not c1 and c2 in ('a', 'a')))"
+   ],
+   "query": "select distinct t.c2, t.c1, t.c0 from x2.t t where true",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c2, c1, c0\n  ->  Seq Scan on t",
+   "plan_on": "Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     true
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "text",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1) where ((c2 is null) or (c1 and c0 is null))",
+    "create unique index t_u1 on x2.t (c1, c2) where c2 = 'c'",
+    "create unique index t_u2 on x2.t (c2) where ((not c0 and not c1) or (not c1 and c2 in ('a', 'a')))"
+   ],
+   "query": "select t.c2, t.c0, t.c1, count(*) from x2.t t where t.c2 is not null and t.c2 is not null group by t.c2, t.c0, t.c1",
+   "knobs": {
+    "enable_hashjoin": false,
+    "enable_mergejoin": true,
+    "enable_nestloop": false,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c2, c0, c1\n  ->  Seq Scan on t\n        Filter: ((c2 IS NOT NULL) AND (c2 IS NOT NULL))",
+   "plan_on": "HashAggregate\n  Group Key: c2\n  ->  Seq Scan on t\n        Filter: ((c2 IS NOT NULL) AND (c2 IS NOT NULL))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     true
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "text",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1) where ((c2 is null) or (c1 and c0 is null))",
+    "create unique index t_u1 on x2.t (c1, c2) where c2 = 'c'",
+    "create unique index t_u2 on x2.t (c2) where ((not c0 and not c1) or (not c1 and c2 in ('a', 'a')))"
+   ],
+   "query": "select t.c0, t.c1, count(*) from x2.t t where true group by t.c0, t.c1",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": false,
+    "enable_nestloop": false,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c0, c1\n  ->  Seq Scan on t",
+   "plan_on": "HashAggregate\n  Group Key: c1\n  ->  Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     true
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "text",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1) where ((c2 is null) or (c1 and c0 is null))",
+    "create unique index t_u1 on x2.t (c1, c2) where c2 = 'c'",
+    "create unique index t_u2 on x2.t (c2) where ((not c0 and not c1) or (not c1 and c2 in ('a', 'a')))"
+   ],
+   "query": "select distinct t.c2, t.c0, t.c1 from x2.t t where true",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": false,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c2, c0, c1\n  ->  Seq Scan on t",
+   "plan_on": "Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "bool",
+     false
+    ],
+    [
+     "c3",
+     "bool",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c1, c2) where c3 is not null"
+   ],
+   "query": "select t.c0, t.c3, t.c2, count(*) from x2.t t where t.c2 is null group by t.c0, t.c3, t.c2",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c0, c3, c2\n  ->  Seq Scan on t\n        Filter: (c2 IS NULL)",
+   "plan_on": "HashAggregate\n  Group Key: c2\n  ->  Seq Scan on t\n        Filter: (c2 IS NULL)"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "text",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1, c2) where ((c0 = 'd') or (c0 = 'd' and c1 is null))",
+    "create unique index t_u1 on x2.t (c2) where c2 is null and c1"
+   ],
+   "query": "select t.c2, t.c1, count(*) from x2.t t where ((t.c0 = 'a' and t.c1 and t.c1 = false) or (t.c2 is null)) group by t.c2, t.c1",
+   "knobs": {
+    "enable_hashjoin": false,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c2, c1\n  ->  Seq Scan on t\n        Filter: (((c0 = 'a'::text) AND c1 AND (NOT c1)) OR (c2 IS NULL))",
+   "plan_on": "HashAggregate\n  Group Key: c2\n  ->  Seq Scan on t\n        Filter: (((c0 = 'a'::text) AND c1 AND (NOT c1)) OR (c2 IS NULL))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "text",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1, c2) where ((c0 = 'd') or (c0 = 'd' and c1 is null))",
+    "create unique index t_u1 on x2.t (c2) where c2 is null and c1"
+   ],
+   "query": "select t.c0, t.c2, count(*) from x2.t t where ((t.c2 is null) or (t.c0 not in ('c', 'b') and t.c0 <> 'd' and t.c0 is not null)) group by t.c0, t.c2",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c0, c2\n  ->  Seq Scan on t\n        Filter: ((c2 IS NULL) OR ((c0 <> ALL ('{c,b}'::text[])) AND (c0 <> 'd'::text) AND (c0 IS NOT NULL)))",
+   "plan_on": "HashAggregate\n  Group Key: c2\n  ->  Seq Scan on t\n        Filter: ((c2 IS NULL) OR ((c0 <> ALL ('{c,b}'::text[])) AND (c0 <> 'd'::text) AND (c0 IS NOT NULL)))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "text",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1, c2) where ((c0 = 'd') or (c0 = 'd' and c1 is null))",
+    "create unique index t_u1 on x2.t (c2) where c2 is null and c1"
+   ],
+   "query": "select distinct t.c1 from x2.t t where not t.c1",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c1\n  ->  Seq Scan on t\n        Filter: (NOT c1)",
+   "plan_on": "Seq Scan on t\n  Filter: (NOT c1)"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "text",
+     false
+    ],
+    [
+     "c1",
+     "text",
+     true
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ],
+    [
+     "c3",
+     "bool",
+     true
+    ],
+    [
+     "c4",
+     "int",
+     false
+    ],
+    [
+     "c5",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c2) where ((c5 = 0) or (c5 is not null and c3))",
+    "create unique index t_u1 on x2.t (c1, c4) where ((c0 is null) or (c4 is not null))",
+    "create unique index t_u2 on x2.t (c0, c1) nulls not distinct",
+    "create unique index t_u3 on x2.t (c2, c4) nulls not distinct where c4 = 3"
+   ],
+   "query": "select t.c2, t.c4, t.c3, t.c5, t.c1, count(*) from x2.t t where ((t.c0 <> 'a') or (t.c3 is not null)) group by t.c2, t.c4, t.c3, t.c5, t.c1",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": false,
+    "enable_sort": true
+   },
+   "plan_off": "GroupAggregate\n  Group Key: c2, c4, c3, c5, c1\n  ->  Sort\n        Sort Key: c2, c4, c3, c5, c1\n        ->  Seq Scan on t",
+   "plan_on": "GroupAggregate\n  Group Key: c1\n  ->  Sort\n        Sort Key: c1\n        ->  Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     true
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c2)",
+    "create unique index t_u1 on x2.t (c1) where not c0",
+    "create unique index t_u2 on x2.t (c0, c1) nulls not distinct"
+   ],
+   "query": "select distinct t.c0 from x2.t t where ((t.c0 is not null) or (t.c2 <> 1 and t.c0 is not null and t.c2 is not null))",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": false,
+    "enable_hashagg": true,
+    "enable_sort": false
+   },
+   "plan_off": "HashAggregate\n  Group Key: c0\n  ->  Seq Scan on t\n        Filter: (c0 IS NOT NULL)",
+   "plan_on": "Seq Scan on t\n  Filter: (c0 IS NOT NULL)"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "text",
+     false
+    ],
+    [
+     "c2",
+     "bool",
+     false
+    ],
+    [
+     "c3",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c1, c2, c3) where c3 <> 0",
+    "create unique index t_u1 on x2.t (c2, c3) where c2 = true"
+   ],
+   "query": "select t.c2, t.c0, t.c3, t.c1, count(*) from x2.t t where t.c3 not in (0, 1) group by t.c2, t.c0, t.c3, t.c1",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": false,
+    "enable_hashagg": false,
+    "enable_sort": false
+   },
+   "plan_off": "GroupAggregate\n  Group Key: c1, c2, c3, c0\n  ->  Incremental Sort\n        Sort Key: c1, c2, c3, c0\n        Presorted Key: c1, c2, c3\n        ->  Index Scan using t_u0 on t\n              Filter: (c3 <> ALL ('{0,1}'::integer[]))",
+   "plan_on": "HashAggregate\n  Disabled: true\n  Group Key: c2, c3\n  ->  Seq Scan on t\n        Filter: (c3 <> ALL ('{0,1}'::integer[]))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "text",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "text",
+     false
+    ],
+    [
+     "c3",
+     "text",
+     true
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c2) where c0 is not null",
+    "create unique index t_u1 on x2.t (c3) where ((c1 is not null) or (c0 is null))"
+   ],
+   "query": "select distinct t.c3 from x2.t t where t.c2 is not null",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c3\n  ->  Seq Scan on t\n        Filter: (c2 IS NOT NULL)",
+   "plan_on": "Seq Scan on t\n  Filter: (c2 IS NOT NULL)"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "text",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "text",
+     false
+    ],
+    [
+     "c3",
+     "text",
+     true
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c2) where c0 is not null",
+    "create unique index t_u1 on x2.t (c3) where ((c1 is not null) or (c0 is null))"
+   ],
+   "query": "select o.* from x2.o o left join x2.t t on o.c0 = t.c0 and o.c3 = t.c3 and t.c0 = 'b'",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "Hash Left Join\n  Hash Cond: ((o.c0 = t.c0) AND (o.c3 = t.c3))\n  ->  Seq Scan on o\n  ->  Hash\n        ->  Seq Scan on t\n              Filter: (c0 = 'b'::text)",
+   "plan_on": "Seq Scan on o"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "text",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "text",
+     false
+    ],
+    [
+     "c3",
+     "text",
+     true
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c2) where c0 is not null",
+    "create unique index t_u1 on x2.t (c3) where ((c1 is not null) or (c0 is null))"
+   ],
+   "query": "select o.* from x2.o o left join x2.t t on o.c3 = t.c3 and true",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": false,
+    "enable_sort": true
+   },
+   "plan_off": "Hash Left Join\n  Hash Cond: (o.c3 = t.c3)\n  ->  Seq Scan on o\n  ->  Hash\n        ->  Seq Scan on t",
+   "plan_on": "Seq Scan on o"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ],
+    [
+     "c3",
+     "int",
+     false
+    ],
+    [
+     "c4",
+     "text",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c2, c3) nulls not distinct where c4 is not null",
+    "create unique index t_u1 on x2.t (c2, c3, c4) where ((c0 = 0 and c4 = 'd') or (c1 = false and c1))",
+    "create unique index t_u2 on x2.t (c1, c2) where c2 = 0 and c1 is null",
+    "create unique index t_u3 on x2.t (c3) nulls not distinct where ((c4 is null and c0 is not null) or (c3 <> 0 and c0 <> 2))"
+   ],
+   "query": "select t.c2, t.c1, t.c3, count(*) from x2.t t where true group by t.c2, t.c1, t.c3",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": false,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c2, c1, c3\n  ->  Seq Scan on t",
+   "plan_on": "HashAggregate\n  Group Key: c3\n  ->  Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     true
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ],
+    [
+     "c3",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c1, c3) where ((c1 = 3) or (c0 <> 2))",
+    "create unique index t_u1 on x2.t (c0, c1) where c3 is not null and c1 = 3"
+   ],
+   "query": "select t.c3, t.c2, t.c0, t.c1, count(*) from x2.t t where t.c3 = 3 group by t.c3, t.c2, t.c0, t.c1",
+   "knobs": {
+    "enable_hashjoin": false,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c2, c0, c1\n  ->  Seq Scan on t\n        Filter: (c3 = 3)",
+   "plan_on": "HashAggregate\n  Group Key: c0, c1\n  ->  Seq Scan on t\n        Filter: (c3 = 3)"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     true
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "bool",
+     false
+    ],
+    [
+     "c3",
+     "text",
+     false
+    ],
+    [
+     "c4",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c3) nulls not distinct where ((not c2) or (c0 = 3 and c4 is not null))"
+   ],
+   "query": "select t.c2, t.c4, t.c1, t.c3, t.c0, count(*) from x2.t t where t.c3 not in ('c', 'd') group by t.c2, t.c4, t.c1, t.c3, t.c0",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c2, c4, c1, c3, c0\n  ->  Seq Scan on t\n        Filter: (c3 <> ALL ('{c,d}'::text[]))",
+   "plan_on": "HashAggregate\n  Group Key: c3\n  ->  Seq Scan on t\n        Filter: (c3 <> ALL ('{c,d}'::text[]))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     true
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "bool",
+     false
+    ],
+    [
+     "c3",
+     "text",
+     false
+    ],
+    [
+     "c4",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c3) nulls not distinct where ((not c2) or (c0 = 3 and c4 is not null))"
+   ],
+   "query": "select t.c0, t.c3, count(*) from x2.t t where true group by t.c0, t.c3",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": false,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": false
+   },
+   "plan_off": "HashAggregate\n  Group Key: c0, c3\n  ->  Seq Scan on t",
+   "plan_on": "HashAggregate\n  Group Key: c3\n  ->  Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ],
+    [
+     "c3",
+     "text",
+     false
+    ],
+    [
+     "c4",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c1, c4) where ((c2 not in (1, 0)) or (c1 = 3 and c4 <> 1))",
+    "create unique index t_u1 on x2.t (c3) nulls not distinct where c2 <> 3 and c0 = true",
+    "create unique index t_u2 on x2.t (c0) where c1 = 0 and c1 is null",
+    "create unique index t_u3 on x2.t (c4) where c0 = true"
+   ],
+   "query": "select o.* from x2.o o left join x2.t t on o.c0 = t.c0 and o.c2 = t.c2 and t.c0 = true",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "Hash Left Join\n  Hash Cond: ((o.c0 = t.c0) AND (o.c2 = t.c2))\n  ->  Seq Scan on o\n  ->  Hash\n        ->  Seq Scan on t\n              Filter: c0",
+   "plan_on": "Seq Scan on o"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ],
+    [
+     "c3",
+     "text",
+     false
+    ],
+    [
+     "c4",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c1, c4) where ((c2 not in (1, 0)) or (c1 = 3 and c4 <> 1))",
+    "create unique index t_u1 on x2.t (c3) nulls not distinct where c2 <> 3 and c0 = true",
+    "create unique index t_u2 on x2.t (c0) where c1 = 0 and c1 is null",
+    "create unique index t_u3 on x2.t (c4) where c0 = true"
+   ],
+   "query": "select o.* from x2.o o left join x2.t t on o.c2 = t.c2 and true",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": false,
+    "enable_nestloop": false,
+    "enable_hashagg": false,
+    "enable_sort": false
+   },
+   "plan_off": "Hash Left Join\n  Hash Cond: (o.c2 = t.c2)\n  ->  Seq Scan on o\n  ->  Hash\n        ->  Seq Scan on t",
+   "plan_on": "Seq Scan on o"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ],
+    [
+     "c3",
+     "text",
+     false
+    ],
+    [
+     "c4",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c1, c4) where ((c2 not in (1, 0)) or (c1 = 3 and c4 <> 1))",
+    "create unique index t_u1 on x2.t (c3) nulls not distinct where c2 <> 3 and c0 = true",
+    "create unique index t_u2 on x2.t (c0) where c1 = 0 and c1 is null",
+    "create unique index t_u3 on x2.t (c4) where c0 = true"
+   ],
+   "query": "select distinct t.c4, t.c1, t.c3 from x2.t t where ((t.c1 = 3) or (t.c4 is null))",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c4, c1, c3\n  ->  Seq Scan on t\n        Filter: ((c1 = 3) OR (c4 IS NULL))",
+   "plan_on": "Seq Scan on t\n  Filter: ((c1 = 3) OR (c4 IS NULL))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     true
+    ],
+    [
+     "c1",
+     "bool",
+     false
+    ],
+    [
+     "c2",
+     "bool",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1, c2) where c1 is not null",
+    "create unique index t_u1 on x2.t (c0, c1) where c0 = 2",
+    "create unique index t_u2 on x2.t (c1) where c1 = true"
+   ],
+   "query": "select o.* from x2.o o left join x2.t t on o.c0 = t.c0 and (t.c0)::text = 3::text",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": false,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "Hash Left Join\n  Hash Cond: (o.c0 = t.c0)\n  ->  Seq Scan on o\n  ->  Hash\n        ->  Seq Scan on t\n              Filter: ((c0)::text = '3'::text)",
+   "plan_on": "Seq Scan on o"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "bool",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c1) where c0 is null and not c2",
+    "create unique index t_u1 on x2.t (c0, c2) nulls not distinct where c2 and c2 is not null",
+    "create unique index t_u2 on x2.t (c2) where ((c0 = 0 and (c1)::text = 2::text) or (c2 is not null and c0 <> 2))",
+    "create unique index t_u3 on x2.t (c1, c2) where ((c2 is null) or (c2))"
+   ],
+   "query": "select t.c0, t.c2, t.c1, count(*) from x2.t t where true group by t.c0, t.c2, t.c1",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": false,
+    "enable_nestloop": false,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c0, c2, c1\n  ->  Seq Scan on t",
+   "plan_on": "HashAggregate\n  Group Key: c0, c2\n  ->  Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     true
+    ],
+    [
+     "c3",
+     "int",
+     true
+    ],
+    [
+     "c4",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c4) where ((c0 and c3 = 2) or (c0 is not null))",
+    "create unique index t_u1 on x2.t (c1) where c1 = 1 and c0"
+   ],
+   "query": "select t.c3, t.c0, count(*) from x2.t t where t.c4 is null and t.c3 <> 2 group by t.c3, t.c0",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c3, c0\n  ->  Seq Scan on t\n        Filter: ((c4 IS NULL) AND (c3 <> 2))",
+   "plan_on": "HashAggregate\n  Group Key: c0\n  ->  Seq Scan on t\n        Filter: ((c4 IS NULL) AND (c3 <> 2))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     true
+    ],
+    [
+     "c3",
+     "int",
+     true
+    ],
+    [
+     "c4",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c4) where ((c0 and c3 = 2) or (c0 is not null))",
+    "create unique index t_u1 on x2.t (c1) where c1 = 1 and c0"
+   ],
+   "query": "select t.c3, t.c0, count(*) from x2.t t where t.c1 is not null and not t.c0 group by t.c3, t.c0",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": false,
+    "enable_nestloop": false,
+    "enable_hashagg": true,
+    "enable_sort": false
+   },
+   "plan_off": "HashAggregate\n  Group Key: c3, c0\n  ->  Seq Scan on t\n        Filter: ((c1 IS NOT NULL) AND (NOT c0))",
+   "plan_on": "HashAggregate\n  Group Key: c0\n  ->  Seq Scan on t\n        Filter: ((c1 IS NOT NULL) AND (NOT c0))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "bool",
+     false
+    ],
+    [
+     "c3",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1) nulls not distinct where ((c2 is null) or (not c2))",
+    "create unique index t_u1 on x2.t (c3)",
+    "create unique index t_u2 on x2.t (c0, c1, c3) where c3 = 1"
+   ],
+   "query": "select t.c3, t.c2, t.c0, count(*) from x2.t t where t.c1 = 0 group by t.c3, t.c2, t.c0",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c3, c2, c0\n  ->  Seq Scan on t\n        Filter: (c1 = 0)",
+   "plan_on": "HashAggregate\n  Group Key: c3, c0\n  ->  Seq Scan on t\n        Filter: (c1 = 0)"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "bool",
+     false
+    ],
+    [
+     "c3",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1) nulls not distinct where ((c2 is null) or (not c2))",
+    "create unique index t_u1 on x2.t (c3)",
+    "create unique index t_u2 on x2.t (c0, c1, c3) where c3 = 1"
+   ],
+   "query": "select distinct t.c3 from x2.t t where t.c2 = true",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c3\n  ->  Seq Scan on t\n        Filter: c2",
+   "plan_on": "Seq Scan on t\n  Filter: c2"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0) nulls not distinct where c0 = 3 and c1 = 3",
+    "create unique index t_u1 on x2.t (c1) where ((c1 not in (1, 1)) or (c1 is null and c0 in (3, 2)))",
+    "create unique index t_u2 on x2.t (c0, c1, c2) where c1 = 3",
+    "create unique index t_u3 on x2.t (c1)"
+   ],
+   "query": "select t.c0, t.c1, t.c2, count(*) from x2.t t where true group by t.c0, t.c1, t.c2",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": false,
+    "enable_sort": true
+   },
+   "plan_off": "GroupAggregate\n  Group Key: c0, c1, c2\n  ->  Sort\n        Sort Key: c0, c1, c2\n        ->  Seq Scan on t",
+   "plan_on": "GroupAggregate\n  Group Key: c1\n  ->  Sort\n        Sort Key: c1\n        ->  Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0) nulls not distinct where c0 = 3 and c1 = 3",
+    "create unique index t_u1 on x2.t (c1) where ((c1 not in (1, 1)) or (c1 is null and c0 in (3, 2)))",
+    "create unique index t_u2 on x2.t (c0, c1, c2) where c1 = 3",
+    "create unique index t_u3 on x2.t (c1)"
+   ],
+   "query": "select t.c2, t.c1, t.c0, count(*) from x2.t t where ((t.c1 is null and t.c1 is not null and t.c2 = 2) or (t.c0 not in (3, 3))) group by t.c2, t.c1, t.c0",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": false,
+    "enable_nestloop": false,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c2, c1, c0\n  ->  Seq Scan on t\n        Filter: (((c1 IS NULL) AND (c1 IS NOT NULL) AND (c2 = 2)) OR (c0 <> ALL ('{3,3}'::integer[])))",
+   "plan_on": "HashAggregate\n  Group Key: c1\n  ->  Seq Scan on t\n        Filter: (((c1 IS NULL) AND (c1 IS NOT NULL) AND (c2 = 2)) OR (c0 <> ALL ('{3,3}'::integer[])))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0) nulls not distinct where c0 = 3 and c1 = 3",
+    "create unique index t_u1 on x2.t (c1) where ((c1 not in (1, 1)) or (c1 is null and c0 in (3, 2)))",
+    "create unique index t_u2 on x2.t (c0, c1, c2) where c1 = 3",
+    "create unique index t_u3 on x2.t (c1)"
+   ],
+   "query": "select t.c1, t.c0, count(*) from x2.t t where ((t.c0 is null and t.c0 = 2) or (t.c2 = 2)) group by t.c1, t.c0",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c1, c0\n  ->  Seq Scan on t\n        Filter: (((c0 IS NULL) AND (c0 = 2)) OR (c2 = 2))",
+   "plan_on": "HashAggregate\n  Group Key: c1\n  ->  Seq Scan on t\n        Filter: (((c0 IS NULL) AND (c0 = 2)) OR (c2 = 2))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     true
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1, c2) where (c2)::text = 0::text and c2 = 0",
+    "create unique index t_u1 on x2.t (c0, c1, c2) nulls not distinct where c1 = 1 and c1 in (0, 3)",
+    "create unique index t_u2 on x2.t (c1, c2) where (c2)::text = 2::text and c0 is null",
+    "create unique index t_u3 on x2.t (c0, c1, c2)"
+   ],
+   "query": "select distinct t.c2, t.c0, t.c1 from x2.t t where t.c2 is not null and t.c1 is not null",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c2, c0, c1\n  ->  Seq Scan on t\n        Filter: (c1 IS NOT NULL)",
+   "plan_on": "Seq Scan on t\n  Filter: (c1 IS NOT NULL)"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "bool",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1, c2) nulls not distinct where c1 in (0, 2) and c0 is null",
+    "create unique index t_u1 on x2.t (c0, c2) nulls not distinct where not c2"
+   ],
+   "query": "select t.c1, t.c0, t.c2, count(*) from x2.t t where t.c0 = 0 group by t.c1, t.c0, t.c2",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": false,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": false
+   },
+   "plan_off": "HashAggregate\n  Group Key: c1, c2\n  ->  Seq Scan on t\n        Filter: (c0 = 0)",
+   "plan_on": "HashAggregate\n  Group Key: c2\n  ->  Seq Scan on t\n        Filter: (c0 = 0)"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     true
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ],
+    [
+     "c3",
+     "int",
+     false
+    ],
+    [
+     "c4",
+     "text",
+     true
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c3) where c2 is not null"
+   ],
+   "query": "select t.c3, t.c0, t.c4, t.c2, count(*) from x2.t t where ((t.c3 is not null) or (t.c3 = 1 and t.c1 is not null)) group by t.c3, t.c0, t.c4, t.c2",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": false,
+    "enable_sort": true
+   },
+   "plan_off": "GroupAggregate\n  Group Key: c3, c0, c4, c2\n  ->  Sort\n        Sort Key: c3, c0, c4, c2\n        ->  Seq Scan on t\n              Filter: ((c3 IS NOT NULL) OR ((c3 = 1) AND (c1 IS NOT NULL)))",
+   "plan_on": "GroupAggregate\n  Group Key: c3, c0\n  ->  Sort\n        Sort Key: c3, c0\n        ->  Seq Scan on t\n              Filter: ((c3 IS NOT NULL) OR ((c3 = 1) AND (c1 IS NOT NULL)))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     true
+    ],
+    [
+     "c3",
+     "bool",
+     true
+    ],
+    [
+     "c4",
+     "int",
+     true
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c2, c3) where ((c2 is null and c4 is not null) or (c4 is not null and not c3))",
+    "create unique index t_u1 on x2.t (c0, c4) where c0 is not null"
+   ],
+   "query": "select distinct t.c1, t.c4 from x2.t t where t.c2 <> 2",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": false,
+    "enable_nestloop": false,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "Unique\n  ->  Sort\n        Sort Key: c1, c4\n        ->  Seq Scan on t\n              Filter: (c2 <> 2)",
+   "plan_on": "Seq Scan on t\n  Filter: (c2 <> 2)"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     true
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c1, c2) where ((c2 is null and c1 is not null) or (c2 = 1 and c1 is not null))",
+    "create unique index t_u1 on x2.t (c0, c1)"
+   ],
+   "query": "select distinct t.c1, t.c0 from x2.t t where t.c2 in (3, 3)",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": false,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c1, c0\n  ->  Seq Scan on t\n        Filter: (c2 = ANY ('{3,3}'::integer[]))",
+   "plan_on": "Seq Scan on t\n  Filter: (c2 = ANY ('{3,3}'::integer[]))"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     true
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c1, c2) where ((c2 is null and c1 is not null) or (c2 = 1 and c1 is not null))",
+    "create unique index t_u1 on x2.t (c0, c1)"
+   ],
+   "query": "select t.c0, t.c2, t.c1, count(*) from x2.t t where ((t.c1 is not null and t.c0 = false) or (t.c0 = true)) group by t.c0, t.c2, t.c1",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c0, c2, c1\n  ->  Seq Scan on t\n        Filter: (((c1 IS NOT NULL) AND (NOT c0)) OR c0)",
+   "plan_on": "HashAggregate\n  Group Key: c0, c1\n  ->  Seq Scan on t\n        Filter: (((c1 IS NOT NULL) AND (NOT c0)) OR c0)"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     true
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c1, c2) where ((c2 is null and c1 is not null) or (c2 = 1 and c1 is not null))",
+    "create unique index t_u1 on x2.t (c0, c1)"
+   ],
+   "query": "select o.* from x2.o o left join x2.t t on o.c0 = t.c0 and o.c2 = t.c2 and ((t.c2 not in (0, 2)) or (t.c0 = true and t.c0 is null))",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "Hash Left Join\n  Hash Cond: ((o.c0 = t.c0) AND (o.c2 = t.c2))\n  ->  Seq Scan on o\n  ->  Hash\n        ->  Seq Scan on t\n              Filter: ((c2 <> ALL ('{0,2}'::integer[])) OR (c0 AND (c0 IS NULL)))",
+   "plan_on": "Seq Scan on o"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     true
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c1, c2) where ((c2 is null and c1 is not null) or (c2 = 1 and c1 is not null))",
+    "create unique index t_u1 on x2.t (c0, c1)"
+   ],
+   "query": "select distinct t.c0 from x2.t t where t.c2 is not null",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c0\n  ->  Seq Scan on t\n        Filter: (c2 IS NOT NULL)",
+   "plan_on": "Seq Scan on t\n  Filter: (c2 IS NOT NULL)"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     true
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c1, c2) where ((c2 is null and c1 is not null) or (c2 = 1 and c1 is not null))",
+    "create unique index t_u1 on x2.t (c0, c1)"
+   ],
+   "query": "select distinct t.c0, t.c2, t.c1 from x2.t t where not t.c0",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": false,
+    "enable_sort": true
+   },
+   "plan_off": "Unique\n  ->  Sort\n        Sort Key: c0, c2, c1\n        ->  Seq Scan on t\n              Filter: (NOT c0)",
+   "plan_on": "Seq Scan on t\n  Filter: (NOT c0)"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "bool",
+     true
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c1, c2) where ((c2 is null and c1 is not null) or (c2 = 1 and c1 is not null))",
+    "create unique index t_u1 on x2.t (c0, c1)"
+   ],
+   "query": "select distinct t.c2, t.c0, t.c1 from x2.t t where true",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c2, c0, c1\n  ->  Seq Scan on t",
+   "plan_on": "Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     true
+    ],
+    [
+     "c3",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1, c2) where c0 <> 1 and c1 <> 3",
+    "create unique index t_u1 on x2.t (c0, c1) nulls not distinct where ((c2 = 1) or (c0 = 0 and c2 <> 1))",
+    "create unique index t_u2 on x2.t (c0, c1, c2) where c3 in (2, 3)",
+    "create unique index t_u3 on x2.t (c3) nulls not distinct where c1 not in (1, 1) and c1 = 3"
+   ],
+   "query": "select t.c0, t.c3, count(*) from x2.t t where true group by t.c0, t.c3",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c0, c3\n  ->  Seq Scan on t",
+   "plan_on": "HashAggregate\n  Group Key: c3\n  ->  Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     true
+    ],
+    [
+     "c3",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1, c2) where c0 <> 1 and c1 <> 3",
+    "create unique index t_u1 on x2.t (c0, c1) nulls not distinct where ((c2 = 1) or (c0 = 0 and c2 <> 1))",
+    "create unique index t_u2 on x2.t (c0, c1, c2) where c3 in (2, 3)",
+    "create unique index t_u3 on x2.t (c3) nulls not distinct where c1 not in (1, 1) and c1 = 3"
+   ],
+   "query": "select t.c0, t.c2, t.c1, t.c3, count(*) from x2.t t where true group by t.c0, t.c2, t.c1, t.c3",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": false
+   },
+   "plan_off": "HashAggregate\n  Group Key: c0, c2, c1, c3\n  ->  Seq Scan on t",
+   "plan_on": "HashAggregate\n  Group Key: c3\n  ->  Seq Scan on t"
+  },
+  {
+   "schema": [
+    [
+     "c0",
+     "int",
+     false
+    ],
+    [
+     "c1",
+     "int",
+     false
+    ],
+    [
+     "c2",
+     "int",
+     true
+    ],
+    [
+     "c3",
+     "int",
+     false
+    ]
+   ],
+   "indexes": [
+    "create unique index t_u0 on x2.t (c0, c1, c2) where c0 <> 1 and c1 <> 3",
+    "create unique index t_u1 on x2.t (c0, c1) nulls not distinct where ((c2 = 1) or (c0 = 0 and c2 <> 1))",
+    "create unique index t_u2 on x2.t (c0, c1, c2) where c3 in (2, 3)",
+    "create unique index t_u3 on x2.t (c3) nulls not distinct where c1 not in (1, 1) and c1 = 3"
+   ],
+   "query": "select distinct t.c3 from x2.t t where t.c2 is not null and t.c2 <> 1",
+   "knobs": {
+    "enable_hashjoin": true,
+    "enable_mergejoin": true,
+    "enable_nestloop": true,
+    "enable_hashagg": true,
+    "enable_sort": true
+   },
+   "plan_off": "HashAggregate\n  Group Key: c3\n  ->  Seq Scan on t\n        Filter: (c2 <> 1)",
+   "plan_on": "Seq Scan on t\n  Filter: (c2 <> 1)"
+  }
+ ]
+}

@@ -1,0 +1,2028 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "ENROLLMENT ID",
+   "DOING BUSINESS AS NAME",
+   "ADDRESS LINE 1",
+   "ASSOCIATE ID",
+   "ORGANIZATION NAME",
+   "INCORPORATION DATE",
+   "CCN",
+   "NPI",
+   "ZIP CODE",
+   "CITY"
+  ]
+ },
+ "sample_rows": 7121,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbusa.t25588",
+   "rows": 7121,
+   "cols": [
+    "ENROLLMENT ID",
+    "ENROLLMENT STATE",
+    "PROVIDER TYPE CODE",
+    "PROVIDER TYPE TEXT",
+    "NPI",
+    "MULTIPLE NPI FLAG",
+    "CCN",
+    "ASSOCIATE ID",
+    "ORGANIZATION NAME",
+    "DOING BUSINESS AS NAME",
+    "INCORPORATION DATE",
+    "INCORPORATION STATE",
+    "ORGANIZATION TYPE STRUCTURE",
+    "PROPRIETARY_NONPROFIT",
+    "ADDRESS LINE 1",
+    "CITY",
+    "STATE",
+    "ZIP CODE",
+    "PRACTICE LOCATION TYPE",
+    "SUBGROUP - GENERAL",
+    "SUBGROUP - ACUTE CARE",
+    "SUBGROUP - ALCOHOL DRUG",
+    "SUBGROUP - CHILDRENS",
+    "SUBGROUP - LONG-TERM",
+    "SUBGROUP - PSYCHIATRIC",
+    "SUBGROUP - REHABILITATION",
+    "SUBGROUP - SHORT-TERM",
+    "SUBGROUP - SWING-BED APPROVED",
+    "SUBGROUP - PSYCHIATRIC UNIT",
+    "SUBGROUP - REHABILITATION UNIT",
+    "SUBGROUP - SPECIALTY HOSPITAL",
+    "SUBGROUP - OTHER"
+   ],
+   "n_conditional": 77,
+   "conditional": [
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(PRACTICE LOCATION TYPE = \"MAIN/PRIMARY HOSPITAL LOCATION\" (23%), SUBGROUP - ACUTE CARE = \"Y\" (44%))",
+     "sql": "(PRACTICE LOCATION TYPE = 'MAIN/PRIMARY HOSPITAL LOCATION' AND SUBGROUP - ACUTE CARE = 'Y')",
+     "support": 0.144,
+     "rows": 1022,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.884,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PRACTICE LOCATION TYPE=v2": "MAIN/PRIMARY HOSPITAL LOCATION",
+      "SUBGROUP - ACUTE CARE=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (38%), PRACTICE LOCATION TYPE = \"MAIN/PRIMARY HOSPITAL LOCATION\" (23%))",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND PRACTICE LOCATION TYPE = 'MAIN/PRIMARY HOSPITAL LOCATION')",
+     "support": 0.108,
+     "rows": 770,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.767,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v2": "P",
+      "PRACTICE LOCATION TYPE=v2": "MAIN/PRIMARY HOSPITAL LOCATION"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"LLC\" (24%), PRACTICE LOCATION TYPE = \"MAIN/PRIMARY HOSPITAL LOCATION\" (23%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC' AND PRACTICE LOCATION TYPE = 'MAIN/PRIMARY HOSPITAL LOCATION')",
+     "support": 0.073,
+     "rows": 520,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.631,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "LLC",
+      "PRACTICE LOCATION TYPE=v2": "MAIN/PRIMARY HOSPITAL LOCATION"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(PRACTICE LOCATION TYPE = \"MAIN/PRIMARY HOSPITAL LOCATION\" (23%), SUBGROUP - GENERAL = \"Y\" (26%))",
+     "sql": "(PRACTICE LOCATION TYPE = 'MAIN/PRIMARY HOSPITAL LOCATION' AND SUBGROUP - GENERAL = 'Y')",
+     "support": 0.07,
+     "rows": 495,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.615,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PRACTICE LOCATION TYPE=v2": "MAIN/PRIMARY HOSPITAL LOCATION",
+      "SUBGROUP - GENERAL=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(PRACTICE LOCATION TYPE = \"HOSPITAL SWING-BED UNIT\" (7%), SUBGROUP - SWING-BED APPROVED = \"Y\" (9%))",
+     "sql": "(PRACTICE LOCATION TYPE = 'HOSPITAL SWING-BED UNIT' AND SUBGROUP - SWING-BED APPROVED = 'Y')",
+     "support": 0.065,
+     "rows": 461,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.594,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PRACTICE LOCATION TYPE=v5": "HOSPITAL SWING-BED UNIT",
+      "SUBGROUP - SWING-BED APPROVED=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(PRACTICE LOCATION TYPE = \"OTHER HOSPITAL PRACTICE LOCATION\" (46%), SUBGROUP - PSYCHIATRIC = \"Y\" (12%))",
+     "sql": "(PRACTICE LOCATION TYPE = 'OTHER HOSPITAL PRACTICE LOCATION' AND SUBGROUP - PSYCHIATRIC = 'Y')",
+     "support": 0.06,
+     "rows": 425,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.57,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PRACTICE LOCATION TYPE=v1": "OTHER HOSPITAL PRACTICE LOCATION",
+      "SUBGROUP - PSYCHIATRIC=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"LLC\" (24%), SUBGROUP - GENERAL = \"Y\" (26%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC' AND SUBGROUP - GENERAL = 'Y')",
+     "support": 0.049,
+     "rows": 352,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.519,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "LLC",
+      "SUBGROUP - GENERAL=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION STATE present, SUBGROUP - LONG-TERM = \"Y\" (5%))",
+     "sql": "(INCORPORATION STATE IS NOT NULL AND SUBGROUP - LONG-TERM = 'Y')",
+     "support": 0.042,
+     "rows": 299,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.478,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "SUBGROUP - LONG-TERM=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION DATE present, SUBGROUP - LONG-TERM = \"Y\" (5%))",
+     "sql": "(INCORPORATION DATE IS NOT NULL AND SUBGROUP - LONG-TERM = 'Y')",
+     "support": 0.042,
+     "rows": 298,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.477,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "SUBGROUP - LONG-TERM=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME missing, PRACTICE LOCATION TYPE = \"MAIN/PRIMARY HOSPITAL LOCATION\" (23%))",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND PRACTICE LOCATION TYPE = 'MAIN/PRIMARY HOSPITAL LOCATION')",
+     "support": 0.04,
+     "rows": 285,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.467,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PRACTICE LOCATION TYPE=v2": "MAIN/PRIMARY HOSPITAL LOCATION"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"LLC\" (24%), SUBGROUP - REHABILITATION = \"Y\" (8%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC' AND SUBGROUP - REHABILITATION = 'Y')",
+     "support": 0.039,
+     "rows": 281,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.464,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "LLC",
+      "SUBGROUP - REHABILITATION=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"LLC\" (24%), SUBGROUP - PSYCHIATRIC = \"Y\" (12%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC' AND SUBGROUP - PSYCHIATRIC = 'Y')",
+     "support": 0.039,
+     "rows": 280,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.463,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "LLC",
+      "SUBGROUP - PSYCHIATRIC=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (38%), SUBGROUP - PSYCHIATRIC UNIT = \"Y\" (15%))",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND SUBGROUP - PSYCHIATRIC UNIT = 'Y')",
+     "support": 0.038,
+     "rows": 271,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.455,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v2": "P",
+      "SUBGROUP - PSYCHIATRIC UNIT=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION DATE missing, PRACTICE LOCATION TYPE = \"MAIN/PRIMARY HOSPITAL LOCATION\" (23%))",
+     "sql": "(INCORPORATION DATE IS NULL AND PRACTICE LOCATION TYPE = 'MAIN/PRIMARY HOSPITAL LOCATION')",
+     "support": 0.037,
+     "rows": 263,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.448,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PRACTICE LOCATION TYPE=v2": "MAIN/PRIMARY HOSPITAL LOCATION"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION STATE missing, PRACTICE LOCATION TYPE = \"MAIN/PRIMARY HOSPITAL LOCATION\" (23%))",
+     "sql": "(INCORPORATION STATE IS NULL AND PRACTICE LOCATION TYPE = 'MAIN/PRIMARY HOSPITAL LOCATION')",
+     "support": 0.035,
+     "rows": 246,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.434,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PRACTICE LOCATION TYPE=v2": "MAIN/PRIMARY HOSPITAL LOCATION"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME missing, ORGANIZATION TYPE STRUCTURE = \"LLC\" (24%))",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.034,
+     "rows": 241,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.429,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(PRACTICE LOCATION TYPE = \"MAIN/PRIMARY HOSPITAL LOCATION\" (23%), SUBGROUP - REHABILITATION = \"Y\" (8%))",
+     "sql": "(PRACTICE LOCATION TYPE = 'MAIN/PRIMARY HOSPITAL LOCATION' AND SUBGROUP - REHABILITATION = 'Y')",
+     "support": 0.031,
+     "rows": 223,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.413,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PRACTICE LOCATION TYPE=v2": "MAIN/PRIMARY HOSPITAL LOCATION",
+      "SUBGROUP - REHABILITATION=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION DATE missing, PRACTICE LOCATION TYPE = \"HOSPITAL SWING-BED UNIT\" (7%))",
+     "sql": "(INCORPORATION DATE IS NULL AND PRACTICE LOCATION TYPE = 'HOSPITAL SWING-BED UNIT')",
+     "support": 0.031,
+     "rows": 219,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.409,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PRACTICE LOCATION TYPE=v5": "HOSPITAL SWING-BED UNIT"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "ADDRESS LINE 1",
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(PRACTICE LOCATION TYPE = \"HOSPITAL SWING-BED UNIT\" (7%))",
+     "sql": "(PRACTICE LOCATION TYPE = 'HOSPITAL SWING-BED UNIT')",
+     "support": 0.067,
+     "rows": 476,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.407,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PRACTICE LOCATION TYPE=v5": "HOSPITAL SWING-BED UNIT"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "INCORPORATION DATE",
+      "NPI"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION STATE missing)",
+     "sql": "(INCORPORATION STATE IS NULL)",
+     "support": 0.184,
+     "rows": 1309,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.995,
+     "score": 0.376,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "ADDRESS LINE 1",
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(SUBGROUP - LONG-TERM = \"Y\" (5%))",
+     "sql": "(SUBGROUP - LONG-TERM = 'Y')",
+     "support": 0.051,
+     "rows": 360,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.354,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "SUBGROUP - LONG-TERM=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(SUBGROUP - LONG-TERM = \"Y\" (5%))",
+     "sql": "(SUBGROUP - LONG-TERM = 'Y')",
+     "support": 0.051,
+     "rows": 360,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.354,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "SUBGROUP - LONG-TERM=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI",
+      "CITY"
+     ],
+     "cls": "cand",
+     "condition": "(SUBGROUP - LONG-TERM = \"Y\" (5%))",
+     "sql": "(SUBGROUP - LONG-TERM = 'Y')",
+     "support": 0.051,
+     "rows": 360,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.354,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "SUBGROUP - LONG-TERM=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "ADDRESS LINE 1",
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(PRACTICE LOCATION TYPE = \"HOSPITAL PSYCHIATRIC UNIT\" (13%), SUBGROUP - PSYCHIATRIC UNIT = \"Y\" (15%))",
+     "sql": "(PRACTICE LOCATION TYPE = 'HOSPITAL PSYCHIATRIC UNIT' AND SUBGROUP - PSYCHIATRIC UNIT = 'Y')",
+     "support": 0.096,
+     "rows": 682,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.325,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PRACTICE LOCATION TYPE=v3": "HOSPITAL PSYCHIATRIC UNIT",
+      "SUBGROUP - PSYCHIATRIC UNIT=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(PRACTICE LOCATION TYPE = \"HOSPITAL PSYCHIATRIC UNIT\" (13%), SUBGROUP - PSYCHIATRIC UNIT = \"Y\" (15%))",
+     "sql": "(PRACTICE LOCATION TYPE = 'HOSPITAL PSYCHIATRIC UNIT' AND SUBGROUP - PSYCHIATRIC UNIT = 'Y')",
+     "support": 0.096,
+     "rows": 682,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.325,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PRACTICE LOCATION TYPE=v3": "HOSPITAL PSYCHIATRIC UNIT",
+      "SUBGROUP - PSYCHIATRIC UNIT=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "ADDRESS LINE 1",
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME present, PRACTICE LOCATION TYPE = \"HOSPITAL PSYCHIATRIC UNIT\" (13%))",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND PRACTICE LOCATION TYPE = 'HOSPITAL PSYCHIATRIC UNIT')",
+     "support": 0.095,
+     "rows": 676,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.324,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PRACTICE LOCATION TYPE=v3": "HOSPITAL PSYCHIATRIC UNIT"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME present, PRACTICE LOCATION TYPE = \"HOSPITAL PSYCHIATRIC UNIT\" (13%))",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND PRACTICE LOCATION TYPE = 'HOSPITAL PSYCHIATRIC UNIT')",
+     "support": 0.095,
+     "rows": 676,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.324,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PRACTICE LOCATION TYPE=v3": "HOSPITAL PSYCHIATRIC UNIT"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "INCORPORATION DATE",
+      "NPI"
+     ],
+     "cls": "cert",
+     "condition": "(MULTIPLE NPI FLAG = \"Y\" (10%), SUBGROUP - ACUTE CARE = \"Y\" (44%))",
+     "sql": "(MULTIPLE NPI FLAG = 'Y' AND SUBGROUP - ACUTE CARE = 'Y')",
+     "support": 0.069,
+     "rows": 488,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.098,
+     "score": 0.306,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "MULTIPLE NPI FLAG=v2": "Y",
+      "SUBGROUP - ACUTE CARE=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (55%), PRACTICE LOCATION TYPE = \"HOSPITAL PSYCHIATRIC UNIT\" (13%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION' AND PRACTICE LOCATION TYPE = 'HOSPITAL PSYCHIATRIC UNIT')",
+     "support": 0.078,
+     "rows": 555,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.293,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "CORPORATION",
+      "PRACTICE LOCATION TYPE=v3": "HOSPITAL PSYCHIATRIC UNIT"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "INCORPORATION DATE",
+      "NPI",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(PRACTICE LOCATION TYPE = \"HOSPITAL PSYCHIATRIC UNIT\" (13%))",
+     "sql": "(PRACTICE LOCATION TYPE = 'HOSPITAL PSYCHIATRIC UNIT')",
+     "support": 0.128,
+     "rows": 914,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.176,
+     "score": 0.279,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PRACTICE LOCATION TYPE=v3": "HOSPITAL PSYCHIATRIC UNIT"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "INCORPORATION DATE",
+      "NPI"
+     ],
+     "cls": "dom",
+     "condition": "(SUBGROUP - LONG-TERM = \"Y\" (5%))",
+     "sql": "(SUBGROUP - LONG-TERM = 'Y')",
+     "support": 0.051,
+     "rows": 360,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.172,
+     "score": 0.263,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "SUBGROUP - LONG-TERM=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "ADDRESS LINE 1",
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (38%), SUBGROUP - PSYCHIATRIC = \"Y\" (12%))",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND SUBGROUP - PSYCHIATRIC = 'Y')",
+     "support": 0.057,
+     "rows": 407,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.251,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v2": "P",
+      "SUBGROUP - PSYCHIATRIC=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (38%), SUBGROUP - PSYCHIATRIC = \"Y\" (12%))",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND SUBGROUP - PSYCHIATRIC = 'Y')",
+     "support": 0.057,
+     "rows": 407,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.251,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v2": "P",
+      "SUBGROUP - PSYCHIATRIC=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI",
+      "CITY"
+     ],
+     "cls": "cand",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (38%), SUBGROUP - PSYCHIATRIC = \"Y\" (12%))",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND SUBGROUP - PSYCHIATRIC = 'Y')",
+     "support": 0.057,
+     "rows": 407,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.251,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v2": "P",
+      "SUBGROUP - PSYCHIATRIC=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "ADDRESS LINE 1",
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (38%), SUBGROUP - REHABILITATION = \"Y\" (8%))",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND SUBGROUP - REHABILITATION = 'Y')",
+     "support": 0.05,
+     "rows": 359,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.236,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v2": "P",
+      "SUBGROUP - REHABILITATION=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (38%), SUBGROUP - REHABILITATION = \"Y\" (8%))",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND SUBGROUP - REHABILITATION = 'Y')",
+     "support": 0.05,
+     "rows": 359,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.236,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v2": "P",
+      "SUBGROUP - REHABILITATION=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI",
+      "CITY"
+     ],
+     "cls": "cand",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (38%), SUBGROUP - REHABILITATION = \"Y\" (8%))",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND SUBGROUP - REHABILITATION = 'Y')",
+     "support": 0.05,
+     "rows": 359,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.236,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v2": "P",
+      "SUBGROUP - REHABILITATION=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "ADDRESS LINE 1",
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"OTHER\" (18%), PROPRIETARY_NONPROFIT = \"P\" (38%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'OTHER' AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.04,
+     "rows": 288,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.211,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER",
+      "PROPRIETARY_NONPROFIT=v2": "P"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"OTHER\" (18%), PROPRIETARY_NONPROFIT = \"P\" (38%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'OTHER' AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.04,
+     "rows": 288,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.211,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER",
+      "PROPRIETARY_NONPROFIT=v2": "P"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI",
+      "CITY"
+     ],
+     "cls": "cand",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"OTHER\" (18%), PROPRIETARY_NONPROFIT = \"P\" (38%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'OTHER' AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.04,
+     "rows": 288,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.211,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER",
+      "PROPRIETARY_NONPROFIT=v2": "P"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "ADDRESS LINE 1",
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (38%), PRACTICE LOCATION TYPE = \"HOSPITAL PSYCHIATRIC UNIT\" (13%))",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND PRACTICE LOCATION TYPE = 'HOSPITAL PSYCHIATRIC UNIT')",
+     "support": 0.035,
+     "rows": 248,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.196,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v2": "P",
+      "PRACTICE LOCATION TYPE=v3": "HOSPITAL PSYCHIATRIC UNIT"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (38%), PRACTICE LOCATION TYPE = \"HOSPITAL PSYCHIATRIC UNIT\" (13%))",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND PRACTICE LOCATION TYPE = 'HOSPITAL PSYCHIATRIC UNIT')",
+     "support": 0.035,
+     "rows": 248,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.196,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v2": "P",
+      "PRACTICE LOCATION TYPE=v3": "HOSPITAL PSYCHIATRIC UNIT"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI",
+      "CITY"
+     ],
+     "cls": "cand",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (38%), PRACTICE LOCATION TYPE = \"HOSPITAL PSYCHIATRIC UNIT\" (13%))",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND PRACTICE LOCATION TYPE = 'HOSPITAL PSYCHIATRIC UNIT')",
+     "support": 0.035,
+     "rows": 248,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.196,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v2": "P",
+      "PRACTICE LOCATION TYPE=v3": "HOSPITAL PSYCHIATRIC UNIT"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME missing, PRACTICE LOCATION TYPE = \"HOSPITAL PSYCHIATRIC UNIT\" (13%))",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND PRACTICE LOCATION TYPE = 'HOSPITAL PSYCHIATRIC UNIT')",
+     "support": 0.033,
+     "rows": 238,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.192,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PRACTICE LOCATION TYPE=v3": "HOSPITAL PSYCHIATRIC UNIT"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NPI",
+      "ZIP CODE"
+     ],
+     "cls": "dom",
+     "condition": "(PRACTICE LOCATION TYPE = \"HOSPITAL PSYCHIATRIC UNIT\" (13%))",
+     "sql": "(PRACTICE LOCATION TYPE = 'HOSPITAL PSYCHIATRIC UNIT')",
+     "support": 0.128,
+     "rows": 914,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.26,
+     "score": 0.186,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PRACTICE LOCATION TYPE=v3": "HOSPITAL PSYCHIATRIC UNIT"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "ADDRESS LINE 1",
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(PRACTICE LOCATION TYPE = \"HOSPITAL PSYCHIATRIC UNIT\" (13%), SUBGROUP - PSYCHIATRIC = \"Y\" (12%))",
+     "sql": "(PRACTICE LOCATION TYPE = 'HOSPITAL PSYCHIATRIC UNIT' AND SUBGROUP - PSYCHIATRIC = 'Y')",
+     "support": 0.031,
+     "rows": 224,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.186,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PRACTICE LOCATION TYPE=v3": "HOSPITAL PSYCHIATRIC UNIT",
+      "SUBGROUP - PSYCHIATRIC=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(PRACTICE LOCATION TYPE = \"HOSPITAL PSYCHIATRIC UNIT\" (13%), SUBGROUP - PSYCHIATRIC = \"Y\" (12%))",
+     "sql": "(PRACTICE LOCATION TYPE = 'HOSPITAL PSYCHIATRIC UNIT' AND SUBGROUP - PSYCHIATRIC = 'Y')",
+     "support": 0.031,
+     "rows": 224,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.186,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PRACTICE LOCATION TYPE=v3": "HOSPITAL PSYCHIATRIC UNIT",
+      "SUBGROUP - PSYCHIATRIC=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "NPI",
+      "CITY"
+     ],
+     "cls": "cand",
+     "condition": "(PRACTICE LOCATION TYPE = \"HOSPITAL PSYCHIATRIC UNIT\" (13%), SUBGROUP - PSYCHIATRIC = \"Y\" (12%))",
+     "sql": "(PRACTICE LOCATION TYPE = 'HOSPITAL PSYCHIATRIC UNIT' AND SUBGROUP - PSYCHIATRIC = 'Y')",
+     "support": 0.031,
+     "rows": 224,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.186,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PRACTICE LOCATION TYPE=v3": "HOSPITAL PSYCHIATRIC UNIT",
+      "SUBGROUP - PSYCHIATRIC=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "INCORPORATION DATE",
+      "NPI"
+     ],
+     "cls": "dom",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (38%), SUBGROUP - REHABILITATION = \"Y\" (8%))",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND SUBGROUP - REHABILITATION = 'Y')",
+     "support": 0.05,
+     "rows": 359,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.304,
+     "score": 0.175,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v2": "P",
+      "SUBGROUP - REHABILITATION=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NPI"
+     ],
+     "cls": "pos",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (55%), PRACTICE LOCATION TYPE = \"HOSPITAL PSYCHIATRIC UNIT\" (13%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION' AND PRACTICE LOCATION TYPE = 'HOSPITAL PSYCHIATRIC UNIT')",
+     "support": 0.078,
+     "rows": 555,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.335,
+     "score": 0.163,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "CORPORATION",
+      "PRACTICE LOCATION TYPE=v3": "HOSPITAL PSYCHIATRIC UNIT"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NPI"
+     ],
+     "cls": "pos",
+     "condition": "(MULTIPLE NPI FLAG = \"Y\" (10%), SUBGROUP - ACUTE CARE = \"Y\" (44%))",
+     "sql": "(MULTIPLE NPI FLAG = 'Y' AND SUBGROUP - ACUTE CARE = 'Y')",
+     "support": 0.069,
+     "rows": 488,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.297,
+     "score": 0.153,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "MULTIPLE NPI FLAG=v2": "Y",
+      "SUBGROUP - ACUTE CARE=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "ADDRESS LINE 1",
+      "INCORPORATION DATE",
+      "NPI"
+     ],
+     "cls": "cert",
+     "condition": "(DOING BUSINESS AS NAME missing, SUBGROUP - GENERAL = \"Y\" (26%))",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND SUBGROUP - GENERAL = 'Y')",
+     "support": 0.083,
+     "rows": 594,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.332,
+     "score": 0.15,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SUBGROUP - GENERAL=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "INCORPORATION DATE",
+      "NPI",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(DOING BUSINESS AS NAME missing, SUBGROUP - GENERAL = \"Y\" (26%))",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND SUBGROUP - GENERAL = 'Y')",
+     "support": 0.083,
+     "rows": 594,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.332,
+     "score": 0.15,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SUBGROUP - GENERAL=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "INCORPORATION DATE",
+      "NPI",
+      "CITY"
+     ],
+     "cls": "cert",
+     "condition": "(DOING BUSINESS AS NAME missing, SUBGROUP - GENERAL = \"Y\" (26%))",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND SUBGROUP - GENERAL = 'Y')",
+     "support": 0.083,
+     "rows": 594,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.332,
+     "score": 0.15,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SUBGROUP - GENERAL=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NPI"
+     ],
+     "cls": "pos",
+     "condition": "(MULTIPLE NPI FLAG = \"Y\" (10%), PRACTICE LOCATION TYPE = \"OTHER HOSPITAL PRACTICE LOCATION\" (46%))",
+     "sql": "(MULTIPLE NPI FLAG = 'Y' AND PRACTICE LOCATION TYPE = 'OTHER HOSPITAL PRACTICE LOCATION')",
+     "support": 0.061,
+     "rows": 437,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.302,
+     "score": 0.145,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "MULTIPLE NPI FLAG=v2": "Y",
+      "PRACTICE LOCATION TYPE=v1": "OTHER HOSPITAL PRACTICE LOCATION"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NPI"
+     ],
+     "cls": "pos",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (38%), SUBGROUP - PSYCHIATRIC = \"Y\" (12%))",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND SUBGROUP - PSYCHIATRIC = 'Y')",
+     "support": 0.057,
+     "rows": 407,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.147,
+     "score": 0.14,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v2": "P",
+      "SUBGROUP - PSYCHIATRIC=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ADDRESS LINE 1",
+      "NPI"
+     ],
+     "cls": "pos",
+     "condition": "(PRACTICE LOCATION TYPE = \"HOSPITAL PSYCHIATRIC UNIT\" (13%))",
+     "sql": "(PRACTICE LOCATION TYPE = 'HOSPITAL PSYCHIATRIC UNIT')",
+     "support": 0.128,
+     "rows": 914,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.26,
+     "score": 0.14,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PRACTICE LOCATION TYPE=v3": "HOSPITAL PSYCHIATRIC UNIT"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "INCORPORATION DATE",
+      "NPI",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"LLC\" (24%), SUBGROUP - ACUTE CARE = \"Y\" (44%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC' AND SUBGROUP - ACUTE CARE = 'Y')",
+     "support": 0.07,
+     "rows": 497,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.082,
+     "score": 0.137,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "LLC",
+      "SUBGROUP - ACUTE CARE=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "INCORPORATION DATE",
+      "NPI"
+     ],
+     "cls": "pos",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"OTHER\" (18%), SUBGROUP - GENERAL = \"Y\" (26%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'OTHER' AND SUBGROUP - GENERAL = 'Y')",
+     "support": 0.052,
+     "rows": 368,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.685,
+     "score": 0.133,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER",
+      "SUBGROUP - GENERAL=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "ADDRESS LINE 1",
+      "INCORPORATION DATE",
+      "NPI"
+     ],
+     "cls": "cert",
+     "condition": "(MULTIPLE NPI FLAG = \"Y\" (10%), PRACTICE LOCATION TYPE = \"OTHER HOSPITAL PRACTICE LOCATION\" (46%))",
+     "sql": "(MULTIPLE NPI FLAG = 'Y' AND PRACTICE LOCATION TYPE = 'OTHER HOSPITAL PRACTICE LOCATION')",
+     "support": 0.061,
+     "rows": 437,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.128,
+     "score": 0.129,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "MULTIPLE NPI FLAG=v2": "Y",
+      "PRACTICE LOCATION TYPE=v1": "OTHER HOSPITAL PRACTICE LOCATION"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "INCORPORATION DATE",
+      "NPI",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(MULTIPLE NPI FLAG = \"Y\" (10%), PRACTICE LOCATION TYPE = \"OTHER HOSPITAL PRACTICE LOCATION\" (46%))",
+     "sql": "(MULTIPLE NPI FLAG = 'Y' AND PRACTICE LOCATION TYPE = 'OTHER HOSPITAL PRACTICE LOCATION')",
+     "support": 0.061,
+     "rows": 437,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.128,
+     "score": 0.129,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "MULTIPLE NPI FLAG=v2": "Y",
+      "PRACTICE LOCATION TYPE=v1": "OTHER HOSPITAL PRACTICE LOCATION"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "INCORPORATION DATE",
+      "NPI",
+      "CITY"
+     ],
+     "cls": "cert",
+     "condition": "(MULTIPLE NPI FLAG = \"Y\" (10%), PRACTICE LOCATION TYPE = \"OTHER HOSPITAL PRACTICE LOCATION\" (46%))",
+     "sql": "(MULTIPLE NPI FLAG = 'Y' AND PRACTICE LOCATION TYPE = 'OTHER HOSPITAL PRACTICE LOCATION')",
+     "support": 0.061,
+     "rows": 437,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.128,
+     "score": 0.129,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "MULTIPLE NPI FLAG=v2": "Y",
+      "PRACTICE LOCATION TYPE=v1": "OTHER HOSPITAL PRACTICE LOCATION"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "ADDRESS LINE 1",
+      "NPI",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"LLC\" (24%), SUBGROUP - ACUTE CARE = \"Y\" (44%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC' AND SUBGROUP - ACUTE CARE = 'Y')",
+     "support": 0.07,
+     "rows": 497,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.123,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "LLC",
+      "SUBGROUP - ACUTE CARE=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "INCORPORATION DATE",
+      "NPI"
+     ],
+     "cls": "dom",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"LLC\" (24%), PRACTICE LOCATION TYPE = \"OTHER HOSPITAL PRACTICE LOCATION\" (46%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC' AND PRACTICE LOCATION TYPE = 'OTHER HOSPITAL PRACTICE LOCATION')",
+     "support": 0.117,
+     "rows": 832,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.311,
+     "score": 0.118,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "LLC",
+      "PRACTICE LOCATION TYPE=v1": "OTHER HOSPITAL PRACTICE LOCATION"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NPI"
+     ],
+     "cls": "pos",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"OTHER\" (18%), PROPRIETARY_NONPROFIT = \"P\" (38%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'OTHER' AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.04,
+     "rows": 288,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.646,
+     "score": 0.118,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER",
+      "PROPRIETARY_NONPROFIT=v2": "P"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "INCORPORATION DATE",
+      "NPI"
+     ],
+     "cls": "pos",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"OTHER\" (18%), PROPRIETARY_NONPROFIT = \"P\" (38%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'OTHER' AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.04,
+     "rows": 288,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.781,
+     "score": 0.118,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER",
+      "PROPRIETARY_NONPROFIT=v2": "P"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NPI"
+     ],
+     "cls": "pos",
+     "condition": "(MULTIPLE NPI FLAG = \"Y\" (10%), SUBGROUP - GENERAL = \"Y\" (26%))",
+     "sql": "(MULTIPLE NPI FLAG = 'Y' AND SUBGROUP - GENERAL = 'Y')",
+     "support": 0.036,
+     "rows": 259,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.301,
+     "score": 0.112,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "MULTIPLE NPI FLAG=v2": "Y",
+      "SUBGROUP - GENERAL=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NPI"
+     ],
+     "cls": "pos",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (38%), PRACTICE LOCATION TYPE = \"HOSPITAL PSYCHIATRIC UNIT\" (13%))",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND PRACTICE LOCATION TYPE = 'HOSPITAL PSYCHIATRIC UNIT')",
+     "support": 0.035,
+     "rows": 248,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.097,
+     "score": 0.109,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v2": "P",
+      "PRACTICE LOCATION TYPE=v3": "HOSPITAL PSYCHIATRIC UNIT"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "INCORPORATION DATE",
+      "NPI"
+     ],
+     "cls": "pos",
+     "condition": "(PRACTICE LOCATION TYPE = \"OTHER HOSPITAL PRACTICE LOCATION\" (46%), SUBGROUP - REHABILITATION = \"Y\" (8%))",
+     "sql": "(PRACTICE LOCATION TYPE = 'OTHER HOSPITAL PRACTICE LOCATION' AND SUBGROUP - REHABILITATION = 'Y')",
+     "support": 0.032,
+     "rows": 227,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.22,
+     "score": 0.104,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PRACTICE LOCATION TYPE=v1": "OTHER HOSPITAL PRACTICE LOCATION",
+      "SUBGROUP - REHABILITATION=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NPI"
+     ],
+     "cls": "pos",
+     "condition": "(PRACTICE LOCATION TYPE = \"HOSPITAL PSYCHIATRIC UNIT\" (13%), SUBGROUP - PSYCHIATRIC = \"Y\" (12%))",
+     "sql": "(PRACTICE LOCATION TYPE = 'HOSPITAL PSYCHIATRIC UNIT' AND SUBGROUP - PSYCHIATRIC = 'Y')",
+     "support": 0.031,
+     "rows": 224,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.254,
+     "score": 0.104,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PRACTICE LOCATION TYPE=v3": "HOSPITAL PSYCHIATRIC UNIT",
+      "SUBGROUP - PSYCHIATRIC=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "ADDRESS LINE 1",
+      "INCORPORATION DATE",
+      "NPI"
+     ],
+     "cls": "cert",
+     "condition": "(MULTIPLE NPI FLAG = \"Y\" (10%), SUBGROUP - GENERAL = \"Y\" (26%))",
+     "sql": "(MULTIPLE NPI FLAG = 'Y' AND SUBGROUP - GENERAL = 'Y')",
+     "support": 0.036,
+     "rows": 259,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.089,
+     "score": 0.099,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "MULTIPLE NPI FLAG=v2": "Y",
+      "SUBGROUP - GENERAL=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "INCORPORATION DATE",
+      "NPI",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(MULTIPLE NPI FLAG = \"Y\" (10%), SUBGROUP - GENERAL = \"Y\" (26%))",
+     "sql": "(MULTIPLE NPI FLAG = 'Y' AND SUBGROUP - GENERAL = 'Y')",
+     "support": 0.036,
+     "rows": 259,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.089,
+     "score": 0.099,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "MULTIPLE NPI FLAG=v2": "Y",
+      "SUBGROUP - GENERAL=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "INCORPORATION DATE",
+      "NPI",
+      "CITY"
+     ],
+     "cls": "cert",
+     "condition": "(MULTIPLE NPI FLAG = \"Y\" (10%), SUBGROUP - GENERAL = \"Y\" (26%))",
+     "sql": "(MULTIPLE NPI FLAG = 'Y' AND SUBGROUP - GENERAL = 'Y')",
+     "support": 0.036,
+     "rows": 259,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.089,
+     "score": 0.099,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "MULTIPLE NPI FLAG=v2": "Y",
+      "SUBGROUP - GENERAL=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "ADDRESS LINE 1",
+      "INCORPORATION DATE",
+      "NPI"
+     ],
+     "cls": "dom",
+     "condition": "(DOING BUSINESS AS NAME missing, PROPRIETARY_NONPROFIT = \"P\" (38%))",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.073,
+     "rows": 519,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.557,
+     "score": 0.094,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v2": "P"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "INCORPORATION DATE",
+      "NPI",
+      "ZIP CODE"
+     ],
+     "cls": "dom",
+     "condition": "(DOING BUSINESS AS NAME missing, PROPRIETARY_NONPROFIT = \"P\" (38%))",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.073,
+     "rows": 519,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.557,
+     "score": 0.094,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v2": "P"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "INCORPORATION DATE",
+      "NPI",
+      "CITY"
+     ],
+     "cls": "dom",
+     "condition": "(DOING BUSINESS AS NAME missing, PROPRIETARY_NONPROFIT = \"P\" (38%))",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.073,
+     "rows": 519,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.557,
+     "score": 0.094,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v2": "P"
+     }
+    },
+    {
+     "table": "lbusa.t25588",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NPI",
+      "ZIP CODE"
+     ],
+     "cls": "dom",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"LLC\" (24%), SUBGROUP - ACUTE CARE = \"Y\" (44%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC' AND SUBGROUP - ACUTE CARE = 'Y')",
+     "support": 0.07,
+     "rows": 497,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.082,
+     "score": 0.092,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "LLC",
+      "SUBGROUP - ACUTE CARE=v2": "Y"
+     }
+    }
+   ],
+   "unconditional": {
+    "ENROLLMENT ID": "cand",
+    "CCN": "cand"
+   }
+  }
+ ]
+}

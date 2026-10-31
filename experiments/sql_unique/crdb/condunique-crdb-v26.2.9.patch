@@ -1,0 +1,925 @@
+diff --git a/pkg/sql/opt/memo/BUILD.bazel b/pkg/sql/opt/memo/BUILD.bazel
+index 110170cd..228ee682 100644
+--- a/pkg/sql/opt/memo/BUILD.bazel
++++ b/pkg/sql/opt/memo/BUILD.bazel
+@@ -5,6 +5,7 @@ go_library(
+     name = "memo",
+     srcs = [
+         "check_expr.go",
++        "cond_unique.go",
+         "constraint_builder.go",
+         "cost.go",
+         "expr.go",
+diff --git a/pkg/sql/opt/memo/cond_unique.go b/pkg/sql/opt/memo/cond_unique.go
+new file mode 100644
+index 00000000..df3f7468
+--- /dev/null
++++ b/pkg/sql/opt/memo/cond_unique.go
+@@ -0,0 +1,793 @@
++// Copyright 2026 The Cockroach Authors.
++//
++// Use of this software is governed by the CockroachDB Software License
++// included in the /LICENSE file.
++
++package memo
++
++// Conditional uniqueness (research prototype). A partial unique index is a
++// key of the rows that satisfy its predicate. This file decides whether the
++// partial and full unique indexes of a table, its NOT NULL columns and its
++// validated CHECK constraints imply that the rows passing a Select's own
++// filters are unique on a set of columns, with NULLs distinct (a lax key) or
++// NULLs equal (a strict key). Proven keys are added to the Select's functional
++// dependencies, so the existing normalization rules (join elimination,
++// DISTINCT and grouping reduction) and the propagation of keys through joins
++// use them.
++//
++// Predicates are read as templates: per column one of any, IS NOT NULL,
++// IS NULL, IN S, NOT IN S. Index predicates are translated exactly or the
++// index is not used as a premise. Filters are over-approximated: a conjunct
++// that cannot be translated is dropped, and a range comparison with a
++// constant is read as IS NOT NULL; both only enlarge the scope, which keeps
++// every proof sound. Disjunctions in filters and CHECK constraints become
++// several templates, and so do index predicates with OR. Implication is
++// decided by searching for two rows that violate the goal and satisfy every
++// premise; on each column only the constants mentioned there, NULL and two
++// fresh values need to be tried.
++
++import (
++	"github.com/cockroachdb/cockroach/pkg/sql/opt"
++	"github.com/cockroachdb/cockroach/pkg/sql/opt/props"
++	"github.com/cockroachdb/cockroach/pkg/sql/sem/idxtype"
++	"github.com/cockroachdb/cockroach/pkg/sql/sem/tree"
++	"github.com/cockroachdb/cockroach/pkg/sql/types"
++)
++
++const (
++	cuMaxTemplates = 16
++	cuMaxPremises  = 256
++	cuMaxNodes     = 100000
++)
++
++type cuKind uint8
++
++const (
++	cuAny cuKind = iota
++	cuTop
++	cuBot
++	cuIn
++	cuNotIn
++)
++
++// cuEntry is the template entry on one column. For cuIn and cuNotIn, vals is
++// a non-empty set of non-NULL constants.
++type cuEntry struct {
++	kind cuKind
++	vals tree.Datums
++}
++
++// cuTemplate maps columns to entries; absent columns are cuAny.
++type cuTemplate map[opt.ColumnID]cuEntry
++
++// cuPremise is a unique index: its predicate as templates (a disjunction)
++// and its key, with NULLs distinct.
++type cuPremise struct {
++	tmpls []cuTemplate
++	key   opt.ColSet
++}
++
++type conditionalUnique struct {
++	b       *logicalPropsBuilder
++	notNull opt.ColSet
++}
++
++func (c *conditionalUnique) equal(a, d tree.Datum) bool {
++	r, err := a.Compare(c.b.sb.ctx, c.b.evalCtx, d)
++	return err == nil && r == 0
++}
++
++func (c *conditionalUnique) typ(col opt.ColumnID) *types.T {
++	return c.b.mem.Metadata().ColumnMeta(col).Type
++}
++
++func (c *conditionalUnique) contains(s tree.Datums, d tree.Datum) bool {
++	for _, x := range s {
++		if c.equal(x, d) {
++			return true
++		}
++	}
++	return false
++}
++
++// usableType reports whether constants of the column's type can be compared
++// with Compare as the index and the query compare them.
++func usableType(t *types.T) bool {
++	switch t.Family() {
++	case types.IntFamily, types.StringFamily, types.BoolFamily, types.DateFamily,
++		types.TimestampFamily, types.TimestampTZFamily, types.UuidFamily, types.DecimalFamily,
++		types.EnumFamily, types.BytesFamily, types.OidFamily, types.TimeFamily, types.IntervalFamily:
++		return true
++	}
++	return false
++}
++
++// intersect returns the conjunction of two entries on one column, and false
++// if it is unsatisfiable.
++func (c *conditionalUnique) intersect(x, y cuEntry) (cuEntry, bool) {
++	if x.kind == cuAny {
++		return y, true
++	}
++	if y.kind == cuAny {
++		return x, true
++	}
++	if x.kind > y.kind {
++		x, y = y, x
++	}
++	switch x.kind {
++	case cuTop:
++		return y, y.kind != cuBot
++	case cuBot:
++		return x, y.kind == cuBot
++	case cuIn:
++		var out tree.Datums
++		for _, v := range x.vals {
++			if (y.kind == cuIn) == c.contains(y.vals, v) {
++				out = append(out, v)
++			}
++		}
++		return cuEntry{kind: cuIn, vals: out}, len(out) > 0
++	default: // both NOT IN
++		out := append(tree.Datums(nil), x.vals...)
++		for _, v := range y.vals {
++			if !c.contains(out, v) {
++				out = append(out, v)
++			}
++		}
++		return cuEntry{kind: cuNotIn, vals: out}, true
++	}
++}
++
++// and conjoins entry e on column col into every template of ts, dropping
++// templates that become unsatisfiable.
++func (c *conditionalUnique) and(ts []cuTemplate, col opt.ColumnID, e cuEntry) []cuTemplate {
++	out := ts[:0]
++	for _, t := range ts {
++		n, ok := c.intersect(t[col], e)
++		if !ok {
++			continue
++		}
++		t2 := make(cuTemplate, len(t)+1)
++		for k, v := range t {
++			t2[k] = v
++		}
++		t2[col] = n
++		out = append(out, t2)
++	}
++	return out
++}
++
++func constOf(e opt.ScalarExpr) (tree.Datum, bool) {
++	switch t := e.(type) {
++	case *ConstExpr:
++		return t.Value, true
++	case *TrueExpr:
++		return tree.DBoolTrue, true
++	case *FalseExpr:
++		return tree.DBoolFalse, true
++	case *NullExpr:
++		return tree.DNull, true
++	}
++	return nil, false
++}
++
++// atom translates a comparison of a column with constants. exact reports
++// whether the entry states the atom exactly (false: it over-approximates).
++// contra reports that the atom is never true.
++func (c *conditionalUnique) atom(
++	e opt.ScalarExpr, cols opt.ColSet,
++) (col opt.ColumnID, ent cuEntry, exact, contra, ok bool) {
++	varOf := func(x opt.ScalarExpr) (opt.ColumnID, bool) {
++		v, isVar := x.(*VariableExpr)
++		if !isVar || !cols.Contains(v.Col) || !usableType(c.typ(v.Col)) {
++			return 0, false
++		}
++		return v.Col, true
++	}
++	switch t := e.(type) {
++	case *VariableExpr:
++		if col, ok := varOf(t); ok && c.typ(col).Family() == types.BoolFamily {
++			return col, cuEntry{kind: cuIn, vals: tree.Datums{tree.DBoolTrue}}, true, false, true
++		}
++	case *NotExpr:
++		if v, isVar := t.Input.(*VariableExpr); isVar {
++			if col, ok := varOf(v); ok && c.typ(col).Family() == types.BoolFamily {
++				return col, cuEntry{kind: cuIn, vals: tree.Datums{tree.DBoolFalse}}, true, false, true
++			}
++		}
++	case *IsExpr, *IsNotExpr:
++		l, r := t.Child(0).(opt.ScalarExpr), t.Child(1).(opt.ScalarExpr)
++		col, okv := varOf(l)
++		d, okc := constOf(r)
++		if !okv || !okc {
++			return 0, cuEntry{}, false, false, false
++		}
++		_, isNot := t.(*IsNotExpr)
++		switch {
++		case d == tree.DNull && !isNot:
++			return col, cuEntry{kind: cuBot}, true, false, true
++		case d == tree.DNull && isNot:
++			return col, cuEntry{kind: cuTop}, true, false, true
++		case !isNot:
++			// x IS c with c non-NULL is x = c.
++			return col, cuEntry{kind: cuIn, vals: tree.Datums{d}}, true, false, true
++		}
++	case *EqExpr, *NeExpr, *LtExpr, *GtExpr, *LeExpr, *GeExpr:
++		l, r := t.Child(0).(opt.ScalarExpr), t.Child(1).(opt.ScalarExpr)
++		col, okv := varOf(l)
++		d, okc := constOf(r)
++		if !okv || !okc {
++			col, okv = varOf(r)
++			d, okc = constOf(l)
++		}
++		if !okv || !okc {
++			return 0, cuEntry{}, false, false, false
++		}
++		if d == tree.DNull {
++			return col, cuEntry{}, true, true, true
++		}
++		switch t.(type) {
++		case *EqExpr:
++			return col, cuEntry{kind: cuIn, vals: tree.Datums{d}}, true, false, true
++		case *NeExpr:
++			return col, cuEntry{kind: cuNotIn, vals: tree.Datums{d}}, true, false, true
++		default:
++			return col, cuEntry{kind: cuTop}, false, false, true
++		}
++	case *InExpr, *NotInExpr:
++		col, okv := varOf(t.Child(0).(opt.ScalarExpr))
++		tup, isTup := t.Child(1).(*TupleExpr)
++		if !okv || !isTup {
++			return 0, cuEntry{}, false, false, false
++		}
++		_, isNot := t.(*NotInExpr)
++		var vals tree.Datums
++		for _, el := range tup.Elems {
++			d, okc := constOf(el)
++			if !okc {
++				return 0, cuEntry{}, false, false, false
++			}
++			if d == tree.DNull {
++				if isNot {
++					// x NOT IN (..., NULL) is never true.
++					return col, cuEntry{}, true, true, true
++				}
++				continue
++			}
++			if !c.contains(vals, d) {
++				vals = append(vals, d)
++			}
++		}
++		if len(vals) == 0 {
++			return col, cuEntry{}, true, true, true
++		}
++		if isNot {
++			return col, cuEntry{kind: cuNotIn, vals: vals}, true, false, true
++		}
++		return col, cuEntry{kind: cuIn, vals: vals}, true, false, true
++	}
++	return 0, cuEntry{}, false, false, false
++}
++
++// conj translates a conjunction of atoms into one template. ok is false if
++// some atom cannot be translated (exactly, if exact is required); sat is
++// false if the conjunction is unsatisfiable.
++func (c *conditionalUnique) conj(
++	e opt.ScalarExpr, cols opt.ColSet, exact bool,
++) (t cuTemplate, sat, ok bool) {
++	ts := []cuTemplate{{}}
++	var walk func(x opt.ScalarExpr) bool
++	walk = func(x opt.ScalarExpr) bool {
++		if a, isAnd := x.(*AndExpr); isAnd {
++			return walk(a.Left) && walk(a.Right)
++		}
++		if _, isTrue := x.(*TrueExpr); isTrue {
++			return true
++		}
++		col, ent, ex, contra, okA := c.atom(x, cols)
++		if !okA || (exact && !ex) {
++			return false
++		}
++		if contra {
++			ts = nil
++			return true
++		}
++		ts = c.and(ts, col, ent)
++		return true
++	}
++	if !walk(e) {
++		return nil, false, false
++	}
++	if len(ts) == 0 {
++		return nil, false, true
++	}
++	return ts[0], true, true
++}
++
++// goal translates the Select's filters and the table's CHECK constraints into
++// a condition (a set of templates), over-approximating where needed.
++func (c *conditionalUnique) goal(filters []FiltersExpr, cols opt.ColSet) ([]cuTemplate, bool) {
++	ts := []cuTemplate{{}}
++	for _, fs := range filters {
++		for i := range fs {
++			cond := fs[i].Condition
++			if !fs[i].ScalarProps().OuterCols.SubsetOf(cols) {
++				// Correlated conjuncts are dropped.
++				continue
++			}
++			var disj []opt.ScalarExpr
++			var split func(x opt.ScalarExpr)
++			split = func(x opt.ScalarExpr) {
++				if o, isOr := x.(*OrExpr); isOr {
++					split(o.Left)
++					split(o.Right)
++					return
++				}
++				disj = append(disj, x)
++			}
++			split(cond)
++			if len(disj) == 1 {
++				var next []cuTemplate
++				for _, t := range ts {
++					nt, sat, ok := c.conj(cond, cols, false)
++					if !ok {
++						next = append(next, t)
++						continue
++					}
++					if !sat {
++						continue
++					}
++					merged := []cuTemplate{t}
++					for col, e := range nt {
++						merged = c.and(merged, col, e)
++					}
++					next = append(next, merged...)
++				}
++				ts = next
++				continue
++			}
++			var alts []cuTemplate
++			okAll := true
++			for _, d := range disj {
++				nt, sat, ok := c.conj(d, cols, false)
++				if !ok {
++					okAll = false
++					break
++				}
++				if sat {
++					alts = append(alts, nt)
++				}
++			}
++			if !okAll || len(ts)*len(alts) > cuMaxTemplates {
++				continue
++			}
++			var next []cuTemplate
++			for _, t := range ts {
++				for _, a := range alts {
++					merged := []cuTemplate{t}
++					for col, e := range a {
++						merged = c.and(merged, col, e)
++					}
++					next = append(next, merged...)
++				}
++			}
++			ts = next
++		}
++	}
++	return ts, true
++}
++
++// cuVal is a value on one column: NULL, the i-th constant, or a fresh value.
++type cuVal struct {
++	kind uint8 // 0 NULL, 1 constant, 2 fresh
++	i    int
++}
++
++func (c *conditionalUnique) matches(v cuVal, e cuEntry, consts tree.Datums) bool {
++	switch e.kind {
++	case cuAny:
++		return true
++	case cuTop:
++		return v.kind != 0
++	case cuBot:
++		return v.kind == 0
++	case cuIn:
++		return v.kind == 1 && c.contains(e.vals, consts[v.i])
++	default:
++		return v.kind == 2 || (v.kind == 1 && !c.contains(e.vals, consts[v.i]))
++	}
++}
++
++func sameValue(a, b cuVal) bool { return a.kind != 0 && a == b }
++
++// implies decides whether premises imply that rows matching cond are unique
++// on key, with NULLs distinct (nullsEqual false) or equal. It searches for two
++// rows, one per goal template, that agree on the key and satisfy every
++// premise. A pair satisfies a premise if one row fails every template of its
++// predicate or the rows differ on its key. Per column, a state (the two
++// values) sets features: "row 1 (2) fails template l of premise p here" and
++// "the rows differ on p's key here". Satisfaction is monotone in the union
++// of the features over the columns, so per column only states with maximal
++// feature sets need to be tried.
++func (c *conditionalUnique) implies(
++	all []cuPremise, cond []cuTemplate, key opt.ColSet, nullsEqual bool,
++) bool {
++	// Premise filter: an index whose key has a column outside the goal's key
++	// and the columns that every goal template fixes to one value or NULL is
++	// escaped by any pair that differs there, so it is left out. Dropping
++	// premises loses proofs, never soundness.
++	var fixed opt.ColSet
++	for col, e := range cond[0] {
++		if !((e.kind == cuIn && len(e.vals) == 1) || e.kind == cuBot) {
++			continue
++		}
++		same := true
++		for _, t := range cond[1:] {
++			if f := t[col]; !((f.kind == cuIn && len(f.vals) == 1) || f.kind == cuBot) {
++				same = false
++				break
++			}
++		}
++		if same {
++			fixed.Add(col)
++		}
++	}
++	allowed := key.Union(fixed)
++	var premises []cuPremise
++	for _, p := range all {
++		if p.key.SubsetOf(allowed) {
++			premises = append(premises, p)
++		}
++	}
++	var cols opt.ColSet
++	cols.UnionWith(key)
++	for _, t := range cond {
++		for col := range t {
++			cols.Add(col)
++		}
++	}
++	// Feature numbering: for premise p, base[p] is the "differ on key" bit,
++	// followed by the fail bits of row 1 and row 2 for each template.
++	base := make([]int, len(premises))
++	nbits := 0
++	for pi, p := range premises {
++		cols.UnionWith(p.key)
++		for _, t := range p.tmpls {
++			for col := range t {
++				cols.Add(col)
++			}
++		}
++		base[pi] = nbits
++		nbits += 1 + 2*len(p.tmpls)
++	}
++	nw := (nbits + 63) / 64
++	if nw == 0 {
++		nw = 1
++	}
++	set := func(b []uint64, i int) { b[i/64] |= 1 << uint(i%64) }
++	has := func(b []uint64, i int) bool { return b[i/64]&(1<<uint(i%64)) != 0 }
++	satisfiesAll := func(b []uint64) bool {
++		for pi, p := range premises {
++			if has(b, base[pi]) {
++				continue
++			}
++			f1, f2 := true, true
++			for l := range p.tmpls {
++				f1 = f1 && has(b, base[pi]+1+2*l)
++				f2 = f2 && has(b, base[pi]+2+2*l)
++			}
++			if !f1 && !f2 {
++				return false
++			}
++		}
++		return true
++	}
++	subset := func(a, b []uint64) bool {
++		for w := range a {
++			if a[w]&^b[w] != 0 {
++				return false
++			}
++		}
++		return true
++	}
++	or := func(a, b []uint64) []uint64 {
++		out := make([]uint64, nw)
++		for w := range out {
++			out[w] = a[w] | b[w]
++		}
++		return out
++	}
++	nodes := 0
++	for i := range cond {
++		for j := i; j < len(cond); j++ {
++			ti, tj := cond[i], cond[j]
++			var opts [][][]uint64
++			feasible := true
++			cols.ForEach(func(col opt.ColumnID) {
++				if !feasible {
++					return
++				}
++				var consts tree.Datums
++				add := func(e cuEntry) {
++					for _, v := range e.vals {
++						if !c.contains(consts, v) {
++							consts = append(consts, v)
++						}
++					}
++				}
++				add(ti[col])
++				add(tj[col])
++				for _, p := range premises {
++					for _, t := range p.tmpls {
++						add(t[col])
++					}
++				}
++				vals := []cuVal{{kind: 0}, {kind: 2, i: 0}, {kind: 2, i: 1}}
++				for k := range consts {
++					vals = append(vals, cuVal{kind: 1, i: k})
++				}
++				var sets [][]uint64
++				for _, v1 := range vals {
++					for _, v2 := range vals {
++						if !c.matches(v1, ti[col], consts) || !c.matches(v2, tj[col], consts) {
++							continue
++						}
++						if c.notNull.Contains(col) && (v1.kind == 0 || v2.kind == 0) {
++							continue
++						}
++						if key.Contains(col) {
++							agree := sameValue(v1, v2) || (nullsEqual && v1.kind == 0 && v2.kind == 0)
++							if !agree {
++								continue
++							}
++						}
++						b := make([]uint64, nw)
++						for pi, p := range premises {
++							if p.key.Contains(col) && !sameValue(v1, v2) {
++								set(b, base[pi])
++							}
++							for l, t := range p.tmpls {
++								if !c.matches(v1, t[col], consts) {
++									set(b, base[pi]+1+2*l)
++								}
++								if !c.matches(v2, t[col], consts) {
++									set(b, base[pi]+2+2*l)
++								}
++							}
++						}
++						sets = append(sets, b)
++					}
++				}
++				if len(sets) == 0 {
++					feasible = false
++					return
++				}
++				var maxi [][]uint64
++				for a, s := range sets {
++					dominated := false
++					for b, u := range sets {
++						if a != b && subset(s, u) && (!subset(u, s) || b < a) {
++							dominated = true
++							break
++						}
++					}
++					if !dominated {
++						maxi = append(maxi, s)
++					}
++				}
++				opts = append(opts, maxi)
++			})
++			if !feasible {
++				// No two rows of these templates can agree on the key.
++				continue
++			}
++			suffix := make([][]uint64, len(opts)+1)
++			suffix[len(opts)] = make([]uint64, nw)
++			for k := len(opts) - 1; k >= 0; k-- {
++				suffix[k] = suffix[k+1]
++				for _, s := range opts[k] {
++					suffix[k] = or(suffix[k], s)
++				}
++			}
++			var dfs func(k int, acc []uint64) bool
++			dfs = func(k int, acc []uint64) bool {
++				nodes++
++				if nodes > cuMaxNodes {
++					return true // give up: treat as a counterexample
++				}
++				if !satisfiesAll(or(acc, suffix[k])) {
++					return false
++				}
++				if k == len(opts) {
++					return true
++				}
++				for _, s := range opts[k] {
++					if dfs(k+1, or(acc, s)) {
++						return true
++					}
++				}
++				return false
++			}
++			if dfs(0, make([]uint64, nw)) {
++				return false
++			}
++		}
++	}
++	return true
++}
++
++// premiseTemplates translates an index predicate exactly into templates, one
++// per disjunct of its disjunctive normal form; ok is false if some atom is not translatable or there are too
++// many disjuncts.
++func (c *conditionalUnique) premiseTemplates(fs FiltersExpr, cols opt.ColSet) ([]cuTemplate, bool) {
++	ts := []cuTemplate{{}}
++	for k := range fs {
++		var disj []opt.ScalarExpr
++		var split func(x opt.ScalarExpr)
++		split = func(x opt.ScalarExpr) {
++			if o, isOr := x.(*OrExpr); isOr {
++				split(o.Left)
++				split(o.Right)
++				return
++			}
++			disj = append(disj, x)
++		}
++		split(fs[k].Condition)
++		var next []cuTemplate
++		for _, d := range disj {
++			nt, sat, ok := c.conj(d, cols, true)
++			if !ok {
++				return nil, false
++			}
++			if !sat {
++				continue
++			}
++			for _, t := range ts {
++				merged := []cuTemplate{t}
++				for col, e := range nt {
++					merged = c.and(merged, col, e)
++				}
++				next = append(next, merged...)
++			}
++		}
++		if len(next) > cuMaxTemplates {
++			return nil, false
++		}
++		ts = next
++	}
++	return ts, true
++}
++
++// addConditionalUniqueKeys adds the keys that the table's unique indexes
++// imply for the rows passing sel's filters.
++func (b *logicalPropsBuilder) addConditionalUniqueKeys(
++	sel *SelectExpr, scan *ScanExpr, rel *props.Relational,
++) {
++	md := b.mem.Metadata()
++	tabMeta := md.TableMeta(scan.Table)
++	tab := tabMeta.Table
++	if scan.IsInvertedScan(md) || scan.HardLimit != 0 || tab.IsVirtualTable() {
++		return
++	}
++	hasPartial := false
++	for i := 0; i < tab.IndexCount(); i++ {
++		if _, isPartial := tab.Index(i).Predicate(); isPartial && tab.Index(i).IsUnique() {
++			hasPartial = true
++		}
++	}
++	if !hasPartial {
++		return
++	}
++	var cols opt.ColSet
++	c := &conditionalUnique{b: b}
++	for i := 0; i < tab.ColumnCount(); i++ {
++		col := tab.Column(i)
++		if col.IsMutation() {
++			continue
++		}
++		cols.Add(scan.Table.ColumnID(i))
++		if !col.IsNullable() {
++			c.notNull.Add(scan.Table.ColumnID(i))
++		}
++	}
++	var premises []cuPremise
++	var keys []opt.ColSet
++	for i := 0; i < tab.IndexCount() && len(premises) < cuMaxPremises; i++ {
++		index := tab.Index(i)
++		if !index.IsUnique() || index.Type() != idxtype.FORWARD {
++			continue
++		}
++		var key opt.ColSet
++		for k := 0; k < index.LaxKeyColumnCount(); k++ {
++			key.Add(scan.Table.ColumnID(index.Column(k).Ordinal()))
++		}
++		if !key.SubsetOf(cols) {
++			continue
++		}
++		tmpls := []cuTemplate{{}}
++		if _, isPartial := index.Predicate(); isPartial {
++			pred, ok := tabMeta.PartialIndexPredicatesUnsafe()[i]
++			if !ok {
++				continue
++			}
++			fs, isFilters := pred.(*FiltersExpr)
++			if !isFilters {
++				continue
++			}
++			var ok2 bool
++			tmpls, ok2 = c.premiseTemplates(*fs, cols)
++			if !ok2 {
++				continue
++			}
++		}
++		if len(tmpls) == 0 {
++			// The predicate is unsatisfiable: the index covers no row.
++			continue
++		}
++		premises = append(premises, cuPremise{tmpls: tmpls, key: key})
++		keys = append(keys, key)
++	}
++	if len(premises) == 0 {
++		return
++	}
++	filters := []FiltersExpr{sel.Filters}
++	if tabMeta.Constraints != nil {
++		filters = append(filters, *tabMeta.Constraints.(*FiltersExpr))
++	}
++	cond, ok := c.goal(filters, cols)
++	if !ok || len(cond) == 0 || len(cond) > cuMaxTemplates {
++		return
++	}
++	// Candidate keys: each index key, and each index key extended by one or all
++	// of the columns that every goal template restricts to finitely many values. The
++	// second kind is a key of a union of scopes that no single index states,
++	// such as the rows with s IN (1, 2) under UNIQUE (k) WHERE s = 1 and
++	// UNIQUE (k) WHERE s = 2, which are unique on (k, s).
++	var finite opt.ColSet
++	for col, e := range cond[0] {
++		if e.kind != cuIn {
++			continue
++		}
++		all := true
++		for _, t := range cond[1:] {
++			if t[col].kind != cuIn {
++				all = false
++				break
++			}
++		}
++		if all {
++			finite.Add(col)
++		}
++	}
++	var cands []opt.ColSet
++	addCand := func(k opt.ColSet) {
++		for _, x := range cands {
++			if x.Equals(k) {
++				return
++			}
++		}
++		cands = append(cands, k)
++	}
++	for _, key := range keys {
++		addCand(key)
++	}
++	if !finite.Empty() {
++		for _, key := range keys {
++			finite.ForEach(func(col opt.ColumnID) {
++				addCand(key.Union(opt.MakeColSet(col)))
++			})
++			addCand(key.Union(finite))
++		}
++	}
++	allCols := rel.OutputCols.Union(cols)
++	for _, key := range cands {
++		if !c.implies(premises, cond, key, false) {
++			continue
++		}
++		if c.implies(premises, cond, key, true) {
++			rel.FuncDeps.AddStrictKey(key, allCols)
++		} else {
++			rel.FuncDeps.AddLaxKey(key, allCols)
++		}
++	}
++}
+diff --git a/pkg/sql/opt/memo/logical_props_builder.go b/pkg/sql/opt/memo/logical_props_builder.go
+index bc762013..19694e2e 100644
+--- a/pkg/sql/opt/memo/logical_props_builder.go
++++ b/pkg/sql/opt/memo/logical_props_builder.go
+@@ -285,6 +285,10 @@ func (b *logicalPropsBuilder) buildSelectProps(sel *SelectExpr, rel *props.Relat
+ 	// possibly simplify by calling ProjectCols.
+ 	rel.FuncDeps.CopyFrom(&inputProps.FuncDeps)
+ 	b.addFiltersToFuncDep(sel.Filters, &rel.FuncDeps)
++	if scan, ok := sel.Input.(*ScanExpr); ok && b.evalCtx != nil &&
++		b.evalCtx.SessionData().OptimizerUseConditionalUnique {
++		b.addConditionalUniqueKeys(sel, scan, rel)
++	}
+ 	addOuterColsToFuncDep(rel.OuterCols, &rel.FuncDeps)
+ 	rel.FuncDeps.MakeNotNull(rel.NotNullCols)
+ 	rel.FuncDeps.ProjectCols(rel.OutputCols)
+diff --git a/pkg/sql/opt/memo/memo.go b/pkg/sql/opt/memo/memo.go
+index a505edb5..c96b039f 100644
+--- a/pkg/sql/opt/memo/memo.go
++++ b/pkg/sql/opt/memo/memo.go
+@@ -196,6 +196,7 @@ type Memo struct {
+ 	spanLimit                                  int32
+ 	maxDisjunctionSplitCount                   int32
+ 	useImprovedZigzagJoinCosting               bool
++	useConditionalUnique                       bool
+ 	useImprovedMultiColumnSelectivityEstimate  bool
+ 	proveImplicationWithVirtualComputedCols    bool
+ 	pushOffsetIntoIndexJoin                    bool
+@@ -349,6 +350,7 @@ func (m *Memo) Init(ctx context.Context, evalCtx *eval.Context) {
+ 		spanLimit:                                  evalCtx.SessionData().OptimizerSpanLimit,
+ 		maxDisjunctionSplitCount:                   evalCtx.SessionData().OptimizerMaxDisjunctionSplitCount,
+ 		useImprovedZigzagJoinCosting:               evalCtx.SessionData().OptimizerUseImprovedZigzagJoinCosting,
++		useConditionalUnique:                       evalCtx.SessionData().OptimizerUseConditionalUnique,
+ 		useImprovedMultiColumnSelectivityEstimate:  evalCtx.SessionData().OptimizerUseImprovedMultiColumnSelectivityEstimate,
+ 		proveImplicationWithVirtualComputedCols:    evalCtx.SessionData().OptimizerProveImplicationWithVirtualComputedColumns,
+ 		pushOffsetIntoIndexJoin:                    evalCtx.SessionData().OptimizerPushOffsetIntoIndexJoin,
+@@ -543,6 +545,7 @@ func (m *Memo) IsStale(
+ 		m.spanLimit != evalCtx.SessionData().OptimizerSpanLimit ||
+ 		m.maxDisjunctionSplitCount != evalCtx.SessionData().OptimizerMaxDisjunctionSplitCount ||
+ 		m.useImprovedZigzagJoinCosting != evalCtx.SessionData().OptimizerUseImprovedZigzagJoinCosting ||
++		m.useConditionalUnique != evalCtx.SessionData().OptimizerUseConditionalUnique ||
+ 		m.useImprovedMultiColumnSelectivityEstimate != evalCtx.SessionData().OptimizerUseImprovedMultiColumnSelectivityEstimate ||
+ 		m.proveImplicationWithVirtualComputedCols != evalCtx.SessionData().OptimizerProveImplicationWithVirtualComputedColumns ||
+ 		m.pushOffsetIntoIndexJoin != evalCtx.SessionData().OptimizerPushOffsetIntoIndexJoin ||
+diff --git a/pkg/sql/session_var_descriptions.go b/pkg/sql/session_var_descriptions.go
+index ba739996..aed8d3b5 100644
+--- a/pkg/sql/session_var_descriptions.go
++++ b/pkg/sql/session_var_descriptions.go
+@@ -169,6 +169,7 @@ var sessionVarDescriptions = map[string]string{
+ 	"optimizer_use_improved_multi_column_selectivity_estimate":        "Controls whether the optimizer should use an improved selectivity estimate for multi-column predicates.",
+ 	"optimizer_use_improved_split_disjunction_for_joins":              "Enables the optimizer to split more disjunctions (OR expressions) in join conditions by building a UNION of join expressions.",
+ 	"optimizer_use_improved_trigram_similarity_selectivity":           "Controls whether the optimizer should use an improved selectivity estimate for trigram similarity filters.",
++	"optimizer_use_conditional_unique": "Controls whether the optimizer proves keys from partial unique indexes whose predicates a query's filters imply (research prototype).",
+ 	"optimizer_use_improved_zigzag_join_costing":                      "Controls whether the optimizer should use improved logic in the cost model for zigzag joins.",
+ 	"optimizer_use_limit_ordering_for_streaming_group_by":             "Enables optimization for 'SELECT ... GROUP BY ... ORDER BY ... LIMIT n' queries by using the limit ordering to inform group-by requirements.",
+ 	"optimizer_use_lock_elision_multiple_families":                    "Controls whether the optimizer enables lock elision for operations involving multiple column families.",
+diff --git a/pkg/sql/sessiondatapb/local_only_session_data.proto b/pkg/sql/sessiondatapb/local_only_session_data.proto
+index 60bcafde..61c8d9b0 100644
+--- a/pkg/sql/sessiondatapb/local_only_session_data.proto
++++ b/pkg/sql/sessiondatapb/local_only_session_data.proto
+@@ -501,6 +501,10 @@ message LocalOnlySessionData {
+   // OptimizerUseImprovedZigzagJoinCosting, when true, indicates that the
+   // optimizer should use improved logic in the cost model for zigzag joins.
+   bool optimizer_use_improved_zigzag_join_costing = 128;
++  // OptimizerUseConditionalUnique, when true, lets the optimizer prove keys
++  // from partial unique indexes whose predicates a Select's filters imply
++  // (research prototype).
++  bool optimizer_use_conditional_unique = 990;
+   // OptimizerUseImprovedMultiColumnSelectivityEstimate, when true, indicates
+   // that the optimizer should use an improved selectivity estimate for
+   // multi-column predicates.
+diff --git a/pkg/sql/sessionmutator/mutator.go b/pkg/sql/sessionmutator/mutator.go
+index 3c6945b4..1fb47dd5 100644
+--- a/pkg/sql/sessionmutator/mutator.go
++++ b/pkg/sql/sessionmutator/mutator.go
+@@ -985,6 +985,10 @@ func (m *SessionDataMutator) SetOptimizerUseImprovedZigzagJoinCosting(val bool)
+ 	m.Data.OptimizerUseImprovedZigzagJoinCosting = val
+ }
+ 
++func (m *SessionDataMutator) SetOptimizerUseConditionalUnique(val bool) {
++	m.Data.OptimizerUseConditionalUnique = val
++}
++
+ func (m *SessionDataMutator) SetOptimizerUseImprovedMultiColumnSelectivityEstimate(val bool) {
+ 	m.Data.OptimizerUseImprovedMultiColumnSelectivityEstimate = val
+ }
+diff --git a/pkg/sql/vars.go b/pkg/sql/vars.go
+index 4abaf936..03f0c695 100644
+--- a/pkg/sql/vars.go
++++ b/pkg/sql/vars.go
+@@ -4128,6 +4128,24 @@ var varGen = map[string]sessionVar{
+ 		GlobalDefault: globalTrue,
+ 	},
+ 
++	// CockroachDB extension (research prototype).
++	`optimizer_use_conditional_unique`: {
++		Description:  sessionVarDescriptions["optimizer_use_conditional_unique"],
++		GetStringVal: makePostgresBoolGetStringValFn(`optimizer_use_conditional_unique`),
++		Set: func(_ context.Context, m sessionmutator.SessionDataMutator, s string) error {
++			b, err := paramparse.ParseBoolVar("optimizer_use_conditional_unique", s)
++			if err != nil {
++				return err
++			}
++			m.SetOptimizerUseConditionalUnique(b)
++			return nil
++		},
++		Get: func(evalCtx *extendedEvalContext, _ *kv.Txn) (string, error) {
++			return formatBoolAsPostgresSetting(evalCtx.SessionData().OptimizerUseConditionalUnique), nil
++		},
++		GlobalDefault: globalFalse,
++	},
++
+ 	// CockroachDB extension.
+ 	`optimizer_use_improved_zigzag_join_costing`: {
+ 		Description:  sessionVarDescriptions["optimizer_use_improved_zigzag_join_costing"],

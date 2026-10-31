@@ -1,0 +1,1772 @@
+{
+ "mastodon": {
+  "commit": "b0555670b3d24d6e4a977a6bc3894daa128123fa",
+  "date": "2026-10-27",
+  "indexes": [
+   {
+    "name": "index_collection_items_on_approval_uri",
+    "table": "collection_items",
+    "columns": [
+     "approval_uri"
+    ],
+    "where": "(approval_uri IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_collection_items_on_uri",
+    "table": "collection_items",
+    "columns": [
+     "uri"
+    ],
+    "where": "(uri IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_collections_on_uri",
+    "table": "collections",
+    "columns": [
+     "uri"
+    ],
+    "where": "(uri IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_conversations_on_parent_status_id",
+    "table": "conversations",
+    "columns": [
+     "parent_status_id"
+    ],
+    "where": "(parent_status_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_conversations_on_uri",
+    "table": "conversations",
+    "columns": [
+     "uri"
+    ],
+    "where": "(uri IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_email_subscriptions_on_confirmation_token",
+    "table": "email_subscriptions",
+    "columns": [
+     "confirmation_token"
+    ],
+    "where": "(confirmation_token IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_media_attachments_on_shortcode",
+    "table": "media_attachments",
+    "columns": [
+     "shortcode"
+    ],
+    "where": "(shortcode IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_oauth_access_tokens_on_refresh_token",
+    "table": "oauth_access_tokens",
+    "columns": [
+     "refresh_token"
+    ],
+    "where": "(refresh_token IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_quotes_on_activity_uri",
+    "table": "quotes",
+    "columns": [
+     "activity_uri"
+    ],
+    "where": "(activity_uri IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_statuses_on_uri",
+    "table": "statuses",
+    "columns": [
+     "uri"
+    ],
+    "where": "(uri IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "idx_on_status_id_object_type_object_id_d6ebe374bd",
+    "table": "tagged_objects",
+    "columns": [
+     "status_id",
+     "object_type",
+     "object_id"
+    ],
+    "where": "((object_type IS NOT NULL) AND (object_id IS NOT NULL))",
+    "nnd": false
+   },
+   {
+    "name": "index_tagged_objects_on_status_id_and_uri",
+    "table": "tagged_objects",
+    "columns": [
+     "status_id",
+     "uri"
+    ],
+    "where": "(uri IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_terms_of_services_on_effective_date",
+    "table": "terms_of_services",
+    "columns": [
+     "effective_date"
+    ],
+    "where": "(effective_date IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_users_on_reset_password_token",
+    "table": "users",
+    "columns": [
+     "reset_password_token"
+    ],
+    "where": "(reset_password_token IS NOT NULL)",
+    "nnd": false
+   }
+  ]
+ },
+ "forem": {
+  "commit": "5a10227af3026244445b0053f50122a4baac816a",
+  "date": "2026-10-27",
+  "indexes": [
+   {
+    "name": "index_articles_on_canonical_url",
+    "table": "articles",
+    "columns": [
+     "canonical_url"
+    ],
+    "where": "(published IS TRUE)",
+    "nnd": false
+   },
+   {
+    "name": "index_articles_on_feed_source_url",
+    "table": "articles",
+    "columns": [
+     "feed_source_url"
+    ],
+    "where": "(published IS TRUE)",
+    "nnd": false
+   },
+   {
+    "name": "index_collections_on_slug_and_organization_id",
+    "table": "collections",
+    "columns": [
+     "slug",
+     "organization_id"
+    ],
+    "where": "(organization_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_collections_on_slug_and_user_id",
+    "table": "collections",
+    "columns": [
+     "slug",
+     "user_id"
+    ],
+    "where": "(organization_id IS NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_flag_appeals_on_pending_user_target",
+    "table": "flag_appeals",
+    "columns": [
+     "user_id",
+     "appealable_type",
+     "appealable_id"
+    ],
+    "where": "(status = ANY (ARRAY[0, 1]))",
+    "nnd": false
+   },
+   {
+    "name": "idx_lead_submissions_form_user_unique",
+    "table": "lead_submissions",
+    "columns": [
+     "organization_lead_form_id",
+     "user_id"
+    ],
+    "where": "(user_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_notifications_on_org_notifiable_and_action_not_null",
+    "table": "notifications",
+    "columns": [
+     "organization_id",
+     "notifiable_id",
+     "notifiable_type",
+     "action"
+    ],
+    "where": "(action IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_notifications_on_org_notifiable_action_is_null",
+    "table": "notifications",
+    "columns": [
+     "organization_id",
+     "notifiable_id",
+     "notifiable_type"
+    ],
+    "where": "(action IS NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_notifications_on_user_notifiable_and_action_not_null",
+    "table": "notifications",
+    "columns": [
+     "user_id",
+     "notifiable_id",
+     "notifiable_type",
+     "action"
+    ],
+    "where": "(action IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_notifications_on_user_notifiable_action_is_null",
+    "table": "notifications",
+    "columns": [
+     "user_id",
+     "notifiable_id",
+     "notifiable_type"
+    ],
+    "where": "(action IS NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_organizations_on_custom_domain",
+    "table": "organizations",
+    "columns": [
+     "custom_domain"
+    ],
+    "where": "((custom_domain IS NOT NULL) AND ((custom_domain)::text <> ''::text))",
+    "nnd": false
+   },
+   {
+    "name": "index_organizations_on_tls_subscription_id",
+    "table": "organizations",
+    "columns": [
+     "tls_subscription_id"
+    ],
+    "where": "((tls_subscription_id IS NOT NULL) AND ((tls_subscription_id)::text <> ''::text))",
+    "nnd": false
+   }
+  ]
+ },
+ "chatwoot": {
+  "commit": "90ed589c695f6aeaeea0e78f6be7d4ec0fb3e1b3",
+  "date": "2026-10-27",
+  "indexes": [
+   {
+    "name": "index_campaign_recipients_on_source_id",
+    "table": "campaign_recipients",
+    "columns": [
+     "source_id"
+    ],
+    "where": "(source_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "idx_captain_faq_observations_on_conversation_and_suggestion",
+    "table": "captain_faq_observations",
+    "columns": [
+     "conversation_id",
+     "faq_suggestion_id"
+    ],
+    "where": "(faq_suggestion_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_companies_on_account_and_domain",
+    "table": "companies",
+    "columns": [
+     "account_id",
+     "domain"
+    ],
+    "where": "(domain IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_monitor_scans_initial",
+    "table": "conversation_monitor_scans",
+    "columns": [
+     "monitor_id"
+    ],
+    "where": "((kind)::text = 'initial'::text)",
+    "nnd": false
+   },
+   {
+    "name": "idx_conversation_outcomes_initial_episode",
+    "table": "conversation_outcomes",
+    "columns": [
+     "account_id",
+     "conversation_id"
+    ],
+    "where": "((episode_trigger)::text = 'initial'::text)",
+    "nnd": false
+   },
+   {
+    "name": "idx_conversation_outcomes_open_episode",
+    "table": "conversation_outcomes",
+    "columns": [
+     "account_id",
+     "conversation_id"
+    ],
+    "where": "(ended_at IS NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_email_templates_on_account_scope",
+    "table": "email_templates",
+    "columns": [
+     "account_id",
+     "name",
+     "template_type",
+     "locale"
+    ],
+    "where": "(account_id IS NOT NULL) AND (inbox_id IS NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_email_templates_on_inbox_scope",
+    "table": "email_templates",
+    "columns": [
+     "inbox_id",
+     "name",
+     "template_type",
+     "locale"
+    ],
+    "where": "(inbox_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_email_templates_on_installation_scope",
+    "table": "email_templates",
+    "columns": [
+     "name",
+     "template_type",
+     "locale"
+    ],
+    "where": "(account_id IS NULL) AND (inbox_id IS NULL)",
+    "nnd": false
+   }
+  ]
+ },
+ "loomio": {
+  "commit": "8f7f6d3573096fda09d8ed22b943cbe8c7828483",
+  "date": "2026-10-27",
+  "indexes": [
+   {
+    "name": "index_active_push_subscriptions_on_endpoint_digest",
+    "table": "push_subscriptions",
+    "columns": [
+     "endpoint_digest"
+    ],
+    "where": "(revoked_at IS NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_stances_on_poll_id_and_participant_id_and_latest",
+    "table": "stances",
+    "columns": [
+     "poll_id",
+     "participant_id",
+     "latest"
+    ],
+    "where": "(latest = true)",
+    "nnd": false
+   },
+   {
+    "name": "index_subscriptions_on_billing_service_id",
+    "table": "subscriptions",
+    "columns": [
+     "billing_service_subscription_id"
+    ],
+    "where": "(billing_service_subscription_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_topic_items_on_unique_discussion_root",
+    "table": "topic_items",
+    "columns": [
+     "itemable_type",
+     "itemable_id",
+     "kind"
+    ],
+    "where": "(((itemable_type)::text = 'Discussion'::text) AND ((kind)::text = 'new_discussion'::text))",
+    "nnd": false
+   },
+   {
+    "name": "index_topic_items_on_unique_poll_root",
+    "table": "topic_items",
+    "columns": [
+     "itemable_type",
+     "itemable_id",
+     "kind"
+    ],
+    "where": "(((itemable_type)::text = 'Poll'::text) AND ((kind)::text = 'poll_created'::text))",
+    "nnd": false
+   }
+  ]
+ },
+ "maybe": {
+  "commit": "77b5469832758d1cbee1a940f3012a1ae1c74cd3",
+  "date": "2025-07-24",
+  "indexes": [
+   {
+    "name": "index_merchants_on_family_id_and_name",
+    "table": "merchants",
+    "columns": [
+     "family_id",
+     "name"
+    ],
+    "where": "((type)::text = 'FamilyMerchant'::text)",
+    "nnd": false
+   },
+   {
+    "name": "index_merchants_on_source_and_name",
+    "table": "merchants",
+    "columns": [
+     "source",
+     "name"
+    ],
+    "where": "((type)::text = 'ProviderMerchant'::text)",
+    "nnd": false
+   },
+   {
+    "name": "index_users_on_otp_secret",
+    "table": "users",
+    "columns": [
+     "otp_secret"
+    ],
+    "where": "(otp_secret IS NOT NULL)",
+    "nnd": false
+   }
+  ]
+ },
+ "docuseal": {
+  "commit": "13a1835c006e218e2e48ede3eb153812bd025a05",
+  "date": "2026-10-26",
+  "indexes": [
+   {
+    "name": "index_completed_submitters_on_submission_id",
+    "table": "completed_submitters",
+    "columns": [
+     "submission_id"
+    ],
+    "where": "(is_first = true)",
+    "nnd": false
+   },
+   {
+    "name": "index_document_generation_events_on_submitter_id_and_event_name",
+    "table": "document_generation_events",
+    "columns": [
+     "submitter_id",
+     "event_name"
+    ],
+    "where": "((event_name)::text = ANY (ARRAY[('start'::character varying)::text, ('complete'::character varying)::text]))",
+    "nnd": false
+   },
+   {
+    "name": "index_lock_events_on_event_name_and_key",
+    "table": "lock_events",
+    "columns": [
+     "event_name",
+     "key"
+    ],
+    "where": "((event_name)::text = ANY (ARRAY[('start'::character varying)::text, ('complete'::character varying)::text]))",
+    "nnd": false
+   }
+  ]
+ },
+ "gitlab": {
+  "commit": "392f8d29e652bbc9c4234a363256f8a3926e8395",
+  "date": "2026-10-27",
+  "indexes": [
+   {
+    "name": "idx_uniq_vreg_cont_cache_remote_upstream_rel_path",
+    "table": "virtual_registries_container_cache_remote_entries",
+    "columns": [
+     "group_id",
+     "upstream_id",
+     "relative_path"
+    ],
+    "where": "(status = 0)",
+    "nnd": false
+   },
+   {
+    "name": "idx_uniq_vreg_mvn_cache_remote_entries_on_upstream_id_rel_path",
+    "table": "virtual_registries_packages_maven_cache_remote_entries",
+    "columns": [
+     "upstream_id",
+     "group_id",
+     "relative_path"
+    ],
+    "where": "(status = 0)",
+    "nnd": false
+   },
+   {
+    "name": "i_uniq_v_pkg_npm_cache_rem_entrs_on_upstr_id_group_id_rel_path",
+    "table": "virtual_registries_packages_npm_cache_remote_entries",
+    "columns": [
+     "upstream_id",
+     "group_id",
+     "relative_path"
+    ],
+    "where": "(status = 0)",
+    "nnd": false
+   },
+   {
+    "name": "any_approver_project_rule_type_unique_index",
+    "table": "approval_project_rules",
+    "columns": [
+     "project_id"
+    ],
+    "where": "(rule_type = 3)",
+    "nnd": false
+   },
+   {
+    "name": "epic_user_mentions_on_epic_id_index",
+    "table": "epic_user_mentions",
+    "columns": [
+     "epic_id"
+    ],
+    "where": "(note_id IS NULL)",
+    "nnd": false
+   },
+   {
+    "name": "i_ai_governance_sessions_on_namespace_source_external_xid",
+    "table": "ai_governance_sessions",
+    "columns": [
+     "namespace_id",
+     "source",
+     "external_xid"
+    ],
+    "where": "(external_xid IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "i_ai_governance_sessions_on_namespace_workflow",
+    "table": "ai_governance_sessions",
+    "columns": [
+     "namespace_id",
+     "workflow_id"
+    ],
+    "where": "(workflow_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "i_uniq_external_control_name_per_requirement",
+    "table": "compliance_requirements_controls",
+    "columns": [
+     "compliance_requirement_id",
+     "external_control_name"
+    ],
+    "where": "((external_control_name IS NOT NULL) AND (external_control_name <> ''::text))",
+    "nnd": false
+   },
+   {
+    "name": "idx_ai_iaer_default_rule_on_accessible_entity",
+    "table": "ai_instance_accessible_entity_rules",
+    "columns": [
+     "accessible_entity"
+    ],
+    "where": "(through_namespace_id IS NULL)",
+    "nnd": false
+   },
+   {
+    "name": "idx_ai_nfar_default_rule_on_root_ns_accessible_entity",
+    "table": "ai_namespace_feature_access_rules",
+    "columns": [
+     "root_namespace_id",
+     "accessible_entity"
+    ],
+    "where": "(through_namespace_id IS NULL)",
+    "nnd": false
+   },
+   {
+    "name": "idx_bulk_import_exports_on_group_relation_offline_export",
+    "table": "bulk_import_exports",
+    "columns": [
+     "group_id",
+     "relation",
+     "offline_export_id"
+    ],
+    "where": "((group_id IS NOT NULL) AND (offline_export_id IS NOT NULL))",
+    "nnd": false
+   },
+   {
+    "name": "idx_bulk_import_exports_on_project_relation_offline_export",
+    "table": "bulk_import_exports",
+    "columns": [
+     "project_id",
+     "relation",
+     "offline_export_id"
+    ],
+    "where": "((project_id IS NOT NULL) AND (offline_export_id IS NOT NULL))",
+    "nnd": false
+   },
+   {
+    "name": "idx_enabled_flows_on_namespace_catalog_item",
+    "table": "enabled_foundational_flows",
+    "columns": [
+     "namespace_id",
+     "catalog_item_id"
+    ],
+    "where": "(namespace_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "idx_enabled_flows_on_project_catalog_item",
+    "table": "enabled_foundational_flows",
+    "columns": [
+     "project_id",
+     "catalog_item_id"
+    ],
+    "where": "(project_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "idx_import_sync_external_objects_on_issue_id",
+    "table": "import_sync_external_objects",
+    "columns": [
+     "issue_id"
+    ],
+    "where": "(issue_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "idx_import_sync_external_objects_on_merge_request_id",
+    "table": "import_sync_external_objects",
+    "columns": [
+     "merge_request_id"
+    ],
+    "where": "(merge_request_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "idx_import_sync_external_objects_on_note_id",
+    "table": "import_sync_external_objects",
+    "columns": [
+     "note_id"
+    ],
+    "where": "(note_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "idx_mvn_reg_upstreams_on_local_upstream_and_registry_ids",
+    "table": "virtual_registries_packages_maven_registry_upstreams",
+    "columns": [
+     "local_upstream_id",
+     "registry_id"
+    ],
+    "where": "(local_upstream_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "idx_mvn_reg_upstreams_on_upstream_and_registry_ids",
+    "table": "virtual_registries_packages_maven_registry_upstreams",
+    "columns": [
+     "upstream_id",
+     "registry_id"
+    ],
+    "where": "(upstream_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "idx_namespace_state_propagations_unique_pending_processing",
+    "table": "namespace_state_propagations",
+    "columns": [
+     "namespace_id",
+     "target_state"
+    ],
+    "where": "(status = ANY (ARRAY[0, 1]))",
+    "nnd": false
+   },
+   {
+    "name": "idx_oauth_consent_grants_on_user_id_and_application_id_active",
+    "table": "oauth_consent_grants",
+    "columns": [
+     "user_id",
+     "application_id"
+    ],
+    "where": "((status = 0) AND (source <> 3))",
+    "nnd": false
+   },
+   {
+    "name": "idx_on_approval_group_rules_any_approver_type",
+    "table": "approval_group_rules",
+    "columns": [
+     "group_id",
+     "rule_type"
+    ],
+    "where": "(rule_type = 4)",
+    "nnd": false
+   },
+   {
+    "name": "idx_packages_on_project_id_name_version_unique_when_generic",
+    "table": "packages_packages",
+    "columns": [
+     "project_id",
+     "name",
+     "version"
+    ],
+    "where": "((package_type = 7) AND (status <> 4))",
+    "nnd": false
+   },
+   {
+    "name": "idx_packages_on_project_id_name_version_unique_when_golang",
+    "table": "packages_packages",
+    "columns": [
+     "project_id",
+     "name",
+     "version"
+    ],
+    "where": "((package_type = 8) AND (status <> 4))",
+    "nnd": false
+   },
+   {
+    "name": "idx_packages_on_project_id_name_version_unique_when_helm",
+    "table": "packages_packages",
+    "columns": [
+     "project_id",
+     "name",
+     "version"
+    ],
+    "where": "((package_type = 11) AND (status <> 4))",
+    "nnd": false
+   },
+   {
+    "name": "idx_packages_on_project_id_name_version_unique_when_maven",
+    "table": "packages_packages",
+    "columns": [
+     "project_id",
+     "name",
+     "version"
+    ],
+    "where": "((package_type = 1) AND (status <> 4))",
+    "nnd": false
+   },
+   {
+    "name": "idx_packages_on_project_id_name_version_unique_when_npm",
+    "table": "packages_packages",
+    "columns": [
+     "project_id",
+     "name",
+     "version"
+    ],
+    "where": "((package_type = 2) AND (status <> 4))",
+    "nnd": false
+   },
+   {
+    "name": "idx_secrets_management_recovery_keys_on_active_true",
+    "table": "secrets_management_recovery_keys",
+    "columns": [
+     "active"
+    ],
+    "where": "active",
+    "nnd": false
+   },
+   {
+    "name": "idx_spep_test_runs_pipeline_id_unique",
+    "table": "security_scheduled_pipeline_execution_policy_test_runs",
+    "columns": [
+     "pipeline_id"
+    ],
+    "where": "(pipeline_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "idx_uniq_vreg_pkgs_mvn_local_upstr_on_loc_group_id_group_id",
+    "table": "virtual_registries_packages_maven_local_upstreams",
+    "columns": [
+     "local_group_id",
+     "group_id"
+    ],
+    "where": "(local_group_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "idx_uniq_vreg_pkgs_mvn_local_upstr_on_loc_proj_id_group_id",
+    "table": "virtual_registries_packages_maven_local_upstreams",
+    "columns": [
+     "local_project_id",
+     "group_id"
+    ],
+    "where": "(local_project_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "idx_unique_approval_mr_rules_for_scan_result_policy",
+    "table": "approval_merge_request_rules",
+    "columns": [
+     "merge_request_id",
+     "name",
+     "rule_type",
+     "security_orchestration_policy_configuration_id",
+     "orchestration_policy_idx",
+     "approval_policy_action_idx"
+    ],
+    "where": "(report_type = ANY (ARRAY[2, 4, 5]))",
+    "nnd": false
+   },
+   {
+    "name": "idx_vuln_user_mentions_on_note_id_and_project_id",
+    "table": "vulnerability_user_mentions",
+    "columns": [
+     "note_id",
+     "project_id"
+    ],
+    "where": "(note_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "idx_vulnerability_ext_issue_links_on_vulne_id_and_link_type",
+    "table": "vulnerability_external_issue_links",
+    "columns": [
+     "vulnerability_id",
+     "link_type"
+    ],
+    "where": "(link_type = 1)",
+    "nnd": false
+   },
+   {
+    "name": "idx_vulnerability_issue_links_on_vulnerability_id_and_link_type",
+    "table": "vulnerability_issue_links",
+    "columns": [
+     "vulnerability_id",
+     "link_type"
+    ],
+    "where": "(link_type = 2)",
+    "nnd": false
+   },
+   {
+    "name": "idx_work_item_custom_types_on_ns_id_and_name",
+    "table": "work_item_custom_types",
+    "columns": [
+     "namespace_id",
+     "lower(name)"
+    ],
+    "where": "(namespace_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "idx_work_item_custom_types_on_org_id_and_name",
+    "table": "work_item_custom_types",
+    "columns": [
+     "organization_id",
+     "lower(name)"
+    ],
+    "where": "(organization_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "idx_work_item_settings_on_namespace_id",
+    "table": "work_item_settings",
+    "columns": [
+     "namespace_id"
+    ],
+    "where": "(namespace_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "idx_work_item_settings_on_organization_id",
+    "table": "work_item_settings",
+    "columns": [
+     "organization_id"
+    ],
+    "where": "(organization_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_active_context_connections_single_active",
+    "table": "ai_active_context_connections",
+    "columns": [
+     "active"
+    ],
+    "where": "(active = true)",
+    "nnd": false
+   },
+   {
+    "name": "index_add_on_purchases_on_add_on_uid_and_namespace_id_not_null",
+    "table": "subscription_add_on_purchases",
+    "columns": [
+     "subscription_add_on_uid",
+     "namespace_id"
+    ],
+    "where": "(subscription_add_on_uid IS NOT NULL)",
+    "nnd": true
+   },
+   {
+    "name": "index_alert_user_mentions_on_alert_id",
+    "table": "alert_management_alert_user_mentions",
+    "columns": [
+     "alert_management_alert_id"
+    ],
+    "where": "(note_id IS NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_alert_user_mentions_on_note_id",
+    "table": "alert_management_alert_user_mentions",
+    "columns": [
+     "note_id"
+    ],
+    "where": "(note_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_approval_rule_name_for_code_owners_rule_type",
+    "table": "approval_merge_request_rules",
+    "columns": [
+     "merge_request_id",
+     "name"
+    ],
+    "where": "((rule_type = 2) AND (section IS NULL))",
+    "nnd": false
+   },
+   {
+    "name": "index_approval_rule_name_for_sectional_code_owners_rule_type",
+    "table": "approval_merge_request_rules",
+    "columns": [
+     "merge_request_id",
+     "name",
+     "section"
+    ],
+    "where": "(rule_type = 2)",
+    "nnd": false
+   },
+   {
+    "name": "index_boards_epic_lists_on_epic_board_id_and_label_id",
+    "table": "boards_epic_lists",
+    "columns": [
+     "epic_board_id",
+     "label_id"
+    ],
+    "where": "(list_type = 1)",
+    "nnd": false
+   },
+   {
+    "name": "index_bow_cell_local_on_unique_undone",
+    "table": "background_operation_workers_cell_local",
+    "columns": [
+     "partition",
+     "job_class_name",
+     "table_name",
+     "column_name",
+     "job_arguments"
+    ],
+    "where": "(status = ANY (ARRAY[0, 1, 2]))",
+    "nnd": false
+   },
+   {
+    "name": "index_bow_on_unique_undone",
+    "table": "background_operation_workers",
+    "columns": [
+     "partition",
+     "organization_id",
+     "job_class_name",
+     "table_name",
+     "column_name",
+     "job_arguments"
+    ],
+    "where": "(status = ANY (ARRAY[0, 1, 2]))",
+    "nnd": false
+   },
+   {
+    "name": "index_cd_rollouts_on_application_id_non_terminal",
+    "table": "cd_rollouts",
+    "columns": [
+     "application_id"
+    ],
+    "where": "(state = ANY (ARRAY[0, 1, 2]))",
+    "nnd": false
+   },
+   {
+    "name": "index_cd_version_sets_on_application_id_and_entries_digest",
+    "table": "cd_version_sets",
+    "columns": [
+     "application_id",
+     "entries_digest"
+    ],
+    "where": "(entries_digest IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_ci_partitions_on_current_status",
+    "table": "ci_partitions",
+    "columns": [
+     "status"
+    ],
+    "where": "(status = 2)",
+    "nnd": false
+   },
+   {
+    "name": "index_duo_workflows_workflows_on_project_user_idempotency_key",
+    "table": "duo_workflows_workflows",
+    "columns": [
+     "project_id",
+     "user_id",
+     "idempotency_key"
+    ],
+    "where": "((idempotency_key IS NOT NULL) AND (project_id IS NOT NULL))",
+    "nnd": false
+   },
+   {
+    "name": "index_elastic_reindexing_tasks_on_in_progress",
+    "table": "elastic_reindexing_tasks",
+    "columns": [
+     "in_progress"
+    ],
+    "where": "in_progress",
+    "nnd": false
+   },
+   {
+    "name": "index_epic_user_mentions_on_note_id",
+    "table": "epic_user_mentions",
+    "columns": [
+     "note_id"
+    ],
+    "where": "(note_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_epics_on_group_id_and_external_key",
+    "table": "epics",
+    "columns": [
+     "group_id",
+     "external_key"
+    ],
+    "where": "(external_key IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_integrations_on_type_new_and_organization_id_unique",
+    "table": "integrations",
+    "columns": [
+     "type_new",
+     "organization_id"
+    ],
+    "where": "(instance = true)",
+    "nnd": false
+   },
+   {
+    "name": "index_internal_ids_on_usage_and_namespace_id",
+    "table": "internal_ids",
+    "columns": [
+     "usage",
+     "namespace_id"
+    ],
+    "where": "(namespace_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_internal_ids_on_usage_and_project_id",
+    "table": "internal_ids",
+    "columns": [
+     "usage",
+     "project_id"
+    ],
+    "where": "(project_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_issue_user_mentions_on_note_id",
+    "table": "issue_user_mentions",
+    "columns": [
+     "note_id"
+    ],
+    "where": "(note_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_jira_connect_installations_on_forge_installation_xid",
+    "table": "jira_connect_installations",
+    "columns": [
+     "forge_installation_xid"
+    ],
+    "where": "(forge_installation_xid IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_labels_on_group_id_and_title_varchar_unique",
+    "table": "labels",
+    "columns": [
+     "group_id",
+     "title varchar_pattern_ops"
+    ],
+    "where": "(project_id IS NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_labels_on_organization_id_and_title_varchar_unique",
+    "table": "labels",
+    "columns": [
+     "organization_id",
+     "title varchar_pattern_ops"
+    ],
+    "where": "(organization_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_labels_on_project_id_and_title_varchar_unique",
+    "table": "labels",
+    "columns": [
+     "project_id",
+     "title varchar_pattern_ops"
+    ],
+    "where": "(group_id IS NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_member_roles_on_name_unique",
+    "table": "member_roles",
+    "columns": [
+     "name"
+    ],
+    "where": "(namespace_id IS NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_member_roles_on_namespace_id_name_unique",
+    "table": "member_roles",
+    "columns": [
+     "namespace_id",
+     "name"
+    ],
+    "where": "(namespace_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_merge_request_diffs_on_unique_merge_request_id",
+    "table": "merge_request_diffs",
+    "columns": [
+     "merge_request_id"
+    ],
+    "where": "(diff_type = 2)",
+    "nnd": false
+   },
+   {
+    "name": "index_merge_request_user_mentions_on_note_id",
+    "table": "merge_request_user_mentions",
+    "columns": [
+     "note_id"
+    ],
+    "where": "(note_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_mr_closing_issues_on_mr_id_issue_id_link_type",
+    "table": "merge_requests_closing_issues",
+    "columns": [
+     "merge_request_id",
+     "issue_id",
+     "link_type"
+    ],
+    "where": "(link_type <> 0)",
+    "nnd": false
+   },
+   {
+    "name": "index_npm_metadata_caches_on_package_name_project_id_unique",
+    "table": "packages_npm_metadata_caches",
+    "columns": [
+     "package_name",
+     "project_id"
+    ],
+    "where": "(project_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_on_deploy_keys_id_and_type_and_public",
+    "table": "keys",
+    "columns": [
+     "id",
+     "type"
+    ],
+    "where": "(public = true)",
+    "nnd": false
+   },
+   {
+    "name": "index_packages_dependencies_on_name_version_pattern_project_id",
+    "table": "packages_dependencies",
+    "columns": [
+     "name",
+     "version_pattern",
+     "project_id"
+    ],
+    "where": "(project_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_projects_on_id_partial_for_visibility",
+    "table": "projects",
+    "columns": [
+     "id"
+    ],
+    "where": "(visibility_level = ANY (ARRAY[10, 20]))",
+    "nnd": false
+   },
+   {
+    "name": "index_protected_environments_on_group_id_and_name",
+    "table": "protected_environments",
+    "columns": [
+     "group_id",
+     "name"
+    ],
+    "where": "(group_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_requirements_on_project_id_and_iid",
+    "table": "requirements",
+    "columns": [
+     "project_id",
+     "iid"
+    ],
+    "where": "(project_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_security_attributes_on_category_name_not_deleted",
+    "table": "security_attributes",
+    "columns": [
+     "security_category_id",
+     "name"
+    ],
+    "where": "(deleted_at IS NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_security_categories_on_namespace_name_not_deleted",
+    "table": "security_categories",
+    "columns": [
+     "namespace_id",
+     "name"
+    ],
+    "where": "(deleted_at IS NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_security_scan_profiles_unique_name_not_deleted",
+    "table": "security_scan_profiles",
+    "columns": [
+     "namespace_id",
+     "scan_type",
+     "lower(name)"
+    ],
+    "where": "(deleted_at IS NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_security_trainings_on_unique_project_id",
+    "table": "security_trainings",
+    "columns": [
+     "project_id"
+    ],
+    "where": "(is_primary IS TRUE)",
+    "nnd": false
+   },
+   {
+    "name": "index_snippet_user_mentions_on_note_id",
+    "table": "snippet_user_mentions",
+    "columns": [
+     "note_id"
+    ],
+    "where": "(note_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_system_note_metadata_on_description_version_id",
+    "table": "system_note_metadata",
+    "columns": [
+     "description_version_id"
+    ],
+    "where": "(description_version_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_topics_on_organization_id_slug_and",
+    "table": "topics",
+    "columns": [
+     "organization_id",
+     "slug"
+    ],
+    "where": "(slug IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_unique_project_authorizations_on_unique_project_user",
+    "table": "project_authorizations",
+    "columns": [
+     "project_id",
+     "user_id"
+    ],
+    "where": "is_unique",
+    "nnd": false
+   },
+   {
+    "name": "index_unresolved_alerts_on_project_id_and_fingerprint",
+    "table": "alert_management_alerts",
+    "columns": [
+     "project_id",
+     "fingerprint"
+    ],
+    "where": "((fingerprint IS NOT NULL) AND (status <> 2))",
+    "nnd": false
+   },
+   {
+    "name": "index_unresolved_compromised_password_detection_on_user_id",
+    "table": "compromised_password_detections",
+    "columns": [
+     "user_id"
+    ],
+    "where": "(resolved_at IS NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_user_details_on_phone",
+    "table": "user_details",
+    "columns": [
+     "phone"
+    ],
+    "where": "(phone IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_vulns_user_mentions_on_vulnerability_id",
+    "table": "vulnerability_user_mentions",
+    "columns": [
+     "vulnerability_id"
+    ],
+    "where": "(note_id IS NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_workforce_people_on_hierarchy_id_and_user_id",
+    "table": "workforce_people",
+    "columns": [
+     "workforce_hierarchy_id",
+     "user_id"
+    ],
+    "where": "(user_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "index_zoom_meetings_on_issue_id_and_issue_status",
+    "table": "zoom_meetings",
+    "columns": [
+     "issue_id",
+     "issue_status"
+    ],
+    "where": "(issue_status = 1)",
+    "nnd": false
+   },
+   {
+    "name": "issue_user_mentions_on_issue_id_index",
+    "table": "issue_user_mentions",
+    "columns": [
+     "issue_id"
+    ],
+    "where": "(note_id IS NULL)",
+    "nnd": false
+   },
+   {
+    "name": "lfs_objects_projects_on_project_id_lfs_object_id_null_repo_type",
+    "table": "lfs_objects_projects",
+    "columns": [
+     "project_id",
+     "lfs_object_id"
+    ],
+    "where": "(repository_type IS NULL)",
+    "nnd": false
+   },
+   {
+    "name": "lfs_objects_projects_on_project_id_lfs_object_id_with_repo_type",
+    "table": "lfs_objects_projects",
+    "columns": [
+     "project_id",
+     "lfs_object_id",
+     "repository_type"
+    ],
+    "where": "(repository_type IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "merge_request_user_mentions_on_mr_id_index",
+    "table": "merge_request_user_mentions",
+    "columns": [
+     "merge_request_id"
+    ],
+    "where": "(note_id IS NULL)",
+    "nnd": false
+   },
+   {
+    "name": "one_canonical_wiki_page_slug_per_metadata",
+    "table": "wiki_page_slugs",
+    "columns": [
+     "wiki_page_meta_id"
+    ],
+    "where": "(canonical = true)",
+    "nnd": false
+   },
+   {
+    "name": "p_ci_builds_token_encrypted_partition_id_idx",
+    "table": "p_ci_builds",
+    "columns": [
+     "token_encrypted",
+     "partition_id"
+    ],
+    "where": "(token_encrypted IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "p_ci_pipelines_project_id_iid_partition_id_idx",
+    "table": "p_ci_pipelines",
+    "columns": [
+     "project_id",
+     "iid",
+     "partition_id"
+    ],
+    "where": "(iid IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "partial_idx_bulk_import_exports_on_group_user_relation",
+    "table": "bulk_import_exports",
+    "columns": [
+     "group_id",
+     "relation",
+     "user_id"
+    ],
+    "where": "((group_id IS NOT NULL) AND (user_id IS NOT NULL) AND (offline_export_id IS NULL))",
+    "nnd": false
+   },
+   {
+    "name": "partial_idx_bulk_import_exports_on_project_user_relation",
+    "table": "bulk_import_exports",
+    "columns": [
+     "project_id",
+     "relation",
+     "user_id"
+    ],
+    "where": "((project_id IS NOT NULL) AND (user_id IS NOT NULL) AND (offline_export_id IS NULL))",
+    "nnd": false
+   },
+   {
+    "name": "partial_index_sop_configs_on_namespace_id",
+    "table": "security_orchestration_policy_configurations",
+    "columns": [
+     "namespace_id"
+    ],
+    "where": "(namespace_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "partial_index_sop_configs_on_project_id",
+    "table": "security_orchestration_policy_configurations",
+    "columns": [
+     "project_id"
+    ],
+    "where": "(project_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "snippet_user_mentions_on_snippet_id_index",
+    "table": "snippet_user_mentions",
+    "columns": [
+     "snippet_id"
+    ],
+    "where": "(note_id IS NULL)",
+    "nnd": false
+   },
+   {
+    "name": "uniq_compliance_controls_requirement_id_and_name",
+    "table": "compliance_requirements_controls",
+    "columns": [
+     "compliance_requirement_id",
+     "name"
+    ],
+    "where": "(control_type <> 1)",
+    "nnd": false
+   },
+   {
+    "name": "uniq_idx_audit_events_aws_configs_stream_dests",
+    "table": "audit_events_amazon_s3_configurations",
+    "columns": [
+     "stream_destination_id"
+    ],
+    "where": "(stream_destination_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "uniq_idx_audit_events_ext_audit_event_stream_dests",
+    "table": "audit_events_external_audit_event_destinations",
+    "columns": [
+     "stream_destination_id"
+    ],
+    "where": "(stream_destination_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "uniq_idx_audit_events_gcp_configs_stream_dests",
+    "table": "audit_events_google_cloud_logging_configurations",
+    "columns": [
+     "stream_destination_id"
+    ],
+    "where": "(stream_destination_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "uniq_idx_audit_events_instance_aws_configs_stream_dests",
+    "table": "audit_events_instance_amazon_s3_configurations",
+    "columns": [
+     "stream_destination_id"
+    ],
+    "where": "(stream_destination_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "uniq_idx_audit_events_instance_ext_audit_event_stream_dests",
+    "table": "audit_events_instance_external_audit_event_destinations",
+    "columns": [
+     "stream_destination_id"
+    ],
+    "where": "(stream_destination_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "uniq_idx_audit_events_instance_gcp_configs_stream_dests",
+    "table": "audit_events_instance_google_cloud_logging_configurations",
+    "columns": [
+     "stream_destination_id"
+    ],
+    "where": "(stream_destination_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "uniq_idx_cd_applications_on_organization_id_and_name",
+    "table": "cd_applications",
+    "columns": [
+     "organization_id",
+     "name"
+    ],
+    "where": "(organization_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "uniq_idx_cd_environments_on_organization_id_and_name",
+    "table": "cd_environments",
+    "columns": [
+     "organization_id",
+     "name"
+    ],
+    "where": "(organization_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "uniq_idx_packages_packages_on_project_id_name_version_ml_model",
+    "table": "packages_packages",
+    "columns": [
+     "project_id",
+     "name",
+     "version"
+    ],
+    "where": "((package_type = 14) AND (status <> 4))",
+    "nnd": false
+   },
+   {
+    "name": "uniq_idx_signing_certificates_on_project_id_when_active",
+    "table": "supply_chain_signing_certificates",
+    "columns": [
+     "project_id"
+    ],
+    "where": "(active = true)",
+    "nnd": false
+   },
+   {
+    "name": "uniq_idx_subscription_seat_assignments_on_namespace_id_and_user",
+    "table": "subscription_seat_assignments",
+    "columns": [
+     "namespace_id",
+     "user_id"
+    ],
+    "where": "(namespace_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "uniq_index_pkg_refs_on_ref_and_pkg_id_when_rev_is_null",
+    "table": "packages_conan_package_references",
+    "columns": [
+     "package_id",
+     "reference"
+    ],
+    "where": "(recipe_revision_id IS NULL)",
+    "nnd": false
+   },
+   {
+    "name": "uniq_user_project_member_roles_user_project_shared_with_group",
+    "table": "user_project_member_roles",
+    "columns": [
+     "user_id",
+     "project_id",
+     "shared_with_group_id"
+    ],
+    "where": "(shared_with_group_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "uniq_wi_type_visibility_defaults_on_namespace_and_type",
+    "table": "work_item_type_visibility_defaults",
+    "columns": [
+     "namespace_id",
+     "work_item_type_id"
+    ],
+    "where": "(namespace_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "uniq_wi_type_visibility_defaults_on_org_and_type",
+    "table": "work_item_type_visibility_defaults",
+    "columns": [
+     "organization_id",
+     "work_item_type_id"
+    ],
+    "where": "(organization_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "unique_any_approver_merge_request_rule_type_post_merge",
+    "table": "approval_merge_request_rules",
+    "columns": [
+     "merge_request_id",
+     "rule_type",
+     "applicable_post_merge"
+    ],
+    "where": "(rule_type = 4)",
+    "nnd": false
+   },
+   {
+    "name": "unique_compliance_security_policies_framework_id_policy_index",
+    "table": "compliance_framework_security_policies",
+    "columns": [
+     "framework_id",
+     "policy_configuration_id",
+     "policy_index"
+    ],
+    "where": "(security_policy_id IS NULL)",
+    "nnd": false
+   },
+   {
+    "name": "unique_compliance_security_policies_security_policy_id",
+    "table": "compliance_framework_security_policies",
+    "columns": [
+     "security_policy_id",
+     "framework_id"
+    ],
+    "where": "(security_policy_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "unique_govern_policy_enforcements_org_policy_and_project",
+    "table": "govern_policy_enforcements",
+    "columns": [
+     "organization_id",
+     "govern_policy_id",
+     "project_id"
+    ],
+    "where": "(project_id IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "unique_idx_member_approvals_on_pending_status",
+    "table": "member_approvals",
+    "columns": [
+     "user_id",
+     "member_namespace_id"
+    ],
+    "where": "(status = 0)",
+    "nnd": false
+   },
+   {
+    "name": "unique_index_for_credit_card_validation_payment_method_xid",
+    "table": "user_credit_card_validations",
+    "columns": [
+     "zuora_payment_method_xid"
+    ],
+    "where": "(zuora_payment_method_xid IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "unique_index_for_project_pages_unique_domain",
+    "table": "project_settings",
+    "columns": [
+     "pages_unique_domain"
+    ],
+    "where": "(pages_unique_domain IS NOT NULL)",
+    "nnd": false
+   },
+   {
+    "name": "unique_packages_project_id_and_name_and_version_when_debian",
+    "table": "packages_packages",
+    "columns": [
+     "project_id",
+     "name",
+     "version"
+    ],
+    "where": "((package_type = 9) AND (status <> 4))",
+    "nnd": false
+   },
+   {
+    "name": "unique_protection_tag_rules_immutable",
+    "table": "container_registry_protection_tag_rules",
+    "columns": [
+     "project_id",
+     "tag_name_pattern"
+    ],
+    "where": "((minimum_access_level_for_push IS NULL) AND (minimum_access_level_for_delete IS NULL))",
+    "nnd": false
+   },
+   {
+    "name": "unique_protection_tag_rules_mutable",
+    "table": "container_registry_protection_tag_rules",
+    "columns": [
+     "project_id",
+     "tag_name_pattern"
+    ],
+    "where": "((minimum_access_level_for_push IS NOT NULL) AND (minimum_access_level_for_delete IS NOT NULL))",
+    "nnd": false
+   },
+   {
+    "name": "unique_user_group_member_roles_user_group",
+    "table": "user_group_member_roles",
+    "columns": [
+     "user_id",
+     "group_id"
+    ],
+    "where": "(shared_with_group_id IS NULL)",
+    "nnd": false
+   },
+   {
+    "name": "unique_user_group_member_roles_user_group_shared_with_group",
+    "table": "user_group_member_roles",
+    "columns": [
+     "user_id",
+     "group_id",
+     "shared_with_group_id"
+    ],
+    "where": "(shared_with_group_id IS NOT NULL)",
+    "nnd": false
+   }
+  ]
+ }
+}

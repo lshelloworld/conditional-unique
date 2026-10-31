@@ -1,0 +1,1983 @@
+--- a/src/include/optimizer/condunique.h
++++ b/src/include/optimizer/condunique.h
+@@ -0,0 +1,27 @@
++/*-------------------------------------------------------------------------
++ *
++ * condunique.h
++ *	  Uniqueness proofs from conditional (partial) unique indexes.
++ *
++ * src/include/optimizer/condunique.h
++ *
++ *-------------------------------------------------------------------------
++ */
++#ifndef CONDUNIQUE_H
++#define CONDUNIQUE_H
++
++#include "nodes/pathnodes.h"
++
++extern PGDLLIMPORT bool enable_conditional_unique;
++extern PGDLLIMPORT bool enable_conditional_unique_costing;
++extern bool cu_costing_only;
++
++extern bool cu_rel_has_partial_unique(RelOptInfo *rel);
++extern bool cu_relation_has_unique_for(PlannerInfo *root, RelOptInfo *rel,
++									   List *restrictlist,
++									   List *exprlist, List *oprlist);
++extern void cu_remove_useless_groupby_columns(PlannerInfo *root);
++extern bool cu_distinct_is_redundant(PlannerInfo *root);
++extern void cu_reduce_groupby_through_joins(PlannerInfo *root);
++
++#endif							/* CONDUNIQUE_H */
+--- a/src/include/nodes/pathnodes.h
++++ b/src/include/nodes/pathnodes.h
+@@ -1001,6 +1001,8 @@
+ 	List	   *unique_for_rels;
+ 	/* known not unique for these set(s) */
+ 	List	   *non_unique_for_rels;
++	/* unique indexes usable as premises, cached by condunique.c */
++	void	   *cu_premises pg_node_attr(read_write_ignore);
+ 
+ 	/*
+ 	 * used by various scans and joins:
+--- a/src/backend/optimizer/util/condunique.c
++++ b/src/backend/optimizer/util/condunique.c
+@@ -0,0 +1,1683 @@
++/*-------------------------------------------------------------------------
++ *
++ * condunique.c
++ *	  Uniqueness proofs from conditional (partial) unique indexes.
++ *
++ * A unique index with predicate C on key columns K states C : U(K): no two
++ * rows that satisfy C agree on K with all key values non-null.  With NULLS
++ * NOT DISTINCT it states C : U=(K), where a null agrees with a null.  Given
++ * the unique indexes of a relation (partial or not), its NOT NULL columns
++ * and the restriction clauses Q that the query applies to it, we decide
++ * whether Q : U(K) (or Q : U=(K)) follows for a set K of columns.  The
++ * planner can then treat the rows the query reads as unique on K, which the
++ * stock code only does for unique indexes without a predicate.
++ *
++ * Conditions are sets of templates (disjunctive normal form); a template
++ * restricts each column to any value, IS NULL, a set of constants (=, IN)
++ * or the complement of one (<>, NOT IN, IS NOT NULL).  The implication fails
++ * iff some two-row table satisfies every premise and violates the goal.
++ * Each column of such a pair is in one of finitely many states: each row
++ * holds null, one of the constants that the conditions mention for the
++ * column, or a value outside them, and two outside values agree or not.
++ * Whether the pair satisfies the premises is monotone in a few features of
++ * the column states (a row fails a template on the column; the rows
++ * disagree on a key column), so we keep only states with maximal feature
++ * sets and search over the columns with an optimistic bound.  The problem is
++ * coNP-complete in general; the search gives up, answering "not proven",
++ * after CU_MAX_NODES nodes.
++ *
++ * Validated CHECK constraints are facts about every row, so they narrow the
++ * goal's scope like restriction clauses do.  A row passes CHECK c when c is
++ * true or null, so the scope is narrowed by c or "some column that c
++ * compares is null"; columns c only tests with IS [NOT] NULL or IS TRUE/FALSE
++ * cannot make it null.
++ *
++ * Soundness only needs that a clause we cannot translate is dropped from
++ * the goal (a weaker condition makes a stronger goal) and makes an index
++ * unusable as a premise, and that every equality involved is the equality
++ * operator of the default btree opclass of the column's type under a
++ * deterministic collation (an index may use another opclass with the same
++ * equality, such as text_pattern_ops), so that "agree" and "equals a
++ * constant" mean the same thing everywhere.
++ *
++ * src/backend/optimizer/util/condunique.c
++ *
++ *-------------------------------------------------------------------------
++ */
++#include "postgres.h"
++
++#include "access/stratnum.h"
++#include "access/table.h"
++#include "catalog/pg_am_d.h"
++#include "catalog/pg_class_d.h"
++#include "catalog/pg_type_d.h"
++#include "commands/defrem.h"
++#include "nodes/makefuncs.h"
++#include "nodes/nodeFuncs.h"
++#include "optimizer/condunique.h"
++#include "optimizer/optimizer.h"
++#include "optimizer/prep.h"
++#include "optimizer/tlist.h"
++#include "parser/parsetree.h"
++#include "port/pg_bitutils.h"
++#include "rewrite/rewriteManip.h"
++#include "utils/array.h"
++#include "utils/lsyscache.h"
++#include "utils/memutils.h"
++#include "utils/rel.h"
++
++/* GUCs */
++bool		enable_conditional_unique = false;
++bool		enable_conditional_unique_costing = false;
++
++/* set while add_paths_to_joinrel asks for inner_unique, a costing hint */
++bool		cu_costing_only = false;
++
++#define CU_MAX_COLS			64
++#define CU_MAX_CONSTS		64
++#define CU_MAX_TEMPLATES	16
++#define CU_MAX_NODES		100000
++
++#define CU_NULLV	(-1)		/* the row's value is null */
++#define CU_STAR		(-2)		/* a value outside the column's constants */
++
++#define CU_BIT(c)	(((uint64) 1) << (c))
++
++typedef enum CuKind
++{
++	CU_ANY,						/* any value, null included */
++	CU_NULL,					/* IS NULL */
++	CU_IN,						/* one of set (non-null) */
++	CU_NOTIN,					/* non-null and not in set */
++	CU_FALSE					/* no value */
++} CuKind;
++
++typedef struct CuEntry
++{
++	CuKind		kind;
++	uint64		set;			/* constants of the column, by index */
++} CuEntry;
++
++typedef struct CuAtom
++{
++	int			col;
++	CuEntry		e;
++} CuAtom;
++
++typedef struct CuCol
++{
++	AttrNumber	attno;
++	Oid			opfamily;		/* default btree opfamily of the type */
++	Oid			opcintype;		/* its input type */
++	Oid			eqop;			/* its equality operator */
++	Oid			collid;
++	bool		notnull;
++	int			nconst;
++	Datum		consts[CU_MAX_CONSTS];
++	Oid			consttypes[CU_MAX_CONSTS];	/* types within the opfamily */
++} CuCol;
++
++/* A condition: ntpl templates of ncols entries each, in one array */
++typedef struct CuCond
++{
++	int			ntpl;
++	CuEntry    *tpl;
++} CuCond;
++
++/* A premise C : U(K) or C : U=(K) */
++typedef struct CuCons
++{
++	CuCond		cond;
++	uint64		key;
++	bool		nulleq;
++	int			fbase;			/* first of its 2 * ntpl + 1 features */
++} CuCons;
++
++typedef struct CuCtx
++{
++	PlannerInfo *root;
++	RelOptInfo *rel;
++	Oid			relid;
++	int			ncols;
++	CuCol		cols[CU_MAX_COLS];
++} CuCtx;
++
++/*
++ * A unique index that can serve as a premise: no expressions, immediate,
++ * and every key column compared by the default equality of its type under a
++ * deterministic collation.  These checks need catalog lookups and do not
++ * depend on the question, so they are made once per relation and planner run
++ * (RelOptInfo.cu_premises); a table with many indexes is asked many questions.
++ */
++typedef struct CuPremise
++{
++	IndexOptInfo *ind;
++	Bitmapset  *attnos;			/* its key columns */
++} CuPremise;
++
++typedef struct CuPremises
++{
++	List	   *checks;			/* validated CHECK expressions, implicit AND */
++	int			n;
++	CuPremise	p[FLEXIBLE_ARRAY_MEMBER];
++} CuPremises;
++
++typedef struct CuSearch
++{
++	int			ncols;
++	int			nw;				/* words per feature set */
++	int			ncons;
++	CuCons	   *cons;
++	int		   *nstates;
++	uint64	  **states;			/* per column, nstates * nw words */
++	uint64	   *opt;			/* (ncols + 1) * nw: union of the states of
++								 * the columns from c on */
++	uint64	   *work;			/* (ncols + 2) * nw */
++	long		nodes;
++	bool		gaveup;
++} CuSearch;
++
++
++static bool
++cu_coll_ok(Oid collid)
++{
++	return !OidIsValid(collid) || get_collation_isdeterministic(collid);
++}
++
++static Node *
++cu_strip(Node *n)
++{
++	while (n && IsA(n, RelabelType))
++		n = (Node *) ((RelabelType *) n)->arg;
++	return n;
++}
++
++/* A plain user column of the relation, or NULL */
++static Var *
++cu_var(CuCtx *ctx, Node *n)
++{
++	n = cu_strip(n);
++	if (n && IsA(n, Var))
++	{
++		Var		   *v = (Var *) n;
++
++		if (v->varno == ctx->rel->relid && v->varlevelsup == 0 &&
++			v->varattno > 0 && bms_is_empty(v->varnullingrels))
++			return v;
++	}
++	return NULL;
++}
++
++/* Index of the column in ctx, registering it; -1 if it is unusable */
++static int
++cu_col_att(CuCtx *ctx, AttrNumber attno, Oid vartype, Oid collid)
++{
++	CuCol	   *c;
++	Oid			opclass;
++	Oid			opcintype;
++	Oid			opfamily;
++	Oid			eqop;
++
++	for (int i = 0; i < ctx->ncols; i++)
++		if (ctx->cols[i].attno == attno)
++			return i;
++	if (ctx->ncols == CU_MAX_COLS || !cu_coll_ok(collid))
++		return -1;
++	opclass = GetDefaultOpClass(vartype, BTREE_AM_OID);
++	if (!OidIsValid(opclass))
++		return -1;
++	opcintype = get_opclass_input_type(opclass);
++	opfamily = get_opclass_family(opclass);
++	eqop = get_opfamily_member(opfamily, opcintype, opcintype,
++							   BTEqualStrategyNumber);
++	if (!OidIsValid(eqop))
++		return -1;
++	c = &ctx->cols[ctx->ncols];
++	c->attno = attno;
++	c->opfamily = opfamily;
++	c->eqop = eqop;
++	c->collid = collid;
++	c->opcintype = opcintype;
++	c->notnull = bms_is_member(attno, ctx->rel->notnullattnums);
++	c->nconst = 0;
++	return ctx->ncols++;
++}
++
++static int
++cu_col(CuCtx *ctx, Var *v)
++{
++	return cu_col_att(ctx, v->varattno, v->vartype, v->varcollid);
++}
++
++static int
++cu_col_index_key(CuCtx *ctx, AttrNumber attno)
++{
++	Oid			typid;
++	int32		typmod;
++	Oid			collid;
++
++	for (int i = 0; i < ctx->ncols; i++)
++		if (ctx->cols[i].attno == attno)
++			return i;
++	get_atttypetypmodcoll(ctx->relid, attno, &typid, &typmod, &collid);
++	return cu_col_att(ctx, attno, typid, collid);
++}
++
++/*
++ * Index of the constant (of a type in the column's opfamily) among the
++ * column's constants, adding it; -1 if full or not comparable.  Constants
++ * are identified by the opfamily's (possibly cross-type) equality.
++ */
++static int
++cu_const(CuCtx *ctx, int col, Datum d, Oid type)
++{
++	CuCol	   *c = &ctx->cols[col];
++
++	for (int i = 0; i < c->nconst; i++)
++	{
++		Oid			eq = get_opfamily_member(c->opfamily, c->consttypes[i], type,
++											 BTEqualStrategyNumber);
++
++		if (!OidIsValid(eq))
++			return -1;
++		if (DatumGetBool(OidFunctionCall2Coll(get_opcode(eq), c->collid,
++											  c->consts[i], d)))
++			return i;
++	}
++	if (c->nconst == CU_MAX_CONSTS)
++		return -1;
++	c->consts[c->nconst] = d;
++	c->consttypes[c->nconst] = type;
++	return c->nconst++;
++}
++
++/*
++ * Is opno an equality (CU_IN) or the negator of one (CU_NOTIN) of the
++ * column's opfamily, with the column on the given side?  Cross-type members
++ * (int2 = int4, say) qualify; *consttype receives the other input type.
++ */
++static int
++cu_eq_kind(CuCol *c, Oid opno, bool var_left, Oid *consttype)
++{
++	int			kind = CU_IN;
++	int			strategy;
++	Oid			lt;
++	Oid			rt;
++
++	if (!op_in_opfamily(opno, c->opfamily))
++	{
++		opno = get_negator(opno);
++		kind = CU_NOTIN;
++		if (!OidIsValid(opno) || !op_in_opfamily(opno, c->opfamily))
++			return -1;
++	}
++	get_op_opfamily_properties(opno, c->opfamily, false, &strategy, &lt, &rt);
++	if (strategy != BTEqualStrategyNumber || (var_left ? lt : rt) != c->opcintype)
++		return -1;
++	*consttype = var_left ? rt : lt;
++	return kind;
++}
++
++/* Translate one atomic clause; false if it is not of a supported form */
++static bool
++cu_atom(CuCtx *ctx, Node *n, CuAtom *a)
++{
++	Var		   *v;
++	int			col;
++	int			k;
++
++	if (IsA(n, OpExpr))
++	{
++		OpExpr	   *op = (OpExpr *) n;
++		Node	   *cn;
++		bool		var_left = true;
++		Oid			ctype;
++		int			kind;
++
++		if (list_length(op->args) != 2 || !cu_coll_ok(op->inputcollid))
++			return false;
++		if ((v = cu_var(ctx, linitial(op->args))) != NULL)
++			cn = cu_strip(lsecond(op->args));
++		else if ((v = cu_var(ctx, lsecond(op->args))) != NULL)
++			cn = cu_strip(linitial(op->args)), var_left = false;
++		else
++			return false;
++		if (!IsA(cn, Const) || ((Const *) cn)->constisnull)
++			return false;
++		if ((col = cu_col(ctx, v)) < 0 ||
++			(kind = cu_eq_kind(&ctx->cols[col], op->opno, var_left, &ctype)) < 0)
++			return false;
++		a->e.kind = (CuKind) kind;
++		if ((k = cu_const(ctx, col, ((Const *) cn)->constvalue, ctype)) < 0)
++			return false;
++		a->col = col;
++		a->e.set = CU_BIT(k);
++		return true;
++	}
++	if (IsA(n, ScalarArrayOpExpr))
++	{
++		ScalarArrayOpExpr *op = (ScalarArrayOpExpr *) n;
++		Node	   *cn = cu_strip(lsecond(op->args));
++		ArrayType  *arr;
++		int16		typlen;
++		bool		typbyval;
++		char		typalign;
++		Datum	   *elems;
++		bool	   *nulls;
++		int			nelems;
++		Oid			ctype;
++		int			kind;
++
++		if (!cu_coll_ok(op->inputcollid) ||
++			(v = cu_var(ctx, linitial(op->args))) == NULL ||
++			!IsA(cn, Const) || ((Const *) cn)->constisnull ||
++			(col = cu_col(ctx, v)) < 0 ||
++			(kind = cu_eq_kind(&ctx->cols[col], op->opno, true, &ctype)) < 0 ||
++			(op->useOr != (kind == CU_IN)))
++			return false;
++		a->e.kind = (CuKind) kind;
++		arr = DatumGetArrayTypeP(((Const *) cn)->constvalue);
++		get_typlenbyvalalign(ARR_ELEMTYPE(arr), &typlen, &typbyval, &typalign);
++		deconstruct_array(arr, ARR_ELEMTYPE(arr), typlen, typbyval, typalign,
++						  &elems, &nulls, &nelems);
++		a->col = col;
++		a->e.set = 0;
++		for (int i = 0; i < nelems; i++)
++		{
++			if (nulls[i])
++			{
++				/* x <> ALL (..., NULL) is never true; leave it alone */
++				if (a->e.kind == CU_NOTIN)
++					return false;
++				continue;
++			}
++			if ((k = cu_const(ctx, col, elems[i], ctype)) < 0)
++				return false;
++			a->e.set |= CU_BIT(k);
++		}
++		return true;
++	}
++	if (IsA(n, NullTest))
++	{
++		NullTest   *nt = (NullTest *) n;
++
++		if (nt->argisrow || (v = cu_var(ctx, (Node *) nt->arg)) == NULL ||
++			(col = cu_col(ctx, v)) < 0)
++			return false;
++		a->col = col;
++		a->e.kind = nt->nulltesttype == IS_NULL ? CU_NULL : CU_NOTIN;
++		a->e.set = 0;
++		return true;
++	}
++	/* boolean column IS TRUE / IS FALSE / IS [NOT] UNKNOWN */
++	if (IsA(n, BooleanTest))
++	{
++		BooleanTest *bt = (BooleanTest *) n;
++
++		if ((v = cu_var(ctx, (Node *) bt->arg)) == NULL || v->vartype != BOOLOID ||
++			(col = cu_col(ctx, v)) < 0)
++			return false;
++		a->col = col;
++		a->e.set = 0;
++		switch (bt->booltesttype)
++		{
++			case IS_TRUE:
++			case IS_FALSE:
++				if ((k = cu_const(ctx, col, BoolGetDatum(bt->booltesttype == IS_TRUE),
++								  BOOLOID)) < 0)
++					return false;
++				a->e.kind = CU_IN;
++				a->e.set = CU_BIT(k);
++				return true;
++			case IS_UNKNOWN:
++				a->e.kind = CU_NULL;
++				return true;
++			case IS_NOT_UNKNOWN:
++				a->e.kind = CU_NOTIN;
++				return true;
++			default:
++				return false;	/* IS NOT TRUE / FALSE: a value or null */
++		}
++	}
++	/* boolean column, possibly negated */
++	if ((v = cu_var(ctx, n)) != NULL ||
++		(is_notclause(n) && (v = cu_var(ctx, (Node *) get_notclausearg(n))) != NULL))
++	{
++		if (v->vartype != BOOLOID || (col = cu_col(ctx, v)) < 0 ||
++			(k = cu_const(ctx, col, BoolGetDatum(!is_notclause(n)), BOOLOID)) < 0)
++			return false;
++		a->col = col;
++		a->e.kind = CU_IN;
++		a->e.set = CU_BIT(k);
++		return true;
++	}
++	return false;
++}
++
++/* Conjunction of two DNFs (lists of templates, a template a list of atoms) */
++static List *
++cu_cross(List *x, List *y)
++{
++	List	   *r = NIL;
++	ListCell   *lx;
++	ListCell   *ly;
++
++	foreach(lx, x)
++		foreach(ly, y)
++			r = lappend(r, list_concat_copy((List *) lfirst(lx), (List *) lfirst(ly)));
++	return r;
++}
++
++static bool cu_dnf(CuCtx *ctx, Node *n, List **out);
++
++static bool
++cu_and(CuCtx *ctx, List *args, List **out)
++{
++	List	   *acc = list_make1(NIL);
++	ListCell   *lc;
++
++	foreach(lc, args)
++	{
++		List	   *d;
++
++		if (!cu_dnf(ctx, (Node *) lfirst(lc), &d))
++			return false;
++		acc = cu_cross(acc, d);
++		if (list_length(acc) > CU_MAX_TEMPLATES)
++			return false;
++	}
++	*out = acc;
++	return true;
++}
++
++/* Translate a clause (or implicit-AND list) into DNF; false if unsupported */
++static bool
++cu_dnf(CuCtx *ctx, Node *n, List **out)
++{
++	CuAtom	   *a;
++
++	if (n == NULL)
++	{
++		*out = list_make1(NIL);
++		return true;
++	}
++	if (IsA(n, List))
++		return cu_and(ctx, (List *) n, out);
++	if (IsA(n, Const) && ((Const *) n)->consttype == BOOLOID)
++	{
++		Const	   *c = (Const *) n;
++
++		*out = (!c->constisnull && DatumGetBool(c->constvalue)) ? list_make1(NIL) : NIL;
++		return true;
++	}
++	if (is_andclause(n))
++		return cu_and(ctx, ((BoolExpr *) n)->args, out);
++	if (is_orclause(n))
++	{
++		List	   *acc = NIL;
++		ListCell   *lc;
++
++		foreach(lc, ((BoolExpr *) n)->args)
++		{
++			List	   *d;
++
++			if (!cu_dnf(ctx, (Node *) lfirst(lc), &d))
++				return false;
++			acc = list_concat(acc, d);
++			if (list_length(acc) > CU_MAX_TEMPLATES)
++				return false;
++		}
++		*out = acc;
++		return true;
++	}
++	a = palloc_object(CuAtom);
++	if (!cu_atom(ctx, n, a))
++		return false;
++	*out = list_make1(list_make1(a));
++	return true;
++}
++
++/* t := t AND e */
++static void
++cu_meet(CuEntry *t, const CuEntry *e)
++{
++	if (t->kind == CU_FALSE || e->kind == CU_ANY)
++		return;
++	if (e->kind == CU_FALSE)
++		t->kind = CU_FALSE;
++	else if (t->kind == CU_ANY)
++		*t = *e;
++	else if (t->kind == CU_NULL || e->kind == CU_NULL)
++	{
++		if (t->kind != e->kind)
++			t->kind = CU_FALSE;
++	}
++	else if (t->kind == CU_IN && e->kind == CU_IN)
++		t->set &= e->set;
++	else if (t->kind == CU_IN)
++		t->set &= ~e->set;
++	else if (e->kind == CU_IN)
++	{
++		t->kind = CU_IN;
++		t->set = e->set & ~t->set;
++	}
++	else
++		t->set |= e->set;
++	if (t->kind == CU_IN && t->set == 0)
++		t->kind = CU_FALSE;
++}
++
++/* Dense form of a DNF over the ncols columns; unsatisfiable templates dropped */
++static void
++cu_compile(CuCtx *ctx, List *dnf, CuCond *c)
++{
++	ListCell   *lc;
++
++	c->tpl = palloc_array(CuEntry, ctx->ncols * Max(list_length(dnf), 1));
++	c->ntpl = 0;
++	foreach(lc, dnf)
++	{
++		CuEntry    *t = &c->tpl[c->ntpl * ctx->ncols];
++		bool		sat = true;
++		ListCell   *la;
++
++		for (int i = 0; i < ctx->ncols; i++)
++		{
++			t[i].kind = CU_ANY;
++			t[i].set = 0;
++		}
++		foreach(la, (List *) lfirst(lc))
++		{
++			CuAtom	   *a = (CuAtom *) lfirst(la);
++
++			cu_meet(&t[a->col], &a->e);
++			if (t[a->col].kind == CU_FALSE)
++				sat = false;
++		}
++		if (sat)
++			c->ntpl++;
++	}
++}
++
++static bool
++cu_match(const CuEntry *e, int v)
++{
++	switch (e->kind)
++	{
++		case CU_ANY:
++			return true;
++		case CU_NULL:
++			return v == CU_NULLV;
++		case CU_IN:
++			return v >= 0 && (e->set & CU_BIT(v)) != 0;
++		case CU_NOTIN:
++			return v != CU_NULLV && (v == CU_STAR || (e->set & CU_BIT(v)) == 0);
++		default:
++			return false;
++	}
++}
++
++static bool
++cu_agree(bool nulleq, int v1, int v2, bool same)
++{
++	if (v1 == CU_NULLV || v2 == CU_NULLV)
++		return nulleq && v1 == v2;
++	if (v1 == CU_STAR && v2 == CU_STAR)
++		return same;
++	return v1 == v2;
++}
++
++#define CU_FSET(f, i)	((f)[(i) / 64] |= CU_BIT((i) % 64))
++#define CU_FHAS(f, i)	(((f)[(i) / 64] & CU_BIT((i) % 64)) != 0)
++
++/* Does a pair with these features satisfy every premise? */
++static bool
++cu_sat(CuSearch *s, const uint64 *f)
++{
++	for (int i = 0; i < s->ncons; i++)
++	{
++		CuCons	   *c = &s->cons[i];
++		int			n = c->cond.ntpl;
++		int			j;
++
++		if (n == 0 || CU_FHAS(f, c->fbase + 2 * n))
++			continue;
++		for (j = 0; j < n && CU_FHAS(f, c->fbase + j); j++)
++			;
++		if (j == n)
++			continue;
++		for (j = 0; j < n && CU_FHAS(f, c->fbase + n + j); j++)
++			;
++		if (j == n)
++			continue;
++		return false;
++	}
++	return true;
++}
++
++/* Is there a pair satisfying the premises, given the states of columns < col? */
++static bool
++cu_dfs(CuSearch *s, int col, const uint64 *acc)
++{
++	uint64	   *test = s->work + (s->ncols + 1) * s->nw;
++	uint64	   *next = s->work + col * s->nw;
++
++	for (int w = 0; w < s->nw; w++)
++		test[w] = acc[w] | s->opt[col * s->nw + w];
++	if (!cu_sat(s, test))
++		return false;
++	if (col == s->ncols)
++		return true;
++	if (++s->nodes > CU_MAX_NODES)
++	{
++		s->gaveup = true;
++		return true;
++	}
++	for (int k = 0; k < s->nstates[col]; k++)
++	{
++		const uint64 *st = s->states[col] + k * s->nw;
++
++		for (int w = 0; w < s->nw; w++)
++			next[w] = acc[w] | st[w];
++		if (cu_dfs(s, col + 1, next))
++			return true;
++	}
++	return false;
++}
++
++/* Keep the states whose feature sets are maximal; returns their number */
++static int
++cu_prune(uint64 *st, int n, int nw)
++{
++	bool	   *drop = palloc0_array(bool, n);
++	int			m = 0;
++
++	for (int a = 0; a < n; a++)
++		for (int b = 0; b < n && !drop[a]; b++)
++		{
++			bool		sub = true;
++			bool		eq = true;
++
++			if (a == b || drop[b])
++				continue;
++			for (int w = 0; w < nw && sub; w++)
++			{
++				uint64		x = st[a * nw + w];
++				uint64		y = st[b * nw + w];
++
++				sub = (x & ~y) == 0;
++				eq = eq && x == y;
++			}
++			if (sub && (!eq || b < a))
++				drop[a] = true;
++		}
++	for (int a = 0; a < n; a++)
++		if (!drop[a])
++			memmove(st + (m++) * nw, st + a * nw, nw * sizeof(uint64));
++	pfree(drop);
++	return m;
++}
++
++/* Do the premises imply goal : U(gkey) (U=(gkey) if gnulleq)? */
++static bool
++cu_implies(CuCtx *ctx, CuCons *cons, int ncons, CuCond *goal,
++		   uint64 gkey, bool gnulleq)
++{
++	CuSearch	s;
++	int			nc = ctx->ncols;
++	int			nf = 0;
++
++	for (int i = 0; i < ncons; i++)
++	{
++		cons[i].fbase = nf;
++		nf += 2 * cons[i].cond.ntpl + 1;
++	}
++	s.ncols = nc;
++	s.nw = Max((nf + 63) / 64, 1);
++	s.ncons = ncons;
++	s.cons = cons;
++	s.nstates = palloc_array(int, Max(nc, 1));
++	s.states = palloc_array(uint64 *, Max(nc, 1));
++	s.opt = palloc_array(uint64, (nc + 1) * s.nw);
++	s.work = palloc_array(uint64, (nc + 2) * s.nw);
++	s.nodes = 0;
++	s.gaveup = false;
++
++	/* unordered pairs of goal templates suffice: everything is symmetric */
++	for (int g1 = 0; g1 < goal->ntpl; g1++)
++		for (int g2 = g1; g2 < goal->ntpl; g2++)
++		{
++			const CuEntry *t1 = &goal->tpl[g1 * nc];
++			const CuEntry *t2 = &goal->tpl[g2 * nc];
++			bool		empty = false;
++			uint64	   *zero;
++
++			for (int c = 0; c < nc && !empty; c++)
++			{
++				CuCol	   *col = &ctx->cols[c];
++				int			nv = col->nconst + 2;
++				uint64	   *st = palloc0_array(uint64, (nv * nv + 1) * s.nw);
++				int			n = 0;
++
++				for (int a = -2; a < col->nconst; a++)
++					for (int b = -2; b < col->nconst; b++)
++						for (int same = 0; same <= (a == CU_STAR && b == CU_STAR); same++)
++						{
++							uint64	   *f = st + n * s.nw;
++
++							if (col->notnull && (a == CU_NULLV || b == CU_NULLV))
++								continue;
++							if (!cu_match(&t1[c], a) || !cu_match(&t2[c], b))
++								continue;
++							if ((gkey & CU_BIT(c)) && !cu_agree(gnulleq, a, b, same))
++								continue;
++							memset(f, 0, s.nw * sizeof(uint64));
++							for (int i = 0; i < ncons; i++)
++							{
++								CuCons	   *k = &cons[i];
++								int			m = k->cond.ntpl;
++
++								for (int j = 0; j < m; j++)
++								{
++									if (!cu_match(&k->cond.tpl[j * nc + c], a))
++										CU_FSET(f, k->fbase + j);
++									if (!cu_match(&k->cond.tpl[j * nc + c], b))
++										CU_FSET(f, k->fbase + m + j);
++								}
++								if ((k->key & CU_BIT(c)) && !cu_agree(k->nulleq, a, b, same))
++									CU_FSET(f, k->fbase + 2 * m);
++							}
++							n++;
++						}
++				if (n == 0)
++					empty = true;	/* no pair matches these goal templates */
++				s.nstates[c] = cu_prune(st, n, s.nw);
++				s.states[c] = st;
++			}
++			if (empty)
++				continue;
++			memset(s.opt + nc * s.nw, 0, s.nw * sizeof(uint64));
++			for (int c = nc - 1; c >= 0; c--)
++				for (int w = 0; w < s.nw; w++)
++				{
++					uint64		u = s.opt[(c + 1) * s.nw + w];
++
++					for (int k = 0; k < s.nstates[c]; k++)
++						u |= s.states[c][k * s.nw + w];
++					s.opt[c * s.nw + w] = u;
++				}
++			zero = palloc0_array(uint64, s.nw);
++			if (cu_dfs(&s, 0, zero))
++			{
++				elog(DEBUG1, "conditional unique: %s after %ld nodes",
++					 s.gaveup ? "gave up" : "counterexample", s.nodes);
++				return false;
++			}
++		}
++	elog(DEBUG1, "conditional unique: implied after %ld nodes", s.nodes);
++	return true;
++}
++
++/*
++ * Columns that every template of a DNF fixes to one constant or to null
++ * (templates that match no row, as a CHECK constraint can produce, impose
++ * nothing).  Two
++ * rows of the goal's scope can disagree on any other column, so a premise
++ * whose key has such a column rarely matters; skipping it (which is always
++ * safe) keeps the search small when a table has many unique indexes.
++ */
++static uint64
++cu_fixed(List *dnf)
++{
++	uint64		fixed = ~(uint64) 0;
++	ListCell   *lc;
++
++	if (dnf == NIL)
++		return 0;
++	foreach(lc, dnf)
++	{
++		CuEntry		e[CU_MAX_COLS];
++		uint64		f = 0;
++		ListCell   *la;
++
++		for (int c = 0; c < CU_MAX_COLS; c++)
++			e[c].kind = CU_ANY, e[c].set = 0;
++		foreach(la, (List *) lfirst(lc))
++		{
++			CuAtom	   *a = (CuAtom *) lfirst(la);
++
++			cu_meet(&e[a->col], &a->e);
++		}
++		for (int c = 0; c < CU_MAX_COLS; c++)
++		{
++			if (e[c].kind == CU_FALSE)
++			{
++				f = ~(uint64) 0;	/* the template matches no row */
++				break;
++			}
++			if (e[c].kind == CU_NULL ||
++				(e[c].kind == CU_IN && pg_popcount64(e[c].set) == 1))
++				f |= CU_BIT(c);
++		}
++		fixed &= f;
++	}
++	return fixed;
++}
++
++static CuCtx *
++cu_init(PlannerInfo *root, RelOptInfo *rel)
++{
++	CuCtx	   *ctx = palloc0_object(CuCtx);
++
++	ctx->root = root;
++	ctx->rel = rel;
++	ctx->relid = planner_rt_fetch(rel->relid, root)->relid;
++	return ctx;
++}
++
++/* Equality operator of the default btree opclass of the column's type; 0 if none */
++static Oid
++cu_attr_eqop(Oid relid, AttrNumber attno)
++{
++	Oid			typid;
++	int32		typmod;
++	Oid			collid;
++	Oid			opclass;
++
++	get_atttypetypmodcoll(relid, attno, &typid, &typmod, &collid);
++	if (!cu_coll_ok(collid))
++		return InvalidOid;
++	opclass = GetDefaultOpClass(typid, BTREE_AM_OID);
++	if (!OidIsValid(opclass))
++		return InvalidOid;
++	return get_opfamily_member(get_opclass_family(opclass),
++							   get_opclass_input_type(opclass),
++							   get_opclass_input_type(opclass),
++							   BTEqualStrategyNumber);
++}
++
++/*
++ * The rel's validated, enforced CHECK constraints, prepared as the planner
++ * prepares them for constraint exclusion (get_relation_constraints).  NO
++ * INHERIT constraints are left out: they need not hold for child rows.
++ */
++static List *
++cu_checks(CuCtx *ctx)
++{
++	List	   *out = NIL;
++	Relation	relation = table_open(ctx->relid, NoLock);
++	TupleConstr *constr = relation->rd_att->constr;
++
++	for (int i = 0; constr != NULL && i < constr->num_check; i++)
++	{
++		Node	   *e;
++
++		if (!constr->check[i].ccvalid || !constr->check[i].ccenforced ||
++			constr->check[i].ccnoinherit)
++			continue;
++		e = stringToNode(constr->check[i].ccbin);
++		e = eval_const_expressions(ctx->root, e);
++		e = (Node *) canonicalize_qual((Expr *) e, true);
++		if (ctx->rel->relid != 1)
++			ChangeVarNodes(e, 1, ctx->rel->relid, 0);
++		out = list_concat(out, make_ands_implicit((Expr *) e));
++	}
++	table_close(relation, NoLock);
++	return out;
++}
++
++/*
++ * Templates "column IS NULL" for the nullable columns through which the
++ * clause can be null: those it compares or tests as booleans, but not those
++ * it only tests with IS [NOT] NULL or IS [NOT] TRUE/FALSE/UNKNOWN.
++ */
++static bool
++cu_null_sources(Node *n, void *context)
++{
++	CuCtx	   *ctx = ((void **) context)[0];
++	List	  **out = ((void **) context)[1];
++	Var		   *v;
++	int			col;
++
++	if (n == NULL || IsA(n, NullTest) || IsA(n, BooleanTest))
++		return false;
++	if ((v = cu_var(ctx, n)) != NULL)
++	{
++		CuAtom	   *a;
++
++		if ((col = cu_col(ctx, v)) < 0)
++			return true;		/* give up: caller drops the clause */
++		if (ctx->cols[col].notnull)
++			return false;
++		a = palloc_object(CuAtom);
++		a->col = col;
++		a->e.kind = CU_NULL;
++		a->e.set = 0;
++		*out = lappend(*out, list_make1(a));
++		return false;
++	}
++	if (IsA(n, Var))
++		return true;			/* another relation's column: not ours */
++	return expression_tree_walker(n, cu_null_sources, context);
++}
++
++/* The rel's premise indexes, computed on first use */
++static CuPremises *
++cu_premises(CuCtx *ctx)
++{
++	RelOptInfo *rel = ctx->rel;
++	CuPremises *pc;
++	MemoryContext old;
++	Oid		   *eqop;
++	ListCell   *lc;
++
++	if (rel->cu_premises != NULL)
++		return (CuPremises *) rel->cu_premises;
++
++	/* the rel outlives any short-lived context we may be called in (GEQO) */
++	old = MemoryContextSwitchTo(GetMemoryChunkContext(rel));
++	pc = palloc(offsetof(CuPremises, p) +
++				Max(list_length(rel->indexlist), 1) * sizeof(CuPremise));
++	pc->n = 0;
++	pc->checks = cu_checks(ctx);
++	eqop = palloc0_array(Oid, rel->max_attr + 1);	/* 0: not looked up */
++	foreach(lc, rel->indexlist)
++	{
++		IndexOptInfo *ind = (IndexOptInfo *) lfirst(lc);
++		Bitmapset  *attnos = NULL;
++		int			c;
++
++		if (!ind->unique || !ind->immediate || ind->indexprs != NIL)
++			continue;
++		for (c = 0; c < ind->nkeycolumns; c++)
++		{
++			AttrNumber	a = ind->indexkeys[c];
++
++			if (a <= 0 || a > rel->max_attr)
++				break;
++			if (eqop[a] == InvalidOid)
++			{
++				eqop[a] = cu_attr_eqop(ctx->relid, a);
++				if (eqop[a] == InvalidOid)
++					eqop[a] = (Oid) -1;	/* unusable */
++			}
++			if (eqop[a] == (Oid) -1 ||
++				get_opfamily_member(ind->opfamily[c], ind->opcintype[c],
++									ind->opcintype[c], BTEqualStrategyNumber) !=
++				eqop[a] ||
++				!cu_coll_ok(ind->indexcollations[c]))
++				break;
++			attnos = bms_add_member(attnos, a);
++		}
++		if (c < ind->nkeycolumns)
++			continue;
++		pc->p[pc->n].ind = ind;
++		pc->p[pc->n].attnos = attnos;
++		pc->n++;
++	}
++	pfree(eqop);
++	MemoryContextSwitchTo(old);
++	rel->cu_premises = pc;
++	return pc;
++}
++
++/*
++ * Do the rel's unique indexes and NOT NULL columns imply that its rows
++ * satisfying its restriction clauses are unique on the columns in key?
++ */
++static bool
++cu_decide(CuCtx *ctx, uint64 key, bool nulleq)
++{
++	RelOptInfo *rel = ctx->rel;
++	List	   *pdnf = NIL;
++	List	   *pkey = NIL;
++	List	   *pnulleq = NIL;
++	List	   *gdnf = list_make1(NIL);
++	CuCons	   *cons;
++	CuCond		goal;
++	int			ncons = 0;
++	ListCell   *lc;
++	ListCell   *lk;
++	ListCell   *ln;
++	uint64		usable;
++	Bitmapset  *uattnos = NULL;
++	CuPremises *pc;
++
++	foreach(lc, rel->baserestrictinfo)
++	{
++		RestrictInfo *ri = (RestrictInfo *) lfirst(lc);
++		List	   *d;
++
++		if (ri->pseudoconstant || !cu_dnf(ctx, (Node *) ri->clause, &d))
++			continue;			/* dropping a conjunct is safe */
++		d = cu_cross(gdnf, d);
++		if (list_length(d) <= CU_MAX_TEMPLATES)
++			gdnf = d;
++	}
++	foreach(lc, cu_premises(ctx)->checks)
++	{
++		Node	   *c = (Node *) lfirst(lc);
++		List	   *d;
++		List	   *nulls = NIL;
++		void	   *wctx[2] = {ctx, &nulls};
++
++		/* rows pass CHECK c iff c is true or null */
++		if (!cu_dnf(ctx, c, &d) || cu_null_sources(c, wctx))
++			continue;
++		d = cu_cross(gdnf, list_concat(d, nulls));
++		if (list_length(d) <= CU_MAX_TEMPLATES)
++			gdnf = d;
++	}
++	usable = key | cu_fixed(gdnf);
++	for (int c = 0; c < ctx->ncols; c++)
++		if (usable & CU_BIT(c))
++			uattnos = bms_add_member(uattnos, ctx->cols[c].attno);
++
++	pc = cu_premises(ctx);
++	for (int i = 0; i < pc->n; i++)
++	{
++		IndexOptInfo *ind = pc->p[i].ind;
++		uint64		ikey = 0;
++		List	   *d;
++		int			a = -1;
++
++		if (!bms_is_subset(pc->p[i].attnos, uattnos))
++			continue;
++		while ((a = bms_next_member(pc->p[i].attnos, a)) >= 0)
++			ikey |= CU_BIT(cu_col_index_key(ctx, a));	/* registered */
++		if (!cu_dnf(ctx, (Node *) ind->indpred, &d))
++			continue;
++		pdnf = lappend(pdnf, d);
++		pkey = lappend(pkey, palloc_object(uint64));
++		*(uint64 *) llast(pkey) = ikey;
++		pnulleq = lappend_int(pnulleq, ind->nullsnotdistinct);
++	}
++
++	cons = palloc_array(CuCons, Max(list_length(pdnf), 1));
++	forthree(lc, pdnf, lk, pkey, ln, pnulleq)
++	{
++		cu_compile(ctx, (List *) lfirst(lc), &cons[ncons].cond);
++		cons[ncons].key = *(uint64 *) lfirst(lk);
++		cons[ncons].nulleq = lfirst_int(ln);
++		ncons++;
++	}
++	cu_compile(ctx, gdnf, &goal);
++	return cu_implies(ctx, cons, ncons, &goal, key, nulleq);
++}
++
++/* Has the rel a unique index with a predicate (or, if !partial_only, any)? */
++static bool
++cu_rel_has_unique(RelOptInfo *rel, bool partial_only)
++{
++	ListCell   *lc;
++
++	foreach(lc, rel->indexlist)
++	{
++		IndexOptInfo *ind = (IndexOptInfo *) lfirst(lc);
++
++		if (ind->unique && ind->immediate &&
++			(ind->indpred != NIL || !partial_only))
++			return true;
++	}
++	return false;
++}
++
++bool
++cu_rel_has_partial_unique(RelOptInfo *rel)
++{
++	return cu_rel_has_unique(rel, true);
++}
++
++/*
++ * The counterpart of relation_has_unique_index_ext for partial unique
++ * indexes: are the rel's rows that pass its restriction clauses unique on
++ * the columns the join clauses in restrictlist (inner side as marked by
++ * outer_is_left) or the expressions in exprlist equate?  Equality is strict,
++ * so rows with a null there never match, and U suffices.
++ */
++bool
++cu_relation_has_unique_for(PlannerInfo *root, RelOptInfo *rel,
++						   List *restrictlist, List *exprlist, List *oprlist)
++{
++	CuCtx	   *ctx;
++	uint64		key = 0;
++	ListCell   *lc;
++	ListCell   *lc2;
++
++	if (!cu_rel_has_partial_unique(rel))
++		return false;
++	ctx = cu_init(root, rel);
++	foreach(lc, restrictlist)
++	{
++		RestrictInfo *ri = (RestrictInfo *) lfirst(lc);
++		Var		   *v;
++		int			col;
++
++		if (!IsA(ri->clause, OpExpr))
++			continue;
++		v = cu_var(ctx, ri->outer_is_left ? get_rightop(ri->clause)
++				   : get_leftop(ri->clause));
++		if (v == NULL || (col = cu_col(ctx, v)) < 0 ||
++			!list_member_oid(ri->mergeopfamilies, ctx->cols[col].opfamily) ||
++			!cu_coll_ok(exprInputCollation((Node *) ri->clause)))
++			continue;
++		key |= CU_BIT(col);
++	}
++	forboth(lc, exprlist, lc2, oprlist)
++	{
++		Var		   *v = cu_var(ctx, (Node *) lfirst(lc));
++		int			col;
++
++		if (v == NULL || (col = cu_col(ctx, v)) < 0 ||
++			!op_in_opfamily(lfirst_oid(lc2), ctx->cols[col].opfamily) ||
++			!cu_coll_ok(exprCollation((Node *) lfirst(lc))))
++			continue;
++		key |= CU_BIT(col);
++	}
++	return cu_decide(ctx, key, false);
++}
++
++/*
++ * A second pass of remove_useless_groupby_columns, after the restriction
++ * clauses have been distributed: drop the GROUP BY columns of a relation
++ * that a proper subset K of them determines because the relation's rows
++ * that reach the grouping are unique on K, nulls equal (U=).  Rels that an
++ * outer join can null are skipped: a null-extended row would agree on K
++ * with any row whose K values are null.  Indexes without a predicate count
++ * too: the restriction may fix some of their columns (WHERE ns = 0 makes
++ * UNIQUE (ns, title) a key on title), which the first pass does not see.
++ */
++void
++cu_remove_useless_groupby_columns(PlannerInfo *root)
++{
++	Query	   *parse = root->parse;
++	Bitmapset **surplusvars = NULL;
++	ListCell   *lc;
++
++	if (list_length(root->processed_groupClause) < 2 || parse->groupingSets)
++		return;
++
++	for (int rti = 1; rti < root->simple_rel_array_size; rti++)
++	{
++		RelOptInfo *rel = root->simple_rel_array[rti];
++		RangeTblEntry *rte = root->simple_rte_array[rti];
++		CuCtx	   *ctx;
++		uint64		gmask = 0;
++		uint64		best = 0;
++		int			ngroup = 0;
++		int			bestn = INT_MAX;
++
++		if (rel == NULL || rel->reloptkind != RELOPT_BASEREL ||
++			rel->rtekind != RTE_RELATION ||
++			(rte->inh && rte->relkind != RELKIND_PARTITIONED_TABLE) ||
++			!bms_is_empty(rel->nulling_relids) ||
++			!cu_rel_has_unique(rel, false))
++			continue;
++		ctx = cu_init(root, rel);
++		foreach(lc, root->processed_groupClause)
++		{
++			SortGroupClause *sgc = lfirst_node(SortGroupClause, lc);
++			Var		   *v = (Var *) get_sortgroupclause_tle(sgc, parse->targetList)->expr;
++			int			col;
++
++			if (!IsA(v, Var) || v->varlevelsup > 0 || v->varno != rti)
++				continue;
++			ngroup++;
++			if (cu_var(ctx, (Node *) v) == NULL || (col = cu_col(ctx, v)) < 0 ||
++				!list_member_oid(get_mergejoin_opfamilies(sgc->eqop),
++								 ctx->cols[col].opfamily))
++				continue;
++			gmask |= CU_BIT(col);
++		}
++		if (ngroup < 2)
++			continue;
++
++		/* candidates: the grouped columns of each unique index */
++		foreach(lc, rel->indexlist)
++		{
++			IndexOptInfo *ind = (IndexOptInfo *) lfirst(lc);
++			uint64		k = 0;
++			int			n;
++
++			if (!ind->unique || !ind->immediate || ind->indexprs != NIL)
++				continue;
++			for (int c = 0; c < ind->nkeycolumns; c++)
++			{
++				int			col = ind->indexkeys[c] > 0 ?
++					cu_col_index_key(ctx, ind->indexkeys[c]) : -1;
++
++				if (col >= 0 && (gmask & CU_BIT(col)))
++					k |= CU_BIT(col);
++			}
++			n = pg_popcount64(k);
++			if (n == 0 || n >= ngroup || n >= bestn)
++				continue;
++			if (cu_decide(ctx, k, true))
++			{
++				best = k;
++				bestn = n;
++			}
++		}
++		if (best == 0)
++			continue;
++
++		if (surplusvars == NULL)
++			surplusvars = palloc0_array(Bitmapset *, root->simple_rel_array_size);
++		foreach(lc, root->processed_groupClause)
++		{
++			SortGroupClause *sgc = lfirst_node(SortGroupClause, lc);
++			Var		   *v = (Var *) get_sortgroupclause_tle(sgc, parse->targetList)->expr;
++			bool		keep = false;
++
++			if (!IsA(v, Var) || v->varlevelsup > 0 || v->varno != rti ||
++				v->varattno <= 0)
++				continue;
++			for (int c = 0; c < ctx->ncols; c++)
++				if ((best & CU_BIT(c)) && ctx->cols[c].attno == v->varattno)
++					keep = true;
++			if (!keep)
++				surplusvars[rti] = bms_add_member(surplusvars[rti], v->varattno);
++		}
++	}
++
++	if (surplusvars != NULL)
++	{
++		List	   *new_groupby = NIL;
++
++		foreach(lc, root->processed_groupClause)
++		{
++			SortGroupClause *sgc = lfirst_node(SortGroupClause, lc);
++			Var		   *v = (Var *) get_sortgroupclause_tle(sgc, parse->targetList)->expr;
++
++			if (!IsA(v, Var) || v->varlevelsup > 0 || v->varattno <= 0 ||
++				!bms_is_member(v->varattno, surplusvars[v->varno]))
++				new_groupby = lappend(new_groupby, sgc);
++		}
++		root->processed_groupClause = new_groupby;
++	}
++}
++
++/*
++ * Uniqueness through joins.  A base relation is "determined" by a set G of
++ * columns (DISTINCT or GROUP BY items) if, in every row the join produces,
++ * the relation's part (one of its rows, or nulls if an outer join null-
++ * extended it) is a function of the values of G:
++ *
++ *	- a relation whose rows passing its restriction clauses are unique, nulls
++ *	  equal (U=), on its own columns in G is determined, provided no outer
++ *	  join can null these columns (their Vars have no nullingrels);
++ *	- a relation whose rows passing its restriction clauses are unique (U)
++ *	  on columns equated with columns of determined relations (or of G) is
++ *	  determined: an equivalence class with at least two members, or an
++ *	  outer join clause read from its determined outer side to its nullable
++ *	  side, equates them, and equality is strict, so a row with a null
++ *	  there finds no partner;
++ *	- the inner side of a semi- or anti-join adds no rows and no columns; it
++ *	  needs no determining, but its values are not fixed either, so its
++ *	  columns never fix others.
++ *
++ * Columns equated by an equivalence class are equal in every row that
++ * contains both (single-member classes, made for sort keys, equate
++ * nothing).  Whether a row of an outer join's nullable side is matched or
++ * null-extended depends on every outer column its ON clause reads, so a
++ * relation on the nullable side of a left join can only be determined once
++ * the whole outer side is; and an outer join clause says nothing from the
++ * nullable side to the outer side, since outer rows without a partner all
++ * get nulls.  If every relation is determined, the rows the join produces
++ * are unique on G.
++ */
++typedef struct CuDet
++{
++	PlannerInfo *root;
++	Bitmapset **direct;			/* per rti: attnos of G (no nullingrels) */
++	Bitmapset **eq;				/* per rti: attnos equated with fixed ones */
++	Bitmapset **tried;			/* per rti: key of the last failed attempt */
++	Relids	   *needs;			/* per rti: outer sides of left joins that can
++								 * null it */
++	Relids		det;			/* determined relids */
++	Relids		semi;			/* inner sides of semi- and anti-joins */
++} CuDet;
++
++/* Default btree opfamily of the column's type, under a deterministic collation */
++static Oid
++cu_att_opfamily(PlannerInfo *root, int rti, AttrNumber attno)
++{
++	Oid			typid;
++	int32		typmod;
++	Oid			collid;
++	Oid			opclass;
++
++	get_atttypetypmodcoll(planner_rt_fetch(rti, root)->relid, attno,
++						  &typid, &typmod, &collid);
++	if (!cu_coll_ok(collid))
++		return InvalidOid;
++	opclass = GetDefaultOpClass(typid, BTREE_AM_OID);
++	return OidIsValid(opclass) ? get_opclass_family(opclass) : InvalidOid;
++}
++
++/* A plain table (or partitioned table) the prover can reason about */
++static bool
++cu_rel_plain(PlannerInfo *root, int rti)
++{
++	RelOptInfo *rel = root->simple_rel_array[rti];
++	RangeTblEntry *rte = root->simple_rte_array[rti];
++
++	return rel != NULL && rel->reloptkind == RELOPT_BASEREL &&
++		rel->rtekind == RTE_RELATION &&
++		(!rte->inh || rte->relkind == RELKIND_PARTITIONED_TABLE);
++}
++
++/* A plain column Var of this query level, or NULL */
++static Var *
++cu_plain_var(Node *n)
++{
++	n = cu_strip(n);
++	if (n && IsA(n, Var) && ((Var *) n)->varlevelsup == 0 &&
++		((Var *) n)->varattno > 0)
++		return (Var *) n;
++	return NULL;
++}
++
++/* Is v fixed: of a determined relation, or a G column no outer join nulls? */
++static bool
++cu_fixed_var(CuDet *d, Var *v)
++{
++	return bms_is_member(v->varno, d->det) ||
++		(bms_is_empty(v->varnullingrels) &&
++		 bms_is_member(v->varattno, d->direct[v->varno]));
++}
++
++/* Add the G items in sgcs to d->direct, except those of rel skip */
++static void
++cu_det_add_items(CuDet *d, List *sgcs, int skip)
++{
++	Query	   *parse = d->root->parse;
++	ListCell   *lc;
++
++	foreach(lc, sgcs)
++	{
++		SortGroupClause *sgc = lfirst_node(SortGroupClause, lc);
++		Node	   *e = (Node *) get_sortgroupclause_tle(sgc, parse->targetList)->expr;
++		Var		   *v = cu_plain_var(e);
++		Oid			fam;
++
++		if (v == NULL || v->varno == skip || !bms_is_empty(v->varnullingrels) ||
++			v->varno >= d->root->simple_rel_array_size ||
++			!cu_rel_plain(d->root, v->varno) ||
++			!cu_coll_ok(exprCollation(e)) ||
++			!OidIsValid(fam = cu_att_opfamily(d->root, v->varno, v->varattno)) ||
++			!list_member_oid(get_mergejoin_opfamilies(sgc->eqop), fam))
++			continue;
++		d->direct[v->varno] = bms_add_member(d->direct[v->varno], v->varattno);
++	}
++}
++
++/* Mark the column of v as equated with a fixed value, if its equality fits */
++static void
++cu_det_equate(CuDet *d, Var *v, List *opfamilies, Oid collation)
++{
++	Oid			fam;
++
++	if (bms_is_member(v->varno, d->det) || !bms_is_empty(v->varnullingrels) ||
++		!cu_rel_plain(d->root, v->varno) || !cu_coll_ok(collation) ||
++		!OidIsValid(fam = cu_att_opfamily(d->root, v->varno, v->varattno)) ||
++		!list_member_oid(opfamilies, fam))
++		return;
++	d->eq[v->varno] = bms_add_member(d->eq[v->varno], v->varattno);
++}
++
++/* One round of propagation over equivalence classes and outer join clauses */
++static void
++cu_det_propagate(CuDet *d)
++{
++	PlannerInfo *root = d->root;
++	ListCell   *lc;
++	int			rti = -1;
++
++	foreach(lc, root->eq_classes)
++	{
++		EquivalenceClass *ec = (EquivalenceClass *) lfirst(lc);
++		bool		source = false;
++		ListCell   *lm;
++
++		if (ec->ec_has_volatile || ec->ec_broken || ec->ec_merged ||
++			list_length(ec->ec_members) < 2)
++			continue;
++		foreach(lm, ec->ec_members)
++		{
++			EquivalenceMember *em = (EquivalenceMember *) lfirst(lm);
++			Var		   *v = cu_plain_var((Node *) em->em_expr);
++
++			if (!em->em_is_child && v && bms_is_empty(v->varnullingrels) &&
++				cu_fixed_var(d, v))
++				source = true;
++		}
++		if (!source)
++			continue;
++		foreach(lm, ec->ec_members)
++		{
++			EquivalenceMember *em = (EquivalenceMember *) lfirst(lm);
++			Var		   *v = cu_plain_var((Node *) em->em_expr);
++
++			if (!em->em_is_child && v)
++				cu_det_equate(d, v, ec->ec_opfamilies, ec->ec_collation);
++		}
++	}
++
++	while ((rti = bms_next_member(root->all_baserels, rti)) >= 0)
++	{
++		RelOptInfo *rel = root->simple_rel_array[rti];
++
++		if (bms_is_member(rti, d->det) || !cu_rel_plain(root, rti))
++			continue;
++		foreach(lc, rel->joininfo)
++		{
++			RestrictInfo *ri = (RestrictInfo *) lfirst(lc);
++			Var		   *l;
++			Var		   *r;
++			Var		   *mine;
++			Var		   *other;
++
++			/* an outer join clause with rel on its nullable side */
++			if (ri->outer_relids == NULL || bms_is_member(rti, ri->outer_relids) ||
++				ri->mergeopfamilies == NIL || !IsA(ri->clause, OpExpr) ||
++				list_length(((OpExpr *) ri->clause)->args) != 2)
++				continue;
++			l = cu_plain_var(get_leftop(ri->clause));
++			r = cu_plain_var(get_rightop(ri->clause));
++			if (l == NULL || r == NULL)
++				continue;
++			if (l->varno == rti && bms_is_member(r->varno, ri->outer_relids))
++				mine = l, other = r;
++			else if (r->varno == rti && bms_is_member(l->varno, ri->outer_relids))
++				mine = r, other = l;
++			else
++				continue;
++			if (bms_is_member(other->varno, d->det))
++				cu_det_equate(d, mine, ri->mergeopfamilies,
++							  exprInputCollation((Node *) ri->clause));
++		}
++	}
++}
++
++/*
++ * Propagate until nothing changes or every relation in want is determined;
++ * returns whether they all are.
++ */
++static bool
++cu_det_run(CuDet *d, Relids want)
++{
++	PlannerInfo *root = d->root;
++	bool		changed = true;
++
++	want = bms_difference(want, d->semi);
++	while (changed && !bms_is_subset(want, d->det))
++	{
++		int			rti = -1;
++
++		changed = false;
++		cu_det_propagate(d);
++		while ((rti = bms_next_member(root->all_baserels, rti)) >= 0)
++		{
++			Bitmapset  *attnos;
++			CuCtx	   *ctx;
++			uint64		key = 0;
++			int			a = -1;
++			bool		ok = true;
++
++			if (bms_is_member(rti, d->det) || bms_is_member(rti, d->semi) ||
++				!cu_rel_plain(root, rti) ||
++				!bms_is_subset(d->needs[rti], bms_union(d->det, d->semi)))
++				continue;
++			attnos = bms_union(d->direct[rti], d->eq[rti]);
++			if (attnos == NULL || bms_equal(attnos, d->tried[rti]))
++				continue;
++			ctx = cu_init(root, root->simple_rel_array[rti]);
++			while ((a = bms_next_member(attnos, a)) >= 0)
++			{
++				int			col = cu_col_index_key(ctx, a);
++
++				if (col < 0)
++					ok = false;
++				else
++					key |= CU_BIT(col);
++			}
++			/* U= unless every column is equated with a value (non-null) */
++			if (ok && cu_decide(ctx, key,
++								!bms_is_subset(d->direct[rti], d->eq[rti])))
++			{
++				d->det = bms_add_member(d->det, rti);
++				changed = true;
++			}
++			else
++				d->tried[rti] = attnos;
++		}
++	}
++	return bms_is_subset(want, d->det);
++}
++
++/*
++ * Set up for the query's base relations; false if a join or relation kind
++ * rules the analysis out.  Inner sides of semi- and anti-joins need no
++ * determining.
++ */
++static bool
++cu_det_init(PlannerInfo *root, CuDet *d)
++{
++	ListCell   *lc;
++	int			rti = -1;
++
++	d->root = root;
++	d->direct = palloc0_array(Bitmapset *, root->simple_rel_array_size);
++	d->eq = palloc0_array(Bitmapset *, root->simple_rel_array_size);
++	d->tried = palloc0_array(Bitmapset *, root->simple_rel_array_size);
++	d->needs = palloc0_array(Relids, root->simple_rel_array_size);
++	d->det = NULL;
++	d->semi = NULL;
++	foreach(lc, root->join_info_list)
++	{
++		SpecialJoinInfo *sj = (SpecialJoinInfo *) lfirst(lc);
++
++		if (sj->jointype == JOIN_FULL)
++			return false;
++		if (sj->jointype == JOIN_SEMI || sj->jointype == JOIN_ANTI)
++			d->semi = bms_add_members(d->semi,
++									  bms_intersect(sj->syn_righthand,
++													root->all_baserels));
++		else if (sj->jointype == JOIN_LEFT)
++		{
++			Relids		lhs = bms_intersect(sj->syn_lefthand, root->all_baserels);
++
++			rti = -1;
++			while ((rti = bms_next_member(sj->syn_righthand, rti)) >= 0)
++				if (rti < root->simple_rel_array_size)
++					d->needs[rti] = bms_add_members(d->needs[rti], lhs);
++		}
++	}
++	rti = -1;
++	while ((rti = bms_next_member(root->all_baserels, rti)) >= 0)
++		if (!bms_is_member(rti, d->semi) && !cu_rel_plain(root, rti))
++			return false;
++	return true;
++}
++
++/*
++ * Is the query's DISTINCT redundant?  That is the case when every base
++ * relation is determined by the DISTINCT columns: the rows that reach
++ * DISTINCT are then unique on them, nulls equal (U=), as DISTINCT puts all
++ * nulls into one group.  Non-Var DISTINCT items only make the rows more
++ * distinct.
++ */
++bool
++cu_distinct_is_redundant(PlannerInfo *root)
++{
++	Query	   *parse = root->parse;
++	CuDet		d;
++
++	if (parse->distinctClause == NIL || parse->hasDistinctOn ||
++		parse->groupClause || parse->groupingSets || parse->hasAggs ||
++		root->hasHavingQual || parse->hasWindowFuncs ||
++		parse->hasTargetSRFs || parse->setOperations ||
++		bms_is_empty(root->all_baserels) || !cu_det_init(root, &d))
++		return false;
++	cu_det_add_items(&d, parse->distinctClause, 0);
++	return cu_det_run(&d, root->all_baserels);
++}
++
++/*
++ * GROUP BY through joins, after the restriction clauses and equivalence
++ * classes are in place and before pathkeys are computed.  Without
++ * aggregates, HAVING, grouping sets, window functions or set-returning
++ * functions, a GROUP BY whose columns determine every relation groups
++ * single rows and is dropped.  Otherwise the GROUP BY columns of a relation
++ * that the other GROUP BY columns determine are dropped, as long as one
++ * column remains (grouping by nothing yields a row for empty input).
++ */
++void
++cu_reduce_groupby_through_joins(PlannerInfo *root)
++{
++	Query	   *parse = root->parse;
++	CuDet		d;
++	int			rti = -1;
++
++	if (root->processed_groupClause == NIL || parse->groupingSets ||
++		bms_is_empty(root->all_baserels) || !cu_det_init(root, &d))
++		return;
++
++	if (!parse->hasAggs && !root->hasHavingQual && !parse->hasWindowFuncs &&
++		!parse->hasTargetSRFs)
++	{
++		cu_det_add_items(&d, root->processed_groupClause, 0);
++		if (cu_det_run(&d, root->all_baserels))
++		{
++			root->processed_groupClause = NIL;
++			parse->groupClause = NIL;
++			return;
++		}
++	}
++
++	if (bms_membership(root->all_baserels) != BMS_MULTIPLE)
++		return;
++	while ((rti = bms_next_member(root->all_baserels, rti)) >= 0)
++	{
++		List	   *keep = NIL;
++		bool		mine = false;
++		ListCell   *lc;
++
++		foreach(lc, root->processed_groupClause)
++		{
++			SortGroupClause *sgc = lfirst_node(SortGroupClause, lc);
++			Var		   *v = cu_plain_var((Node *) get_sortgroupclause_tle(sgc, parse->targetList)->expr);
++
++			if (v && v->varno == rti)
++				mine = true;
++			else
++				keep = lappend(keep, sgc);
++		}
++		if (!mine || keep == NIL || !cu_det_init(root, &d))
++			continue;
++		cu_det_add_items(&d, keep, rti);
++		if (cu_det_run(&d, bms_make_singleton(rti)))
++			root->processed_groupClause = keep;
++	}
++}
+--- a/src/backend/optimizer/path/indxpath.c
++++ b/src/backend/optimizer/path/indxpath.c
+@@ -27,6 +27,7 @@
+ #include "nodes/makefuncs.h"
+ #include "nodes/nodeFuncs.h"
+ #include "nodes/supportnodes.h"
++#include "optimizer/condunique.h"
+ #include "optimizer/cost.h"
+ #include "optimizer/optimizer.h"
+ #include "optimizer/pathnode.h"
+@@ -4343,6 +4344,17 @@
+ 			return true;
+ 		}
+ 	}
++
++	/*
++	 * Partial unique indexes: decide by implication from all unique indexes
++	 * and the rel's own restriction clauses (never join clauses, which is
++	 * what made the predOK test unusable here).  Self-join elimination
++	 * needs the clauses that established uniqueness, which we don't report.
++	 */
++	if (enable_conditional_unique && extra_clauses == NULL &&
++		(!cu_costing_only || enable_conditional_unique_costing) &&
++		cu_relation_has_unique_for(root, rel, restrictlist, exprlist, oprlist))
++		return true;
+ 
+ 	return false;
+ }
+--- a/src/backend/optimizer/plan/analyzejoins.c
++++ b/src/backend/optimizer/plan/analyzejoins.c
+@@ -24,6 +24,7 @@
+ 
+ #include "catalog/pg_class.h"
+ #include "nodes/nodeFuncs.h"
++#include "optimizer/condunique.h"
+ #include "optimizer/joininfo.h"
+ #include "optimizer/optimizer.h"
+ #include "optimizer/pathnode.h"
+@@ -1137,7 +1138,8 @@
+ 		{
+ 			IndexOptInfo *ind = (IndexOptInfo *) lfirst(lc);
+ 
+-			if (ind->unique && ind->immediate && ind->indpred == NIL)
++			if (ind->unique && ind->immediate &&
++				(ind->indpred == NIL || enable_conditional_unique))
+ 				return true;
+ 		}
+ 	}
+--- a/src/backend/optimizer/plan/planmain.c
++++ b/src/backend/optimizer/plan/planmain.c
+@@ -22,6 +22,7 @@
+ 
+ #include "optimizer/appendinfo.h"
+ #include "optimizer/clauses.h"
++#include "optimizer/condunique.h"
+ #include "optimizer/optimizer.h"
+ #include "optimizer/orclauses.h"
+ #include "optimizer/pathnode.h"
+@@ -203,6 +204,17 @@
+ 	 * later.)
+ 	 */
+ 	generate_base_implied_equalities(root);
++
++	/*
++	 * With the restriction clauses in place, partial unique indexes may make
++	 * further GROUP BY columns redundant, also through joins.  This must
++	 * precede the pathkey computation below.
++	 */
++	if (enable_conditional_unique)
++	{
++		cu_remove_useless_groupby_columns(root);
++		cu_reduce_groupby_through_joins(root);
++	}
+ 
+ 	/*
+ 	 * We have completed merging equivalence sets, so it's now possible to
+--- a/src/backend/optimizer/plan/planner.c
++++ b/src/backend/optimizer/plan/planner.c
+@@ -40,6 +40,7 @@
+ #include "nodes/supportnodes.h"
+ #include "optimizer/appendinfo.h"
+ #include "optimizer/clauses.h"
++#include "optimizer/condunique.h"
+ #include "optimizer/cost.h"
+ #include "optimizer/optimizer.h"
+ #include "optimizer/paramassign.h"
+@@ -1965,7 +1966,8 @@
+ 		 * If there is a DISTINCT clause, consider ways to implement that. We
+ 		 * build a new upperrel representing the output of this phase.
+ 		 */
+-		if (parse->distinctClause)
++		if (parse->distinctClause &&
++			!(enable_conditional_unique && cu_distinct_is_redundant(root)))
+ 		{
+ 			current_rel = create_distinct_paths(root,
+ 												current_rel,
+--- a/src/backend/utils/misc/guc_tables.c
++++ b/src/backend/utils/misc/guc_tables.c
+@@ -56,6 +56,7 @@
+ #include "libpq/oauth.h"
+ #include "libpq/scram.h"
+ #include "nodes/queryjumble.h"
++#include "optimizer/condunique.h"
+ #include "optimizer/cost.h"
+ #include "optimizer/geqo.h"
+ #include "optimizer/optimizer.h"
+@@ -1027,6 +1028,26 @@
+ 		NULL, NULL, NULL
+ 	},
+ 	{
++		{"enable_conditional_unique", PGC_USERSET, QUERY_TUNING_METHOD,
++			gettext_noop("Enables uniqueness proofs from partial unique indexes."),
++			NULL,
++			GUC_EXPLAIN
++		},
++		&enable_conditional_unique,
++		false,
++		NULL, NULL, NULL
++	},
++	{
++		{"enable_conditional_unique_costing", PGC_USERSET, QUERY_TUNING_METHOD,
++			gettext_noop("Lets uniqueness proofs from partial unique indexes mark joins inner-unique for costing."),
++			NULL,
++			GUC_EXPLAIN
++		},
++		&enable_conditional_unique_costing,
++		false,
++		NULL, NULL, NULL
++	},
++	{
+ 		{"enable_group_by_reordering", PGC_USERSET, QUERY_TUNING_METHOD,
+ 			gettext_noop("Enables reordering of GROUP BY keys."),
+ 			NULL,
+--- a/src/backend/utils/misc/postgresql.conf.sample
++++ b/src/backend/utils/misc/postgresql.conf.sample
+@@ -432,6 +432,8 @@
+ #enable_group_by_reordering = on
+ #enable_distinct_reordering = on
+ #enable_self_join_elimination = on
++#enable_conditional_unique = off
++#enable_conditional_unique_costing = off
+ 
+ # - Planner Cost Constants -
+ 
+--- a/src/backend/optimizer/util/Makefile
++++ b/src/backend/optimizer/util/Makefile
+@@ -15,6 +15,7 @@
+ OBJS = \
+ 	appendinfo.o \
+ 	clauses.o \
++	condunique.o \
+ 	inherit.o \
+ 	joininfo.o \
+ 	orclauses.o \
+--- a/src/backend/optimizer/util/meson.build
++++ b/src/backend/optimizer/util/meson.build
+@@ -3,6 +3,7 @@
+ backend_sources += files(
+   'appendinfo.c',
+   'clauses.c',
++  'condunique.c',
+   'inherit.c',
+   'joininfo.c',
+   'orclauses.c',
+--- a/src/test/regress/expected/sysviews.out
++++ b/src/test/regress/expected/sysviews.out
+@@ -146,33 +146,35 @@
+ -- This is to record the prevailing planner enable_foo settings during
+ -- a regression test run.
+ select name, setting from pg_settings where name like 'enable%';
+-              name              | setting 
+---------------------------------+---------
+- enable_async_append            | on
+- enable_bitmapscan              | on
+- enable_distinct_reordering     | on
+- enable_gathermerge             | on
+- enable_group_by_reordering     | on
+- enable_hashagg                 | on
+- enable_hashjoin                | on
+- enable_incremental_sort        | on
+- enable_indexonlyscan           | on
+- enable_indexscan               | on
+- enable_material                | on
+- enable_memoize                 | on
+- enable_mergejoin               | on
+- enable_nestloop                | on
+- enable_parallel_append         | on
+- enable_parallel_hash           | on
+- enable_partition_pruning       | on
+- enable_partitionwise_aggregate | off
+- enable_partitionwise_join      | off
+- enable_presorted_aggregate     | on
+- enable_self_join_elimination   | on
+- enable_seqscan                 | on
+- enable_sort                    | on
+- enable_tidscan                 | on
+-(24 rows)
++               name                | setting 
++-----------------------------------+---------
++ enable_async_append               | on
++ enable_bitmapscan                 | on
++ enable_conditional_unique         | off
++ enable_conditional_unique_costing | off
++ enable_distinct_reordering        | on
++ enable_gathermerge                | on
++ enable_group_by_reordering        | on
++ enable_hashagg                    | on
++ enable_hashjoin                   | on
++ enable_incremental_sort           | on
++ enable_indexonlyscan              | on
++ enable_indexscan                  | on
++ enable_material                   | on
++ enable_memoize                    | on
++ enable_mergejoin                  | on
++ enable_nestloop                   | on
++ enable_parallel_append            | on
++ enable_parallel_hash              | on
++ enable_partition_pruning          | on
++ enable_partitionwise_aggregate    | off
++ enable_partitionwise_join         | off
++ enable_presorted_aggregate        | on
++ enable_self_join_elimination      | on
++ enable_seqscan                    | on
++ enable_sort                       | on
++ enable_tidscan                    | on
++(26 rows)
+ 
+ -- There are always wait event descriptions for various types.  InjectionPoint
+ -- may be present or absent, depending on history since last postmaster start.
+--- a/src/backend/optimizer/path/joinpath.c
++++ b/src/backend/optimizer/path/joinpath.c
+@@ -19,6 +19,7 @@
+ #include "executor/executor.h"
+ #include "foreign/fdwapi.h"
+ #include "nodes/nodeFuncs.h"
++#include "optimizer/condunique.h"
+ #include "optimizer/cost.h"
+ #include "optimizer/optimizer.h"
+ #include "optimizer/pathnode.h"
+@@ -166,6 +167,7 @@
+ 	 * that is *not* true.)  For JOIN_UNIQUE_OUTER, pass JOIN_INNER to avoid
+ 	 * letting that value escape this module.
+ 	 */
++	cu_costing_only = true;
+ 	switch (jointype)
+ 	{
+ 		case JOIN_SEMI:
+@@ -215,6 +217,8 @@
+ 														  restrictlist,
+ 														  jointype,
+ 														  &mergejoin_allowed);
++
++	cu_costing_only = false;
+ 
+ 	/*
+ 	 * If it's SEMI, ANTI, or inner_unique join, compute correction factors

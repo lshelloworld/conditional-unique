@@ -1,0 +1,1131 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "PlanId",
+   "PlanVariantMarketingName",
+   "StandardComponentId",
+   "PlanMarketingName",
+   "AVCalculatorOutputNumber",
+   "HIOSProductId",
+   "FormularyId",
+   "IssuerId",
+   "URLForSummaryofBenefitsCoverage",
+   "PlanBrochure"
+  ]
+ },
+ "sample_rows": 32528,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbusa.t36990",
+   "rows": 32528,
+   "cols": [
+    "\u00ef\u00bb\u00bfBusinessYear",
+    "StateCode",
+    "IssuerId",
+    "IssuerMarketPlaceMarketingName",
+    "SourceName",
+    "ImportDate",
+    "MarketCoverage",
+    "DentalOnlyPlan",
+    "StandardComponentId",
+    "PlanMarketingName",
+    "HIOSProductId",
+    "NetworkId",
+    "ServiceAreaId",
+    "FormularyId",
+    "IsNewPlan",
+    "PlanType",
+    "MetalLevel",
+    "DesignType",
+    "UniquePlanDesign",
+    "QHPNonQHPTypeId",
+    "IsNoticeRequiredForPregnancy",
+    "IsReferralRequiredForSpecialist",
+    "IndianPlanVariationEstimatedAdvancedPaymentAmountPerEnro",
+    "CompositeRatingOffered",
+    "ChildOnlyOffering",
+    "WellnessProgramOffered",
+    "DiseaseManagementProgramsOffered",
+    "EHBPercentTotalPremium",
+    "PlanEffectiveDate",
+    "PlanExpirationDate",
+    "OutOfCountryCoverage",
+    "OutOfCountryCoverageDescription",
+    "OutOfServiceAreaCoverage",
+    "OutOfServiceAreaCoverageDescription",
+    "NationalNetwork",
+    "URLForEnrollmentPayment",
+    "FormularyURL",
+    "PlanId",
+    "PlanVariantMarketingName",
+    "CSRVariationType",
+    "AVCalculatorOutputNumber",
+    "MedicalDrugDeductiblesIntegrated",
+    "MedicalDrugMaximumOutofPocketIntegrated",
+    "MultipleInNetworkTiers",
+    "FirstTierUtilization",
+    "SBCHavingaBabyDeductible",
+    "SBCHavingaBabyCopayment",
+    "SBCHavingaBabyCoinsurance",
+    "SBCHavingaBabyLimit",
+    "SBCHavingDiabetesDeductible",
+    "SBCHavingDiabetesCopayment",
+    "SBCHavingDiabetesCoinsurance",
+    "SBCHavingDiabetesLimit",
+    "SBCHavingSimplefractureDeductible",
+    "SBCHavingSimplefractureCopayment",
+    "SBCHavingSimplefractureCoinsurance",
+    "SBCHavingSimplefractureLimit",
+    "InpatientCopaymentMaximumDays",
+    "BeginPrimaryCareCostSharingAfterNumberOfVisits",
+    "BeginPrimaryCareDeductibleCoinsuranceAfterNumberOfCopays",
+    "TEHBInnTier1IndividualMOOP",
+    "TEHBInnTier1FamilyPerPersonMOOP",
+    "TEHBInnTier1FamilyPerGroupMOOP",
+    "TEHBOutOfNetIndividualMOOP",
+    "TEHBOutOfNetFamilyPerPersonMOOP",
+    "TEHBOutOfNetFamilyPerGroupMOOP",
+    "TEHBCombInnOonIndividualMOOP",
+    "TEHBCombInnOonFamilyPerPersonMOOP",
+    "TEHBCombInnOonFamilyPerGroupMOOP",
+    "TEHBDedInnTier1Individual",
+    "TEHBDedInnTier1FamilyPerPerson",
+    "TEHBDedInnTier1FamilyPerGroup",
+    "TEHBDedInnTier1Coinsurance",
+    "TEHBDedOutOfNetIndividual",
+    "TEHBDedOutOfNetFamilyPerPerson",
+    "TEHBDedOutOfNetFamilyPerGroup",
+    "TEHBDedCombInnOonIndividual",
+    "TEHBDedCombInnOonFamilyPerPerson",
+    "TEHBDedCombInnOonFamilyPerGroup",
+    "IsHSAEligible",
+    "URLForSummaryofBenefitsCoverage",
+    "PlanBrochure"
+   ],
+   "n_conditional": 41,
+   "conditional": [
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "cand",
+     "condition": "(OutOfCountryCoverageDescription missing, SBCHavingaBabyLimit = \"$60\" (66%))",
+     "sql": "(OutOfCountryCoverageDescription IS NULL AND SBCHavingaBabyLimit = '$60')",
+     "support": 0.184,
+     "rows": 5984,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "SBCHavingaBabyLimit=v1": "$60"
+     }
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "cand",
+     "condition": "(IsNoticeRequiredForPregnancy = \"Yes\" (15%), OutOfCountryCoverage = \"No\" (39%))",
+     "sql": "(IsNoticeRequiredForPregnancy = 'Yes' AND OutOfCountryCoverage = 'No')",
+     "support": 0.116,
+     "rows": 3789,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.179,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "IsNoticeRequiredForPregnancy=v2": "Yes",
+      "OutOfCountryCoverage=v2": "No"
+     }
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "cand",
+     "condition": "(IsNoticeRequiredForPregnancy = \"Yes\" (15%), OutOfCountryCoverageDescription missing)",
+     "sql": "(IsNoticeRequiredForPregnancy = 'Yes' AND OutOfCountryCoverageDescription IS NULL)",
+     "support": 0.116,
+     "rows": 3789,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.179,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "IsNoticeRequiredForPregnancy=v2": "Yes"
+     }
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "cand",
+     "condition": "(IsNoticeRequiredForPregnancy = \"Yes\" (15%), OutOfServiceAreaCoverage = \"No\" (32%))",
+     "sql": "(IsNoticeRequiredForPregnancy = 'Yes' AND OutOfServiceAreaCoverage = 'No')",
+     "support": 0.116,
+     "rows": 3789,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.179,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "IsNoticeRequiredForPregnancy=v2": "Yes",
+      "OutOfServiceAreaCoverage=v2": "No"
+     }
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "cand",
+     "condition": "(IsNoticeRequiredForPregnancy = \"Yes\" (15%), OutOfServiceAreaCoverageDescription missing)",
+     "sql": "(IsNoticeRequiredForPregnancy = 'Yes' AND OutOfServiceAreaCoverageDescription IS NULL)",
+     "support": 0.116,
+     "rows": 3789,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.179,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "IsNoticeRequiredForPregnancy=v2": "Yes"
+     }
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "PlanVariantMarketingName",
+      "StandardComponentId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "cand",
+     "condition": "(IsReferralRequiredForSpecialist = \"Yes\" (26%), OutOfCountryCoverageDescription missing)",
+     "sql": "(IsReferralRequiredForSpecialist = 'Yes' AND OutOfCountryCoverageDescription IS NULL)",
+     "support": 0.077,
+     "rows": 2496,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.129,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "IsReferralRequiredForSpecialist=v2": "Yes"
+     }
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "PlanVariantMarketingName",
+      "StandardComponentId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "cand",
+     "condition": "(WellnessProgramOffered = \"Yes\" (19%), OutOfCountryCoverageDescription missing)",
+     "sql": "(WellnessProgramOffered = 'Yes' AND OutOfCountryCoverageDescription IS NULL)",
+     "support": 0.057,
+     "rows": 1849,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.111,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "WellnessProgramOffered=v2": "Yes"
+     }
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "cand",
+     "condition": "(IndianPlanVariationEstimatedAdvancedPaymentAmountPerEnro = \"0\" (5%), WellnessProgramOffered = \"Yes\" (19%))",
+     "sql": "(IndianPlanVariationEstimatedAdvancedPaymentAmountPerEnro = '0' AND WellnessProgramOffered = 'Yes')",
+     "support": 0.041,
+     "rows": 1326,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.106,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "IndianPlanVariationEstimatedAdvancedPaymentAmountPerEnro=v2": "0",
+      "WellnessProgramOffered=v2": "Yes"
+     }
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "cand",
+     "condition": "(PlanExpirationDate missing, SBCHavingaBabyLimit = \"$0\" (23%))",
+     "sql": "(PlanExpirationDate IS NULL AND SBCHavingaBabyLimit = '$0')",
+     "support": 0.04,
+     "rows": 1307,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.105,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "SBCHavingaBabyLimit=v2": "$0"
+     }
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "cand",
+     "condition": "(IndianPlanVariationEstimatedAdvancedPaymentAmountPerEnro = \"0\" (5%), OutOfCountryCoverage = \"No\" (39%))",
+     "sql": "(IndianPlanVariationEstimatedAdvancedPaymentAmountPerEnro = '0' AND OutOfCountryCoverage = 'No')",
+     "support": 0.037,
+     "rows": 1212,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.101,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "IndianPlanVariationEstimatedAdvancedPaymentAmountPerEnro=v2": "0",
+      "OutOfCountryCoverage=v2": "No"
+     }
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "cand",
+     "condition": "(IndianPlanVariationEstimatedAdvancedPaymentAmountPerEnro = \"0\" (5%), OutOfServiceAreaCoverage = \"No\" (32%))",
+     "sql": "(IndianPlanVariationEstimatedAdvancedPaymentAmountPerEnro = '0' AND OutOfServiceAreaCoverage = 'No')",
+     "support": 0.037,
+     "rows": 1212,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.101,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "IndianPlanVariationEstimatedAdvancedPaymentAmountPerEnro=v2": "0",
+      "OutOfServiceAreaCoverage=v2": "No"
+     }
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "cand",
+     "condition": "(IndianPlanVariationEstimatedAdvancedPaymentAmountPerEnro = \"0\" (5%), PlanExpirationDate missing)",
+     "sql": "(IndianPlanVariationEstimatedAdvancedPaymentAmountPerEnro = '0' AND PlanExpirationDate IS NULL)",
+     "support": 0.037,
+     "rows": 1206,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.101,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "IndianPlanVariationEstimatedAdvancedPaymentAmountPerEnro=v2": "0"
+     }
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "cand",
+     "condition": "(IndianPlanVariationEstimatedAdvancedPaymentAmountPerEnro = \"0\" (5%), OutOfCountryCoverageDescription missing)",
+     "sql": "(IndianPlanVariationEstimatedAdvancedPaymentAmountPerEnro = '0' AND OutOfCountryCoverageDescription IS NULL)",
+     "support": 0.037,
+     "rows": 1206,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.101,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "IndianPlanVariationEstimatedAdvancedPaymentAmountPerEnro=v2": "0"
+     }
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "cand",
+     "condition": "(DesignType present, URLForEnrollmentPayment missing)",
+     "sql": "(DesignType IS NOT NULL AND URLForEnrollmentPayment IS NULL)",
+     "support": 0.037,
+     "rows": 1188,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.1,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "cand",
+     "condition": "(IndianPlanVariationEstimatedAdvancedPaymentAmountPerEnro present, URLForEnrollmentPayment missing)",
+     "sql": "(IndianPlanVariationEstimatedAdvancedPaymentAmountPerEnro IS NOT NULL AND URLForEnrollmentPayment IS NULL)",
+     "support": 0.037,
+     "rows": 1188,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.1,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "cand",
+     "condition": "(EHBPercentTotalPremium present, URLForEnrollmentPayment missing)",
+     "sql": "(EHBPercentTotalPremium IS NOT NULL AND URLForEnrollmentPayment IS NULL)",
+     "support": 0.037,
+     "rows": 1188,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.1,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "cand",
+     "condition": "(IndianPlanVariationEstimatedAdvancedPaymentAmountPerEnro = \"$0.00\" (89%), URLForEnrollmentPayment missing)",
+     "sql": "(IndianPlanVariationEstimatedAdvancedPaymentAmountPerEnro = '$0.00' AND URLForEnrollmentPayment IS NULL)",
+     "support": 0.033,
+     "rows": 1086,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.096,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "IndianPlanVariationEstimatedAdvancedPaymentAmountPerEnro=v1": "$0.00"
+     }
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "cand",
+     "condition": "(IsNewPlan = \"New\" (45%), IndianPlanVariationEstimatedAdvancedPaymentAmountPerEnro = \"0\" (5%))",
+     "sql": "(IsNewPlan = 'New' AND IndianPlanVariationEstimatedAdvancedPaymentAmountPerEnro = '0')",
+     "support": 0.033,
+     "rows": 1077,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.096,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "IsNewPlan=v2": "New",
+      "IndianPlanVariationEstimatedAdvancedPaymentAmountPerEnro=v2": "0"
+     }
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "cand",
+     "condition": "(URLForEnrollmentPayment missing, SBCHavingaBabyLimit = \"$0\" (23%))",
+     "sql": "(URLForEnrollmentPayment IS NULL AND SBCHavingaBabyLimit = '$0')",
+     "support": 0.031,
+     "rows": 995,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.092,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "SBCHavingaBabyLimit=v2": "$0"
+     }
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "URLForSummaryofBenefitsCoverage",
+      "PlanBrochure"
+     ],
+     "cls": "pos",
+     "condition": "(URLForEnrollmentPayment missing)",
+     "sql": "(URLForEnrollmentPayment IS NULL)",
+     "support": 0.055,
+     "rows": 1790,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.336,
+     "score": 0.091,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "PlanVariantMarketingName",
+      "StandardComponentId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "cand",
+     "condition": "(IsReferralRequiredForSpecialist = \"Yes\" (26%), SBCHavingaBabyLimit = \"$0\" (23%))",
+     "sql": "(IsReferralRequiredForSpecialist = 'Yes' AND SBCHavingaBabyLimit = '$0')",
+     "support": 0.038,
+     "rows": 1231,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.091,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "IsReferralRequiredForSpecialist=v2": "Yes",
+      "SBCHavingaBabyLimit=v2": "$0"
+     }
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "AVCalculatorOutputNumber",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "pos",
+     "condition": "(TEHBInnTier1IndividualMOOP missing [same rows: TEHBInnTier1FamilyPerPersonMOOP missing, TEHBInnTier1FamilyPerGroupMOOP missing, TEHBOutOfNetIndividualMOOP missing ...])",
+     "sql": "(TEHBInnTier1IndividualMOOP IS NULL)",
+     "support": 0.049,
+     "rows": 1588,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.997,
+     "score": 0.086,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "FormularyId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "pos",
+     "condition": "(TEHBInnTier1IndividualMOOP missing [same rows: TEHBInnTier1FamilyPerPersonMOOP missing, TEHBInnTier1FamilyPerGroupMOOP missing, TEHBOutOfNetIndividualMOOP missing ...])",
+     "sql": "(TEHBInnTier1IndividualMOOP IS NULL)",
+     "support": 0.049,
+     "rows": 1588,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.997,
+     "score": 0.086,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "AVCalculatorOutputNumber",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "pos",
+     "condition": "(DentalOnlyPlan = \"Yes\" (5%) [same rows: FormularyId missing, UniquePlanDesign missing, IsNoticeRequiredForPregnancy missing ...])",
+     "sql": "(DentalOnlyPlan = 'Yes')",
+     "support": 0.049,
+     "rows": 1584,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.086,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "DentalOnlyPlan=v2": "Yes"
+     }
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "FormularyId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "pos",
+     "condition": "(DentalOnlyPlan = \"Yes\" (5%) [same rows: FormularyId missing, UniquePlanDesign missing, IsNoticeRequiredForPregnancy missing ...])",
+     "sql": "(DentalOnlyPlan = 'Yes')",
+     "support": 0.049,
+     "rows": 1584,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.086,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "DentalOnlyPlan=v2": "Yes"
+     }
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "AVCalculatorOutputNumber",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "pos",
+     "condition": "(IsReferralRequiredForSpecialist missing)",
+     "sql": "(IsReferralRequiredForSpecialist IS NULL)",
+     "support": 0.048,
+     "rows": 1567,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.086,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "FormularyId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "pos",
+     "condition": "(IsReferralRequiredForSpecialist missing)",
+     "sql": "(IsReferralRequiredForSpecialist IS NULL)",
+     "support": 0.048,
+     "rows": 1567,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.086,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "AVCalculatorOutputNumber",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "pos",
+     "condition": "(WellnessProgramOffered missing)",
+     "sql": "(WellnessProgramOffered IS NULL)",
+     "support": 0.048,
+     "rows": 1549,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.085,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "FormularyId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "pos",
+     "condition": "(WellnessProgramOffered missing)",
+     "sql": "(WellnessProgramOffered IS NULL)",
+     "support": 0.048,
+     "rows": 1549,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.085,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "PlanVariantMarketingName",
+      "StandardComponentId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "cand",
+     "condition": "(IsReferralRequiredForSpecialist = \"Yes\" (26%), OutOfServiceAreaCoverageDescription missing)",
+     "sql": "(IsReferralRequiredForSpecialist = 'Yes' AND OutOfServiceAreaCoverageDescription IS NULL)",
+     "support": 0.031,
+     "rows": 1024,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.083,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "IsReferralRequiredForSpecialist=v2": "Yes"
+     }
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "pos",
+     "condition": "(OutOfServiceAreaCoverage = \"Yes\" (68%), URLForEnrollmentPayment missing)",
+     "sql": "(OutOfServiceAreaCoverage = 'Yes' AND URLForEnrollmentPayment IS NULL)",
+     "support": 0.052,
+     "rows": 1696,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.274,
+     "score": 0.067,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "OutOfServiceAreaCoverage=v1": "Yes"
+     }
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "pos",
+     "condition": "(OutOfCountryCoverage = \"Yes\" (61%), URLForEnrollmentPayment missing)",
+     "sql": "(OutOfCountryCoverage = 'Yes' AND URLForEnrollmentPayment IS NULL)",
+     "support": 0.05,
+     "rows": 1612,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.236,
+     "score": 0.065,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "OutOfCountryCoverage=v1": "Yes"
+     }
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "pos",
+     "condition": "(URLForEnrollmentPayment missing, MultipleInNetworkTiers = \"No\" (78%))",
+     "sql": "(URLForEnrollmentPayment IS NULL AND MultipleInNetworkTiers = 'No')",
+     "support": 0.046,
+     "rows": 1508,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.261,
+     "score": 0.063,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "MultipleInNetworkTiers=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "pos",
+     "condition": "(URLForEnrollmentPayment missing, PlanBrochure present)",
+     "sql": "(URLForEnrollmentPayment IS NULL AND PlanBrochure IS NOT NULL)",
+     "support": 0.043,
+     "rows": 1410,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.157,
+     "score": 0.061,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "pos",
+     "condition": "(SourceName = \"HIOS\" (67%), URLForEnrollmentPayment missing)",
+     "sql": "(SourceName = 'HIOS' AND URLForEnrollmentPayment IS NULL)",
+     "support": 0.039,
+     "rows": 1281,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.144,
+     "score": 0.058,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "SourceName=v1": "HIOS"
+     }
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "AVCalculatorOutputNumber",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "pos",
+     "condition": "(DiseaseManagementProgramsOffered missing, EHBPercentTotalPremium missing)",
+     "sql": "(DiseaseManagementProgramsOffered IS NULL AND EHBPercentTotalPremium IS NULL)",
+     "support": 0.049,
+     "rows": 1586,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.057,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "AVCalculatorOutputNumber",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "pos",
+     "condition": "(DesignType missing, DiseaseManagementProgramsOffered missing)",
+     "sql": "(DesignType IS NULL AND DiseaseManagementProgramsOffered IS NULL)",
+     "support": 0.049,
+     "rows": 1584,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.057,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "FormularyId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "pos",
+     "condition": "(DesignType missing, DiseaseManagementProgramsOffered missing)",
+     "sql": "(DesignType IS NULL AND DiseaseManagementProgramsOffered IS NULL)",
+     "support": 0.049,
+     "rows": 1584,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.057,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "AVCalculatorOutputNumber",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "pos",
+     "condition": "(IndianPlanVariationEstimatedAdvancedPaymentAmountPerEnro missing, DiseaseManagementProgramsOffered missing)",
+     "sql": "(IndianPlanVariationEstimatedAdvancedPaymentAmountPerEnro IS NULL AND DiseaseManagementProgramsOffered IS NULL)",
+     "support": 0.048,
+     "rows": 1576,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.057,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "FormularyId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "pos",
+     "condition": "(IndianPlanVariationEstimatedAdvancedPaymentAmountPerEnro missing, DiseaseManagementProgramsOffered missing)",
+     "sql": "(IndianPlanVariationEstimatedAdvancedPaymentAmountPerEnro IS NULL AND DiseaseManagementProgramsOffered IS NULL)",
+     "support": 0.048,
+     "rows": 1576,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.057,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36990",
+     "K": [
+      "StandardComponentId",
+      "URLForSummaryofBenefitsCoverage"
+     ],
+     "cls": "pos",
+     "condition": "(PlanType = \"EPO\" (26%), URLForEnrollmentPayment missing)",
+     "sql": "(PlanType = 'EPO' AND URLForEnrollmentPayment IS NULL)",
+     "support": 0.032,
+     "rows": 1037,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.008,
+     "score": 0.052,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PlanType=v2": "EPO"
+     }
+    }
+   ],
+   "unconditional": {
+    "PlanId": "cand"
+   }
+  }
+ ]
+}

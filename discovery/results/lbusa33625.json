@@ -1,0 +1,7632 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "event_id",
+   "event_import_id",
+   "event_date",
+   "source_name",
+   "submitted_date",
+   "admin_division_name",
+   "created_date",
+   "country_name",
+   "gazeteer_distance",
+   "longitude",
+   "latitude",
+   "event_title",
+   "location_description",
+   "event_description",
+   "source_link",
+   "gazeteer_closest_point",
+   "admin_division_population",
+   "country_code"
+  ]
+ },
+ "sample_rows": 11033,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbusa.t33625",
+   "rows": 11033,
+   "cols": [
+    "source_name",
+    "source_link",
+    "event_id",
+    "event_date",
+    "event_title",
+    "event_description",
+    "location_description",
+    "location_accuracy",
+    "landslide_category",
+    "landslide_trigger",
+    "landslide_size",
+    "landslide_setting",
+    "fatality_count",
+    "event_import_source",
+    "event_import_id",
+    "country_name",
+    "country_code",
+    "admin_division_name",
+    "admin_division_population",
+    "gazeteer_closest_point",
+    "gazeteer_distance",
+    "submitted_date",
+    "created_date",
+    "last_edited_date",
+    "longitude",
+    "latitude"
+   ],
+   "n_conditional": 2793,
+   "conditional": [
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "latitude"
+     ],
+     "cls": "cert",
+     "condition": "(event_import_source present)",
+     "sql": "(event_import_source IS NOT NULL)",
+     "support": 0.858,
+     "rows": 9470,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.0,
+     "score": 2.71,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_setting = \"unknown\" (57%))",
+     "sql": "(landslide_setting = 'unknown')",
+     "support": 0.57,
+     "rows": 6291,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.01,
+     "score": 2.65,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "latitude"
+     ],
+     "cls": "cand",
+     "condition": "(gazeteer_closest_point present)",
+     "sql": "(gazeteer_closest_point IS NOT NULL)",
+     "support": 0.858,
+     "rows": 9470,
+     "uncond": "pos",
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 2.501,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "latitude"
+     ],
+     "cls": "cand",
+     "condition": "(country_code present)",
+     "sql": "(country_code IS NOT NULL)",
+     "support": 0.858,
+     "rows": 9469,
+     "uncond": "pos",
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 2.501,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "latitude"
+     ],
+     "cls": "cand",
+     "condition": "(admin_division_name present)",
+     "sql": "(admin_division_name IS NOT NULL)",
+     "support": 0.851,
+     "rows": 9393,
+     "uncond": "pos",
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 2.491,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "latitude"
+     ],
+     "cls": "cand",
+     "condition": "(event_import_source = \"glc\" (85%))",
+     "sql": "(event_import_source = 'glc')",
+     "support": 0.85,
+     "rows": 9379,
+     "uncond": "pos",
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 2.489,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_setting = \"unknown\" (57%))",
+     "sql": "(landslide_setting = 'unknown')",
+     "support": 0.57,
+     "rows": 6291,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.018,
+     "score": 2.356,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "source_name",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_setting = \"unknown\" (57%))",
+     "sql": "(landslide_setting = 'unknown')",
+     "support": 0.57,
+     "rows": 6291,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.018,
+     "score": 2.356,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_setting = \"unknown\" (57%))",
+     "sql": "(landslide_setting = 'unknown')",
+     "support": 0.57,
+     "rows": 6291,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.018,
+     "score": 2.356,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_setting = \"unknown\" (57%))",
+     "sql": "(landslide_setting = 'unknown')",
+     "support": 0.57,
+     "rows": 6291,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.025,
+     "score": 2.356,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "latitude"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_setting = \"unknown\" (57%))",
+     "sql": "(landslide_setting = 'unknown')",
+     "support": 0.57,
+     "rows": 6291,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.01,
+     "score": 2.209,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "part",
+     "condition": "(landslide_setting = \"unknown\" (57%))",
+     "sql": "(landslide_setting = 'unknown')",
+     "support": 0.57,
+     "rows": 6291,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.019,
+     "score": 1.963,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description"
+     ],
+     "cls": "dom",
+     "condition": "(landslide_setting = \"unknown\" (57%))",
+     "sql": "(landslide_setting = 'unknown')",
+     "support": 0.57,
+     "rows": 6291,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.018,
+     "score": 1.767,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date",
+      "longitude"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"landslide\" (69%), event_import_source present)",
+     "sql": "(landslide_category = 'landslide' AND event_import_source IS NOT NULL)",
+     "support": 0.6,
+     "rows": 6623,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 1.612,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_category=v1": "landslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date",
+      "event_title"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"landslide\" (69%), event_import_source present)",
+     "sql": "(landslide_category = 'landslide' AND event_import_source IS NOT NULL)",
+     "support": 0.6,
+     "rows": 6623,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 1.612,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_category=v1": "landslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"landslide\" (69%), event_import_source present)",
+     "sql": "(landslide_category = 'landslide' AND event_import_source IS NOT NULL)",
+     "support": 0.6,
+     "rows": 6623,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 1.612,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_category=v1": "landslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"landslide\" (69%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(landslide_category = 'landslide' AND event_import_id IS NOT NULL)",
+     "support": 0.6,
+     "rows": 6623,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 1.612,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_category=v1": "landslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"landslide\" (69%), country_code present)",
+     "sql": "(landslide_category = 'landslide' AND country_code IS NOT NULL)",
+     "support": 0.6,
+     "rows": 6623,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 1.612,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_category=v1": "landslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"landslide\" (69%), gazeteer_closest_point present)",
+     "sql": "(landslide_category = 'landslide' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.6,
+     "rows": 6623,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 1.612,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_category=v1": "landslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"landslide\" (69%), admin_division_name present)",
+     "sql": "(landslide_category = 'landslide' AND admin_division_name IS NOT NULL)",
+     "support": 0.595,
+     "rows": 6560,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 1.604,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_category=v1": "landslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"landslide\" (69%), event_import_source = \"glc\" (85%))",
+     "sql": "(landslide_category = 'landslide' AND event_import_source = 'glc')",
+     "support": 0.594,
+     "rows": 6553,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 1.603,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_category=v1": "landslide",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_setting = \"unknown\" (57%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(landslide_setting = 'unknown' AND event_import_id IS NOT NULL)",
+     "support": 0.565,
+     "rows": 6230,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.578,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_setting = \"unknown\" (57%), gazeteer_closest_point present)",
+     "sql": "(landslide_setting = 'unknown' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.565,
+     "rows": 6230,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.578,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_setting = \"unknown\" (57%), event_import_source present)",
+     "sql": "(landslide_setting = 'unknown' AND event_import_source IS NOT NULL)",
+     "support": 0.565,
+     "rows": 6229,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.578,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_setting = \"unknown\" (57%), country_code present)",
+     "sql": "(landslide_setting = 'unknown' AND country_code IS NOT NULL)",
+     "support": 0.564,
+     "rows": 6228,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.578,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_setting = \"unknown\" (57%), admin_division_name present)",
+     "sql": "(landslide_setting = 'unknown' AND admin_division_name IS NOT NULL)",
+     "support": 0.559,
+     "rows": 6162,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.569,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_setting = \"unknown\" (57%), event_import_source = \"glc\" (85%))",
+     "sql": "(landslide_setting = 'unknown' AND event_import_source = 'glc')",
+     "support": 0.558,
+     "rows": 6152,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.568,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_setting=v1": "unknown",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_setting = \"unknown\" (57%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(landslide_setting = 'unknown' AND event_import_id IS NOT NULL)",
+     "support": 0.565,
+     "rows": 6230,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 1.563,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_setting = \"unknown\" (57%), gazeteer_closest_point present)",
+     "sql": "(landslide_setting = 'unknown' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.565,
+     "rows": 6230,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 1.563,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_setting = \"unknown\" (57%), event_import_source present)",
+     "sql": "(landslide_setting = 'unknown' AND event_import_source IS NOT NULL)",
+     "support": 0.565,
+     "rows": 6229,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 1.563,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_setting = \"unknown\" (57%), country_code present)",
+     "sql": "(landslide_setting = 'unknown' AND country_code IS NOT NULL)",
+     "support": 0.564,
+     "rows": 6228,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 1.563,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_setting = \"unknown\" (57%), admin_division_name present)",
+     "sql": "(landslide_setting = 'unknown' AND admin_division_name IS NOT NULL)",
+     "support": 0.559,
+     "rows": 6162,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 1.554,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_setting = \"unknown\" (57%), event_import_source = \"glc\" (85%))",
+     "sql": "(landslide_setting = 'unknown' AND event_import_source = 'glc')",
+     "support": 0.558,
+     "rows": 6152,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 1.553,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_setting=v1": "unknown",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%))",
+     "sql": "(landslide_category = 'mudslide')",
+     "support": 0.19,
+     "rows": 2100,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.138,
+     "score": 1.531,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"landslide\" (69%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(landslide_category = 'landslide' AND event_import_id IS NOT NULL)",
+     "support": 0.6,
+     "rows": 6623,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.446,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_category=v1": "landslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"landslide\" (69%), country_code present)",
+     "sql": "(landslide_category = 'landslide' AND country_code IS NOT NULL)",
+     "support": 0.6,
+     "rows": 6623,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.446,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_category=v1": "landslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"landslide\" (69%), gazeteer_closest_point present)",
+     "sql": "(landslide_category = 'landslide' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.6,
+     "rows": 6623,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.446,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_category=v1": "landslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"landslide\" (69%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(landslide_category = 'landslide' AND event_import_id IS NOT NULL)",
+     "support": 0.6,
+     "rows": 6623,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.446,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_category=v1": "landslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"landslide\" (69%), country_code present)",
+     "sql": "(landslide_category = 'landslide' AND country_code IS NOT NULL)",
+     "support": 0.6,
+     "rows": 6623,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.446,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_category=v1": "landslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"landslide\" (69%), gazeteer_closest_point present)",
+     "sql": "(landslide_category = 'landslide' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.6,
+     "rows": 6623,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.446,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "landslide_category=v1": "landslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"landslide\" (69%), admin_division_name present)",
+     "sql": "(landslide_category = 'landslide' AND admin_division_name IS NOT NULL)",
+     "support": 0.595,
+     "rows": 6560,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.439,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v1": "landslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"landslide\" (69%), admin_division_name present)",
+     "sql": "(landslide_category = 'landslide' AND admin_division_name IS NOT NULL)",
+     "support": 0.595,
+     "rows": 6560,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.439,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v1": "landslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"landslide\" (69%), event_import_source = \"glc\" (85%))",
+     "sql": "(landslide_category = 'landslide' AND event_import_source = 'glc')",
+     "support": 0.594,
+     "rows": 6553,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.439,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v1": "landslide",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"landslide\" (69%), event_import_source = \"glc\" (85%))",
+     "sql": "(landslide_category = 'landslide' AND event_import_source = 'glc')",
+     "support": 0.594,
+     "rows": 6553,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.439,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v1": "landslide",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_setting = \"unknown\" (57%), fatality_count present)",
+     "sql": "(landslide_setting = 'unknown' AND fatality_count IS NOT NULL)",
+     "support": 0.458,
+     "rows": 5051,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.022,
+     "score": 1.407,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_date",
+      "longitude",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%))",
+     "sql": "(landslide_category = 'mudslide')",
+     "support": 0.19,
+     "rows": 2100,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 1.361,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "created_date",
+      "event_title"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_size = \"medium\" (59%), landslide_setting = \"unknown\" (57%))",
+     "sql": "(landslide_size = 'medium' AND landslide_setting = 'unknown')",
+     "support": 0.422,
+     "rows": 4656,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 1.351,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v1": "medium",
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "latitude"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%))",
+     "sql": "(landslide_category = 'mudslide')",
+     "support": 0.19,
+     "rows": 2100,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.138,
+     "score": 1.276,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_date",
+      "longitude",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"mudslide\" (19%))",
+     "sql": "(landslide_category = 'mudslide')",
+     "support": 0.19,
+     "rows": 2100,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.222,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"5km\" (29%), event_import_source present)",
+     "sql": "(location_accuracy = '5km' AND event_import_source IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2816,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 1.182,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "source_name"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"5km\" (29%), event_import_source present)",
+     "sql": "(location_accuracy = '5km' AND event_import_source IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2816,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 1.182,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"5km\" (29%), event_import_source present)",
+     "sql": "(location_accuracy = '5km' AND event_import_source IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2816,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 1.182,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"5km\" (29%), event_import_source present)",
+     "sql": "(location_accuracy = '5km' AND event_import_source IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2816,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 1.182,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"5km\" (29%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(location_accuracy = '5km' AND event_import_id IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2816,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.061,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"5km\" (29%), gazeteer_closest_point present)",
+     "sql": "(location_accuracy = '5km' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2816,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.061,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "source_name"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"5km\" (29%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(location_accuracy = '5km' AND event_import_id IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2816,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.061,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "source_name"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"5km\" (29%), gazeteer_closest_point present)",
+     "sql": "(location_accuracy = '5km' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2816,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.061,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"5km\" (29%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(location_accuracy = '5km' AND event_import_id IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2816,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.061,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"5km\" (29%), gazeteer_closest_point present)",
+     "sql": "(location_accuracy = '5km' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2816,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.061,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"5km\" (29%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(location_accuracy = '5km' AND event_import_id IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2816,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.061,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"5km\" (29%), gazeteer_closest_point present)",
+     "sql": "(location_accuracy = '5km' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2816,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.061,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"5km\" (29%), country_code present)",
+     "sql": "(location_accuracy = '5km' AND country_code IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2815,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.061,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "source_name"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"5km\" (29%), country_code present)",
+     "sql": "(location_accuracy = '5km' AND country_code IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2815,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.061,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"5km\" (29%), country_code present)",
+     "sql": "(location_accuracy = '5km' AND country_code IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2815,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.061,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"5km\" (29%), country_code present)",
+     "sql": "(location_accuracy = '5km' AND country_code IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2815,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.061,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"5km\" (29%), admin_division_name present)",
+     "sql": "(location_accuracy = '5km' AND admin_division_name IS NOT NULL)",
+     "support": 0.252,
+     "rows": 2784,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.055,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "source_name"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"5km\" (29%), admin_division_name present)",
+     "sql": "(location_accuracy = '5km' AND admin_division_name IS NOT NULL)",
+     "support": 0.252,
+     "rows": 2784,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.055,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"5km\" (29%), admin_division_name present)",
+     "sql": "(location_accuracy = '5km' AND admin_division_name IS NOT NULL)",
+     "support": 0.252,
+     "rows": 2784,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.055,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"5km\" (29%), admin_division_name present)",
+     "sql": "(location_accuracy = '5km' AND admin_division_name IS NOT NULL)",
+     "support": 0.252,
+     "rows": 2784,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.055,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"5km\" (29%), event_import_source = \"glc\" (85%))",
+     "sql": "(location_accuracy = '5km' AND event_import_source = 'glc')",
+     "support": 0.252,
+     "rows": 2781,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.054,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "source_name"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"5km\" (29%), event_import_source = \"glc\" (85%))",
+     "sql": "(location_accuracy = '5km' AND event_import_source = 'glc')",
+     "support": 0.252,
+     "rows": 2781,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.054,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"5km\" (29%), event_import_source = \"glc\" (85%))",
+     "sql": "(location_accuracy = '5km' AND event_import_source = 'glc')",
+     "support": 0.252,
+     "rows": 2781,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.054,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"5km\" (29%), event_import_source = \"glc\" (85%))",
+     "sql": "(location_accuracy = '5km' AND event_import_source = 'glc')",
+     "support": 0.252,
+     "rows": 2781,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.054,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"5km\" (29%), event_import_source present)",
+     "sql": "(location_accuracy = '5km' AND event_import_source IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2816,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.011,
+     "score": 1.051,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"5km\" (29%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(location_accuracy = '5km' AND event_import_id IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2816,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.01,
+     "score": 1.051,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"5km\" (29%), gazeteer_closest_point present)",
+     "sql": "(location_accuracy = '5km' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2816,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.01,
+     "score": 1.051,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"5km\" (29%), event_import_source present)",
+     "sql": "(location_accuracy = '5km' AND event_import_source IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2816,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 1.051,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"5km\" (29%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(location_accuracy = '5km' AND event_import_id IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2816,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 1.051,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"5km\" (29%), gazeteer_closest_point present)",
+     "sql": "(location_accuracy = '5km' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2816,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 1.051,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"5km\" (29%), event_import_source present)",
+     "sql": "(location_accuracy = '5km' AND event_import_source IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2816,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.017,
+     "score": 1.051,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"5km\" (29%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(location_accuracy = '5km' AND event_import_id IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2816,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.017,
+     "score": 1.051,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"5km\" (29%), gazeteer_closest_point present)",
+     "sql": "(location_accuracy = '5km' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2816,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.017,
+     "score": 1.051,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"5km\" (29%), country_code present)",
+     "sql": "(location_accuracy = '5km' AND country_code IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2815,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.01,
+     "score": 1.051,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"5km\" (29%), country_code present)",
+     "sql": "(location_accuracy = '5km' AND country_code IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2815,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 1.051,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"5km\" (29%), country_code present)",
+     "sql": "(location_accuracy = '5km' AND country_code IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2815,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.017,
+     "score": 1.051,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"5km\" (29%), admin_division_name present)",
+     "sql": "(location_accuracy = '5km' AND admin_division_name IS NOT NULL)",
+     "support": 0.252,
+     "rows": 2784,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.01,
+     "score": 1.045,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"5km\" (29%), admin_division_name present)",
+     "sql": "(location_accuracy = '5km' AND admin_division_name IS NOT NULL)",
+     "support": 0.252,
+     "rows": 2784,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 1.045,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"5km\" (29%), admin_division_name present)",
+     "sql": "(location_accuracy = '5km' AND admin_division_name IS NOT NULL)",
+     "support": 0.252,
+     "rows": 2784,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.017,
+     "score": 1.045,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"5km\" (29%), event_import_source = \"glc\" (85%))",
+     "sql": "(location_accuracy = '5km' AND event_import_source = 'glc')",
+     "support": 0.252,
+     "rows": 2781,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.01,
+     "score": 1.044,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"5km\" (29%), event_import_source = \"glc\" (85%))",
+     "sql": "(location_accuracy = '5km' AND event_import_source = 'glc')",
+     "support": 0.252,
+     "rows": 2781,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 1.044,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"5km\" (29%), event_import_source = \"glc\" (85%))",
+     "sql": "(location_accuracy = '5km' AND event_import_source = 'glc')",
+     "support": 0.252,
+     "rows": 2781,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.017,
+     "score": 1.044,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "longitude"
+     ],
+     "cls": "cert",
+     "condition": "location_accuracy in {\"1km\", \"unknown\"}",
+     "sql": "(location_accuracy = '1km') OR (location_accuracy = 'unknown')",
+     "support": 0.247,
+     "rows": 2727,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.208,
+     "score": 1.034,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km",
+      "location_accuracy=v7": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "dom",
+     "condition": "(landslide_size = \"medium\" (59%), landslide_setting = \"unknown\" (57%))",
+     "sql": "(landslide_size = 'medium' AND landslide_setting = 'unknown')",
+     "support": 0.422,
+     "rows": 4656,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.005,
+     "score": 1.013,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v1": "medium",
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description",
+      "source_link"
+     ],
+     "cls": "part",
+     "condition": "(landslide_setting = \"unknown\" (57%))",
+     "sql": "(landslide_setting = 'unknown')",
+     "support": 0.57,
+     "rows": 6291,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.029,
+     "score": 0.982,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date",
+      "longitude"
+     ],
+     "cls": "pos",
+     "condition": "landslide_category in {\"landslide\", \"mudslide\"}",
+     "sql": "(landslide_category = 'landslide') OR (landslide_category = 'mudslide')",
+     "support": 0.884,
+     "rows": 9748,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.135,
+     "score": 0.978,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v1": "landslide",
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date",
+      "event_title"
+     ],
+     "cls": "pos",
+     "condition": "landslide_category in {\"landslide\", \"mudslide\"}",
+     "sql": "(landslide_category = 'landslide') OR (landslide_category = 'mudslide')",
+     "support": 0.884,
+     "rows": 9748,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.135,
+     "score": 0.978,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v1": "landslide",
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date",
+      "location_description"
+     ],
+     "cls": "pos",
+     "condition": "landslide_category in {\"landslide\", \"mudslide\"}",
+     "sql": "(landslide_category = 'landslide') OR (landslide_category = 'mudslide')",
+     "support": 0.884,
+     "rows": 9748,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.142,
+     "score": 0.978,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v1": "landslide",
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "pos",
+     "condition": "landslide_setting in {\"unknown\", \"natural_slope\"}",
+     "sql": "(landslide_setting = 'unknown') OR (landslide_setting = 'natural_slope')",
+     "support": 0.618,
+     "rows": 6822,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.049,
+     "score": 0.92,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_setting=v1": "unknown",
+      "landslide_setting=v3": "natural_slope"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "pos",
+     "condition": "landslide_setting in {\"unknown\", \"natural_slope\"}",
+     "sql": "(landslide_setting = 'unknown') OR (landslide_setting = 'natural_slope')",
+     "support": 0.618,
+     "rows": 6822,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.049,
+     "score": 0.92,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_setting=v1": "unknown",
+      "landslide_setting=v3": "natural_slope"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description"
+     ],
+     "cls": "pos",
+     "condition": "landslide_setting in {\"unknown\", \"natural_slope\"}",
+     "sql": "(landslide_setting = 'unknown') OR (landslide_setting = 'natural_slope')",
+     "support": 0.618,
+     "rows": 6822,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.057,
+     "score": 0.92,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_setting=v1": "unknown",
+      "landslide_setting=v3": "natural_slope"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "pos",
+     "condition": "(landslide_category = \"landslide\" (69%), fatality_count present)",
+     "sql": "(landslide_category = 'landslide' AND fatality_count IS NOT NULL)",
+     "support": 0.599,
+     "rows": 6610,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.15,
+     "score": 0.906,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v1": "landslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "pos",
+     "condition": "(landslide_category = \"landslide\" (69%), fatality_count present)",
+     "sql": "(landslide_category = 'landslide' AND fatality_count IS NOT NULL)",
+     "support": 0.599,
+     "rows": 6610,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.15,
+     "score": 0.906,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v1": "landslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description"
+     ],
+     "cls": "pos",
+     "condition": "(landslide_category = \"landslide\" (69%), fatality_count present)",
+     "sql": "(landslide_category = 'landslide' AND fatality_count IS NOT NULL)",
+     "support": 0.599,
+     "rows": 6610,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.16,
+     "score": 0.906,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v1": "landslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"5km\" (29%), landslide_setting = \"unknown\" (57%))",
+     "sql": "(location_accuracy = '5km' AND landslide_setting = 'unknown')",
+     "support": 0.187,
+     "rows": 2066,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.019,
+     "score": 0.9,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km",
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_size = \"small\" (25%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(landslide_size = 'small' AND event_import_id IS NOT NULL)",
+     "support": 0.173,
+     "rows": 1908,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.873,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v2": "small"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_size = \"small\" (25%), gazeteer_closest_point present)",
+     "sql": "(landslide_size = 'small' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.173,
+     "rows": 1908,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.873,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v2": "small"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_size = \"small\" (25%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(landslide_size = 'small' AND event_import_id IS NOT NULL)",
+     "support": 0.173,
+     "rows": 1908,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.873,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v2": "small"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_size = \"small\" (25%), gazeteer_closest_point present)",
+     "sql": "(landslide_size = 'small' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.173,
+     "rows": 1908,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.873,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v2": "small"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_size = \"small\" (25%), event_import_source present)",
+     "sql": "(landslide_size = 'small' AND event_import_source IS NOT NULL)",
+     "support": 0.173,
+     "rows": 1907,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.873,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v2": "small"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_size = \"small\" (25%), country_code present)",
+     "sql": "(landslide_size = 'small' AND country_code IS NOT NULL)",
+     "support": 0.173,
+     "rows": 1907,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.873,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v2": "small"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_size = \"small\" (25%), event_import_source present)",
+     "sql": "(landslide_size = 'small' AND event_import_source IS NOT NULL)",
+     "support": 0.173,
+     "rows": 1907,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.873,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v2": "small"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_size = \"small\" (25%), country_code present)",
+     "sql": "(landslide_size = 'small' AND country_code IS NOT NULL)",
+     "support": 0.173,
+     "rows": 1907,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.873,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v2": "small"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "longitude"
+     ],
+     "cls": "cert",
+     "condition": "(event_description missing)",
+     "sql": "(event_description IS NULL)",
+     "support": 0.078,
+     "rows": 862,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.031,
+     "score": 0.872,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "event_title"
+     ],
+     "cls": "cert",
+     "condition": "(event_description missing)",
+     "sql": "(event_description IS NULL)",
+     "support": 0.078,
+     "rows": 862,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.031,
+     "score": 0.872,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(event_description missing)",
+     "sql": "(event_description IS NULL)",
+     "support": 0.078,
+     "rows": 862,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.031,
+     "score": 0.872,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "submitted_date",
+      "gazeteer_distance",
+      "longitude"
+     ],
+     "cls": "cert",
+     "condition": "(event_description missing)",
+     "sql": "(event_description IS NULL)",
+     "support": 0.078,
+     "rows": 862,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.031,
+     "score": 0.872,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "submitted_date",
+      "gazeteer_distance",
+      "latitude"
+     ],
+     "cls": "cert",
+     "condition": "(event_description missing)",
+     "sql": "(event_description IS NULL)",
+     "support": 0.078,
+     "rows": 862,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.031,
+     "score": 0.872,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "submitted_date",
+      "gazeteer_distance",
+      "event_title"
+     ],
+     "cls": "cert",
+     "condition": "(event_description missing)",
+     "sql": "(event_description IS NULL)",
+     "support": 0.078,
+     "rows": 862,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.031,
+     "score": 0.872,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "submitted_date",
+      "gazeteer_distance",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(event_description missing)",
+     "sql": "(event_description IS NULL)",
+     "support": 0.078,
+     "rows": 862,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.031,
+     "score": 0.872,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_size = \"small\" (25%), event_import_source = \"glc\" (85%))",
+     "sql": "(landslide_size = 'small' AND event_import_source = 'glc')",
+     "support": 0.172,
+     "rows": 1900,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.871,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v2": "small",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_size = \"small\" (25%), event_import_source = \"glc\" (85%))",
+     "sql": "(landslide_size = 'small' AND event_import_source = 'glc')",
+     "support": 0.172,
+     "rows": 1900,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.871,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v2": "small",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_size = \"small\" (25%), admin_division_name present)",
+     "sql": "(landslide_size = 'small' AND admin_division_name IS NOT NULL)",
+     "support": 0.172,
+     "rows": 1897,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.871,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v2": "small"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_size = \"small\" (25%), admin_division_name present)",
+     "sql": "(landslide_size = 'small' AND admin_division_name IS NOT NULL)",
+     "support": 0.172,
+     "rows": 1897,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.871,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v2": "small"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "created_date",
+      "latitude"
+     ],
+     "cls": "cert",
+     "condition": "landslide_category in {\"mudslide\", \"rock_fall\"}",
+     "sql": "(landslide_category = 'mudslide') OR (landslide_category = 'rock_fall')",
+     "support": 0.251,
+     "rows": 2771,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.175,
+     "score": 0.869,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide",
+      "landslide_category=v3": "rock_fall"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "longitude"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_size = \"unknown\" (8%))",
+     "sql": "(landslide_size = 'unknown')",
+     "support": 0.077,
+     "rows": 851,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.053,
+     "score": 0.867,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v3": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "event_title"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_size = \"unknown\" (8%))",
+     "sql": "(landslide_size = 'unknown')",
+     "support": 0.077,
+     "rows": 851,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.053,
+     "score": 0.867,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v3": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_size = \"unknown\" (8%))",
+     "sql": "(landslide_size = 'unknown')",
+     "support": 0.077,
+     "rows": 851,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.055,
+     "score": 0.867,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v3": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "submitted_date",
+      "gazeteer_distance",
+      "longitude"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_size = \"unknown\" (8%))",
+     "sql": "(landslide_size = 'unknown')",
+     "support": 0.077,
+     "rows": 851,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.053,
+     "score": 0.867,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v3": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "submitted_date",
+      "gazeteer_distance",
+      "latitude"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_size = \"unknown\" (8%))",
+     "sql": "(landslide_size = 'unknown')",
+     "support": 0.077,
+     "rows": 851,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.053,
+     "score": 0.867,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v3": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "submitted_date",
+      "gazeteer_distance",
+      "event_title"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_size = \"unknown\" (8%))",
+     "sql": "(landslide_size = 'unknown')",
+     "support": 0.077,
+     "rows": 851,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.053,
+     "score": 0.867,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v3": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "submitted_date",
+      "gazeteer_distance",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_size = \"unknown\" (8%))",
+     "sql": "(landslide_size = 'unknown')",
+     "support": 0.077,
+     "rows": 851,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.055,
+     "score": 0.867,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v3": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date",
+      "submitted_date"
+     ],
+     "cls": "cert",
+     "condition": "(source_link missing)",
+     "sql": "(source_link IS NULL)",
+     "support": 0.077,
+     "rows": 846,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.864,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "longitude"
+     ],
+     "cls": "cert",
+     "condition": "(source_link missing)",
+     "sql": "(source_link IS NULL)",
+     "support": 0.077,
+     "rows": 846,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.864,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "event_title"
+     ],
+     "cls": "cert",
+     "condition": "(source_link missing)",
+     "sql": "(source_link IS NULL)",
+     "support": 0.077,
+     "rows": 846,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.864,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(source_link missing)",
+     "sql": "(source_link IS NULL)",
+     "support": 0.077,
+     "rows": 846,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.012,
+     "score": 0.864,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_date",
+      "submitted_date",
+      "gazeteer_distance"
+     ],
+     "cls": "cert",
+     "condition": "(source_link missing)",
+     "sql": "(source_link IS NULL)",
+     "support": 0.077,
+     "rows": 846,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.864,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "submitted_date",
+      "gazeteer_distance",
+      "longitude"
+     ],
+     "cls": "cert",
+     "condition": "(source_link missing)",
+     "sql": "(source_link IS NULL)",
+     "support": 0.077,
+     "rows": 846,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.864,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "submitted_date",
+      "gazeteer_distance",
+      "latitude"
+     ],
+     "cls": "cert",
+     "condition": "(source_link missing)",
+     "sql": "(source_link IS NULL)",
+     "support": 0.077,
+     "rows": 846,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.864,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "submitted_date",
+      "gazeteer_distance",
+      "event_title"
+     ],
+     "cls": "cert",
+     "condition": "(source_link missing)",
+     "sql": "(source_link IS NULL)",
+     "support": 0.077,
+     "rows": 846,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.864,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "submitted_date",
+      "gazeteer_distance",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(source_link missing)",
+     "sql": "(source_link IS NULL)",
+     "support": 0.077,
+     "rows": 846,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.012,
+     "score": 0.864,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"mudslide\" (19%), event_import_source present)",
+     "sql": "(landslide_category = 'mudslide' AND event_import_source IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1811,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.851,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"mudslide\" (19%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(landslide_category = 'mudslide' AND event_import_id IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1811,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.851,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "source_name"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"mudslide\" (19%), event_import_source present)",
+     "sql": "(landslide_category = 'mudslide' AND event_import_source IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1811,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.851,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "source_name"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"mudslide\" (19%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(landslide_category = 'mudslide' AND event_import_id IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1811,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.851,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"mudslide\" (19%), event_import_source present)",
+     "sql": "(landslide_category = 'mudslide' AND event_import_source IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1811,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.851,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"mudslide\" (19%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(landslide_category = 'mudslide' AND event_import_id IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1811,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.851,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"mudslide\" (19%), gazeteer_closest_point present)",
+     "sql": "(landslide_category = 'mudslide' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1810,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.851,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "source_name"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"mudslide\" (19%), gazeteer_closest_point present)",
+     "sql": "(landslide_category = 'mudslide' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1810,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.851,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"mudslide\" (19%), gazeteer_closest_point present)",
+     "sql": "(landslide_category = 'mudslide' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1810,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.851,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"mudslide\" (19%), country_code present)",
+     "sql": "(landslide_category = 'mudslide' AND country_code IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1809,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.85,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "source_name"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"mudslide\" (19%), country_code present)",
+     "sql": "(landslide_category = 'mudslide' AND country_code IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1809,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.85,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"mudslide\" (19%), country_code present)",
+     "sql": "(landslide_category = 'mudslide' AND country_code IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1809,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.85,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"mudslide\" (19%), admin_division_name present)",
+     "sql": "(landslide_category = 'mudslide' AND admin_division_name IS NOT NULL)",
+     "support": 0.163,
+     "rows": 1800,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.848,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "source_name"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"mudslide\" (19%), admin_division_name present)",
+     "sql": "(landslide_category = 'mudslide' AND admin_division_name IS NOT NULL)",
+     "support": 0.163,
+     "rows": 1800,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.848,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"mudslide\" (19%), admin_division_name present)",
+     "sql": "(landslide_category = 'mudslide' AND admin_division_name IS NOT NULL)",
+     "support": 0.163,
+     "rows": 1800,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.848,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"mudslide\" (19%), event_import_source = \"glc\" (85%))",
+     "sql": "(landslide_category = 'mudslide' AND event_import_source = 'glc')",
+     "support": 0.163,
+     "rows": 1794,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.847,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "source_name"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"mudslide\" (19%), event_import_source = \"glc\" (85%))",
+     "sql": "(landslide_category = 'mudslide' AND event_import_source = 'glc')",
+     "support": 0.163,
+     "rows": 1794,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.847,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"mudslide\" (19%), event_import_source = \"glc\" (85%))",
+     "sql": "(landslide_category = 'mudslide' AND event_import_source = 'glc')",
+     "support": 0.163,
+     "rows": 1794,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.847,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_date",
+      "latitude"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"50km\" (7%))",
+     "sql": "(location_accuracy = '50km')",
+     "support": 0.072,
+     "rows": 794,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.845,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v6": "50km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%), event_import_source present)",
+     "sql": "(landslide_category = 'mudslide' AND event_import_source IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1811,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 0.843,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(landslide_category = 'mudslide' AND event_import_id IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1811,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 0.843,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%), event_import_source present)",
+     "sql": "(landslide_category = 'mudslide' AND event_import_source IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1811,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 0.843,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(landslide_category = 'mudslide' AND event_import_id IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1811,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 0.843,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%), event_import_source present)",
+     "sql": "(landslide_category = 'mudslide' AND event_import_source IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1811,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.843,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(landslide_category = 'mudslide' AND event_import_id IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1811,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.843,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_date",
+      "gazeteer_distance",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%), event_import_source present)",
+     "sql": "(landslide_category = 'mudslide' AND event_import_source IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1811,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 0.843,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_date",
+      "gazeteer_distance",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(landslide_category = 'mudslide' AND event_import_id IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1811,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 0.843,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%), gazeteer_closest_point present)",
+     "sql": "(landslide_category = 'mudslide' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1810,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 0.842,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%), gazeteer_closest_point present)",
+     "sql": "(landslide_category = 'mudslide' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1810,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 0.842,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%), gazeteer_closest_point present)",
+     "sql": "(landslide_category = 'mudslide' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1810,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.842,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_date",
+      "gazeteer_distance",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%), gazeteer_closest_point present)",
+     "sql": "(landslide_category = 'mudslide' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1810,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 0.842,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%), country_code present)",
+     "sql": "(landslide_category = 'mudslide' AND country_code IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1809,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 0.842,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%), country_code present)",
+     "sql": "(landslide_category = 'mudslide' AND country_code IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1809,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 0.842,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%), country_code present)",
+     "sql": "(landslide_category = 'mudslide' AND country_code IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1809,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.842,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_date",
+      "gazeteer_distance",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%), country_code present)",
+     "sql": "(landslide_category = 'mudslide' AND country_code IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1809,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 0.842,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%), admin_division_name present)",
+     "sql": "(landslide_category = 'mudslide' AND admin_division_name IS NOT NULL)",
+     "support": 0.163,
+     "rows": 1800,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 0.84,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%), admin_division_name present)",
+     "sql": "(landslide_category = 'mudslide' AND admin_division_name IS NOT NULL)",
+     "support": 0.163,
+     "rows": 1800,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 0.84,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%), admin_division_name present)",
+     "sql": "(landslide_category = 'mudslide' AND admin_division_name IS NOT NULL)",
+     "support": 0.163,
+     "rows": 1800,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.84,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_date",
+      "gazeteer_distance",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%), admin_division_name present)",
+     "sql": "(landslide_category = 'mudslide' AND admin_division_name IS NOT NULL)",
+     "support": 0.163,
+     "rows": 1800,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 0.84,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%), event_import_source = \"glc\" (85%))",
+     "sql": "(landslide_category = 'mudslide' AND event_import_source = 'glc')",
+     "support": 0.163,
+     "rows": 1794,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 0.839,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%), event_import_source = \"glc\" (85%))",
+     "sql": "(landslide_category = 'mudslide' AND event_import_source = 'glc')",
+     "support": 0.163,
+     "rows": 1794,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 0.839,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%), event_import_source = \"glc\" (85%))",
+     "sql": "(landslide_category = 'mudslide' AND event_import_source = 'glc')",
+     "support": 0.163,
+     "rows": 1794,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.839,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_date",
+      "gazeteer_distance",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%), event_import_source = \"glc\" (85%))",
+     "sql": "(landslide_category = 'mudslide' AND event_import_source = 'glc')",
+     "support": 0.163,
+     "rows": 1794,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 0.839,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date",
+      "created_date"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"50km\" (7%))",
+     "sql": "(location_accuracy = '50km')",
+     "support": 0.072,
+     "rows": 794,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.06,
+     "score": 0.837,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v6": "50km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"50km\" (7%))",
+     "sql": "(location_accuracy = '50km')",
+     "support": 0.072,
+     "rows": 794,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.067,
+     "score": 0.837,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v6": "50km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_date",
+      "submitted_date",
+      "longitude"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"50km\" (7%))",
+     "sql": "(location_accuracy = '50km')",
+     "support": 0.072,
+     "rows": 794,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.837,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v6": "50km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_date",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"50km\" (7%))",
+     "sql": "(location_accuracy = '50km')",
+     "support": 0.072,
+     "rows": 794,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.014,
+     "score": 0.837,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v6": "50km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude",
+      "source_link"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"landslide\" (69%), event_import_source present)",
+     "sql": "(landslide_category = 'landslide' AND event_import_source IS NOT NULL)",
+     "support": 0.6,
+     "rows": 6623,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.124,
+     "score": 0.806,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v1": "landslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude",
+      "source_link"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"landslide\" (69%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(landslide_category = 'landslide' AND event_import_id IS NOT NULL)",
+     "support": 0.6,
+     "rows": 6623,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.124,
+     "score": 0.806,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v1": "landslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude",
+      "source_link"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"landslide\" (69%), country_code present)",
+     "sql": "(landslide_category = 'landslide' AND country_code IS NOT NULL)",
+     "support": 0.6,
+     "rows": 6623,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.124,
+     "score": 0.806,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v1": "landslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude",
+      "source_link"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"landslide\" (69%), gazeteer_closest_point present)",
+     "sql": "(landslide_category = 'landslide' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.6,
+     "rows": 6623,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.124,
+     "score": 0.806,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v1": "landslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%), landslide_setting = \"unknown\" (57%))",
+     "sql": "(landslide_category = 'mudslide' AND landslide_setting = 'unknown')",
+     "support": 0.118,
+     "rows": 1305,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 0.805,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide",
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%), landslide_setting = \"unknown\" (57%))",
+     "sql": "(landslide_category = 'mudslide' AND landslide_setting = 'unknown')",
+     "support": 0.118,
+     "rows": 1305,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 0.805,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide",
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"1km\" (20%), event_import_source present)",
+     "sql": "(location_accuracy = '1km' AND event_import_source IS NOT NULL)",
+     "support": 0.147,
+     "rows": 1619,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.804,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"1km\" (20%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(location_accuracy = '1km' AND event_import_id IS NOT NULL)",
+     "support": 0.147,
+     "rows": 1619,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.804,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "source_name"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"1km\" (20%), event_import_source present)",
+     "sql": "(location_accuracy = '1km' AND event_import_source IS NOT NULL)",
+     "support": 0.147,
+     "rows": 1619,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.804,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "source_name"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"1km\" (20%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(location_accuracy = '1km' AND event_import_id IS NOT NULL)",
+     "support": 0.147,
+     "rows": 1619,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.804,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"1km\" (20%), event_import_source present)",
+     "sql": "(location_accuracy = '1km' AND event_import_source IS NOT NULL)",
+     "support": 0.147,
+     "rows": 1619,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.804,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"1km\" (20%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(location_accuracy = '1km' AND event_import_id IS NOT NULL)",
+     "support": 0.147,
+     "rows": 1619,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.804,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"1km\" (20%), event_import_source present)",
+     "sql": "(location_accuracy = '1km' AND event_import_source IS NOT NULL)",
+     "support": 0.147,
+     "rows": 1619,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.804,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"1km\" (20%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(location_accuracy = '1km' AND event_import_id IS NOT NULL)",
+     "support": 0.147,
+     "rows": 1619,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.804,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"1km\" (20%), country_code present)",
+     "sql": "(location_accuracy = '1km' AND country_code IS NOT NULL)",
+     "support": 0.147,
+     "rows": 1618,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.804,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"1km\" (20%), gazeteer_closest_point present)",
+     "sql": "(location_accuracy = '1km' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.147,
+     "rows": 1618,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.804,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "source_name"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"1km\" (20%), country_code present)",
+     "sql": "(location_accuracy = '1km' AND country_code IS NOT NULL)",
+     "support": 0.147,
+     "rows": 1618,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.804,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "source_name"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"1km\" (20%), gazeteer_closest_point present)",
+     "sql": "(location_accuracy = '1km' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.147,
+     "rows": 1618,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.804,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"1km\" (20%), country_code present)",
+     "sql": "(location_accuracy = '1km' AND country_code IS NOT NULL)",
+     "support": 0.147,
+     "rows": 1618,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.804,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"1km\" (20%), gazeteer_closest_point present)",
+     "sql": "(location_accuracy = '1km' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.147,
+     "rows": 1618,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.804,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"1km\" (20%), country_code present)",
+     "sql": "(location_accuracy = '1km' AND country_code IS NOT NULL)",
+     "support": 0.147,
+     "rows": 1618,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.804,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"1km\" (20%), gazeteer_closest_point present)",
+     "sql": "(location_accuracy = '1km' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.147,
+     "rows": 1618,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.804,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"1km\" (20%), event_import_source = \"glc\" (85%))",
+     "sql": "(location_accuracy = '1km' AND event_import_source = 'glc')",
+     "support": 0.146,
+     "rows": 1612,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.803,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"1km\" (20%), admin_division_name present)",
+     "sql": "(location_accuracy = '1km' AND admin_division_name IS NOT NULL)",
+     "support": 0.146,
+     "rows": 1612,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.803,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "source_name"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"1km\" (20%), event_import_source = \"glc\" (85%))",
+     "sql": "(location_accuracy = '1km' AND event_import_source = 'glc')",
+     "support": 0.146,
+     "rows": 1612,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.803,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "source_name"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"1km\" (20%), admin_division_name present)",
+     "sql": "(location_accuracy = '1km' AND admin_division_name IS NOT NULL)",
+     "support": 0.146,
+     "rows": 1612,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.803,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"1km\" (20%), event_import_source = \"glc\" (85%))",
+     "sql": "(location_accuracy = '1km' AND event_import_source = 'glc')",
+     "support": 0.146,
+     "rows": 1612,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.803,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"1km\" (20%), admin_division_name present)",
+     "sql": "(location_accuracy = '1km' AND admin_division_name IS NOT NULL)",
+     "support": 0.146,
+     "rows": 1612,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.803,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"1km\" (20%), event_import_source = \"glc\" (85%))",
+     "sql": "(location_accuracy = '1km' AND event_import_source = 'glc')",
+     "support": 0.146,
+     "rows": 1612,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.803,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"1km\" (20%), admin_division_name present)",
+     "sql": "(location_accuracy = '1km' AND admin_division_name IS NOT NULL)",
+     "support": 0.146,
+     "rows": 1612,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.803,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude",
+      "source_link"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"landslide\" (69%), admin_division_name present)",
+     "sql": "(landslide_category = 'landslide' AND admin_division_name IS NOT NULL)",
+     "support": 0.595,
+     "rows": 6560,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.125,
+     "score": 0.802,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v1": "landslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude",
+      "source_link"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"landslide\" (69%), event_import_source = \"glc\" (85%))",
+     "sql": "(landslide_category = 'landslide' AND event_import_source = 'glc')",
+     "support": 0.594,
+     "rows": 6553,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.125,
+     "score": 0.802,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v1": "landslide",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"1km\" (20%), event_import_source present)",
+     "sql": "(location_accuracy = '1km' AND event_import_source IS NOT NULL)",
+     "support": 0.147,
+     "rows": 1619,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.797,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"1km\" (20%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(location_accuracy = '1km' AND event_import_id IS NOT NULL)",
+     "support": 0.147,
+     "rows": 1619,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.797,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"1km\" (20%), event_import_source present)",
+     "sql": "(location_accuracy = '1km' AND event_import_source IS NOT NULL)",
+     "support": 0.147,
+     "rows": 1619,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.797,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"1km\" (20%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(location_accuracy = '1km' AND event_import_id IS NOT NULL)",
+     "support": 0.147,
+     "rows": 1619,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.797,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"1km\" (20%), event_import_source present)",
+     "sql": "(location_accuracy = '1km' AND event_import_source IS NOT NULL)",
+     "support": 0.147,
+     "rows": 1619,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.017,
+     "score": 0.797,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"1km\" (20%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(location_accuracy = '1km' AND event_import_id IS NOT NULL)",
+     "support": 0.147,
+     "rows": 1619,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.017,
+     "score": 0.797,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"1km\" (20%), country_code present)",
+     "sql": "(location_accuracy = '1km' AND country_code IS NOT NULL)",
+     "support": 0.147,
+     "rows": 1618,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.797,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"1km\" (20%), gazeteer_closest_point present)",
+     "sql": "(location_accuracy = '1km' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.147,
+     "rows": 1618,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.797,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"1km\" (20%), country_code present)",
+     "sql": "(location_accuracy = '1km' AND country_code IS NOT NULL)",
+     "support": 0.147,
+     "rows": 1618,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.797,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"1km\" (20%), gazeteer_closest_point present)",
+     "sql": "(location_accuracy = '1km' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.147,
+     "rows": 1618,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.797,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"1km\" (20%), country_code present)",
+     "sql": "(location_accuracy = '1km' AND country_code IS NOT NULL)",
+     "support": 0.147,
+     "rows": 1618,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.017,
+     "score": 0.797,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"1km\" (20%), gazeteer_closest_point present)",
+     "sql": "(location_accuracy = '1km' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.147,
+     "rows": 1618,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.017,
+     "score": 0.797,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"1km\" (20%), event_import_source = \"glc\" (85%))",
+     "sql": "(location_accuracy = '1km' AND event_import_source = 'glc')",
+     "support": 0.146,
+     "rows": 1612,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.795,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"1km\" (20%), admin_division_name present)",
+     "sql": "(location_accuracy = '1km' AND admin_division_name IS NOT NULL)",
+     "support": 0.146,
+     "rows": 1612,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.795,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"1km\" (20%), event_import_source = \"glc\" (85%))",
+     "sql": "(location_accuracy = '1km' AND event_import_source = 'glc')",
+     "support": 0.146,
+     "rows": 1612,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.795,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"1km\" (20%), admin_division_name present)",
+     "sql": "(location_accuracy = '1km' AND admin_division_name IS NOT NULL)",
+     "support": 0.146,
+     "rows": 1612,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.795,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"1km\" (20%), event_import_source = \"glc\" (85%))",
+     "sql": "(location_accuracy = '1km' AND event_import_source = 'glc')",
+     "support": 0.146,
+     "rows": 1612,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.017,
+     "score": 0.795,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"1km\" (20%), admin_division_name present)",
+     "sql": "(location_accuracy = '1km' AND admin_division_name IS NOT NULL)",
+     "support": 0.146,
+     "rows": 1612,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.017,
+     "score": 0.795,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description"
+     ],
+     "cls": "dom",
+     "condition": "(location_accuracy = \"5km\" (29%), event_import_source present)",
+     "sql": "(location_accuracy = '5km' AND event_import_source IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2816,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.011,
+     "score": 0.788,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description"
+     ],
+     "cls": "dom",
+     "condition": "(location_accuracy = \"5km\" (29%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(location_accuracy = '5km' AND event_import_id IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2816,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.01,
+     "score": 0.788,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description"
+     ],
+     "cls": "dom",
+     "condition": "(location_accuracy = \"5km\" (29%), gazeteer_closest_point present)",
+     "sql": "(location_accuracy = '5km' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2816,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.01,
+     "score": 0.788,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_description"
+     ],
+     "cls": "dom",
+     "condition": "(location_accuracy = \"5km\" (29%), event_import_source present)",
+     "sql": "(location_accuracy = '5km' AND event_import_source IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2816,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.007,
+     "score": 0.788,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_description"
+     ],
+     "cls": "dom",
+     "condition": "(location_accuracy = \"5km\" (29%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(location_accuracy = '5km' AND event_import_id IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2816,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.007,
+     "score": 0.788,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_description"
+     ],
+     "cls": "dom",
+     "condition": "(location_accuracy = \"5km\" (29%), gazeteer_closest_point present)",
+     "sql": "(location_accuracy = '5km' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2816,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.007,
+     "score": 0.788,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description"
+     ],
+     "cls": "dom",
+     "condition": "(location_accuracy = \"5km\" (29%), country_code present)",
+     "sql": "(location_accuracy = '5km' AND country_code IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2815,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.01,
+     "score": 0.788,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_description"
+     ],
+     "cls": "dom",
+     "condition": "(location_accuracy = \"5km\" (29%), country_code present)",
+     "sql": "(location_accuracy = '5km' AND country_code IS NOT NULL)",
+     "support": 0.255,
+     "rows": 2815,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.007,
+     "score": 0.788,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "source_name"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_setting = \"unknown\" (57%), fatality_count missing)",
+     "sql": "(landslide_setting = 'unknown' AND fatality_count IS NULL)",
+     "support": 0.112,
+     "rows": 1240,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.784,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_setting = \"unknown\" (57%), fatality_count missing)",
+     "sql": "(landslide_setting = 'unknown' AND fatality_count IS NULL)",
+     "support": 0.112,
+     "rows": 1240,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.784,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description"
+     ],
+     "cls": "dom",
+     "condition": "(location_accuracy = \"5km\" (29%), admin_division_name present)",
+     "sql": "(location_accuracy = '5km' AND admin_division_name IS NOT NULL)",
+     "support": 0.252,
+     "rows": 2784,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.01,
+     "score": 0.784,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_description"
+     ],
+     "cls": "dom",
+     "condition": "(location_accuracy = \"5km\" (29%), admin_division_name present)",
+     "sql": "(location_accuracy = '5km' AND admin_division_name IS NOT NULL)",
+     "support": 0.252,
+     "rows": 2784,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.007,
+     "score": 0.784,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description"
+     ],
+     "cls": "dom",
+     "condition": "(location_accuracy = \"5km\" (29%), event_import_source = \"glc\" (85%))",
+     "sql": "(location_accuracy = '5km' AND event_import_source = 'glc')",
+     "support": 0.252,
+     "rows": 2781,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.01,
+     "score": 0.783,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_description"
+     ],
+     "cls": "dom",
+     "condition": "(location_accuracy = \"5km\" (29%), event_import_source = \"glc\" (85%))",
+     "sql": "(location_accuracy = '5km' AND event_import_source = 'glc')",
+     "support": 0.252,
+     "rows": 2781,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.007,
+     "score": 0.783,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v1": "5km",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description",
+      "source_link"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_setting = \"unknown\" (57%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(landslide_setting = 'unknown' AND event_import_id IS NOT NULL)",
+     "support": 0.565,
+     "rows": 6230,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.02,
+     "score": 0.782,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description",
+      "source_link"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_setting = \"unknown\" (57%), gazeteer_closest_point present)",
+     "sql": "(landslide_setting = 'unknown' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.565,
+     "rows": 6230,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.02,
+     "score": 0.782,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description",
+      "source_link"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_setting = \"unknown\" (57%), event_import_source present)",
+     "sql": "(landslide_setting = 'unknown' AND event_import_source IS NOT NULL)",
+     "support": 0.565,
+     "rows": 6229,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.02,
+     "score": 0.781,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description",
+      "source_link"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_setting = \"unknown\" (57%), country_code present)",
+     "sql": "(landslide_setting = 'unknown' AND country_code IS NOT NULL)",
+     "support": 0.564,
+     "rows": 6228,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.02,
+     "score": 0.781,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description",
+      "source_link"
+     ],
+     "cls": "cert",
+     "condition": "(source_link present, landslide_setting = \"unknown\" (57%))",
+     "sql": "(source_link IS NOT NULL AND landslide_setting = 'unknown')",
+     "support": 0.564,
+     "rows": 6222,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.018,
+     "score": 0.781,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"unknown\" (5%))",
+     "sql": "(location_accuracy = 'unknown')",
+     "support": 0.049,
+     "rows": 542,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.778,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v7": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"unknown\" (5%))",
+     "sql": "(location_accuracy = 'unknown')",
+     "support": 0.049,
+     "rows": 542,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.778,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v7": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"unknown\" (5%))",
+     "sql": "(location_accuracy = 'unknown')",
+     "support": 0.049,
+     "rows": 542,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.778,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v7": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_date",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"unknown\" (5%))",
+     "sql": "(location_accuracy = 'unknown')",
+     "support": 0.049,
+     "rows": 542,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.778,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v7": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "latitude",
+      "location_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"unknown\" (5%))",
+     "sql": "(location_accuracy = 'unknown')",
+     "support": 0.049,
+     "rows": 542,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.778,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v7": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_title",
+      "event_description"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"unknown\" (5%))",
+     "sql": "(location_accuracy = 'unknown')",
+     "support": 0.049,
+     "rows": 542,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 0.778,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v7": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_date",
+      "submitted_date",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_size = \"unknown\" (8%))",
+     "sql": "(landslide_size = 'unknown')",
+     "support": 0.077,
+     "rows": 851,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.778,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v3": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_date",
+      "submitted_date",
+      "latitude"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_size = \"unknown\" (8%))",
+     "sql": "(landslide_size = 'unknown')",
+     "support": 0.077,
+     "rows": 851,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.778,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v3": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description",
+      "source_link"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_setting = \"unknown\" (57%), admin_division_name present)",
+     "sql": "(landslide_setting = 'unknown' AND admin_division_name IS NOT NULL)",
+     "support": 0.559,
+     "rows": 6162,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.02,
+     "score": 0.777,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_setting=v1": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"25km\" (13%), fatality_count present)",
+     "sql": "(location_accuracy = '25km' AND fatality_count IS NOT NULL)",
+     "support": 0.11,
+     "rows": 1217,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.072,
+     "score": 0.777,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v3": "25km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cert",
+     "condition": "(location_accuracy = \"25km\" (13%), fatality_count present)",
+     "sql": "(location_accuracy = '25km' AND fatality_count IS NOT NULL)",
+     "support": 0.11,
+     "rows": 1217,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.072,
+     "score": 0.777,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v3": "25km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description",
+      "source_link"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_setting = \"unknown\" (57%), event_import_source = \"glc\" (85%))",
+     "sql": "(landslide_setting = 'unknown' AND event_import_source = 'glc')",
+     "support": 0.558,
+     "rows": 6152,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.02,
+     "score": 0.777,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_setting=v1": "unknown",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_date",
+      "submitted_date",
+      "gazeteer_distance"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_size = \"small\" (25%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(landslide_size = 'small' AND event_import_id IS NOT NULL)",
+     "support": 0.173,
+     "rows": 1908,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.776,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v2": "small"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_date",
+      "submitted_date",
+      "gazeteer_distance"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_size = \"small\" (25%), gazeteer_closest_point present)",
+     "sql": "(landslide_size = 'small' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.173,
+     "rows": 1908,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.776,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v2": "small"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_date",
+      "submitted_date",
+      "gazeteer_distance"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_size = \"small\" (25%), event_import_source present)",
+     "sql": "(landslide_size = 'small' AND event_import_source IS NOT NULL)",
+     "support": 0.173,
+     "rows": 1907,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.776,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v2": "small"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_date",
+      "submitted_date",
+      "gazeteer_distance"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_size = \"small\" (25%), country_code present)",
+     "sql": "(landslide_size = 'small' AND country_code IS NOT NULL)",
+     "support": 0.173,
+     "rows": 1907,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.776,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v2": "small"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "dom",
+     "condition": "location_accuracy in {\"1km\", \"unknown\"}",
+     "sql": "(location_accuracy = '1km') OR (location_accuracy = 'unknown')",
+     "support": 0.247,
+     "rows": 2727,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.208,
+     "score": 0.776,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km",
+      "location_accuracy=v7": "unknown"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_date",
+      "submitted_date",
+      "gazeteer_distance"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_size = \"small\" (25%), event_import_source = \"glc\" (85%))",
+     "sql": "(landslide_size = 'small' AND event_import_source = 'glc')",
+     "support": 0.172,
+     "rows": 1900,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.775,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v2": "small",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_date",
+      "submitted_date",
+      "gazeteer_distance"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_size = \"small\" (25%), admin_division_name present)",
+     "sql": "(landslide_size = 'small' AND admin_division_name IS NOT NULL)",
+     "support": 0.172,
+     "rows": 1897,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.774,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_size=v2": "small"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_date"
+     ],
+     "cls": "pos",
+     "condition": "(landslide_category = \"mudslide\" (19%))",
+     "sql": "(landslide_category = 'mudslide')",
+     "support": 0.19,
+     "rows": 2100,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.138,
+     "score": 0.766,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "source_name"
+     ],
+     "cls": "pos",
+     "condition": "(landslide_category = \"mudslide\" (19%))",
+     "sql": "(landslide_category = 'mudslide')",
+     "support": 0.19,
+     "rows": 2100,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.138,
+     "score": 0.766,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "pos",
+     "condition": "(landslide_category = \"mudslide\" (19%))",
+     "sql": "(landslide_category = 'mudslide')",
+     "support": 0.19,
+     "rows": 2100,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.138,
+     "score": 0.766,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "location_description"
+     ],
+     "cls": "pos",
+     "condition": "(landslide_category = \"mudslide\" (19%))",
+     "sql": "(landslide_category = 'mudslide')",
+     "support": 0.19,
+     "rows": 2100,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.143,
+     "score": 0.766,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_description"
+     ],
+     "cls": "pos",
+     "condition": "(landslide_category = \"mudslide\" (19%))",
+     "sql": "(landslide_category = 'mudslide')",
+     "support": 0.19,
+     "rows": 2100,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.14,
+     "score": 0.766,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_date",
+      "gazeteer_distance",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"mudslide\" (19%), event_import_source present)",
+     "sql": "(landslide_category = 'mudslide' AND event_import_source IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1811,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.756,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_date",
+      "gazeteer_distance",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"mudslide\" (19%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(landslide_category = 'mudslide' AND event_import_id IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1811,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.756,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_date",
+      "gazeteer_distance",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"mudslide\" (19%), gazeteer_closest_point present)",
+     "sql": "(landslide_category = 'mudslide' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1810,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.756,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_date",
+      "gazeteer_distance",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"mudslide\" (19%), country_code present)",
+     "sql": "(landslide_category = 'mudslide' AND country_code IS NOT NULL)",
+     "support": 0.164,
+     "rows": 1809,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.756,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cert",
+     "condition": "(landslide_category = \"mudslide\" (19%), landslide_size = \"medium\" (59%))",
+     "sql": "(landslide_category = 'mudslide' AND landslide_size = 'medium')",
+     "support": 0.104,
+     "rows": 1151,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.083,
+     "score": 0.756,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide",
+      "landslide_size=v1": "medium"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_date",
+      "gazeteer_distance",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"mudslide\" (19%), admin_division_name present)",
+     "sql": "(landslide_category = 'mudslide' AND admin_division_name IS NOT NULL)",
+     "support": 0.163,
+     "rows": 1800,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.754,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_date",
+      "gazeteer_distance",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(landslide_category = \"mudslide\" (19%), event_import_source = \"glc\" (85%))",
+     "sql": "(landslide_category = 'mudslide' AND event_import_source = 'glc')",
+     "support": 0.163,
+     "rows": 1794,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.753,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "landslide_category=v2": "mudslide",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"25km\" (13%), event_import_source present)",
+     "sql": "(location_accuracy = '25km' AND event_import_source IS NOT NULL)",
+     "support": 0.125,
+     "rows": 1375,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.741,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v3": "25km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"25km\" (13%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(location_accuracy = '25km' AND event_import_id IS NOT NULL)",
+     "support": 0.125,
+     "rows": 1375,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.741,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v3": "25km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"25km\" (13%), country_code present)",
+     "sql": "(location_accuracy = '25km' AND country_code IS NOT NULL)",
+     "support": 0.125,
+     "rows": 1375,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.741,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v3": "25km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"25km\" (13%), gazeteer_closest_point present)",
+     "sql": "(location_accuracy = '25km' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.125,
+     "rows": 1375,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.741,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v3": "25km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"25km\" (13%), event_import_source present)",
+     "sql": "(location_accuracy = '25km' AND event_import_source IS NOT NULL)",
+     "support": 0.125,
+     "rows": 1375,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.741,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v3": "25km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"25km\" (13%), event_import_id present [same rows: country_name present, admin_division_population present, gazeteer_distance present])",
+     "sql": "(location_accuracy = '25km' AND event_import_id IS NOT NULL)",
+     "support": 0.125,
+     "rows": 1375,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.741,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v3": "25km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"25km\" (13%), country_code present)",
+     "sql": "(location_accuracy = '25km' AND country_code IS NOT NULL)",
+     "support": 0.125,
+     "rows": 1375,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.741,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v3": "25km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"25km\" (13%), gazeteer_closest_point present)",
+     "sql": "(location_accuracy = '25km' AND gazeteer_closest_point IS NOT NULL)",
+     "support": 0.125,
+     "rows": 1375,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.741,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v3": "25km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"25km\" (13%), event_import_source = \"glc\" (85%))",
+     "sql": "(location_accuracy = '25km' AND event_import_source = 'glc')",
+     "support": 0.124,
+     "rows": 1363,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.738,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v3": "25km",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"25km\" (13%), event_import_source = \"glc\" (85%))",
+     "sql": "(location_accuracy = '25km' AND event_import_source = 'glc')",
+     "support": 0.124,
+     "rows": 1363,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.738,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v3": "25km",
+      "event_import_source=v1": "glc"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "longitude"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"25km\" (13%), admin_division_name present)",
+     "sql": "(location_accuracy = '25km' AND admin_division_name IS NOT NULL)",
+     "support": 0.123,
+     "rows": 1360,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.737,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v3": "25km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "event_title"
+     ],
+     "cls": "cand",
+     "condition": "(location_accuracy = \"25km\" (13%), admin_division_name present)",
+     "sql": "(location_accuracy = '25km' AND admin_division_name IS NOT NULL)",
+     "support": 0.123,
+     "rows": 1360,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.737,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v3": "25km"
+     }
+    },
+    {
+     "table": "lbusa.t33625",
+     "K": [
+      "event_import_id",
+      "submitted_date",
+      "latitude"
+     ],
+     "cls": "cert",
+     "condition": "location_accuracy in {\"1km\", \"50km\", \"unknown\"}",
+     "sql": "(location_accuracy = '1km') OR (location_accuracy = '50km') OR (location_accuracy = 'unknown')",
+     "support": 0.319,
+     "rows": 3521,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.175,
+     "score": 0.734,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "location_accuracy=v2": "1km",
+      "location_accuracy=v6": "50km",
+      "location_accuracy=v7": "unknown"
+     }
+    }
+   ],
+   "unconditional": {
+    "event_id": "cand",
+    "event_import_id,latitude": "pos",
+    "event_import_id,event_date,latitude": "pos",
+    "event_import_id,source_name,latitude": "pos",
+    "event_import_id,submitted_date,latitude": "pos",
+    "event_import_id,admin_division_name,latitude": "pos",
+    "event_import_id,created_date,latitude": "pos",
+    "event_import_id,country_name,latitude": "pos",
+    "event_import_id,gazeteer_distance,latitude": "pos",
+    "event_import_id,longitude,latitude": "pos",
+    "event_import_id,latitude,event_title": "pos",
+    "event_import_id,latitude,location_description": "pos",
+    "event_import_id,latitude,event_description": "pos",
+    "event_import_id,latitude,source_link": "pos",
+    "event_import_id,latitude,gazeteer_closest_point": "pos",
+    "event_import_id,latitude,admin_division_population": "pos",
+    "event_import_id,latitude,country_code": "pos"
+   }
+  }
+ ]
+}

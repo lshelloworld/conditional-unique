@@ -1,0 +1,12 @@
+--- a/src/backend/optimizer/util/condunique.c
++++ b/src/backend/optimizer/util/condunique.c
+@@ -912,8 +912,7 @@
+ 	{
+ 		Node	   *e;
+ 
+-		if (!constr->check[i].ccvalid || !constr->check[i].ccenforced ||
+-			constr->check[i].ccnoinherit)
++		if (constr->check[i].ccnoinherit)
+ 			continue;
+ 		e = stringToNode(constr->check[i].ccbin);
+ 		e = eval_const_expressions(ctx->root, e);

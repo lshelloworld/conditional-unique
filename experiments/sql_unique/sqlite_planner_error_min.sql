@@ -1,0 +1,4 @@
+CREATE TABLE t (e INTEGER, a INTEGER);
+CREATE UNIQUE INDEX i39 ON t (a) WHERE (e = 1);
+CREATE UNIQUE INDEX i48 ON t (a) WHERE (e = 2);
+EXPLAIN QUERY PLAN SELECT a.a FROM t a LEFT JOIN t b ON a.a = b.a AND a.e = b.e AND ((b.e = 1) OR (b.e = 2));

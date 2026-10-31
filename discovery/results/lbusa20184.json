@@ -1,0 +1,1256 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "UniqueID",
+   "DateOfBite",
+   "Breed",
+   "ZipCode",
+   "Age"
+  ]
+ },
+ "sample_rows": 22663,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbusa.t20184",
+   "rows": 22663,
+   "cols": [
+    "UniqueID",
+    "DateOfBite",
+    "Species",
+    "Breed",
+    "Age",
+    "Gender",
+    "SpayNeuter",
+    "Borough",
+    "ZipCode"
+   ],
+   "n_conditional": 45,
+   "conditional": [
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed"
+     ],
+     "cls": "cert",
+     "condition": "Borough in {\"Staten Island\", \"Other\"}",
+     "sql": "(Borough = 'Staten Island') OR (Borough = 'Other')",
+     "support": 0.126,
+     "rows": 2853,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.079,
+     "score": 0.415,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Borough=v5": "Staten Island",
+      "Borough=v6": "Other"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "ZipCode"
+     ],
+     "cls": "cert",
+     "condition": "(SpayNeuter = \"True\" (26%), ZipCode present)",
+     "sql": "(SpayNeuter = 'True' AND ZipCode IS NOT NULL)",
+     "support": 0.221,
+     "rows": 5017,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.245,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "SpayNeuter=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed"
+     ],
+     "cls": "cert",
+     "condition": "(Gender = \"F\" (15%), Borough = \"Manhattan\" (23%))",
+     "sql": "(Gender = 'F' AND Borough = 'Manhattan')",
+     "support": 0.036,
+     "rows": 809,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.01,
+     "score": 0.221,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Gender=v3": "F",
+      "Borough=v2": "Manhattan"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "Age"
+     ],
+     "cls": "pos",
+     "condition": "Gender in {\"U\", \"F\"}",
+     "sql": "(Gender = 'U') OR (Gender = 'F')",
+     "support": 0.614,
+     "rows": 13924,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.765,
+     "score": 0.204,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Gender=v1": "U",
+      "Gender=v3": "F"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "ZipCode"
+     ],
+     "cls": "dom",
+     "condition": "(Gender = \"F\" (15%))",
+     "sql": "(Gender = 'F')",
+     "support": 0.15,
+     "rows": 3389,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.14,
+     "score": 0.201,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Gender=v3": "F"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "Age"
+     ],
+     "cls": "dom",
+     "condition": "(Gender = \"F\" (15%))",
+     "sql": "(Gender = 'F')",
+     "support": 0.15,
+     "rows": 3389,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.09,
+     "score": 0.201,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Gender=v3": "F"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "ZipCode"
+     ],
+     "cls": "pos",
+     "condition": "(SpayNeuter = \"True\" (26%))",
+     "sql": "(SpayNeuter = 'True')",
+     "support": 0.259,
+     "rows": 5876,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.149,
+     "score": 0.199,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "SpayNeuter=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "Age"
+     ],
+     "cls": "pos",
+     "condition": "(ZipCode missing)",
+     "sql": "(ZipCode IS NULL)",
+     "support": 0.259,
+     "rows": 5859,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.75,
+     "score": 0.198,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "ZipCode"
+     ],
+     "cls": "cert",
+     "condition": "(Gender = \"F\" (15%), ZipCode present)",
+     "sql": "(Gender = 'F' AND ZipCode IS NOT NULL)",
+     "support": 0.13,
+     "rows": 2944,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.01,
+     "score": 0.187,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Gender=v3": "F"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "ZipCode"
+     ],
+     "cls": "dom",
+     "condition": "(Age present, SpayNeuter = \"False\" (74%))",
+     "sql": "(Age IS NOT NULL AND SpayNeuter = 'False')",
+     "support": 0.253,
+     "rows": 5744,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.124,
+     "score": 0.175,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "SpayNeuter=v1": "False"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "ZipCode"
+     ],
+     "cls": "cert",
+     "condition": "(Age present, Borough = \"Brooklyn\" (22%))",
+     "sql": "(Age IS NOT NULL AND Borough = 'Brooklyn')",
+     "support": 0.107,
+     "rows": 2427,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.078,
+     "score": 0.17,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "ZipCode"
+     ],
+     "cls": "dom",
+     "condition": "(Gender = \"M\" (39%), SpayNeuter = \"False\" (74%))",
+     "sql": "(Gender = 'M' AND SpayNeuter = 'False')",
+     "support": 0.205,
+     "rows": 4653,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.135,
+     "score": 0.157,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Gender=v2": "M",
+      "SpayNeuter=v1": "False"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "ZipCode"
+     ],
+     "cls": "dom",
+     "condition": "(Breed present, Borough = \"Brooklyn\" (22%))",
+     "sql": "(Breed IS NOT NULL AND Borough = 'Brooklyn')",
+     "support": 0.201,
+     "rows": 4556,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.141,
+     "score": 0.155,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "ZipCode"
+     ],
+     "cls": "dom",
+     "condition": "(Borough = \"Queens\" (25%), ZipCode present)",
+     "sql": "(Borough = 'Queens' AND ZipCode IS NOT NULL)",
+     "support": 0.198,
+     "rows": 4494,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.038,
+     "score": 0.154,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Borough=v1": "Queens"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "ZipCode"
+     ],
+     "cls": "dom",
+     "condition": "(Borough = \"Brooklyn\" (22%), ZipCode present)",
+     "sql": "(Borough = 'Brooklyn' AND ZipCode IS NOT NULL)",
+     "support": 0.185,
+     "rows": 4192,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.066,
+     "score": 0.149,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "ZipCode"
+     ],
+     "cls": "cert",
+     "condition": "(Gender = \"F\" (15%), SpayNeuter = \"True\" (26%))",
+     "sql": "(Gender = 'F' AND SpayNeuter = 'True')",
+     "support": 0.076,
+     "rows": 1722,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.153,
+     "score": 0.143,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Gender=v3": "F",
+      "SpayNeuter=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "Age"
+     ],
+     "cls": "cert",
+     "condition": "(Gender = \"F\" (15%), SpayNeuter = \"True\" (26%))",
+     "sql": "(Gender = 'F' AND SpayNeuter = 'True')",
+     "support": 0.076,
+     "rows": 1722,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.035,
+     "score": 0.143,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Gender=v3": "F",
+      "SpayNeuter=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "Age"
+     ],
+     "cls": "cert",
+     "condition": "(Gender = \"F\" (15%), SpayNeuter = \"False\" (74%))",
+     "sql": "(Gender = 'F' AND SpayNeuter = 'False')",
+     "support": 0.074,
+     "rows": 1667,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.146,
+     "score": 0.141,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Gender=v3": "F",
+      "SpayNeuter=v1": "False"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "ZipCode"
+     ],
+     "cls": "cert",
+     "condition": "(SpayNeuter = \"True\" (26%), Borough = \"Queens\" (25%))",
+     "sql": "(SpayNeuter = 'True' AND Borough = 'Queens')",
+     "support": 0.072,
+     "rows": 1639,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.089,
+     "score": 0.14,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "SpayNeuter=v2": "True",
+      "Borough=v1": "Queens"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "Age"
+     ],
+     "cls": "cert",
+     "condition": "(SpayNeuter = \"True\" (26%), Borough = \"Queens\" (25%))",
+     "sql": "(SpayNeuter = 'True' AND Borough = 'Queens')",
+     "support": 0.072,
+     "rows": 1639,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.021,
+     "score": 0.14,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "SpayNeuter=v2": "True",
+      "Borough=v1": "Queens"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "Age"
+     ],
+     "cls": "cert",
+     "condition": "(SpayNeuter = \"True\" (26%), Borough = \"Manhattan\" (23%))",
+     "sql": "(SpayNeuter = 'True' AND Borough = 'Manhattan')",
+     "support": 0.069,
+     "rows": 1568,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.033,
+     "score": 0.137,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "SpayNeuter=v2": "True",
+      "Borough=v2": "Manhattan"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed"
+     ],
+     "cls": "dom",
+     "condition": "(Gender = \"F\" (15%), Borough = \"Brooklyn\" (22%))",
+     "sql": "(Gender = 'F' AND Borough = 'Brooklyn')",
+     "support": 0.03,
+     "rows": 685,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.009,
+     "score": 0.136,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Gender=v3": "F",
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "Age"
+     ],
+     "cls": "cert",
+     "condition": "(Age present, ZipCode missing)",
+     "sql": "(Age IS NOT NULL AND ZipCode IS NULL)",
+     "support": 0.065,
+     "rows": 1480,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.011,
+     "score": 0.133,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "ZipCode"
+     ],
+     "cls": "dom",
+     "condition": "(Age present, Borough = \"Queens\" (25%))",
+     "sql": "(Age IS NOT NULL AND Borough = 'Queens')",
+     "support": 0.138,
+     "rows": 3135,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.09,
+     "score": 0.129,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Borough=v1": "Queens"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "ZipCode"
+     ],
+     "cls": "cert",
+     "condition": "(SpayNeuter = \"True\" (26%), Borough = \"Brooklyn\" (22%))",
+     "sql": "(SpayNeuter = 'True' AND Borough = 'Brooklyn')",
+     "support": 0.056,
+     "rows": 1280,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.091,
+     "score": 0.124,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "SpayNeuter=v2": "True",
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "ZipCode"
+     ],
+     "cls": "pos",
+     "condition": "Borough in {\"Queens\", \"Brooklyn\", \"Staten Island\", \"Other\"}",
+     "sql": "(Borough = 'Queens') OR (Borough = 'Brooklyn') OR (Borough = 'Staten Island') OR (Borough = 'Other')",
+     "support": 0.601,
+     "rows": 13611,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.268,
+     "score": 0.121,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Borough=v1": "Queens",
+      "Borough=v3": "Brooklyn",
+      "Borough=v5": "Staten Island",
+      "Borough=v6": "Other"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "ZipCode"
+     ],
+     "cls": "dom",
+     "condition": "(Age missing, Borough = \"Brooklyn\" (22%))",
+     "sql": "(Age IS NULL AND Borough = 'Brooklyn')",
+     "support": 0.113,
+     "rows": 2558,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.344,
+     "score": 0.116,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "Age"
+     ],
+     "cls": "pos",
+     "condition": "(Borough = \"Queens\" (25%), ZipCode present)",
+     "sql": "(Borough = 'Queens' AND ZipCode IS NOT NULL)",
+     "support": 0.198,
+     "rows": 4494,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.365,
+     "score": 0.116,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Borough=v1": "Queens"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "ZipCode"
+     ],
+     "cls": "dom",
+     "condition": "(Gender = \"U\" (46%), Borough = \"Brooklyn\" (22%))",
+     "sql": "(Gender = 'U' AND Borough = 'Brooklyn')",
+     "support": 0.106,
+     "rows": 2406,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.36,
+     "score": 0.113,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Gender=v1": "U",
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "ZipCode"
+     ],
+     "cls": "dom",
+     "condition": "(Gender = \"M\" (39%), Borough = \"Queens\" (25%))",
+     "sql": "(Gender = 'M' AND Borough = 'Queens')",
+     "support": 0.103,
+     "rows": 2343,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.096,
+     "score": 0.111,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Gender=v2": "M",
+      "Borough=v1": "Queens"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "Age"
+     ],
+     "cls": "dom",
+     "condition": "(Gender = \"M\" (39%), Borough = \"Queens\" (25%))",
+     "sql": "(Gender = 'M' AND Borough = 'Queens')",
+     "support": 0.103,
+     "rows": 2343,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.045,
+     "score": 0.111,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Gender=v2": "M",
+      "Borough=v1": "Queens"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "Age"
+     ],
+     "cls": "pos",
+     "condition": "(SpayNeuter = \"False\" (74%), Borough = \"Queens\" (25%))",
+     "sql": "(SpayNeuter = 'False' AND Borough = 'Queens')",
+     "support": 0.182,
+     "rows": 4134,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.632,
+     "score": 0.111,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "SpayNeuter=v1": "False",
+      "Borough=v1": "Queens"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed"
+     ],
+     "cls": "pos",
+     "condition": "(Borough = \"Brooklyn\" (22%), ZipCode missing)",
+     "sql": "(Borough = 'Brooklyn' AND ZipCode IS NULL)",
+     "support": 0.035,
+     "rows": 793,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.192,
+     "score": 0.109,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "Age"
+     ],
+     "cls": "pos",
+     "condition": "(SpayNeuter = \"False\" (74%), Borough = \"Brooklyn\" (22%))",
+     "sql": "(SpayNeuter = 'False' AND Borough = 'Brooklyn')",
+     "support": 0.163,
+     "rows": 3705,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.682,
+     "score": 0.105,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "SpayNeuter=v1": "False",
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "Age"
+     ],
+     "cls": "pos",
+     "condition": "(SpayNeuter = \"False\" (74%), Borough = \"Manhattan\" (23%))",
+     "sql": "(SpayNeuter = 'False' AND Borough = 'Manhattan')",
+     "support": 0.163,
+     "rows": 3702,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.703,
+     "score": 0.105,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "SpayNeuter=v1": "False",
+      "Borough=v2": "Manhattan"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "ZipCode"
+     ],
+     "cls": "cert",
+     "condition": "(Gender = \"F\" (15%), Borough = \"Queens\" (25%))",
+     "sql": "(Gender = 'F' AND Borough = 'Queens')",
+     "support": 0.039,
+     "rows": 880,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.081,
+     "score": 0.102,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Gender=v3": "F",
+      "Borough=v1": "Queens"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "Age"
+     ],
+     "cls": "cert",
+     "condition": "(Gender = \"F\" (15%), Borough = \"Queens\" (25%))",
+     "sql": "(Gender = 'F' AND Borough = 'Queens')",
+     "support": 0.039,
+     "rows": 880,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.044,
+     "score": 0.102,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Gender=v3": "F",
+      "Borough=v1": "Queens"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "Age"
+     ],
+     "cls": "cert",
+     "condition": "(SpayNeuter = \"True\" (26%), ZipCode missing)",
+     "sql": "(SpayNeuter = 'True' AND ZipCode IS NULL)",
+     "support": 0.038,
+     "rows": 859,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.043,
+     "score": 0.101,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "SpayNeuter=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "ZipCode"
+     ],
+     "cls": "dom",
+     "condition": "(Gender = \"M\" (39%), Borough = \"Brooklyn\" (22%))",
+     "sql": "(Gender = 'M' AND Borough = 'Brooklyn')",
+     "support": 0.084,
+     "rows": 1894,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.082,
+     "score": 0.1,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Gender=v2": "M",
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "ZipCode"
+     ],
+     "cls": "cert",
+     "condition": "(Gender = \"F\" (15%), Borough = \"Brooklyn\" (22%))",
+     "sql": "(Gender = 'F' AND Borough = 'Brooklyn')",
+     "support": 0.03,
+     "rows": 685,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.073,
+     "score": 0.09,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Gender=v3": "F",
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "Age"
+     ],
+     "cls": "cert",
+     "condition": "(Gender = \"F\" (15%), Borough = \"Brooklyn\" (22%))",
+     "sql": "(Gender = 'F' AND Borough = 'Brooklyn')",
+     "support": 0.03,
+     "rows": 685,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.085,
+     "score": 0.09,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Gender=v3": "F",
+      "Borough=v3": "Brooklyn"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "ZipCode"
+     ],
+     "cls": "pos",
+     "condition": "(Age missing, Borough = \"Manhattan\" (23%))",
+     "sql": "(Age IS NULL AND Borough = 'Manhattan')",
+     "support": 0.116,
+     "rows": 2637,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.624,
+     "score": 0.089,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Borough=v2": "Manhattan"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "ZipCode"
+     ],
+     "cls": "pos",
+     "condition": "(Gender = \"U\" (46%), Borough = \"Manhattan\" (23%))",
+     "sql": "(Gender = 'U' AND Borough = 'Manhattan')",
+     "support": 0.11,
+     "rows": 2488,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.646,
+     "score": 0.086,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Gender=v1": "U",
+      "Borough=v2": "Manhattan"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "Age"
+     ],
+     "cls": "dom",
+     "condition": "(Gender = \"M\" (39%), ZipCode missing)",
+     "sql": "(Gender = 'M' AND ZipCode IS NULL)",
+     "support": 0.051,
+     "rows": 1152,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.099,
+     "score": 0.078,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Gender=v2": "M"
+     }
+    },
+    {
+     "table": "lbusa.t20184",
+     "K": [
+      "UniqueID",
+      "Breed",
+      "Age"
+     ],
+     "cls": "dom",
+     "condition": "(Borough = \"Brooklyn\" (22%), ZipCode missing)",
+     "sql": "(Borough = 'Brooklyn' AND ZipCode IS NULL)",
+     "support": 0.035,
+     "rows": 793,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.779,
+     "score": 0.065,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Borough=v3": "Brooklyn"
+     }
+    }
+   ],
+   "unconditional": {
+    "UniqueID,DateOfBite": "cand"
+   }
+  }
+ ]
+}

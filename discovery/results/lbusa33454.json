@@ -1,0 +1,3501 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "streetname",
+   "streetname_gc",
+   "street_gc",
+   "street",
+   "cnn",
+   "line",
+   "t_node_cnn",
+   "f_node_cnn",
+   "t_st",
+   "f_st",
+   "lf_toadd",
+   "lf_fadd",
+   "rt_toadd",
+   "rt_fadd"
+  ]
+ },
+ "sample_rows": 17011,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbusa.t33454",
+   "rows": 17011,
+   "cols": [
+    "cnn",
+    "lf_fadd",
+    "lf_toadd",
+    "rt_fadd",
+    "rt_toadd",
+    "street",
+    "st_type",
+    "f_st",
+    "t_st",
+    "f_node_cnn",
+    "t_node_cnn",
+    "accepted",
+    "active",
+    "classcode",
+    "date_added",
+    "jurisdiction",
+    "layer",
+    "nhood",
+    "oneway",
+    "street_gc",
+    "streetname",
+    "streetname_gc",
+    "zip_code",
+    "line"
+   ],
+   "n_conditional": 135,
+   "conditional": [
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "line"
+     ],
+     "cls": "cand",
+     "condition": "(lf_fadd present [same rows: lf_toadd present, rt_fadd present, rt_toadd present ...])",
+     "sql": "(lf_fadd IS NOT NULL)",
+     "support": 0.955,
+     "rows": 16243,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 3.42,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "line"
+     ],
+     "cls": "cand",
+     "condition": "(nhood present)",
+     "sql": "(nhood IS NOT NULL)",
+     "support": 0.955,
+     "rows": 16242,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 3.42,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "line"
+     ],
+     "cls": "cand",
+     "condition": "(active = \"True\" (95%))",
+     "sql": "(active = 'True')",
+     "support": 0.954,
+     "rows": 16226,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 3.418,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "active=v1": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "line"
+     ],
+     "cls": "cand",
+     "condition": "(st_type present)",
+     "sql": "(st_type IS NOT NULL)",
+     "support": 0.932,
+     "rows": 15851,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 3.379,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "line"
+     ],
+     "cls": "cand",
+     "condition": "oneway in {\"B\", \"F\", \"T\"}",
+     "sql": "(oneway = 'B') OR (oneway = 'F') OR (oneway = 'T')",
+     "support": 0.955,
+     "rows": 16243,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.71,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "oneway=v1": "B",
+      "oneway=v2": "F",
+      "oneway=v3": "T"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "line"
+     ],
+     "cls": "cand",
+     "condition": "classcode in {\"5.0\", \"4.0\", \"3.0\", \"0.0\"}",
+     "sql": "(classcode = '5.0') OR (classcode = '4.0') OR (classcode = '3.0') OR (classcode = '0.0')",
+     "support": 0.93,
+     "rows": 15822,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.35,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "classcode=v1": "5.0",
+      "classcode=v2": "4.0",
+      "classcode=v3": "3.0",
+      "classcode=v4": "0.0"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "line"
+     ],
+     "cls": "cand",
+     "condition": "(st_type missing)",
+     "sql": "(st_type IS NULL)",
+     "support": 0.068,
+     "rows": 1160,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.914,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "line"
+     ],
+     "cls": "cand",
+     "condition": "(active = \"False\" (5%))",
+     "sql": "(active = 'False')",
+     "support": 0.046,
+     "rows": 785,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.752,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "active=v2": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "line"
+     ],
+     "cls": "cand",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.744,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "t_node_cnn",
+      "f_st"
+     ],
+     "cls": "cand",
+     "condition": "(oneway = \"T\" (11%))",
+     "sql": "(oneway = 'T')",
+     "support": 0.108,
+     "rows": 1840,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.23,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": false,
+     "constants": {
+      "oneway=v3": "T"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "f_node_cnn",
+      "t_st"
+     ],
+     "cls": "cand",
+     "condition": "(oneway = \"T\" (11%))",
+     "sql": "(oneway = 'T')",
+     "support": 0.108,
+     "rows": 1840,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.23,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": false,
+     "constants": {
+      "oneway=v3": "T"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "t_node_cnn",
+      "f_st"
+     ],
+     "cls": "cand",
+     "condition": "(oneway = \"T\" (11%))",
+     "sql": "(oneway = 'T')",
+     "support": 0.108,
+     "rows": 1840,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.23,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": false,
+     "constants": {
+      "oneway=v3": "T"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "f_node_cnn",
+      "t_st"
+     ],
+     "cls": "cand",
+     "condition": "(oneway = \"T\" (11%))",
+     "sql": "(oneway = 'T')",
+     "support": 0.108,
+     "rows": 1840,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.23,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": false,
+     "constants": {
+      "oneway=v3": "T"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "streetname_gc",
+      "t_st"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.166,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "streetname_gc",
+      "f_st"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.166,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "streetname_gc",
+      "t_st"
+     ],
+     "cls": "pos",
+     "condition": "(lf_fadd missing [same rows: lf_toadd missing, rt_fadd missing, rt_toadd missing ...])",
+     "sql": "(lf_fadd IS NULL)",
+     "support": 0.045,
+     "rows": 768,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.166,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "streetname_gc",
+      "f_st"
+     ],
+     "cls": "pos",
+     "condition": "(lf_fadd missing [same rows: lf_toadd missing, rt_fadd missing, rt_toadd missing ...])",
+     "sql": "(lf_fadd IS NULL)",
+     "support": 0.045,
+     "rows": 768,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.166,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "f_st",
+      "rt_toadd"
+     ],
+     "cls": "cand",
+     "condition": "(accepted = \"True\" (77%), oneway = \"F\" (12%))",
+     "sql": "(accepted = 'True' AND oneway = 'F')",
+     "support": 0.093,
+     "rows": 1579,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.142,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "accepted=v1": "True",
+      "oneway=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "f_st",
+      "rt_toadd"
+     ],
+     "cls": "cand",
+     "condition": "(accepted = \"True\" (77%), oneway = \"F\" (12%))",
+     "sql": "(accepted = 'True' AND oneway = 'F')",
+     "support": 0.093,
+     "rows": 1579,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.142,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "accepted=v1": "True",
+      "oneway=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "t_st",
+      "lf_toadd"
+     ],
+     "cls": "cand",
+     "condition": "(accepted = \"True\" (77%), oneway = \"T\" (11%))",
+     "sql": "(accepted = 'True' AND oneway = 'T')",
+     "support": 0.091,
+     "rows": 1546,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.141,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": false,
+     "constants": {
+      "accepted=v1": "True",
+      "oneway=v3": "T"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "t_st",
+      "lf_fadd"
+     ],
+     "cls": "cand",
+     "condition": "(accepted = \"True\" (77%), oneway = \"T\" (11%))",
+     "sql": "(accepted = 'True' AND oneway = 'T')",
+     "support": 0.091,
+     "rows": 1546,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.141,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": false,
+     "constants": {
+      "accepted=v1": "True",
+      "oneway=v3": "T"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "f_st",
+      "lf_toadd"
+     ],
+     "cls": "cand",
+     "condition": "(accepted = \"True\" (77%), oneway = \"T\" (11%))",
+     "sql": "(accepted = 'True' AND oneway = 'T')",
+     "support": 0.091,
+     "rows": 1546,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.141,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": false,
+     "constants": {
+      "accepted=v1": "True",
+      "oneway=v3": "T"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "f_st",
+      "lf_fadd"
+     ],
+     "cls": "cand",
+     "condition": "(accepted = \"True\" (77%), oneway = \"T\" (11%))",
+     "sql": "(accepted = 'True' AND oneway = 'T')",
+     "support": 0.091,
+     "rows": 1546,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.141,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": false,
+     "constants": {
+      "accepted=v1": "True",
+      "oneway=v3": "T"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "t_st",
+      "lf_toadd"
+     ],
+     "cls": "cand",
+     "condition": "(accepted = \"True\" (77%), oneway = \"T\" (11%))",
+     "sql": "(accepted = 'True' AND oneway = 'T')",
+     "support": 0.091,
+     "rows": 1546,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.141,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": false,
+     "constants": {
+      "accepted=v1": "True",
+      "oneway=v3": "T"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "t_st",
+      "lf_fadd"
+     ],
+     "cls": "cand",
+     "condition": "(accepted = \"True\" (77%), oneway = \"T\" (11%))",
+     "sql": "(accepted = 'True' AND oneway = 'T')",
+     "support": 0.091,
+     "rows": 1546,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.141,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": false,
+     "constants": {
+      "accepted=v1": "True",
+      "oneway=v3": "T"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "f_st",
+      "lf_toadd"
+     ],
+     "cls": "cand",
+     "condition": "(accepted = \"True\" (77%), oneway = \"T\" (11%))",
+     "sql": "(accepted = 'True' AND oneway = 'T')",
+     "support": 0.091,
+     "rows": 1546,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.141,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": false,
+     "constants": {
+      "accepted=v1": "True",
+      "oneway=v3": "T"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "f_st",
+      "lf_fadd"
+     ],
+     "cls": "cand",
+     "condition": "(accepted = \"True\" (77%), oneway = \"T\" (11%))",
+     "sql": "(accepted = 'True' AND oneway = 'T')",
+     "support": 0.091,
+     "rows": 1546,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.141,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": false,
+     "constants": {
+      "accepted=v1": "True",
+      "oneway=v3": "T"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "t_node_cnn",
+      "f_st"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"5.0\" (63%), oneway = \"F\" (12%))",
+     "sql": "(classcode = '5.0' AND oneway = 'F')",
+     "support": 0.042,
+     "rows": 718,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.096,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "classcode=v1": "5.0",
+      "oneway=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "f_node_cnn",
+      "t_st"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"5.0\" (63%), oneway = \"F\" (12%))",
+     "sql": "(classcode = '5.0' AND oneway = 'F')",
+     "support": 0.042,
+     "rows": 718,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.096,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "classcode=v1": "5.0",
+      "oneway=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "t_node_cnn",
+      "f_st"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"5.0\" (63%), oneway = \"F\" (12%))",
+     "sql": "(classcode = '5.0' AND oneway = 'F')",
+     "support": 0.042,
+     "rows": 718,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.096,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "classcode=v1": "5.0",
+      "oneway=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "f_node_cnn",
+      "t_st"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"5.0\" (63%), oneway = \"F\" (12%))",
+     "sql": "(classcode = '5.0' AND oneway = 'F')",
+     "support": 0.042,
+     "rows": 718,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.096,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "classcode=v1": "5.0",
+      "oneway=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "t_node_cnn",
+      "t_st"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"5.0\" (63%), oneway = \"T\" (11%))",
+     "sql": "(classcode = '5.0' AND oneway = 'T')",
+     "support": 0.04,
+     "rows": 677,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.093,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": false,
+     "constants": {
+      "classcode=v1": "5.0",
+      "oneway=v3": "T"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "f_node_cnn",
+      "f_st"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"5.0\" (63%), oneway = \"T\" (11%))",
+     "sql": "(classcode = '5.0' AND oneway = 'T')",
+     "support": 0.04,
+     "rows": 677,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.093,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": false,
+     "constants": {
+      "classcode=v1": "5.0",
+      "oneway=v3": "T"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "t_node_cnn",
+      "t_st"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"5.0\" (63%), oneway = \"T\" (11%))",
+     "sql": "(classcode = '5.0' AND oneway = 'T')",
+     "support": 0.04,
+     "rows": 677,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.093,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": false,
+     "constants": {
+      "classcode=v1": "5.0",
+      "oneway=v3": "T"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "f_node_cnn",
+      "f_st"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"5.0\" (63%), oneway = \"T\" (11%))",
+     "sql": "(classcode = '5.0' AND oneway = 'T')",
+     "support": 0.04,
+     "rows": 677,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.093,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": false,
+     "constants": {
+      "classcode=v1": "5.0",
+      "oneway=v3": "T"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "f_node_cnn",
+      "f_st"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"3.0\" (9%), oneway = \"T\" (11%))",
+     "sql": "(classcode = '3.0' AND oneway = 'T')",
+     "support": 0.037,
+     "rows": 637,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.09,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": false,
+     "constants": {
+      "classcode=v3": "3.0",
+      "oneway=v3": "T"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "t_st",
+      "lf_toadd"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"3.0\" (9%), oneway = \"T\" (11%))",
+     "sql": "(classcode = '3.0' AND oneway = 'T')",
+     "support": 0.037,
+     "rows": 637,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.09,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": false,
+     "constants": {
+      "classcode=v3": "3.0",
+      "oneway=v3": "T"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "t_st",
+      "lf_fadd"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"3.0\" (9%), oneway = \"T\" (11%))",
+     "sql": "(classcode = '3.0' AND oneway = 'T')",
+     "support": 0.037,
+     "rows": 637,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.09,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": false,
+     "constants": {
+      "classcode=v3": "3.0",
+      "oneway=v3": "T"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "f_st",
+      "lf_toadd"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"3.0\" (9%), oneway = \"T\" (11%))",
+     "sql": "(classcode = '3.0' AND oneway = 'T')",
+     "support": 0.037,
+     "rows": 637,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.09,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": false,
+     "constants": {
+      "classcode=v3": "3.0",
+      "oneway=v3": "T"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "f_st",
+      "lf_fadd"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"3.0\" (9%), oneway = \"T\" (11%))",
+     "sql": "(classcode = '3.0' AND oneway = 'T')",
+     "support": 0.037,
+     "rows": 637,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.09,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": false,
+     "constants": {
+      "classcode=v3": "3.0",
+      "oneway=v3": "T"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "f_node_cnn",
+      "f_st"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"3.0\" (9%), oneway = \"T\" (11%))",
+     "sql": "(classcode = '3.0' AND oneway = 'T')",
+     "support": 0.037,
+     "rows": 637,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.09,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "classcode=v3": "3.0",
+      "oneway=v3": "T"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "t_st",
+      "lf_toadd"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"3.0\" (9%), oneway = \"T\" (11%))",
+     "sql": "(classcode = '3.0' AND oneway = 'T')",
+     "support": 0.037,
+     "rows": 637,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.09,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "classcode=v3": "3.0",
+      "oneway=v3": "T"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "t_st",
+      "lf_fadd"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"3.0\" (9%), oneway = \"T\" (11%))",
+     "sql": "(classcode = '3.0' AND oneway = 'T')",
+     "support": 0.037,
+     "rows": 637,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.09,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "classcode=v3": "3.0",
+      "oneway=v3": "T"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "f_st",
+      "lf_toadd"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"3.0\" (9%), oneway = \"T\" (11%))",
+     "sql": "(classcode = '3.0' AND oneway = 'T')",
+     "support": 0.037,
+     "rows": 637,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.09,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "classcode=v3": "3.0",
+      "oneway=v3": "T"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "f_st",
+      "lf_fadd"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"3.0\" (9%), oneway = \"T\" (11%))",
+     "sql": "(classcode = '3.0' AND oneway = 'T')",
+     "support": 0.037,
+     "rows": 637,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.09,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "classcode=v3": "3.0",
+      "oneway=v3": "T"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "t_node_cnn",
+      "t_st"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"3.0\" (9%), oneway = \"F\" (12%))",
+     "sql": "(classcode = '3.0' AND oneway = 'F')",
+     "support": 0.037,
+     "rows": 621,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.089,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "classcode=v3": "3.0",
+      "oneway=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "t_node_cnn",
+      "f_st"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"3.0\" (9%), oneway = \"F\" (12%))",
+     "sql": "(classcode = '3.0' AND oneway = 'F')",
+     "support": 0.037,
+     "rows": 621,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.089,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "classcode=v3": "3.0",
+      "oneway=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "t_st",
+      "rt_toadd"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"3.0\" (9%), oneway = \"F\" (12%))",
+     "sql": "(classcode = '3.0' AND oneway = 'F')",
+     "support": 0.037,
+     "rows": 621,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.089,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "classcode=v3": "3.0",
+      "oneway=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "t_st",
+      "rt_fadd"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"3.0\" (9%), oneway = \"F\" (12%))",
+     "sql": "(classcode = '3.0' AND oneway = 'F')",
+     "support": 0.037,
+     "rows": 621,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.089,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "classcode=v3": "3.0",
+      "oneway=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "f_st",
+      "rt_toadd"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"3.0\" (9%), oneway = \"F\" (12%))",
+     "sql": "(classcode = '3.0' AND oneway = 'F')",
+     "support": 0.037,
+     "rows": 621,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.089,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "classcode=v3": "3.0",
+      "oneway=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "f_st",
+      "rt_fadd"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"3.0\" (9%), oneway = \"F\" (12%))",
+     "sql": "(classcode = '3.0' AND oneway = 'F')",
+     "support": 0.037,
+     "rows": 621,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.089,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "classcode=v3": "3.0",
+      "oneway=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "t_node_cnn",
+      "t_st"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"3.0\" (9%), oneway = \"F\" (12%))",
+     "sql": "(classcode = '3.0' AND oneway = 'F')",
+     "support": 0.037,
+     "rows": 621,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.089,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "classcode=v3": "3.0",
+      "oneway=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "t_node_cnn",
+      "f_st"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"3.0\" (9%), oneway = \"F\" (12%))",
+     "sql": "(classcode = '3.0' AND oneway = 'F')",
+     "support": 0.037,
+     "rows": 621,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.089,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "classcode=v3": "3.0",
+      "oneway=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "t_st",
+      "rt_toadd"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"3.0\" (9%), oneway = \"F\" (12%))",
+     "sql": "(classcode = '3.0' AND oneway = 'F')",
+     "support": 0.037,
+     "rows": 621,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.089,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "classcode=v3": "3.0",
+      "oneway=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "t_st",
+      "rt_fadd"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"3.0\" (9%), oneway = \"F\" (12%))",
+     "sql": "(classcode = '3.0' AND oneway = 'F')",
+     "support": 0.037,
+     "rows": 621,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.089,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "classcode=v3": "3.0",
+      "oneway=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "f_st",
+      "rt_toadd"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"3.0\" (9%), oneway = \"F\" (12%))",
+     "sql": "(classcode = '3.0' AND oneway = 'F')",
+     "support": 0.037,
+     "rows": 621,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.089,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "classcode=v3": "3.0",
+      "oneway=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "f_st",
+      "rt_fadd"
+     ],
+     "cls": "cand",
+     "condition": "(classcode = \"3.0\" (9%), oneway = \"F\" (12%))",
+     "sql": "(classcode = '3.0' AND oneway = 'F')",
+     "support": 0.037,
+     "rows": 621,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.089,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "classcode=v3": "3.0",
+      "oneway=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "t_node_cnn",
+      "t_st"
+     ],
+     "cls": "pos",
+     "condition": "(active = \"False\" (5%))",
+     "sql": "(active = 'False')",
+     "support": 0.046,
+     "rows": 785,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.978,
+     "score": 0.084,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "active=v2": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "t_node_cnn",
+      "f_st"
+     ],
+     "cls": "pos",
+     "condition": "(active = \"False\" (5%))",
+     "sql": "(active = 'False')",
+     "support": 0.046,
+     "rows": 785,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.978,
+     "score": 0.084,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "active=v2": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "f_node_cnn",
+      "t_st"
+     ],
+     "cls": "pos",
+     "condition": "(active = \"False\" (5%))",
+     "sql": "(active = 'False')",
+     "support": 0.046,
+     "rows": 785,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.978,
+     "score": 0.084,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "active=v2": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "t_st",
+      "lf_toadd"
+     ],
+     "cls": "pos",
+     "condition": "(active = \"False\" (5%))",
+     "sql": "(active = 'False')",
+     "support": 0.046,
+     "rows": 785,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.978,
+     "score": 0.084,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "active=v2": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "t_st",
+      "lf_fadd"
+     ],
+     "cls": "pos",
+     "condition": "(active = \"False\" (5%))",
+     "sql": "(active = 'False')",
+     "support": 0.046,
+     "rows": 785,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.978,
+     "score": 0.084,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "active=v2": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "t_st",
+      "rt_toadd"
+     ],
+     "cls": "pos",
+     "condition": "(active = \"False\" (5%))",
+     "sql": "(active = 'False')",
+     "support": 0.046,
+     "rows": 785,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.978,
+     "score": 0.084,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "active=v2": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "t_st",
+      "rt_fadd"
+     ],
+     "cls": "pos",
+     "condition": "(active = \"False\" (5%))",
+     "sql": "(active = 'False')",
+     "support": 0.046,
+     "rows": 785,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.978,
+     "score": 0.084,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "active=v2": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "f_st",
+      "lf_toadd"
+     ],
+     "cls": "pos",
+     "condition": "(active = \"False\" (5%))",
+     "sql": "(active = 'False')",
+     "support": 0.046,
+     "rows": 785,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.978,
+     "score": 0.084,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "active=v2": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "f_st",
+      "lf_fadd"
+     ],
+     "cls": "pos",
+     "condition": "(active = \"False\" (5%))",
+     "sql": "(active = 'False')",
+     "support": 0.046,
+     "rows": 785,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.978,
+     "score": 0.084,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "active=v2": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "f_st",
+      "rt_toadd"
+     ],
+     "cls": "pos",
+     "condition": "(active = \"False\" (5%))",
+     "sql": "(active = 'False')",
+     "support": 0.046,
+     "rows": 785,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.978,
+     "score": 0.084,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "active=v2": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "f_st",
+      "rt_fadd"
+     ],
+     "cls": "pos",
+     "condition": "(active = \"False\" (5%))",
+     "sql": "(active = 'False')",
+     "support": 0.046,
+     "rows": 785,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.978,
+     "score": 0.084,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "active=v2": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "t_node_cnn",
+      "t_st"
+     ],
+     "cls": "pos",
+     "condition": "(active = \"False\" (5%))",
+     "sql": "(active = 'False')",
+     "support": 0.046,
+     "rows": 785,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.978,
+     "score": 0.084,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "active=v2": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "t_node_cnn",
+      "f_st"
+     ],
+     "cls": "pos",
+     "condition": "(active = \"False\" (5%))",
+     "sql": "(active = 'False')",
+     "support": 0.046,
+     "rows": 785,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.978,
+     "score": 0.084,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "active=v2": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "f_node_cnn",
+      "t_st"
+     ],
+     "cls": "pos",
+     "condition": "(active = \"False\" (5%))",
+     "sql": "(active = 'False')",
+     "support": 0.046,
+     "rows": 785,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.978,
+     "score": 0.084,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "active=v2": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "t_st",
+      "lf_toadd"
+     ],
+     "cls": "pos",
+     "condition": "(active = \"False\" (5%))",
+     "sql": "(active = 'False')",
+     "support": 0.046,
+     "rows": 785,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.978,
+     "score": 0.084,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "active=v2": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "t_st",
+      "lf_fadd"
+     ],
+     "cls": "pos",
+     "condition": "(active = \"False\" (5%))",
+     "sql": "(active = 'False')",
+     "support": 0.046,
+     "rows": 785,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.978,
+     "score": 0.084,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "active=v2": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "t_st",
+      "rt_toadd"
+     ],
+     "cls": "pos",
+     "condition": "(active = \"False\" (5%))",
+     "sql": "(active = 'False')",
+     "support": 0.046,
+     "rows": 785,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.978,
+     "score": 0.084,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "active=v2": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "t_st",
+      "rt_fadd"
+     ],
+     "cls": "pos",
+     "condition": "(active = \"False\" (5%))",
+     "sql": "(active = 'False')",
+     "support": 0.046,
+     "rows": 785,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.978,
+     "score": 0.084,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "active=v2": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "f_st",
+      "lf_toadd"
+     ],
+     "cls": "pos",
+     "condition": "(active = \"False\" (5%))",
+     "sql": "(active = 'False')",
+     "support": 0.046,
+     "rows": 785,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.978,
+     "score": 0.084,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "active=v2": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "f_st",
+      "lf_fadd"
+     ],
+     "cls": "pos",
+     "condition": "(active = \"False\" (5%))",
+     "sql": "(active = 'False')",
+     "support": 0.046,
+     "rows": 785,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.978,
+     "score": 0.084,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "active=v2": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "f_st",
+      "rt_toadd"
+     ],
+     "cls": "pos",
+     "condition": "(active = \"False\" (5%))",
+     "sql": "(active = 'False')",
+     "support": 0.046,
+     "rows": 785,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.978,
+     "score": 0.084,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "active=v2": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "f_st",
+      "rt_fadd"
+     ],
+     "cls": "pos",
+     "condition": "(active = \"False\" (5%))",
+     "sql": "(active = 'False')",
+     "support": 0.046,
+     "rows": 785,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.978,
+     "score": 0.084,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "active=v2": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "street_gc",
+      "t_st"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "street_gc",
+      "f_st"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "t_node_cnn",
+      "t_st"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "t_node_cnn",
+      "f_st"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "f_node_cnn",
+      "t_st"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "f_node_cnn",
+      "f_st"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "t_st",
+      "lf_toadd"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "t_st",
+      "lf_fadd"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "t_st",
+      "rt_toadd"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "t_st",
+      "rt_fadd"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "f_st",
+      "lf_toadd"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "f_st",
+      "lf_fadd"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "f_st",
+      "rt_toadd"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "f_st",
+      "rt_fadd"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname_gc",
+      "street",
+      "t_st"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname_gc",
+      "street",
+      "f_st"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street_gc",
+      "street",
+      "t_st"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street_gc",
+      "street",
+      "f_st"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "t_node_cnn",
+      "t_st"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "t_node_cnn",
+      "f_st"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "f_node_cnn",
+      "t_st"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "f_node_cnn",
+      "f_st"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "t_st",
+      "lf_toadd"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "t_st",
+      "lf_fadd"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "t_st",
+      "rt_toadd"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "t_st",
+      "rt_fadd"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "f_st",
+      "lf_toadd"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "f_st",
+      "lf_fadd"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "f_st",
+      "rt_toadd"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "f_st",
+      "rt_fadd"
+     ],
+     "cls": "pos",
+     "condition": "(nhood missing)",
+     "sql": "(nhood IS NULL)",
+     "support": 0.045,
+     "rows": 769,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "street_gc",
+      "t_st"
+     ],
+     "cls": "pos",
+     "condition": "(lf_fadd missing [same rows: lf_toadd missing, rt_fadd missing, rt_toadd missing ...])",
+     "sql": "(lf_fadd IS NULL)",
+     "support": 0.045,
+     "rows": 768,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "street_gc",
+      "f_st"
+     ],
+     "cls": "pos",
+     "condition": "(lf_fadd missing [same rows: lf_toadd missing, rt_fadd missing, rt_toadd missing ...])",
+     "sql": "(lf_fadd IS NULL)",
+     "support": 0.045,
+     "rows": 768,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "t_node_cnn",
+      "t_st"
+     ],
+     "cls": "pos",
+     "condition": "(lf_fadd missing [same rows: lf_toadd missing, rt_fadd missing, rt_toadd missing ...])",
+     "sql": "(lf_fadd IS NULL)",
+     "support": 0.045,
+     "rows": 768,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "t_node_cnn",
+      "f_st"
+     ],
+     "cls": "pos",
+     "condition": "(lf_fadd missing [same rows: lf_toadd missing, rt_fadd missing, rt_toadd missing ...])",
+     "sql": "(lf_fadd IS NULL)",
+     "support": 0.045,
+     "rows": 768,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "f_node_cnn",
+      "t_st"
+     ],
+     "cls": "pos",
+     "condition": "(lf_fadd missing [same rows: lf_toadd missing, rt_fadd missing, rt_toadd missing ...])",
+     "sql": "(lf_fadd IS NULL)",
+     "support": 0.045,
+     "rows": 768,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "f_node_cnn",
+      "f_st"
+     ],
+     "cls": "pos",
+     "condition": "(lf_fadd missing [same rows: lf_toadd missing, rt_fadd missing, rt_toadd missing ...])",
+     "sql": "(lf_fadd IS NULL)",
+     "support": 0.045,
+     "rows": 768,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "t_st",
+      "lf_toadd"
+     ],
+     "cls": "pos",
+     "condition": "(lf_fadd missing [same rows: lf_toadd missing, rt_fadd missing, rt_toadd missing ...])",
+     "sql": "(lf_fadd IS NULL)",
+     "support": 0.045,
+     "rows": 768,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "t_st",
+      "rt_toadd"
+     ],
+     "cls": "pos",
+     "condition": "(lf_fadd missing [same rows: lf_toadd missing, rt_fadd missing, rt_toadd missing ...])",
+     "sql": "(lf_fadd IS NULL)",
+     "support": 0.045,
+     "rows": 768,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "t_st",
+      "rt_fadd"
+     ],
+     "cls": "pos",
+     "condition": "(lf_fadd missing [same rows: lf_toadd missing, rt_fadd missing, rt_toadd missing ...])",
+     "sql": "(lf_fadd IS NULL)",
+     "support": 0.045,
+     "rows": 768,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "f_st",
+      "lf_toadd"
+     ],
+     "cls": "pos",
+     "condition": "(lf_fadd missing [same rows: lf_toadd missing, rt_fadd missing, rt_toadd missing ...])",
+     "sql": "(lf_fadd IS NULL)",
+     "support": 0.045,
+     "rows": 768,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "f_st",
+      "rt_toadd"
+     ],
+     "cls": "pos",
+     "condition": "(lf_fadd missing [same rows: lf_toadd missing, rt_fadd missing, rt_toadd missing ...])",
+     "sql": "(lf_fadd IS NULL)",
+     "support": 0.045,
+     "rows": 768,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname",
+      "f_st",
+      "rt_fadd"
+     ],
+     "cls": "pos",
+     "condition": "(lf_fadd missing [same rows: lf_toadd missing, rt_fadd missing, rt_toadd missing ...])",
+     "sql": "(lf_fadd IS NULL)",
+     "support": 0.045,
+     "rows": 768,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname_gc",
+      "street",
+      "t_st"
+     ],
+     "cls": "pos",
+     "condition": "(lf_fadd missing [same rows: lf_toadd missing, rt_fadd missing, rt_toadd missing ...])",
+     "sql": "(lf_fadd IS NULL)",
+     "support": 0.045,
+     "rows": 768,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "streetname_gc",
+      "street",
+      "f_st"
+     ],
+     "cls": "pos",
+     "condition": "(lf_fadd missing [same rows: lf_toadd missing, rt_fadd missing, rt_toadd missing ...])",
+     "sql": "(lf_fadd IS NULL)",
+     "support": 0.045,
+     "rows": 768,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street_gc",
+      "street",
+      "t_st"
+     ],
+     "cls": "pos",
+     "condition": "(lf_fadd missing [same rows: lf_toadd missing, rt_fadd missing, rt_toadd missing ...])",
+     "sql": "(lf_fadd IS NULL)",
+     "support": 0.045,
+     "rows": 768,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street_gc",
+      "street",
+      "f_st"
+     ],
+     "cls": "pos",
+     "condition": "(lf_fadd missing [same rows: lf_toadd missing, rt_fadd missing, rt_toadd missing ...])",
+     "sql": "(lf_fadd IS NULL)",
+     "support": 0.045,
+     "rows": 768,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "t_node_cnn",
+      "t_st"
+     ],
+     "cls": "pos",
+     "condition": "(lf_fadd missing [same rows: lf_toadd missing, rt_fadd missing, rt_toadd missing ...])",
+     "sql": "(lf_fadd IS NULL)",
+     "support": 0.045,
+     "rows": 768,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "t_node_cnn",
+      "f_st"
+     ],
+     "cls": "pos",
+     "condition": "(lf_fadd missing [same rows: lf_toadd missing, rt_fadd missing, rt_toadd missing ...])",
+     "sql": "(lf_fadd IS NULL)",
+     "support": 0.045,
+     "rows": 768,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "f_node_cnn",
+      "t_st"
+     ],
+     "cls": "pos",
+     "condition": "(lf_fadd missing [same rows: lf_toadd missing, rt_fadd missing, rt_toadd missing ...])",
+     "sql": "(lf_fadd IS NULL)",
+     "support": 0.045,
+     "rows": 768,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "f_node_cnn",
+      "f_st"
+     ],
+     "cls": "pos",
+     "condition": "(lf_fadd missing [same rows: lf_toadd missing, rt_fadd missing, rt_toadd missing ...])",
+     "sql": "(lf_fadd IS NULL)",
+     "support": 0.045,
+     "rows": 768,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "t_st",
+      "lf_toadd"
+     ],
+     "cls": "pos",
+     "condition": "(lf_fadd missing [same rows: lf_toadd missing, rt_fadd missing, rt_toadd missing ...])",
+     "sql": "(lf_fadd IS NULL)",
+     "support": 0.045,
+     "rows": 768,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "t_st",
+      "rt_toadd"
+     ],
+     "cls": "pos",
+     "condition": "(lf_fadd missing [same rows: lf_toadd missing, rt_fadd missing, rt_toadd missing ...])",
+     "sql": "(lf_fadd IS NULL)",
+     "support": 0.045,
+     "rows": 768,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "t_st",
+      "rt_fadd"
+     ],
+     "cls": "pos",
+     "condition": "(lf_fadd missing [same rows: lf_toadd missing, rt_fadd missing, rt_toadd missing ...])",
+     "sql": "(lf_fadd IS NULL)",
+     "support": 0.045,
+     "rows": 768,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "f_st",
+      "lf_toadd"
+     ],
+     "cls": "pos",
+     "condition": "(lf_fadd missing [same rows: lf_toadd missing, rt_fadd missing, rt_toadd missing ...])",
+     "sql": "(lf_fadd IS NULL)",
+     "support": 0.045,
+     "rows": 768,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "f_st",
+      "rt_toadd"
+     ],
+     "cls": "pos",
+     "condition": "(lf_fadd missing [same rows: lf_toadd missing, rt_fadd missing, rt_toadd missing ...])",
+     "sql": "(lf_fadd IS NULL)",
+     "support": 0.045,
+     "rows": 768,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33454",
+     "K": [
+      "street",
+      "f_st",
+      "rt_fadd"
+     ],
+     "cls": "pos",
+     "condition": "(lf_fadd missing [same rows: lf_toadd missing, rt_fadd missing, rt_toadd missing ...])",
+     "sql": "(lf_fadd IS NULL)",
+     "support": 0.045,
+     "rows": 768,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    }
+   ],
+   "unconditional": {
+    "cnn": "cand",
+    "streetname_gc,line": "dom",
+    "street_gc,line": "dom",
+    "line,t_node_cnn": "dom",
+    "line,f_node_cnn": "dom",
+    "line,lf_toadd": "dom",
+    "line,lf_fadd": "dom",
+    "line,rt_toadd": "dom",
+    "line,rt_fadd": "dom",
+    "streetname,streetname_gc,line": "dom",
+    "streetname,street_gc,line": "dom",
+    "streetname,line,t_node_cnn": "dom",
+    "streetname,line,f_node_cnn": "dom",
+    "streetname,line,lf_toadd": "dom",
+    "streetname,line,lf_fadd": "dom",
+    "streetname,line,rt_toadd": "dom",
+    "streetname,line,rt_fadd": "dom",
+    "streetname_gc,street_gc,line": "dom",
+    "streetname_gc,street,line": "dom",
+    "streetname_gc,line,t_node_cnn": "dom",
+    "streetname_gc,line,f_node_cnn": "dom",
+    "streetname_gc,line,t_st": "dom",
+    "streetname_gc,line,f_st": "dom",
+    "streetname_gc,line,lf_toadd": "dom",
+    "streetname_gc,line,lf_fadd": "dom",
+    "streetname_gc,line,rt_toadd": "dom",
+    "streetname_gc,line,rt_fadd": "dom",
+    "street_gc,street,line": "dom",
+    "street_gc,line,t_node_cnn": "dom",
+    "street_gc,line,f_node_cnn": "dom",
+    "street_gc,line,t_st": "dom",
+    "street_gc,line,f_st": "dom",
+    "street_gc,line,lf_toadd": "dom",
+    "street_gc,line,lf_fadd": "dom",
+    "street_gc,line,rt_toadd": "dom",
+    "street_gc,line,rt_fadd": "dom",
+    "street,line,t_node_cnn": "dom",
+    "street,line,f_node_cnn": "dom",
+    "street,line,lf_toadd": "dom",
+    "street,line,lf_fadd": "dom",
+    "street,line,rt_toadd": "dom",
+    "street,line,rt_fadd": "dom",
+    "line,t_node_cnn,f_node_cnn": "dom",
+    "line,t_node_cnn,t_st": "dom",
+    "line,t_node_cnn,f_st": "dom",
+    "line,t_node_cnn,lf_toadd": "dom",
+    "line,t_node_cnn,lf_fadd": "dom",
+    "line,t_node_cnn,rt_toadd": "dom",
+    "line,t_node_cnn,rt_fadd": "dom",
+    "line,f_node_cnn,t_st": "dom",
+    "line,f_node_cnn,f_st": "dom",
+    "line,f_node_cnn,lf_toadd": "dom",
+    "line,f_node_cnn,lf_fadd": "dom",
+    "line,f_node_cnn,rt_toadd": "dom",
+    "line,f_node_cnn,rt_fadd": "dom",
+    "line,t_st,lf_toadd": "dom",
+    "line,t_st,lf_fadd": "dom",
+    "line,t_st,rt_toadd": "dom",
+    "line,t_st,rt_fadd": "dom",
+    "line,f_st,lf_toadd": "dom",
+    "line,f_st,lf_fadd": "dom",
+    "line,f_st,rt_toadd": "dom",
+    "line,f_st,rt_fadd": "dom",
+    "line,lf_toadd,lf_fadd": "dom",
+    "line,lf_toadd,rt_toadd": "dom",
+    "line,lf_toadd,rt_fadd": "dom",
+    "line,lf_fadd,rt_toadd": "dom",
+    "line,lf_fadd,rt_fadd": "dom",
+    "line,rt_toadd,rt_fadd": "dom"
+   }
+  }
+ ]
+}

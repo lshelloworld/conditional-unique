@@ -1,0 +1,43 @@
+324 table occurrences with local predicates in 96 queries; 162 distinct conditions on 22 tables (1.5s)
+{
+ "demands": 181,
+ "hold at SF1": 125,
+ "hold at SF1 and SF10": 124,
+ "... not containing the primary key": 6,
+ "... and conditional (not a key without P)": 3
+}
+  q37 group    item: Ueq(i_current_price,i_item_desc,i_item_id) WHERE ("i_current_price" BETWEEN 68 AND 68 + 30) AND ("i_manufact_id" IN (677, 940, 694, 808)) scope 2 param None
+  q82 group    item: Ueq(i_current_price,i_item_desc,i_item_id) WHERE ("i_current_price" BETWEEN 62 AND 62 + 30) AND ("i_manufact_id" IN (129, 270, 821, 423)) scope 4 param None
+  q83 in       date_dim: U(d_week_seq) WHERE ("d_date" IN ('2000-06-30', '2000-09-27', '2000-11-17')) scope 3 param False
+{
+ "conditions x semantics": 256,
+ "minimal keys (<=2 cols)": 4068,
+ "conditional keys (not keys without P)": 1983,
+ "... also at SF10": 1382,
+ "conditions with a stable conditional key": 180,
+ "... of equalities/IN-lists": 124,
+ "stable conditional keys under equality/IN conditions": 794,
+ "... parameter-independent at SF1 and SF10": 232,
+ "stable conditional keys, scope <1000": 419,
+ "FixC ms total": 14090,
+ "stable conditional keys, scope <100": 844,
+ "stable conditional keys, scope >=1000": 119
+}
+  PARAM date_dim U WHERE ("d_year" = 2000): 1 e.g. [['d_dom', 'd_moy']]
+  PARAM date_dim Ueq WHERE ("d_year" = 2000): 1 e.g. [['d_dom', 'd_moy']]
+  PARAM date_dim U WHERE ("d_year" = 2001): 1 e.g. [['d_dom', 'd_moy']]
+  PARAM date_dim Ueq WHERE ("d_year" = 2001): 1 e.g. [['d_dom', 'd_moy']]
+  PARAM date_dim U WHERE ("d_moy" = 11): 10 e.g. [['d_same_day_lq'], ['d_day_name', 'd_fy_week_seq'], ['d_day_name', 'd_week_seq']]
+  PARAM date_dim Ueq WHERE ("d_moy" = 11): 10 e.g. [['d_same_day_lq'], ['d_day_name', 'd_fy_week_seq'], ['d_day_name', 'd_week_seq']]
+  PARAM date_dim U WHERE ("d_year" = 2001) AND ("d_moy" = 1): 6 e.g. [['d_dom'], ['d_same_day_lq'], ['d_day_name', 'd_fy_week_seq']]
+  PARAM date_dim Ueq WHERE ("d_year" = 2001) AND ("d_moy" = 1): 6 e.g. [['d_dom'], ['d_same_day_lq'], ['d_day_name', 'd_fy_week_seq']]
+  PARAM date_dim U WHERE ("d_qoy" = 2) AND ("d_year" = 1998): 1 e.g. [['d_dom', 'd_moy']]
+  PARAM date_dim Ueq WHERE ("d_qoy" = 2) AND ("d_year" = 1998): 1 e.g. [['d_dom', 'd_moy']]
+  PARAM date_dim U WHERE ("d_qoy" = 2) AND ("d_year" = 2001): 1 e.g. [['d_dom', 'd_moy']]
+  PARAM date_dim Ueq WHERE ("d_qoy" = 2) AND ("d_year" = 2001): 1 e.g. [['d_dom', 'd_moy']]
+  item Ueq WHERE ("i_item_sk" IN (2, 3, 5, 7, 11, 13, 17, 19, 23, 29)): scope 10, 70 stable conditional, e.g. [['i_brand'], ['i_class'], ['i_current_price']]
+  item U WHERE ("i_item_sk" IN (2, 3, 5, 7, 11, 13, 17, 19, 23, 29)): scope 10, 67 stable conditional, e.g. [['i_brand'], ['i_class'], ['i_current_price']]
+  item Ueq WHERE ("i_manufact_id" = 350): scope 25, 33 stable conditional, e.g. [['i_product_name'], ['i_brand_id', 'i_color'], ['i_brand_id', 'i_current_price']]
+  item U WHERE ("i_manufact_id" = 350): scope 25, 32 stable conditional, e.g. [['i_brand_id', 'i_color'], ['i_brand_id', 'i_current_price'], ['i_category', 'i_current_price']]
+  item Ueq WHERE ("i_manufact_id" = 128): scope 39, 28 stable conditional, e.g. [['i_product_name'], ['i_brand', 'i_current_price'], ['i_brand', 'i_formulation']]
+  item U WHERE ("i_manufact_id" = 128): scope 39, 27 stable conditional, e.g. [['i_brand', 'i_current_price'], ['i_brand', 'i_formulation'], ['i_brand', 'i_item_desc']]

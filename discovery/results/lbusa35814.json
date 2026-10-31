@@ -1,0 +1,7572 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "Total_Hosp_Per100K",
+   "Total_Enrl",
+   "Avg_LOS",
+   "Total_Hosp",
+   "Pct_Dschrg_Home",
+   "Pct_Dschrg_SNF",
+   "Pct_Dschrg_Expired",
+   "Pct_Dschrg_HomeHealth",
+   "Pct_Dschrg_Other",
+   "Pct_Dschrg_Hspc"
+  ]
+ },
+ "sample_rows": 45713,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbusa.t35814",
+   "rows": 45713,
+   "cols": [
+    "Year",
+    "Month",
+    "Bene_Geo_Desc",
+    "Bene_Mdcd_Mdcr_Enrl_Stus",
+    "Bene_Race_Desc",
+    "Bene_Sex_Desc",
+    "Bene_Mdcr_Entlmt_Stus",
+    "Bene_Age_Desc",
+    "Bene_RUCA_Desc",
+    "Total_Hosp",
+    "Total_Enrl",
+    "Total_Hosp_Per100K",
+    "Avg_LOS",
+    "Pct_Dschrg_SNF",
+    "Pct_Dschrg_Expired",
+    "Pct_Dschrg_Home",
+    "Pct_Dschrg_Hspc",
+    "Pct_Dschrg_HomeHealth",
+    "Pct_Dschrg_Other"
+   ],
+   "n_conditional": 444,
+   "conditional": [
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Race_Desc = \"All\" (67%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Race_Desc = 'All' AND Avg_LOS IS NOT NULL)",
+     "support": 0.575,
+     "rows": 26263,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.592,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Bene_Race_Desc=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Avg_LOS"
+     ],
+     "cls": "cand",
+     "condition": "(Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Avg_LOS IS NOT NULL)",
+     "support": 0.77,
+     "rows": 35211,
+     "uncond": "pos",
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 1.185,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Year = \"2021\" (39%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Year = '2021' AND Avg_LOS IS NOT NULL)",
+     "support": 0.315,
+     "rows": 14391,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.178,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Year = \"2022\" (21%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Year = '2022' AND Avg_LOS IS NOT NULL)",
+     "support": 0.17,
+     "rows": 7751,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.865,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Year=v3": "2022"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Mdcd_Mdcr_Enrl_Stus = \"Medicare Only\" (6%))",
+     "sql": "(Bene_Mdcd_Mdcr_Enrl_Stus = 'Medicare Only')",
+     "support": 0.058,
+     "rows": 2660,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.844,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Bene_Mdcd_Mdcr_Enrl_Stus=v3": "Medicare Only"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"All\" (85%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'All' AND Avg_LOS IS NOT NULL)",
+     "support": 0.644,
+     "rows": 29435,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.843,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "dom",
+     "condition": "(Year = \"2020\" (39%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Year = '2020' AND Avg_LOS IS NOT NULL)",
+     "support": 0.286,
+     "rows": 13069,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.0,
+     "score": 0.834,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Year=v1": "2020"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Race_Desc = \"All\" (67%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Race_Desc = 'All' AND Avg_LOS IS NOT NULL)",
+     "support": 0.575,
+     "rows": 26263,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.796,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Bene_Race_Desc=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Race_Desc = \"All\" (67%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Race_Desc = 'All' AND Avg_LOS IS NOT NULL)",
+     "support": 0.575,
+     "rows": 26263,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.796,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Bene_Race_Desc=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Race_Desc = \"All\" (67%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Race_Desc = 'All' AND Avg_LOS IS NOT NULL)",
+     "support": 0.575,
+     "rows": 26263,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.796,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Bene_Race_Desc=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Race_Desc = \"All\" (67%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Race_Desc = 'All' AND Avg_LOS IS NOT NULL)",
+     "support": 0.575,
+     "rows": 26263,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.796,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Bene_Race_Desc=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "pos",
+     "condition": "(Total_Hosp missing [same rows: Total_Hosp_Per100K missing])",
+     "sql": "(Total_Hosp IS NULL)",
+     "support": 0.202,
+     "rows": 9217,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.788,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Age_Desc = \"75-84\" (5%))",
+     "sql": "(Bene_Age_Desc = '75-84')",
+     "support": 0.05,
+     "rows": 2280,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.782,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Bene_Age_Desc=v4": "75-84"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "dom",
+     "condition": "(Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Avg_LOS IS NOT NULL)",
+     "support": 0.77,
+     "rows": 35211,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.0,
+     "score": 0.685,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "dom",
+     "condition": "(Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Avg_LOS IS NOT NULL)",
+     "support": 0.77,
+     "rows": 35211,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.0,
+     "score": 0.685,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "dom",
+     "condition": "(Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Avg_LOS IS NOT NULL)",
+     "support": 0.77,
+     "rows": 35211,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.0,
+     "score": 0.685,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"Overall\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = 'Overall' AND Avg_LOS IS NOT NULL)",
+     "support": 0.069,
+     "rows": 3158,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.613,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Month=v8": "Overall"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "cand",
+     "condition": "(Year = \"2021\" (39%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Year = '2021' AND Avg_LOS IS NOT NULL)",
+     "support": 0.315,
+     "rows": 14391,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.589,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "cand",
+     "condition": "(Year = \"2021\" (39%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Year = '2021' AND Avg_LOS IS NOT NULL)",
+     "support": 0.315,
+     "rows": 14391,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.589,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "cand",
+     "condition": "(Year = \"2021\" (39%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Year = '2021' AND Avg_LOS IS NOT NULL)",
+     "support": 0.315,
+     "rows": 14391,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.589,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "cand",
+     "condition": "(Year = \"2020\" (39%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Year = '2020' AND Avg_LOS IS NOT NULL)",
+     "support": 0.286,
+     "rows": 13069,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.561,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Year=v1": "2020"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "cand",
+     "condition": "(Year = \"2020\" (39%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Year = '2020' AND Avg_LOS IS NOT NULL)",
+     "support": 0.286,
+     "rows": 13069,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.561,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Year=v1": "2020"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "cand",
+     "condition": "(Year = \"2020\" (39%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Year = '2020' AND Avg_LOS IS NOT NULL)",
+     "support": 0.286,
+     "rows": 13069,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.561,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Year=v1": "2020"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "dom",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"All\" (85%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'All' AND Avg_LOS IS NOT NULL)",
+     "support": 0.644,
+     "rows": 29435,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.0,
+     "score": 0.556,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "pos",
+     "condition": "Bene_Mdcr_Entlmt_Stus in {\"All\", \"Aged\"}",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'All') OR (Bene_Mdcr_Entlmt_Stus = 'Aged')",
+     "support": 0.9,
+     "rows": 41153,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.232,
+     "score": 0.555,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v1": "All",
+      "Bene_Mdcr_Entlmt_Stus=v2": "Aged"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "pos",
+     "condition": "(Year = \"2021\" (39%))",
+     "sql": "(Year = '2021')",
+     "support": 0.395,
+     "rows": 18045,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.202,
+     "score": 0.551,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"First half\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = 'First half' AND Avg_LOS IS NOT NULL)",
+     "support": 0.067,
+     "rows": 3067,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.544,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Month=v7": "First half"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Race_Desc = \"Non-Hispanic White\" (5%), Total_Hosp present [same rows: Total_Hosp_Per100K present])",
+     "sql": "(Bene_Race_Desc = 'Non-Hispanic White' AND Total_Hosp IS NOT NULL)",
+     "support": 0.053,
+     "rows": 2405,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.535,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Bene_Race_Desc=v6": "Non-Hispanic White"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Race_Desc = \"Non-Hispanic White\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Race_Desc = 'Non-Hispanic White' AND Avg_LOS IS NOT NULL)",
+     "support": 0.052,
+     "rows": 2398,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.534,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Bene_Race_Desc=v6": "Non-Hispanic White"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "cand",
+     "condition": "(Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Avg_LOS IS NOT NULL)",
+     "support": 0.77,
+     "rows": 35211,
+     "uncond": "pos",
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.527,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "cand",
+     "condition": "(Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Avg_LOS IS NOT NULL)",
+     "support": 0.77,
+     "rows": 35211,
+     "uncond": "pos",
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.527,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "cand",
+     "condition": "(Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Avg_LOS IS NOT NULL)",
+     "support": 0.77,
+     "rows": 35211,
+     "uncond": "pos",
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.527,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "cand",
+     "condition": "(Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Avg_LOS IS NOT NULL)",
+     "support": 0.77,
+     "rows": 35211,
+     "uncond": "pos",
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.527,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "cand",
+     "condition": "(Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Avg_LOS IS NOT NULL)",
+     "support": 0.77,
+     "rows": 35211,
+     "uncond": "pos",
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.527,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "dom",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"Aged\" (5%))",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'Aged')",
+     "support": 0.05,
+     "rows": 2280,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.039,
+     "score": 0.523,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v2": "Aged"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "dom",
+     "condition": "(Bene_RUCA_Desc = \"Urban\" (5%))",
+     "sql": "(Bene_RUCA_Desc = 'Urban')",
+     "support": 0.05,
+     "rows": 2280,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.046,
+     "score": 0.523,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Bene_RUCA_Desc=v3": "Urban"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"5\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '5' AND Avg_LOS IS NOT NULL)",
+     "support": 0.059,
+     "rows": 2696,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.51,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Month=v5": "5"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"4\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '4' AND Avg_LOS IS NOT NULL)",
+     "support": 0.059,
+     "rows": 2688,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.509,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Month=v4": "4"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"3\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '3' AND Avg_LOS IS NOT NULL)",
+     "support": 0.057,
+     "rows": 2623,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.503,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Month=v3": "3"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"Second half\" (5%), Total_Hosp present [same rows: Total_Hosp_Per100K present])",
+     "sql": "(Month = 'Second half' AND Total_Hosp IS NOT NULL)",
+     "support": 0.046,
+     "rows": 2103,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.5,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Month=v15": "Second half"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"Second half\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = 'Second half' AND Avg_LOS IS NOT NULL)",
+     "support": 0.046,
+     "rows": 2092,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.499,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v15": "Second half"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "dom",
+     "condition": "Bene_Sex_Desc in {\"Female\", \"Male\"}",
+     "sql": "(Bene_Sex_Desc = 'Female') OR (Bene_Sex_Desc = 'Male')",
+     "support": 0.1,
+     "rows": 4560,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.053,
+     "score": 0.493,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Sex_Desc=v2": "Female",
+      "Bene_Sex_Desc=v3": "Male"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"12\" (5%), Total_Hosp present [same rows: Total_Hosp_Per100K present])",
+     "sql": "(Month = '12' AND Total_Hosp IS NOT NULL)",
+     "support": 0.044,
+     "rows": 2021,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.491,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v14": "12"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Mdcd_Mdcr_Enrl_Stus = \"Medicare & Medicaid\" (6%), Total_Hosp present [same rows: Total_Hosp_Per100K present])",
+     "sql": "(Bene_Mdcd_Mdcr_Enrl_Stus = 'Medicare & Medicaid' AND Total_Hosp IS NOT NULL)",
+     "support": 0.054,
+     "rows": 2484,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.49,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcd_Mdcr_Enrl_Stus=v2": "Medicare & Medicaid"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"12\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '12' AND Avg_LOS IS NOT NULL)",
+     "support": 0.044,
+     "rows": 1999,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.488,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v14": "12"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"1\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '1' AND Avg_LOS IS NOT NULL)",
+     "support": 0.054,
+     "rows": 2466,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.488,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v1": "1"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"10\" (5%), Total_Hosp present [same rows: Total_Hosp_Per100K present])",
+     "sql": "(Month = '10' AND Total_Hosp IS NOT NULL)",
+     "support": 0.043,
+     "rows": 1967,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.484,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v12": "10"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"10\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '10' AND Avg_LOS IS NOT NULL)",
+     "support": 0.042,
+     "rows": 1932,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.48,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v12": "10"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"9\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '9' AND Avg_LOS IS NOT NULL)",
+     "support": 0.042,
+     "rows": 1914,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.477,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v11": "9"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "pos",
+     "condition": "Year in {\"2020\", \"2021\"}",
+     "sql": "(Year = '2020') OR (Year = '2021')",
+     "support": 0.789,
+     "rows": 36090,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.239,
+     "score": 0.462,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Year=v1": "2020",
+      "Year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "pos",
+     "condition": "Year in {\"2020\", \"2021\"}",
+     "sql": "(Year = '2020') OR (Year = '2021')",
+     "support": 0.789,
+     "rows": 36090,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.239,
+     "score": 0.462,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Year=v1": "2020",
+      "Year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl",
+      "Pct_Dschrg_Hspc"
+     ],
+     "cls": "pos",
+     "condition": "Year in {\"2020\", \"2021\"}",
+     "sql": "(Year = '2020') OR (Year = '2021')",
+     "support": 0.789,
+     "rows": 36090,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.239,
+     "score": 0.462,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Year=v1": "2020",
+      "Year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "pos",
+     "condition": "Year in {\"2021\", \"2022\"}",
+     "sql": "(Year = '2021') OR (Year = '2022')",
+     "support": 0.605,
+     "rows": 27668,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.2,
+     "score": 0.455,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Year=v2": "2021",
+      "Year=v3": "2022"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "pos",
+     "condition": "Year in {\"2020\", \"2022\"}",
+     "sql": "(Year = '2020') OR (Year = '2022')",
+     "support": 0.605,
+     "rows": 27668,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.248,
+     "score": 0.455,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Year=v1": "2020",
+      "Year=v3": "2022"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "pos",
+     "condition": "Year in {\"2020\", \"2022\"}",
+     "sql": "(Year = '2020') OR (Year = '2022')",
+     "support": 0.605,
+     "rows": 27668,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.248,
+     "score": 0.455,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Year=v1": "2020",
+      "Year=v3": "2022"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "pos",
+     "condition": "Year in {\"2020\", \"2022\"}",
+     "sql": "(Year = '2020') OR (Year = '2022')",
+     "support": 0.605,
+     "rows": 27668,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.248,
+     "score": 0.455,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Year=v1": "2020",
+      "Year=v3": "2022"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "dom",
+     "condition": "Bene_Age_Desc in {\"65-74\", \"75-84\", \"85 and over\"}",
+     "sql": "(Bene_Age_Desc = '65-74') OR (Bene_Age_Desc = '75-84') OR (Bene_Age_Desc = '85 and over')",
+     "support": 0.15,
+     "rows": 6840,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.078,
+     "score": 0.453,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Age_Desc=v3": "65-74",
+      "Bene_Age_Desc=v4": "75-84",
+      "Bene_Age_Desc=v5": "85 and over"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Age_Desc = \"0-64\" (5%), Total_Hosp present [same rows: Total_Hosp_Per100K present])",
+     "sql": "(Bene_Age_Desc = '0-64' AND Total_Hosp IS NOT NULL)",
+     "support": 0.045,
+     "rows": 2040,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.444,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Age_Desc=v2": "0-64"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_RUCA_Desc = \"Rural\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_RUCA_Desc = 'Rural' AND Avg_LOS IS NOT NULL)",
+     "support": 0.044,
+     "rows": 2027,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.442,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_RUCA_Desc=v2": "Rural"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Age_Desc = \"0-64\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Age_Desc = '0-64' AND Avg_LOS IS NOT NULL)",
+     "support": 0.044,
+     "rows": 2019,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.441,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Age_Desc=v2": "0-64"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"11\" (5%), Total_Hosp present [same rows: Total_Hosp_Per100K present])",
+     "sql": "(Month = '11' AND Total_Hosp IS NOT NULL)",
+     "support": 0.044,
+     "rows": 1997,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.439,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v13": "11"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"Second half\" (5%), Bene_Race_Desc = \"All\" (67%))",
+     "sql": "(Month = 'Second half' AND Bene_Race_Desc = 'All')",
+     "support": 0.035,
+     "rows": 1614,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.438,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v15": "Second half",
+      "Bene_Race_Desc=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Race_Desc = \"Black/African American\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Race_Desc = 'Black/African American' AND Avg_LOS IS NOT NULL)",
+     "support": 0.043,
+     "rows": 1963,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.435,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v4": "Black/African American"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"11\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '11' AND Avg_LOS IS NOT NULL)",
+     "support": 0.043,
+     "rows": 1960,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.435,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v13": "11"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "cand",
+     "condition": "(Year = \"2022\" (21%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Year = '2022' AND Avg_LOS IS NOT NULL)",
+     "support": 0.17,
+     "rows": 7751,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.432,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Year=v3": "2022"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "cand",
+     "condition": "(Year = \"2022\" (21%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Year = '2022' AND Avg_LOS IS NOT NULL)",
+     "support": 0.17,
+     "rows": 7751,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.432,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Year=v3": "2022"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "cand",
+     "condition": "(Year = \"2022\" (21%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Year = '2022' AND Avg_LOS IS NOT NULL)",
+     "support": 0.17,
+     "rows": 7751,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.432,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Year=v3": "2022"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "cand",
+     "condition": "(Year = \"2022\" (21%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Year = '2022' AND Avg_LOS IS NOT NULL)",
+     "support": 0.17,
+     "rows": 7751,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.432,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Year=v3": "2022"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "cand",
+     "condition": "(Year = \"2022\" (21%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Year = '2022' AND Avg_LOS IS NOT NULL)",
+     "support": 0.17,
+     "rows": 7751,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.432,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Year=v3": "2022"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "cand",
+     "condition": "(Year = \"2022\" (21%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Year = '2022' AND Avg_LOS IS NOT NULL)",
+     "support": 0.17,
+     "rows": 7751,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.432,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Year=v3": "2022"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Race_Desc = \"Hispanic\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Race_Desc = 'Hispanic' AND Avg_LOS IS NOT NULL)",
+     "support": 0.042,
+     "rows": 1909,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.429,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v5": "Hispanic"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"8\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '8' AND Avg_LOS IS NOT NULL)",
+     "support": 0.041,
+     "rows": 1893,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.427,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v10": "8"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "pos",
+     "condition": "(Avg_LOS missing [same rows: Pct_Dschrg_SNF missing, Pct_Dschrg_Expired missing, Pct_Dschrg_Home missing ...])",
+     "sql": "(Avg_LOS IS NULL)",
+     "support": 0.23,
+     "rows": 10502,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.421,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "pos",
+     "condition": "(Avg_LOS missing [same rows: Pct_Dschrg_SNF missing, Pct_Dschrg_Expired missing, Pct_Dschrg_Home missing ...])",
+     "sql": "(Avg_LOS IS NULL)",
+     "support": 0.23,
+     "rows": 10502,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.421,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "pos",
+     "condition": "(Avg_LOS missing [same rows: Pct_Dschrg_SNF missing, Pct_Dschrg_Expired missing, Pct_Dschrg_Home missing ...])",
+     "sql": "(Avg_LOS IS NULL)",
+     "support": 0.23,
+     "rows": 10502,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.421,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "pos",
+     "condition": "(Avg_LOS missing [same rows: Pct_Dschrg_SNF missing, Pct_Dschrg_Expired missing, Pct_Dschrg_Home missing ...])",
+     "sql": "(Avg_LOS IS NULL)",
+     "support": 0.23,
+     "rows": 10502,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.421,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "pos",
+     "condition": "(Avg_LOS missing [same rows: Pct_Dschrg_SNF missing, Pct_Dschrg_Expired missing, Pct_Dschrg_Home missing ...])",
+     "sql": "(Avg_LOS IS NULL)",
+     "support": 0.23,
+     "rows": 10502,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.421,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Hspc"
+     ],
+     "cls": "pos",
+     "condition": "(Avg_LOS missing [same rows: Pct_Dschrg_SNF missing, Pct_Dschrg_Expired missing, Pct_Dschrg_Home missing ...])",
+     "sql": "(Avg_LOS IS NULL)",
+     "support": 0.23,
+     "rows": 10502,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.421,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"Disabled\" (5%), Total_Hosp present [same rows: Total_Hosp_Per100K present])",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'Disabled' AND Total_Hosp IS NOT NULL)",
+     "support": 0.04,
+     "rows": 1821,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.419,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v3": "Disabled"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "dom",
+     "condition": "(Year = \"2020\" (39%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Year = '2020' AND Avg_LOS IS NOT NULL)",
+     "support": 0.286,
+     "rows": 13069,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.0,
+     "score": 0.417,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Year=v1": "2020"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"Disabled\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'Disabled' AND Avg_LOS IS NOT NULL)",
+     "support": 0.039,
+     "rows": 1796,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.416,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v3": "Disabled"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"ESRD\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'ESRD' AND Avg_LOS IS NOT NULL)",
+     "support": 0.039,
+     "rows": 1792,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.416,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v4": "ESRD"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"7\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '7' AND Avg_LOS IS NOT NULL)",
+     "support": 0.039,
+     "rows": 1770,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.413,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v9": "7"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "pos",
+     "condition": "(Bene_Race_Desc = \"All\" (67%), Bene_Age_Desc = \"All\" (80%))",
+     "sql": "(Bene_Race_Desc = 'All' AND Bene_Age_Desc = 'All')",
+     "support": 0.491,
+     "rows": 22457,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.166,
+     "score": 0.41,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v1": "All",
+      "Bene_Age_Desc=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "dom",
+     "condition": "(Month = \"First half\" (8%), Bene_RUCA_Desc = \"All\" (85%))",
+     "sql": "(Month = 'First half' AND Bene_RUCA_Desc = 'All')",
+     "support": 0.067,
+     "rows": 3069,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.108,
+     "score": 0.404,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v7": "First half",
+      "Bene_RUCA_Desc=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "pos",
+     "condition": "(Month = \"11\" (5%))",
+     "sql": "(Month = '11')",
+     "support": 0.053,
+     "rows": 2406,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.17,
+     "score": 0.403,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v13": "11"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "pos",
+     "condition": "(Month = \"12\" (5%))",
+     "sql": "(Month = '12')",
+     "support": 0.053,
+     "rows": 2406,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.16,
+     "score": 0.403,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v14": "12"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "pos",
+     "condition": "(Year = \"2022\" (21%))",
+     "sql": "(Year = '2022')",
+     "support": 0.211,
+     "rows": 9623,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.195,
+     "score": 0.403,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Year=v3": "2022"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "pos",
+     "condition": "Bene_Mdcd_Mdcr_Enrl_Stus in {\"Medicare & Medicaid\", \"Medicare Only\"}",
+     "sql": "(Bene_Mdcd_Mdcr_Enrl_Stus = 'Medicare & Medicaid') OR (Bene_Mdcd_Mdcr_Enrl_Stus = 'Medicare Only')",
+     "support": 0.116,
+     "rows": 5320,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.067,
+     "score": 0.399,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcd_Mdcr_Enrl_Stus=v2": "Medicare & Medicaid",
+      "Bene_Mdcd_Mdcr_Enrl_Stus=v3": "Medicare Only"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "pos",
+     "condition": "(Total_Hosp missing [same rows: Total_Hosp_Per100K missing])",
+     "sql": "(Total_Hosp IS NULL)",
+     "support": 0.202,
+     "rows": 9217,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.394,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "pos",
+     "condition": "(Total_Hosp missing [same rows: Total_Hosp_Per100K missing])",
+     "sql": "(Total_Hosp IS NULL)",
+     "support": 0.202,
+     "rows": 9217,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.394,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "pos",
+     "condition": "(Total_Hosp missing [same rows: Total_Hosp_Per100K missing])",
+     "sql": "(Total_Hosp IS NULL)",
+     "support": 0.202,
+     "rows": 9217,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.394,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "pos",
+     "condition": "(Total_Hosp missing [same rows: Total_Hosp_Per100K missing])",
+     "sql": "(Total_Hosp IS NULL)",
+     "support": 0.202,
+     "rows": 9217,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.394,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "pos",
+     "condition": "(Total_Hosp missing [same rows: Total_Hosp_Per100K missing])",
+     "sql": "(Total_Hosp IS NULL)",
+     "support": 0.202,
+     "rows": 9217,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.394,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Hspc"
+     ],
+     "cls": "pos",
+     "condition": "(Total_Hosp missing [same rows: Total_Hosp_Per100K missing])",
+     "sql": "(Total_Hosp IS NULL)",
+     "support": 0.202,
+     "rows": 9217,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.394,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "pos",
+     "condition": "Bene_Race_Desc in {\"Non-Hispanic White\", \"Other/Unknown\"}",
+     "sql": "(Bene_Race_Desc = 'Non-Hispanic White') OR (Bene_Race_Desc = 'Other/Unknown')",
+     "support": 0.11,
+     "rows": 5016,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.521,
+     "score": 0.388,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v6": "Non-Hispanic White",
+      "Bene_Race_Desc=v7": "Other/Unknown"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "pos",
+     "condition": "Bene_Mdcr_Entlmt_Stus in {\"All\", \"Aged\", \"Disabled\"}",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'All') OR (Bene_Mdcr_Entlmt_Stus = 'Aged') OR (Bene_Mdcr_Entlmt_Stus = 'Disabled')",
+     "support": 0.95,
+     "rows": 43433,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.231,
+     "score": 0.38,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v1": "All",
+      "Bene_Mdcr_Entlmt_Stus=v2": "Aged",
+      "Bene_Mdcr_Entlmt_Stus=v3": "Disabled"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "pos",
+     "condition": "Month in {\"10\", \"Second half\"}",
+     "sql": "(Month = '10') OR (Month = 'Second half')",
+     "support": 0.105,
+     "rows": 4812,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.154,
+     "score": 0.38,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v12": "10",
+      "Month=v15": "Second half"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"All\" (85%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'All' AND Avg_LOS IS NOT NULL)",
+     "support": 0.644,
+     "rows": 29435,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.374,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "pos",
+     "condition": "Bene_Mdcr_Entlmt_Stus in {\"Aged\", \"Disabled\"}",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'Aged') OR (Bene_Mdcr_Entlmt_Stus = 'Disabled')",
+     "support": 0.1,
+     "rows": 4560,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.12,
+     "score": 0.37,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v2": "Aged",
+      "Bene_Mdcr_Entlmt_Stus=v3": "Disabled"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "pos",
+     "condition": "Bene_RUCA_Desc in {\"Urban\", \"Unknown\"}",
+     "sql": "(Bene_RUCA_Desc = 'Urban') OR (Bene_RUCA_Desc = 'Unknown')",
+     "support": 0.1,
+     "rows": 4560,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.523,
+     "score": 0.37,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_RUCA_Desc=v3": "Urban",
+      "Bene_RUCA_Desc=v4": "Unknown"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "dom",
+     "condition": "(Bene_Mdcd_Mdcr_Enrl_Stus = \"Medicare & Medicaid\" (6%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Mdcd_Mdcr_Enrl_Stus = 'Medicare & Medicaid' AND Avg_LOS IS NOT NULL)",
+     "support": 0.054,
+     "rows": 2477,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.0,
+     "score": 0.363,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcd_Mdcr_Enrl_Stus=v2": "Medicare & Medicaid"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Age_Desc = \"All\" (80%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Age_Desc = 'All' AND Avg_LOS IS NOT NULL)",
+     "support": 0.589,
+     "rows": 26930,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.358,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Age_Desc=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl",
+      "Pct_Dschrg_Hspc"
+     ],
+     "cls": "pos",
+     "condition": "(Year = \"2022\" (21%))",
+     "sql": "(Year = '2022')",
+     "support": 0.211,
+     "rows": 9623,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.195,
+     "score": 0.358,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Year=v3": "2022"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF",
+      "Pct_Dschrg_Hspc"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Race_Desc = \"All\" (67%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Race_Desc = 'All' AND Avg_LOS IS NOT NULL)",
+     "support": 0.575,
+     "rows": 26263,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.354,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired",
+      "Pct_Dschrg_Hspc"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Race_Desc = \"All\" (67%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Race_Desc = 'All' AND Avg_LOS IS NOT NULL)",
+     "support": 0.575,
+     "rows": 26263,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.354,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "dom",
+     "condition": "(Month = \"2\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '2' AND Avg_LOS IS NOT NULL)",
+     "support": 0.051,
+     "rows": 2327,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.0,
+     "score": 0.352,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v2": "2"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "dom",
+     "condition": "(Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Avg_LOS IS NOT NULL)",
+     "support": 0.77,
+     "rows": 35211,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.0,
+     "score": 0.342,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "dom",
+     "condition": "(Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Avg_LOS IS NOT NULL)",
+     "support": 0.77,
+     "rows": 35211,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.0,
+     "score": 0.342,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "dom",
+     "condition": "(Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Avg_LOS IS NOT NULL)",
+     "support": 0.77,
+     "rows": 35211,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.0,
+     "score": 0.342,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "dom",
+     "condition": "(Month = \"Second half\" (5%), Bene_RUCA_Desc = \"All\" (85%))",
+     "sql": "(Month = 'Second half' AND Bene_RUCA_Desc = 'All')",
+     "support": 0.045,
+     "rows": 2046,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.087,
+     "score": 0.33,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v15": "Second half",
+      "Bene_RUCA_Desc=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "pos",
+     "condition": "Bene_Age_Desc in {\"0-64\", \"65-74\", \"75-84\", \"85 and over\"}",
+     "sql": "(Bene_Age_Desc = '0-64') OR (Bene_Age_Desc = '65-74') OR (Bene_Age_Desc = '75-84') OR (Bene_Age_Desc = '85 and over')",
+     "support": 0.2,
+     "rows": 9120,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.085,
+     "score": 0.314,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Age_Desc=v2": "0-64",
+      "Bene_Age_Desc=v3": "65-74",
+      "Bene_Age_Desc=v4": "75-84",
+      "Bene_Age_Desc=v5": "85 and over"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "pos",
+     "condition": "(Year = \"2021\" (39%), Bene_Race_Desc = \"All\" (67%))",
+     "sql": "(Year = '2021' AND Bene_Race_Desc = 'All')",
+     "support": 0.265,
+     "rows": 12105,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.112,
+     "score": 0.301,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Year=v2": "2021",
+      "Bene_Race_Desc=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "dom",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"All\" (85%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'All' AND Avg_LOS IS NOT NULL)",
+     "support": 0.644,
+     "rows": 29435,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.0,
+     "score": 0.278,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "pos",
+     "condition": "Bene_Race_Desc in {\"All\", \"Black/African American\", \"Hispanic\", \"Non-Hispanic White\", \"Other/Unknown\"}",
+     "sql": "(Bene_Race_Desc = 'All') OR (Bene_Race_Desc = 'Black/African American') OR (Bene_Race_Desc = 'Hispanic') OR (Bene_Race_Desc = 'Non-Hispanic White') OR (Bene_Race_Desc = 'Other/Unknown')",
+     "support": 0.89,
+     "rows": 40697,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.201,
+     "score": 0.276,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v1": "All",
+      "Bene_Race_Desc=v4": "Black/African American",
+      "Bene_Race_Desc=v5": "Hispanic",
+      "Bene_Race_Desc=v6": "Non-Hispanic White",
+      "Bene_Race_Desc=v7": "Other/Unknown"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "pos",
+     "condition": "Bene_Race_Desc in {\"All\", \"Asian/Pacific Islander\", \"Black/African American\", \"Non-Hispanic White\", \"Other/Unknown\"}",
+     "sql": "(Bene_Race_Desc = 'All') OR (Bene_Race_Desc = 'Asian/Pacific Islander') OR (Bene_Race_Desc = 'Black/African American') OR (Bene_Race_Desc = 'Non-Hispanic White') OR (Bene_Race_Desc = 'Other/Unknown')",
+     "support": 0.89,
+     "rows": 40697,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.21,
+     "score": 0.276,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v1": "All",
+      "Bene_Race_Desc=v3": "Asian/Pacific Islander",
+      "Bene_Race_Desc=v4": "Black/African American",
+      "Bene_Race_Desc=v6": "Non-Hispanic White",
+      "Bene_Race_Desc=v7": "Other/Unknown"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"First half\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = 'First half' AND Avg_LOS IS NOT NULL)",
+     "support": 0.067,
+     "rows": 3067,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.272,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v7": "First half"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"First half\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = 'First half' AND Avg_LOS IS NOT NULL)",
+     "support": 0.067,
+     "rows": 3067,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.272,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v7": "First half"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"First half\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = 'First half' AND Avg_LOS IS NOT NULL)",
+     "support": 0.067,
+     "rows": 3067,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.272,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v7": "First half"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"First half\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = 'First half' AND Avg_LOS IS NOT NULL)",
+     "support": 0.067,
+     "rows": 3067,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.272,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v7": "First half"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"First half\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = 'First half' AND Avg_LOS IS NOT NULL)",
+     "support": 0.067,
+     "rows": 3067,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.272,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v7": "First half"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"First half\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = 'First half' AND Avg_LOS IS NOT NULL)",
+     "support": 0.067,
+     "rows": 3067,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.272,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v7": "First half"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "pos",
+     "condition": "(Month = \"1\" (8%), Bene_Race_Desc = \"All\" (67%))",
+     "sql": "(Month = '1' AND Bene_Race_Desc = 'All')",
+     "support": 0.053,
+     "rows": 2421,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.219,
+     "score": 0.269,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v1": "1",
+      "Bene_Race_Desc=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "pos",
+     "condition": "(Month = \"2\" (8%), Bene_Race_Desc = \"All\" (67%))",
+     "sql": "(Month = '2' AND Bene_Race_Desc = 'All')",
+     "support": 0.053,
+     "rows": 2421,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.248,
+     "score": 0.269,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v2": "2",
+      "Bene_Race_Desc=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "pos",
+     "condition": "(Month = \"3\" (8%), Bene_Race_Desc = \"All\" (67%))",
+     "sql": "(Month = '3' AND Bene_Race_Desc = 'All')",
+     "support": 0.053,
+     "rows": 2421,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.16,
+     "score": 0.269,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v3": "3",
+      "Bene_Race_Desc=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "pos",
+     "condition": "(Month = \"4\" (8%), Bene_Race_Desc = \"All\" (67%))",
+     "sql": "(Month = '4' AND Bene_Race_Desc = 'All')",
+     "support": 0.053,
+     "rows": 2421,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.146,
+     "score": 0.269,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v4": "4",
+      "Bene_Race_Desc=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "pos",
+     "condition": "(Month = \"5\" (8%), Bene_Race_Desc = \"All\" (67%))",
+     "sql": "(Month = '5' AND Bene_Race_Desc = 'All')",
+     "support": 0.053,
+     "rows": 2421,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.143,
+     "score": 0.269,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v5": "5",
+      "Bene_Race_Desc=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "cand",
+     "condition": "(Year = \"2021\" (39%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Year = '2021' AND Avg_LOS IS NOT NULL)",
+     "support": 0.315,
+     "rows": 14391,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.262,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "dom",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"Aged\" (5%))",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'Aged')",
+     "support": 0.05,
+     "rows": 2280,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.039,
+     "score": 0.261,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v2": "Aged"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "dom",
+     "condition": "(Bene_RUCA_Desc = \"Urban\" (5%))",
+     "sql": "(Bene_RUCA_Desc = 'Urban')",
+     "support": 0.05,
+     "rows": 2280,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.046,
+     "score": 0.261,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_RUCA_Desc=v3": "Urban"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "dom",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"Aged\" (5%))",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'Aged')",
+     "support": 0.05,
+     "rows": 2280,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.04,
+     "score": 0.261,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v2": "Aged"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "dom",
+     "condition": "(Bene_RUCA_Desc = \"Urban\" (5%))",
+     "sql": "(Bene_RUCA_Desc = 'Urban')",
+     "support": 0.05,
+     "rows": 2280,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.049,
+     "score": 0.261,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_RUCA_Desc=v3": "Urban"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "dom",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"Aged\" (5%))",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'Aged')",
+     "support": 0.05,
+     "rows": 2280,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.04,
+     "score": 0.261,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v2": "Aged"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "dom",
+     "condition": "(Bene_RUCA_Desc = \"Urban\" (5%))",
+     "sql": "(Bene_RUCA_Desc = 'Urban')",
+     "support": 0.05,
+     "rows": 2280,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.049,
+     "score": 0.261,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_RUCA_Desc=v3": "Urban"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "dom",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"Aged\" (5%))",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'Aged')",
+     "support": 0.05,
+     "rows": 2280,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.04,
+     "score": 0.261,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v2": "Aged"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "dom",
+     "condition": "(Bene_RUCA_Desc = \"Urban\" (5%))",
+     "sql": "(Bene_RUCA_Desc = 'Urban')",
+     "support": 0.05,
+     "rows": 2280,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.049,
+     "score": 0.261,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_RUCA_Desc=v3": "Urban"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "dom",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"Aged\" (5%))",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'Aged')",
+     "support": 0.05,
+     "rows": 2280,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.04,
+     "score": 0.261,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v2": "Aged"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "dom",
+     "condition": "(Bene_RUCA_Desc = \"Urban\" (5%))",
+     "sql": "(Bene_RUCA_Desc = 'Urban')",
+     "support": 0.05,
+     "rows": 2280,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.049,
+     "score": 0.261,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_RUCA_Desc=v3": "Urban"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "dom",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"Aged\" (5%))",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'Aged')",
+     "support": 0.05,
+     "rows": 2280,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.04,
+     "score": 0.261,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v2": "Aged"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "dom",
+     "condition": "(Bene_RUCA_Desc = \"Urban\" (5%))",
+     "sql": "(Bene_RUCA_Desc = 'Urban')",
+     "support": 0.05,
+     "rows": 2280,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.049,
+     "score": 0.261,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_RUCA_Desc=v3": "Urban"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Hspc"
+     ],
+     "cls": "dom",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"Aged\" (5%))",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'Aged')",
+     "support": 0.05,
+     "rows": 2280,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.04,
+     "score": 0.261,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v2": "Aged"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Hspc"
+     ],
+     "cls": "dom",
+     "condition": "(Bene_RUCA_Desc = \"Urban\" (5%))",
+     "sql": "(Bene_RUCA_Desc = 'Urban')",
+     "support": 0.05,
+     "rows": 2280,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.049,
+     "score": 0.261,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_RUCA_Desc=v3": "Urban"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"5\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '5' AND Avg_LOS IS NOT NULL)",
+     "support": 0.059,
+     "rows": 2696,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.255,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v5": "5"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"5\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '5' AND Avg_LOS IS NOT NULL)",
+     "support": 0.059,
+     "rows": 2696,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.255,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v5": "5"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"5\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '5' AND Avg_LOS IS NOT NULL)",
+     "support": 0.059,
+     "rows": 2696,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.255,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v5": "5"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"5\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '5' AND Avg_LOS IS NOT NULL)",
+     "support": 0.059,
+     "rows": 2696,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.255,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v5": "5"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"5\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '5' AND Avg_LOS IS NOT NULL)",
+     "support": 0.059,
+     "rows": 2696,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.255,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v5": "5"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"5\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '5' AND Avg_LOS IS NOT NULL)",
+     "support": 0.059,
+     "rows": 2696,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.255,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v5": "5"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Hspc"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"5\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '5' AND Avg_LOS IS NOT NULL)",
+     "support": 0.059,
+     "rows": 2696,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.255,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v5": "5"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"4\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '4' AND Avg_LOS IS NOT NULL)",
+     "support": 0.059,
+     "rows": 2688,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.255,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v4": "4"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"4\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '4' AND Avg_LOS IS NOT NULL)",
+     "support": 0.059,
+     "rows": 2688,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.255,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v4": "4"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"4\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '4' AND Avg_LOS IS NOT NULL)",
+     "support": 0.059,
+     "rows": 2688,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.255,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v4": "4"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"4\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '4' AND Avg_LOS IS NOT NULL)",
+     "support": 0.059,
+     "rows": 2688,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.255,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v4": "4"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"4\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '4' AND Avg_LOS IS NOT NULL)",
+     "support": 0.059,
+     "rows": 2688,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.255,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v4": "4"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"4\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '4' AND Avg_LOS IS NOT NULL)",
+     "support": 0.059,
+     "rows": 2688,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.255,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v4": "4"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Hspc"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"4\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '4' AND Avg_LOS IS NOT NULL)",
+     "support": 0.059,
+     "rows": 2688,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.255,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v4": "4"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"6\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '6' AND Avg_LOS IS NOT NULL)",
+     "support": 0.057,
+     "rows": 2626,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.252,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v6": "6"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"6\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '6' AND Avg_LOS IS NOT NULL)",
+     "support": 0.057,
+     "rows": 2626,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.252,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v6": "6"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"6\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '6' AND Avg_LOS IS NOT NULL)",
+     "support": 0.057,
+     "rows": 2626,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.252,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v6": "6"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"6\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '6' AND Avg_LOS IS NOT NULL)",
+     "support": 0.057,
+     "rows": 2626,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.252,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v6": "6"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"3\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '3' AND Avg_LOS IS NOT NULL)",
+     "support": 0.057,
+     "rows": 2623,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.252,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v3": "3"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"3\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '3' AND Avg_LOS IS NOT NULL)",
+     "support": 0.057,
+     "rows": 2623,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.252,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v3": "3"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"3\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '3' AND Avg_LOS IS NOT NULL)",
+     "support": 0.057,
+     "rows": 2623,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.252,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v3": "3"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"3\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '3' AND Avg_LOS IS NOT NULL)",
+     "support": 0.057,
+     "rows": 2623,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.252,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v3": "3"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"3\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '3' AND Avg_LOS IS NOT NULL)",
+     "support": 0.057,
+     "rows": 2623,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.252,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v3": "3"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"3\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '3' AND Avg_LOS IS NOT NULL)",
+     "support": 0.057,
+     "rows": 2623,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.252,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v3": "3"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Hspc"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"3\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '3' AND Avg_LOS IS NOT NULL)",
+     "support": 0.057,
+     "rows": 2623,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.252,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v3": "3"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "pos",
+     "condition": "(Month = \"8\" (5%), Bene_Mdcr_Entlmt_Stus = \"All\" (85%))",
+     "sql": "(Month = '8' AND Bene_Mdcr_Entlmt_Stus = 'All')",
+     "support": 0.045,
+     "rows": 2046,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.198,
+     "score": 0.248,
+     "tags": [
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v10": "8",
+      "Bene_Mdcr_Entlmt_Stus=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Hspc"
+     ],
+     "cls": "pos",
+     "condition": "(Year = \"2022\" (21%), Bene_Mdcr_Entlmt_Stus = \"All\" (85%))",
+     "sql": "(Year = '2022' AND Bene_Mdcr_Entlmt_Stus = 'All')",
+     "support": 0.179,
+     "rows": 8183,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.211,
+     "score": 0.248,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Year=v3": "2022",
+      "Bene_Mdcr_Entlmt_Stus=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "pos",
+     "condition": "(Month = \"First half\" (8%))",
+     "sql": "(Month = 'First half')",
+     "support": 0.079,
+     "rows": 3609,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.15,
+     "score": 0.247,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v7": "First half"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "pos",
+     "condition": "(Month = \"6\" (8%))",
+     "sql": "(Month = '6')",
+     "support": 0.079,
+     "rows": 3609,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.272,
+     "score": 0.247,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v6": "6"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "pos",
+     "condition": "(Month = \"3\" (8%))",
+     "sql": "(Month = '3')",
+     "support": 0.079,
+     "rows": 3609,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.273,
+     "score": 0.247,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v3": "3"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "pos",
+     "condition": "(Month = \"3\" (8%))",
+     "sql": "(Month = '3')",
+     "support": 0.079,
+     "rows": 3609,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.273,
+     "score": 0.247,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v3": "3"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "pos",
+     "condition": "(Month = \"5\" (8%))",
+     "sql": "(Month = '5')",
+     "support": 0.079,
+     "rows": 3609,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.253,
+     "score": 0.247,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v5": "5"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Hspc"
+     ],
+     "cls": "pos",
+     "condition": "(Month = \"3\" (8%))",
+     "sql": "(Month = '3')",
+     "support": 0.079,
+     "rows": 3609,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.273,
+     "score": 0.247,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v3": "3"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Hspc"
+     ],
+     "cls": "pos",
+     "condition": "(Month = \"4\" (8%))",
+     "sql": "(Month = '4')",
+     "support": 0.079,
+     "rows": 3609,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.255,
+     "score": 0.247,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v4": "4"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "dom",
+     "condition": "Bene_Sex_Desc in {\"Female\", \"Male\"}",
+     "sql": "(Bene_Sex_Desc = 'Female') OR (Bene_Sex_Desc = 'Male')",
+     "support": 0.1,
+     "rows": 4560,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.053,
+     "score": 0.246,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Sex_Desc=v2": "Female",
+      "Bene_Sex_Desc=v3": "Male"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "dom",
+     "condition": "Bene_Sex_Desc in {\"Female\", \"Male\"}",
+     "sql": "(Bene_Sex_Desc = 'Female') OR (Bene_Sex_Desc = 'Male')",
+     "support": 0.1,
+     "rows": 4560,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.055,
+     "score": 0.246,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Sex_Desc=v2": "Female",
+      "Bene_Sex_Desc=v3": "Male"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "dom",
+     "condition": "Bene_Sex_Desc in {\"Female\", \"Male\"}",
+     "sql": "(Bene_Sex_Desc = 'Female') OR (Bene_Sex_Desc = 'Male')",
+     "support": 0.1,
+     "rows": 4560,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.055,
+     "score": 0.246,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Sex_Desc=v2": "Female",
+      "Bene_Sex_Desc=v3": "Male"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "dom",
+     "condition": "Bene_Sex_Desc in {\"Female\", \"Male\"}",
+     "sql": "(Bene_Sex_Desc = 'Female') OR (Bene_Sex_Desc = 'Male')",
+     "support": 0.1,
+     "rows": 4560,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.055,
+     "score": 0.246,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Sex_Desc=v2": "Female",
+      "Bene_Sex_Desc=v3": "Male"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "dom",
+     "condition": "Bene_Sex_Desc in {\"Female\", \"Male\"}",
+     "sql": "(Bene_Sex_Desc = 'Female') OR (Bene_Sex_Desc = 'Male')",
+     "support": 0.1,
+     "rows": 4560,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.055,
+     "score": 0.246,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Sex_Desc=v2": "Female",
+      "Bene_Sex_Desc=v3": "Male"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "dom",
+     "condition": "Bene_Sex_Desc in {\"Female\", \"Male\"}",
+     "sql": "(Bene_Sex_Desc = 'Female') OR (Bene_Sex_Desc = 'Male')",
+     "support": 0.1,
+     "rows": 4560,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.055,
+     "score": 0.246,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Sex_Desc=v2": "Female",
+      "Bene_Sex_Desc=v3": "Male"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Hspc"
+     ],
+     "cls": "dom",
+     "condition": "Bene_Sex_Desc in {\"Female\", \"Male\"}",
+     "sql": "(Bene_Sex_Desc = 'Female') OR (Bene_Sex_Desc = 'Male')",
+     "support": 0.1,
+     "rows": 4560,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.055,
+     "score": 0.246,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Sex_Desc=v2": "Female",
+      "Bene_Sex_Desc=v3": "Male"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl",
+      "Pct_Dschrg_Hspc"
+     ],
+     "cls": "pos",
+     "condition": "Bene_Race_Desc in {\"All\", \"Black/African American\", \"Hispanic\", \"Non-Hispanic White\", \"Other/Unknown\"}",
+     "sql": "(Bene_Race_Desc = 'All') OR (Bene_Race_Desc = 'Black/African American') OR (Bene_Race_Desc = 'Hispanic') OR (Bene_Race_Desc = 'Non-Hispanic White') OR (Bene_Race_Desc = 'Other/Unknown')",
+     "support": 0.89,
+     "rows": 40697,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.201,
+     "score": 0.245,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v1": "All",
+      "Bene_Race_Desc=v4": "Black/African American",
+      "Bene_Race_Desc=v5": "Hispanic",
+      "Bene_Race_Desc=v6": "Non-Hispanic White",
+      "Bene_Race_Desc=v7": "Other/Unknown"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Mdcd_Mdcr_Enrl_Stus = \"Medicare & Medicaid\" (6%), Total_Hosp present [same rows: Total_Hosp_Per100K present])",
+     "sql": "(Bene_Mdcd_Mdcr_Enrl_Stus = 'Medicare & Medicaid' AND Total_Hosp IS NOT NULL)",
+     "support": 0.054,
+     "rows": 2484,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.245,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcd_Mdcr_Enrl_Stus=v2": "Medicare & Medicaid"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Mdcd_Mdcr_Enrl_Stus = \"Medicare & Medicaid\" (6%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Mdcd_Mdcr_Enrl_Stus = 'Medicare & Medicaid' AND Avg_LOS IS NOT NULL)",
+     "support": 0.054,
+     "rows": 2477,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.244,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcd_Mdcr_Enrl_Stus=v2": "Medicare & Medicaid"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Mdcd_Mdcr_Enrl_Stus = \"Medicare & Medicaid\" (6%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Mdcd_Mdcr_Enrl_Stus = 'Medicare & Medicaid' AND Avg_LOS IS NOT NULL)",
+     "support": 0.054,
+     "rows": 2477,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.244,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcd_Mdcr_Enrl_Stus=v2": "Medicare & Medicaid"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Mdcd_Mdcr_Enrl_Stus = \"Medicare & Medicaid\" (6%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Mdcd_Mdcr_Enrl_Stus = 'Medicare & Medicaid' AND Avg_LOS IS NOT NULL)",
+     "support": 0.054,
+     "rows": 2477,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.244,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcd_Mdcr_Enrl_Stus=v2": "Medicare & Medicaid"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Mdcd_Mdcr_Enrl_Stus = \"Medicare & Medicaid\" (6%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Mdcd_Mdcr_Enrl_Stus = 'Medicare & Medicaid' AND Avg_LOS IS NOT NULL)",
+     "support": 0.054,
+     "rows": 2477,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.244,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcd_Mdcr_Enrl_Stus=v2": "Medicare & Medicaid"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Mdcd_Mdcr_Enrl_Stus = \"Medicare & Medicaid\" (6%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Mdcd_Mdcr_Enrl_Stus = 'Medicare & Medicaid' AND Avg_LOS IS NOT NULL)",
+     "support": 0.054,
+     "rows": 2477,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.244,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcd_Mdcr_Enrl_Stus=v2": "Medicare & Medicaid"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Hspc"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Mdcd_Mdcr_Enrl_Stus = \"Medicare & Medicaid\" (6%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Mdcd_Mdcr_Enrl_Stus = 'Medicare & Medicaid' AND Avg_LOS IS NOT NULL)",
+     "support": 0.054,
+     "rows": 2477,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.244,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcd_Mdcr_Enrl_Stus=v2": "Medicare & Medicaid"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"1\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '1' AND Avg_LOS IS NOT NULL)",
+     "support": 0.054,
+     "rows": 2466,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.244,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v1": "1"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"1\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '1' AND Avg_LOS IS NOT NULL)",
+     "support": 0.054,
+     "rows": 2466,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.244,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v1": "1"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"1\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '1' AND Avg_LOS IS NOT NULL)",
+     "support": 0.054,
+     "rows": 2466,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.244,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v1": "1"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"1\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '1' AND Avg_LOS IS NOT NULL)",
+     "support": 0.054,
+     "rows": 2466,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.244,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v1": "1"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"1\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '1' AND Avg_LOS IS NOT NULL)",
+     "support": 0.054,
+     "rows": 2466,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.244,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v1": "1"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"1\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '1' AND Avg_LOS IS NOT NULL)",
+     "support": 0.054,
+     "rows": 2466,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.244,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v1": "1"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Hspc"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"1\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '1' AND Avg_LOS IS NOT NULL)",
+     "support": 0.054,
+     "rows": 2466,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.244,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v1": "1"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "pos",
+     "condition": "Bene_Race_Desc in {\"All\", \"American Indian/Alaska Native\", \"Black/African American\", \"Hispanic\", \"Non-Hispanic White\", \"Other/Unknown\"}",
+     "sql": "(Bene_Race_Desc = 'All') OR (Bene_Race_Desc = 'American Indian/Alaska Native') OR (Bene_Race_Desc = 'Black/African American') OR (Bene_Race_Desc = 'Hispanic') OR (Bene_Race_Desc = 'Non-Hispanic White') OR (Bene_Race_Desc = 'Other/Unknown')",
+     "support": 0.945,
+     "rows": 43205,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.221,
+     "score": 0.244,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v1": "All",
+      "Bene_Race_Desc=v2": "American Indian/Alaska Native",
+      "Bene_Race_Desc=v4": "Black/African American",
+      "Bene_Race_Desc=v5": "Hispanic",
+      "Bene_Race_Desc=v6": "Non-Hispanic White",
+      "Bene_Race_Desc=v7": "Other/Unknown"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"2\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '2' AND Avg_LOS IS NOT NULL)",
+     "support": 0.051,
+     "rows": 2327,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.237,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v2": "2"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"2\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '2' AND Avg_LOS IS NOT NULL)",
+     "support": 0.051,
+     "rows": 2327,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.237,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v2": "2"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"2\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '2' AND Avg_LOS IS NOT NULL)",
+     "support": 0.051,
+     "rows": 2327,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.237,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v2": "2"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"2\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '2' AND Avg_LOS IS NOT NULL)",
+     "support": 0.051,
+     "rows": 2327,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.237,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v2": "2"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"2\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '2' AND Avg_LOS IS NOT NULL)",
+     "support": 0.051,
+     "rows": 2327,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.237,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v2": "2"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Hspc"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"2\" (8%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '2' AND Avg_LOS IS NOT NULL)",
+     "support": 0.051,
+     "rows": 2327,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.237,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v2": "2"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "pos",
+     "condition": "Year in {\"2020\", \"2021\"}",
+     "sql": "(Year = '2020') OR (Year = '2021')",
+     "support": 0.789,
+     "rows": 36090,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.239,
+     "score": 0.231,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Year=v1": "2020",
+      "Year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "pos",
+     "condition": "Year in {\"2020\", \"2021\"}",
+     "sql": "(Year = '2020') OR (Year = '2021')",
+     "support": 0.789,
+     "rows": 36090,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.239,
+     "score": 0.231,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Year=v1": "2020",
+      "Year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp",
+      "Pct_Dschrg_Hspc"
+     ],
+     "cls": "pos",
+     "condition": "Year in {\"2020\", \"2021\"}",
+     "sql": "(Year = '2020') OR (Year = '2021')",
+     "support": 0.789,
+     "rows": 36090,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.239,
+     "score": 0.231,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Year=v1": "2020",
+      "Year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "pos",
+     "condition": "Year in {\"2020\", \"2021\"}",
+     "sql": "(Year = '2020') OR (Year = '2021')",
+     "support": 0.789,
+     "rows": 36090,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.239,
+     "score": 0.231,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Year=v1": "2020",
+      "Year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "pos",
+     "condition": "Year in {\"2020\", \"2021\"}",
+     "sql": "(Year = '2020') OR (Year = '2021')",
+     "support": 0.789,
+     "rows": 36090,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.239,
+     "score": 0.231,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Year=v1": "2020",
+      "Year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "pos",
+     "condition": "Year in {\"2020\", \"2021\"}",
+     "sql": "(Year = '2020') OR (Year = '2021')",
+     "support": 0.789,
+     "rows": 36090,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.239,
+     "score": 0.231,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Year=v1": "2020",
+      "Year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "dom",
+     "condition": "Bene_Age_Desc in {\"65-74\", \"75-84\", \"85 and over\"}",
+     "sql": "(Bene_Age_Desc = '65-74') OR (Bene_Age_Desc = '75-84') OR (Bene_Age_Desc = '85 and over')",
+     "support": 0.15,
+     "rows": 6840,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.078,
+     "score": 0.226,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Age_Desc=v3": "65-74",
+      "Bene_Age_Desc=v4": "75-84",
+      "Bene_Age_Desc=v5": "85 and over"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "dom",
+     "condition": "Bene_Age_Desc in {\"65-74\", \"75-84\", \"85 and over\"}",
+     "sql": "(Bene_Age_Desc = '65-74') OR (Bene_Age_Desc = '75-84') OR (Bene_Age_Desc = '85 and over')",
+     "support": 0.15,
+     "rows": 6840,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.085,
+     "score": 0.226,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Age_Desc=v3": "65-74",
+      "Bene_Age_Desc=v4": "75-84",
+      "Bene_Age_Desc=v5": "85 and over"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "dom",
+     "condition": "Bene_Age_Desc in {\"65-74\", \"75-84\", \"85 and over\"}",
+     "sql": "(Bene_Age_Desc = '65-74') OR (Bene_Age_Desc = '75-84') OR (Bene_Age_Desc = '85 and over')",
+     "support": 0.15,
+     "rows": 6840,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.085,
+     "score": 0.226,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Age_Desc=v3": "65-74",
+      "Bene_Age_Desc=v4": "75-84",
+      "Bene_Age_Desc=v5": "85 and over"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "dom",
+     "condition": "Bene_Age_Desc in {\"65-74\", \"75-84\", \"85 and over\"}",
+     "sql": "(Bene_Age_Desc = '65-74') OR (Bene_Age_Desc = '75-84') OR (Bene_Age_Desc = '85 and over')",
+     "support": 0.15,
+     "rows": 6840,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.085,
+     "score": 0.226,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Age_Desc=v3": "65-74",
+      "Bene_Age_Desc=v4": "75-84",
+      "Bene_Age_Desc=v5": "85 and over"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "dom",
+     "condition": "Bene_Age_Desc in {\"65-74\", \"75-84\", \"85 and over\"}",
+     "sql": "(Bene_Age_Desc = '65-74') OR (Bene_Age_Desc = '75-84') OR (Bene_Age_Desc = '85 and over')",
+     "support": 0.15,
+     "rows": 6840,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.085,
+     "score": 0.226,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Age_Desc=v3": "65-74",
+      "Bene_Age_Desc=v4": "75-84",
+      "Bene_Age_Desc=v5": "85 and over"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "dom",
+     "condition": "Bene_Age_Desc in {\"65-74\", \"75-84\", \"85 and over\"}",
+     "sql": "(Bene_Age_Desc = '65-74') OR (Bene_Age_Desc = '75-84') OR (Bene_Age_Desc = '85 and over')",
+     "support": 0.15,
+     "rows": 6840,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.085,
+     "score": 0.226,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Age_Desc=v3": "65-74",
+      "Bene_Age_Desc=v4": "75-84",
+      "Bene_Age_Desc=v5": "85 and over"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Hspc"
+     ],
+     "cls": "dom",
+     "condition": "Bene_Age_Desc in {\"65-74\", \"75-84\", \"85 and over\"}",
+     "sql": "(Bene_Age_Desc = '65-74') OR (Bene_Age_Desc = '75-84') OR (Bene_Age_Desc = '85 and over')",
+     "support": 0.15,
+     "rows": 6840,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.085,
+     "score": 0.226,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Age_Desc=v3": "65-74",
+      "Bene_Age_Desc=v4": "75-84",
+      "Bene_Age_Desc=v5": "85 and over"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Age_Desc = \"0-64\" (5%), Total_Hosp present [same rows: Total_Hosp_Per100K present])",
+     "sql": "(Bene_Age_Desc = '0-64' AND Total_Hosp IS NOT NULL)",
+     "support": 0.045,
+     "rows": 2040,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.222,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Age_Desc=v2": "0-64"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_RUCA_Desc = \"Rural\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_RUCA_Desc = 'Rural' AND Avg_LOS IS NOT NULL)",
+     "support": 0.044,
+     "rows": 2027,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.221,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_RUCA_Desc=v2": "Rural"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_RUCA_Desc = \"Rural\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_RUCA_Desc = 'Rural' AND Avg_LOS IS NOT NULL)",
+     "support": 0.044,
+     "rows": 2027,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.221,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_RUCA_Desc=v2": "Rural"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_RUCA_Desc = \"Rural\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_RUCA_Desc = 'Rural' AND Avg_LOS IS NOT NULL)",
+     "support": 0.044,
+     "rows": 2027,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.221,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_RUCA_Desc=v2": "Rural"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_RUCA_Desc = \"Rural\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_RUCA_Desc = 'Rural' AND Avg_LOS IS NOT NULL)",
+     "support": 0.044,
+     "rows": 2027,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.221,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_RUCA_Desc=v2": "Rural"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_RUCA_Desc = \"Rural\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_RUCA_Desc = 'Rural' AND Avg_LOS IS NOT NULL)",
+     "support": 0.044,
+     "rows": 2027,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.221,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_RUCA_Desc=v2": "Rural"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_RUCA_Desc = \"Rural\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_RUCA_Desc = 'Rural' AND Avg_LOS IS NOT NULL)",
+     "support": 0.044,
+     "rows": 2027,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.221,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_RUCA_Desc=v2": "Rural"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Age_Desc = \"0-64\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Age_Desc = '0-64' AND Avg_LOS IS NOT NULL)",
+     "support": 0.044,
+     "rows": 2019,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.221,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Age_Desc=v2": "0-64"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Age_Desc = \"0-64\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Age_Desc = '0-64' AND Avg_LOS IS NOT NULL)",
+     "support": 0.044,
+     "rows": 2019,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.221,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Age_Desc=v2": "0-64"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Age_Desc = \"0-64\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Age_Desc = '0-64' AND Avg_LOS IS NOT NULL)",
+     "support": 0.044,
+     "rows": 2019,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.221,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Age_Desc=v2": "0-64"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Age_Desc = \"0-64\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Age_Desc = '0-64' AND Avg_LOS IS NOT NULL)",
+     "support": 0.044,
+     "rows": 2019,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.221,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Age_Desc=v2": "0-64"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Age_Desc = \"0-64\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Age_Desc = '0-64' AND Avg_LOS IS NOT NULL)",
+     "support": 0.044,
+     "rows": 2019,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.221,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Age_Desc=v2": "0-64"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Age_Desc = \"0-64\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Age_Desc = '0-64' AND Avg_LOS IS NOT NULL)",
+     "support": 0.044,
+     "rows": 2019,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.221,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Age_Desc=v2": "0-64"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "pos",
+     "condition": "(Month = \"7\" (5%), Bene_Race_Desc = \"All\" (67%))",
+     "sql": "(Month = '7' AND Bene_Race_Desc = 'All')",
+     "support": 0.035,
+     "rows": 1614,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.165,
+     "score": 0.22,
+     "tags": [
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v9": "7",
+      "Bene_Race_Desc=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "pos",
+     "condition": "(Month = \"8\" (5%), Bene_Race_Desc = \"All\" (67%))",
+     "sql": "(Month = '8' AND Bene_Race_Desc = 'All')",
+     "support": 0.035,
+     "rows": 1614,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.119,
+     "score": 0.22,
+     "tags": [
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v10": "8",
+      "Bene_Race_Desc=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl"
+     ],
+     "cls": "pos",
+     "condition": "(Month = \"9\" (5%), Bene_Race_Desc = \"All\" (67%))",
+     "sql": "(Month = '9' AND Bene_Race_Desc = 'All')",
+     "support": 0.035,
+     "rows": 1614,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.105,
+     "score": 0.22,
+     "tags": [
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v11": "9",
+      "Bene_Race_Desc=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Hspc"
+     ],
+     "cls": "pos",
+     "condition": "(Year = \"2022\" (21%), Bene_Race_Desc = \"All\" (67%))",
+     "sql": "(Year = '2022' AND Bene_Race_Desc = 'All')",
+     "support": 0.141,
+     "rows": 6455,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.099,
+     "score": 0.22,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Year=v3": "2022",
+      "Bene_Race_Desc=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"11\" (5%), Total_Hosp present [same rows: Total_Hosp_Per100K present])",
+     "sql": "(Month = '11' AND Total_Hosp IS NOT NULL)",
+     "support": 0.044,
+     "rows": 1997,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.219,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v13": "11"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Race_Desc = \"Black/African American\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Race_Desc = 'Black/African American' AND Avg_LOS IS NOT NULL)",
+     "support": 0.043,
+     "rows": 1963,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.218,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v4": "Black/African American"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Race_Desc = \"Black/African American\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Race_Desc = 'Black/African American' AND Avg_LOS IS NOT NULL)",
+     "support": 0.043,
+     "rows": 1963,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.218,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v4": "Black/African American"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Race_Desc = \"Black/African American\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Race_Desc = 'Black/African American' AND Avg_LOS IS NOT NULL)",
+     "support": 0.043,
+     "rows": 1963,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.218,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v4": "Black/African American"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Race_Desc = \"Black/African American\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Race_Desc = 'Black/African American' AND Avg_LOS IS NOT NULL)",
+     "support": 0.043,
+     "rows": 1963,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.218,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v4": "Black/African American"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Race_Desc = \"Black/African American\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Race_Desc = 'Black/African American' AND Avg_LOS IS NOT NULL)",
+     "support": 0.043,
+     "rows": 1963,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.218,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v4": "Black/African American"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Race_Desc = \"Black/African American\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Race_Desc = 'Black/African American' AND Avg_LOS IS NOT NULL)",
+     "support": 0.043,
+     "rows": 1963,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.218,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v4": "Black/African American"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"11\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '11' AND Avg_LOS IS NOT NULL)",
+     "support": 0.043,
+     "rows": 1960,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.217,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v13": "11"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"11\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '11' AND Avg_LOS IS NOT NULL)",
+     "support": 0.043,
+     "rows": 1960,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.217,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v13": "11"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"11\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '11' AND Avg_LOS IS NOT NULL)",
+     "support": 0.043,
+     "rows": 1960,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.217,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v13": "11"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"11\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '11' AND Avg_LOS IS NOT NULL)",
+     "support": 0.043,
+     "rows": 1960,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.217,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v13": "11"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"11\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '11' AND Avg_LOS IS NOT NULL)",
+     "support": 0.043,
+     "rows": 1960,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.217,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v13": "11"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"11\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '11' AND Avg_LOS IS NOT NULL)",
+     "support": 0.043,
+     "rows": 1960,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.217,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v13": "11"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Hspc"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"11\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '11' AND Avg_LOS IS NOT NULL)",
+     "support": 0.043,
+     "rows": 1960,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.217,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v13": "11"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Hosp_Per100K",
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "pos",
+     "condition": "Bene_Race_Desc in {\"All\", \"Asian/Pacific Islander\", \"Black/African American\", \"Hispanic\", \"Non-Hispanic White\", \"Other/Unknown\"}",
+     "sql": "(Bene_Race_Desc = 'All') OR (Bene_Race_Desc = 'Asian/Pacific Islander') OR (Bene_Race_Desc = 'Black/African American') OR (Bene_Race_Desc = 'Hispanic') OR (Bene_Race_Desc = 'Non-Hispanic White') OR (Bene_Race_Desc = 'Other/Unknown')",
+     "support": 0.945,
+     "rows": 43205,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.211,
+     "score": 0.217,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v1": "All",
+      "Bene_Race_Desc=v3": "Asian/Pacific Islander",
+      "Bene_Race_Desc=v4": "Black/African American",
+      "Bene_Race_Desc=v5": "Hispanic",
+      "Bene_Race_Desc=v6": "Non-Hispanic White",
+      "Bene_Race_Desc=v7": "Other/Unknown"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Race_Desc = \"Hispanic\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Race_Desc = 'Hispanic' AND Avg_LOS IS NOT NULL)",
+     "support": 0.042,
+     "rows": 1909,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.215,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v5": "Hispanic"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Race_Desc = \"Hispanic\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Race_Desc = 'Hispanic' AND Avg_LOS IS NOT NULL)",
+     "support": 0.042,
+     "rows": 1909,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.215,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v5": "Hispanic"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Race_Desc = \"Hispanic\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Race_Desc = 'Hispanic' AND Avg_LOS IS NOT NULL)",
+     "support": 0.042,
+     "rows": 1909,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.215,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v5": "Hispanic"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Race_Desc = \"Hispanic\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Race_Desc = 'Hispanic' AND Avg_LOS IS NOT NULL)",
+     "support": 0.042,
+     "rows": 1909,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.215,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v5": "Hispanic"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Race_Desc = \"Hispanic\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Race_Desc = 'Hispanic' AND Avg_LOS IS NOT NULL)",
+     "support": 0.042,
+     "rows": 1909,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.215,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v5": "Hispanic"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Race_Desc = \"Hispanic\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Race_Desc = 'Hispanic' AND Avg_LOS IS NOT NULL)",
+     "support": 0.042,
+     "rows": 1909,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.215,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v5": "Hispanic"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Hspc"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Race_Desc = \"Hispanic\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Race_Desc = 'Hispanic' AND Avg_LOS IS NOT NULL)",
+     "support": 0.042,
+     "rows": 1909,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.215,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v5": "Hispanic"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"8\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '8' AND Avg_LOS IS NOT NULL)",
+     "support": 0.041,
+     "rows": 1893,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.214,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v10": "8"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"8\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '8' AND Avg_LOS IS NOT NULL)",
+     "support": 0.041,
+     "rows": 1893,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.214,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v10": "8"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"8\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '8' AND Avg_LOS IS NOT NULL)",
+     "support": 0.041,
+     "rows": 1893,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.214,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v10": "8"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"8\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '8' AND Avg_LOS IS NOT NULL)",
+     "support": 0.041,
+     "rows": 1893,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.214,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v10": "8"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"8\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '8' AND Avg_LOS IS NOT NULL)",
+     "support": 0.041,
+     "rows": 1893,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.214,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v10": "8"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"8\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '8' AND Avg_LOS IS NOT NULL)",
+     "support": 0.041,
+     "rows": 1893,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.214,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v10": "8"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Hspc"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"8\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '8' AND Avg_LOS IS NOT NULL)",
+     "support": 0.041,
+     "rows": 1893,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.214,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v10": "8"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"Disabled\" (5%), Total_Hosp present [same rows: Total_Hosp_Per100K present])",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'Disabled' AND Total_Hosp IS NOT NULL)",
+     "support": 0.04,
+     "rows": 1821,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.21,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v3": "Disabled"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"Disabled\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'Disabled' AND Avg_LOS IS NOT NULL)",
+     "support": 0.039,
+     "rows": 1796,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.208,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v3": "Disabled"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"Disabled\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'Disabled' AND Avg_LOS IS NOT NULL)",
+     "support": 0.039,
+     "rows": 1796,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.208,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v3": "Disabled"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"Disabled\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'Disabled' AND Avg_LOS IS NOT NULL)",
+     "support": 0.039,
+     "rows": 1796,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.208,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v3": "Disabled"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"Disabled\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'Disabled' AND Avg_LOS IS NOT NULL)",
+     "support": 0.039,
+     "rows": 1796,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.208,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v3": "Disabled"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"Disabled\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'Disabled' AND Avg_LOS IS NOT NULL)",
+     "support": 0.039,
+     "rows": 1796,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.208,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v3": "Disabled"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"Disabled\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'Disabled' AND Avg_LOS IS NOT NULL)",
+     "support": 0.039,
+     "rows": 1796,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.208,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v3": "Disabled"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Hspc"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"Disabled\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'Disabled' AND Avg_LOS IS NOT NULL)",
+     "support": 0.039,
+     "rows": 1796,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.208,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v3": "Disabled"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"ESRD\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'ESRD' AND Avg_LOS IS NOT NULL)",
+     "support": 0.039,
+     "rows": 1792,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.208,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v4": "ESRD"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"ESRD\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'ESRD' AND Avg_LOS IS NOT NULL)",
+     "support": 0.039,
+     "rows": 1792,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.208,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v4": "ESRD"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"ESRD\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'ESRD' AND Avg_LOS IS NOT NULL)",
+     "support": 0.039,
+     "rows": 1792,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.208,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v4": "ESRD"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"ESRD\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'ESRD' AND Avg_LOS IS NOT NULL)",
+     "support": 0.039,
+     "rows": 1792,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.208,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v4": "ESRD"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"ESRD\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'ESRD' AND Avg_LOS IS NOT NULL)",
+     "support": 0.039,
+     "rows": 1792,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.208,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v4": "ESRD"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "cand",
+     "condition": "(Bene_Mdcr_Entlmt_Stus = \"ESRD\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Bene_Mdcr_Entlmt_Stus = 'ESRD' AND Avg_LOS IS NOT NULL)",
+     "support": 0.039,
+     "rows": 1792,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.208,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Mdcr_Entlmt_Stus=v4": "ESRD"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"7\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '7' AND Avg_LOS IS NOT NULL)",
+     "support": 0.039,
+     "rows": 1770,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.207,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v9": "7"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"7\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '7' AND Avg_LOS IS NOT NULL)",
+     "support": 0.039,
+     "rows": 1770,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.207,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v9": "7"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"7\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '7' AND Avg_LOS IS NOT NULL)",
+     "support": 0.039,
+     "rows": 1770,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.207,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v9": "7"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "cand",
+     "condition": "(Month = \"7\" (5%), Avg_LOS present [same rows: Pct_Dschrg_SNF present, Pct_Dschrg_Expired present, Pct_Dschrg_Home present ...])",
+     "sql": "(Month = '7' AND Avg_LOS IS NOT NULL)",
+     "support": 0.039,
+     "rows": 1770,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.207,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v9": "7"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "pos",
+     "condition": "(Bene_Race_Desc = \"Asian/Pacific Islander\" (5%))",
+     "sql": "(Bene_Race_Desc = 'Asian/Pacific Islander')",
+     "support": 0.055,
+     "rows": 2508,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.384,
+     "score": 0.206,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v3": "Asian/Pacific Islander"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "pos",
+     "condition": "(Bene_Race_Desc = \"Black/African American\" (5%))",
+     "sql": "(Bene_Race_Desc = 'Black/African American')",
+     "support": 0.055,
+     "rows": 2508,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.217,
+     "score": 0.206,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v4": "Black/African American"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "pos",
+     "condition": "(Bene_Race_Desc = \"Hispanic\" (5%))",
+     "sql": "(Bene_Race_Desc = 'Hispanic')",
+     "support": 0.055,
+     "rows": 2508,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.239,
+     "score": 0.206,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v5": "Hispanic"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "pos",
+     "condition": "(Bene_Race_Desc = \"American Indian/Alaska Native\" (5%))",
+     "sql": "(Bene_Race_Desc = 'American Indian/Alaska Native')",
+     "support": 0.055,
+     "rows": 2508,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.548,
+     "score": 0.206,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v2": "American Indian/Alaska Native"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "pos",
+     "condition": "(Bene_Race_Desc = \"Hispanic\" (5%))",
+     "sql": "(Bene_Race_Desc = 'Hispanic')",
+     "support": 0.055,
+     "rows": 2508,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.239,
+     "score": 0.206,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Bene_Race_Desc=v5": "Hispanic"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "dom",
+     "condition": "(Month = \"First half\" (8%), Bene_RUCA_Desc = \"All\" (85%))",
+     "sql": "(Month = 'First half' AND Bene_RUCA_Desc = 'All')",
+     "support": 0.067,
+     "rows": 3069,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.108,
+     "score": 0.202,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v7": "First half",
+      "Bene_RUCA_Desc=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Home"
+     ],
+     "cls": "dom",
+     "condition": "(Month = \"First half\" (8%), Bene_RUCA_Desc = \"All\" (85%))",
+     "sql": "(Month = 'First half' AND Bene_RUCA_Desc = 'All')",
+     "support": 0.067,
+     "rows": 3069,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.114,
+     "score": 0.202,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v7": "First half",
+      "Bene_RUCA_Desc=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "dom",
+     "condition": "(Month = \"First half\" (8%), Bene_RUCA_Desc = \"All\" (85%))",
+     "sql": "(Month = 'First half' AND Bene_RUCA_Desc = 'All')",
+     "support": 0.067,
+     "rows": 3069,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.114,
+     "score": 0.202,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v7": "First half",
+      "Bene_RUCA_Desc=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "dom",
+     "condition": "(Month = \"First half\" (8%), Bene_RUCA_Desc = \"All\" (85%))",
+     "sql": "(Month = 'First half' AND Bene_RUCA_Desc = 'All')",
+     "support": 0.067,
+     "rows": 3069,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.114,
+     "score": 0.202,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v7": "First half",
+      "Bene_RUCA_Desc=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "dom",
+     "condition": "(Month = \"First half\" (8%), Bene_RUCA_Desc = \"All\" (85%))",
+     "sql": "(Month = 'First half' AND Bene_RUCA_Desc = 'All')",
+     "support": 0.067,
+     "rows": 3069,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.114,
+     "score": 0.202,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v7": "First half",
+      "Bene_RUCA_Desc=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Other"
+     ],
+     "cls": "dom",
+     "condition": "(Month = \"First half\" (8%), Bene_RUCA_Desc = \"All\" (85%))",
+     "sql": "(Month = 'First half' AND Bene_RUCA_Desc = 'All')",
+     "support": 0.067,
+     "rows": 3069,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.114,
+     "score": 0.202,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v7": "First half",
+      "Bene_RUCA_Desc=v1": "All"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "pos",
+     "condition": "(Month = \"11\" (5%))",
+     "sql": "(Month = '11')",
+     "support": 0.053,
+     "rows": 2406,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.17,
+     "score": 0.201,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v13": "11"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Total_Hosp"
+     ],
+     "cls": "pos",
+     "condition": "(Month = \"12\" (5%))",
+     "sql": "(Month = '12')",
+     "support": 0.053,
+     "rows": 2406,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.16,
+     "score": 0.201,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v14": "12"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_SNF"
+     ],
+     "cls": "pos",
+     "condition": "(Month = \"11\" (5%))",
+     "sql": "(Month = '11')",
+     "support": 0.053,
+     "rows": 2406,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.185,
+     "score": 0.201,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v13": "11"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "pos",
+     "condition": "(Month = \"8\" (5%))",
+     "sql": "(Month = '8')",
+     "support": 0.053,
+     "rows": 2406,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.213,
+     "score": 0.201,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v10": "8"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_Expired"
+     ],
+     "cls": "pos",
+     "condition": "(Month = \"11\" (5%))",
+     "sql": "(Month = '11')",
+     "support": 0.053,
+     "rows": 2406,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.185,
+     "score": 0.201,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v13": "11"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "pos",
+     "condition": "(Month = \"11\" (5%))",
+     "sql": "(Month = '11')",
+     "support": 0.053,
+     "rows": 2406,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.185,
+     "score": 0.201,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v13": "11"
+     }
+    },
+    {
+     "table": "lbusa.t35814",
+     "K": [
+      "Total_Enrl",
+      "Pct_Dschrg_HomeHealth"
+     ],
+     "cls": "pos",
+     "condition": "(Month = \"12\" (5%))",
+     "sql": "(Month = '12')",
+     "support": 0.053,
+     "rows": 2406,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.169,
+     "score": 0.201,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Month=v14": "12"
+     }
+    }
+   ],
+   "unconditional": {
+    "Total_Hosp_Per100K,Avg_LOS": "pos",
+    "Total_Enrl,Avg_LOS": "pos",
+    "Total_Hosp_Per100K,Total_Enrl,Avg_LOS": "pos",
+    "Total_Hosp_Per100K,Total_Enrl,Pct_Dschrg_Home": "pos",
+    "Total_Hosp_Per100K,Total_Enrl,Pct_Dschrg_SNF": "pos",
+    "Total_Hosp_Per100K,Total_Enrl,Pct_Dschrg_Expired": "pos",
+    "Total_Hosp_Per100K,Avg_LOS,Total_Hosp": "pos",
+    "Total_Hosp_Per100K,Avg_LOS,Pct_Dschrg_Home": "pos",
+    "Total_Hosp_Per100K,Avg_LOS,Pct_Dschrg_SNF": "pos",
+    "Total_Hosp_Per100K,Avg_LOS,Pct_Dschrg_Expired": "pos",
+    "Total_Hosp_Per100K,Avg_LOS,Pct_Dschrg_HomeHealth": "pos",
+    "Total_Hosp_Per100K,Avg_LOS,Pct_Dschrg_Other": "pos",
+    "Total_Hosp_Per100K,Avg_LOS,Pct_Dschrg_Hspc": "pos",
+    "Total_Hosp_Per100K,Total_Hosp,Pct_Dschrg_SNF": "pos",
+    "Total_Hosp_Per100K,Pct_Dschrg_Home,Pct_Dschrg_SNF": "pos",
+    "Total_Hosp_Per100K,Pct_Dschrg_Home,Pct_Dschrg_HomeHealth": "pos",
+    "Total_Hosp_Per100K,Pct_Dschrg_Home,Pct_Dschrg_Other": "pos",
+    "Total_Hosp_Per100K,Pct_Dschrg_SNF,Pct_Dschrg_Expired": "pos",
+    "Total_Hosp_Per100K,Pct_Dschrg_SNF,Pct_Dschrg_HomeHealth": "pos",
+    "Total_Hosp_Per100K,Pct_Dschrg_SNF,Pct_Dschrg_Other": "pos",
+    "Total_Hosp_Per100K,Pct_Dschrg_SNF,Pct_Dschrg_Hspc": "pos",
+    "Total_Hosp_Per100K,Pct_Dschrg_Expired,Pct_Dschrg_HomeHealth": "pos",
+    "Total_Hosp_Per100K,Pct_Dschrg_Expired,Pct_Dschrg_Other": "pos",
+    "Total_Enrl,Avg_LOS,Total_Hosp": "pos",
+    "Total_Enrl,Avg_LOS,Pct_Dschrg_Home": "pos",
+    "Total_Enrl,Avg_LOS,Pct_Dschrg_SNF": "pos",
+    "Total_Enrl,Avg_LOS,Pct_Dschrg_Expired": "pos",
+    "Total_Enrl,Avg_LOS,Pct_Dschrg_HomeHealth": "pos",
+    "Total_Enrl,Avg_LOS,Pct_Dschrg_Other": "pos",
+    "Total_Enrl,Avg_LOS,Pct_Dschrg_Hspc": "pos",
+    "Total_Enrl,Total_Hosp,Pct_Dschrg_Home": "pos",
+    "Total_Enrl,Total_Hosp,Pct_Dschrg_SNF": "pos",
+    "Total_Enrl,Total_Hosp,Pct_Dschrg_Expired": "pos",
+    "Total_Enrl,Pct_Dschrg_Home,Pct_Dschrg_SNF": "pos",
+    "Total_Enrl,Pct_Dschrg_Home,Pct_Dschrg_Expired": "pos",
+    "Total_Enrl,Pct_Dschrg_Home,Pct_Dschrg_HomeHealth": "pos",
+    "Total_Enrl,Pct_Dschrg_SNF,Pct_Dschrg_HomeHealth": "pos",
+    "Total_Enrl,Pct_Dschrg_Expired,Pct_Dschrg_HomeHealth": "pos"
+   }
+  }
+ ]
+}

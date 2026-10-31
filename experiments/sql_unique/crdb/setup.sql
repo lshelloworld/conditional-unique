@@ -1,0 +1,16 @@
+create database if not exists p; use p;
+drop table if exists a, bu, bf;
+create table a (id int primary key, bk int, v int);
+create table bu (id int primary key, k int not null, d int, x int, unique (k));
+create table bf (id int primary key, k int not null, d int, x int);
+create unique index bf_k on bf (k) where d is null;
+insert into a select i, i % 100, i from generate_series(1, 1000) i;
+insert into bu select i, i, null, i % 7 from generate_series(1, 100) i;
+insert into bf select i, i % 100, case when i <= 100 then null else i end, i % 7 from generate_series(1, 300) i;
+analyze a; analyze bu; analyze bf;
+set experimental_enable_unique_without_index_constraints = true;
+drop table if exists bc, bn, bfs;
+create table bc (id int primary key, k int not null, d int, unique without index (k) where d is null);
+create table bn (id int primary key, k int, unique index (k) where k is not null);
+create table bfs (id int primary key, k int not null, st int, d int);
+create unique index on bfs (k) where st in (0, 1);

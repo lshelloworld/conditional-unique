@@ -1,0 +1,7089 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "Id",
+   "updated_at",
+   "total_paid",
+   "url",
+   "case",
+   "attachments",
+   "subject",
+   "respondent",
+   "description",
+   "closed",
+   "earliest_complaint",
+   "complainant",
+   "opened",
+   "areas_of_law",
+   "total_penalties",
+   "total_suspended"
+  ]
+ },
+ "sample_rows": 4852,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbusa.t36712",
+   "rows": 4852,
+   "cols": [
+    "Id",
+    "case",
+    "opened",
+    "earliest_complaint",
+    "closed",
+    "complainant",
+    "respondent",
+    "subject",
+    "areas_of_law",
+    "status",
+    "description",
+    "url",
+    "total_penalties",
+    "total_suspended",
+    "total_reinstated",
+    "total_paid",
+    "balance_due",
+    "sent_to_collections",
+    "attachments",
+    "updated_at"
+   ],
+   "n_conditional": 277,
+   "conditional": [
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "updated_at",
+      "attachments"
+     ],
+     "cls": "cert",
+     "condition": "(areas_of_law present)",
+     "sql": "(areas_of_law IS NOT NULL)",
+     "support": 0.808,
+     "rows": 3918,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.019,
+     "score": 2.628,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "updated_at",
+      "attachments"
+     ],
+     "cls": "cert",
+     "condition": "(closed present)",
+     "sql": "(closed IS NOT NULL)",
+     "support": 0.803,
+     "rows": 3897,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.028,
+     "score": 2.621,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "subject"
+     ],
+     "cls": "cand",
+     "condition": "(areas_of_law present, attachments present)",
+     "sql": "(areas_of_law IS NOT NULL AND attachments IS NOT NULL)",
+     "support": 0.792,
+     "rows": 3842,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.076,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "subject"
+     ],
+     "cls": "cand",
+     "condition": "(closed present, attachments present)",
+     "sql": "(closed IS NOT NULL AND attachments IS NOT NULL)",
+     "support": 0.78,
+     "rows": 3786,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.061,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "subject"
+     ],
+     "cls": "cand",
+     "condition": "(sent_to_collections = \"False\" (90%), attachments present)",
+     "sql": "(sent_to_collections = 'False' AND attachments IS NOT NULL)",
+     "support": 0.828,
+     "rows": 4016,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.911,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "sent_to_collections=v1": "False"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "subject",
+      "complainant"
+     ],
+     "cls": "cert",
+     "condition": "(attachments present)",
+     "sql": "(attachments IS NOT NULL)",
+     "support": 0.925,
+     "rows": 4486,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.038,
+     "score": 1.688,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "updated_at",
+      "areas_of_law"
+     ],
+     "cls": "cert",
+     "condition": "(closed present)",
+     "sql": "(closed IS NOT NULL)",
+     "support": 0.803,
+     "rows": 3897,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.012,
+     "score": 1.573,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "subject",
+      "total_suspended"
+     ],
+     "cls": "cand",
+     "condition": "(attachments present)",
+     "sql": "(attachments IS NOT NULL)",
+     "support": 0.925,
+     "rows": 4486,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.514,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "subject",
+      "respondent"
+     ],
+     "cls": "cand",
+     "condition": "(areas_of_law present)",
+     "sql": "(areas_of_law IS NOT NULL)",
+     "support": 0.808,
+     "rows": 3918,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.415,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "subject",
+      "complainant"
+     ],
+     "cls": "cand",
+     "condition": "(areas_of_law present)",
+     "sql": "(areas_of_law IS NOT NULL)",
+     "support": 0.808,
+     "rows": 3918,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.415,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "subject",
+      "respondent"
+     ],
+     "cls": "cand",
+     "condition": "(closed present)",
+     "sql": "(closed IS NOT NULL)",
+     "support": 0.803,
+     "rows": 3897,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.412,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "subject",
+      "complainant"
+     ],
+     "cls": "cand",
+     "condition": "(closed present)",
+     "sql": "(closed IS NOT NULL)",
+     "support": 0.803,
+     "rows": 3897,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.412,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "subject",
+      "total_penalties"
+     ],
+     "cls": "cand",
+     "condition": "(attachments present)",
+     "sql": "(attachments IS NOT NULL)",
+     "support": 0.925,
+     "rows": 4486,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.346,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "earliest_complaint"
+     ],
+     "cls": "cert",
+     "condition": "(areas_of_law present)",
+     "sql": "(areas_of_law IS NOT NULL)",
+     "support": 0.808,
+     "rows": 3918,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.001,
+     "score": 1.314,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "subject",
+      "closed"
+     ],
+     "cls": "cert",
+     "condition": "(areas_of_law present)",
+     "sql": "(areas_of_law IS NOT NULL)",
+     "support": 0.808,
+     "rows": 3918,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.017,
+     "score": 1.314,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "respondent"
+     ],
+     "cls": "cand",
+     "condition": "(areas_of_law present)",
+     "sql": "(areas_of_law IS NOT NULL)",
+     "support": 0.808,
+     "rows": 3918,
+     "uncond": "pos",
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 1.213,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "complainant"
+     ],
+     "cls": "cand",
+     "condition": "(areas_of_law present)",
+     "sql": "(areas_of_law IS NOT NULL)",
+     "support": 0.808,
+     "rows": 3918,
+     "uncond": "pos",
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 1.213,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "opened"
+     ],
+     "cls": "cand",
+     "condition": "(areas_of_law present)",
+     "sql": "(areas_of_law IS NOT NULL)",
+     "support": 0.808,
+     "rows": 3918,
+     "uncond": "pos",
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 1.213,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "url",
+      "description"
+     ],
+     "cls": "cert",
+     "condition": "(areas_of_law present)",
+     "sql": "(areas_of_law IS NOT NULL)",
+     "support": 0.808,
+     "rows": 3918,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.008,
+     "score": 1.168,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "earliest_complaint"
+     ],
+     "cls": "part",
+     "condition": "(attachments present)",
+     "sql": "(attachments IS NOT NULL)",
+     "support": 0.925,
+     "rows": 4486,
+     "uncond": "pos",
+     "gain": 2,
+     "nulls_in_scope": 0.001,
+     "score": 1.125,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "complainant"
+     ],
+     "cls": "part",
+     "condition": "(attachments present)",
+     "sql": "(attachments IS NOT NULL)",
+     "support": 0.925,
+     "rows": 4486,
+     "uncond": "pos",
+     "gain": 2,
+     "nulls_in_scope": 0.038,
+     "score": 1.125,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "updated_at"
+     ],
+     "cls": "cand",
+     "condition": "(sent_to_collections = \"True\" (10%))",
+     "sql": "(sent_to_collections = 'True')",
+     "support": 0.1,
+     "rows": 483,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.104,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "url",
+      "description"
+     ],
+     "cls": "part",
+     "condition": "(attachments present)",
+     "sql": "(attachments IS NOT NULL)",
+     "support": 0.925,
+     "rows": 4486,
+     "uncond": "pos",
+     "gain": 2,
+     "nulls_in_scope": 0.008,
+     "score": 1.0,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "complainant"
+     ],
+     "cls": "cert",
+     "condition": "(complainant present, attachments present)",
+     "sql": "(complainant IS NOT NULL AND attachments IS NOT NULL)",
+     "support": 0.89,
+     "rows": 4316,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.0,
+     "score": 0.92,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "opened"
+     ],
+     "cls": "cert",
+     "condition": "(sent_to_collections = \"False\" (90%), attachments present)",
+     "sql": "(sent_to_collections = 'False' AND attachments IS NOT NULL)",
+     "support": 0.828,
+     "rows": 4016,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.0,
+     "score": 0.887,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "sent_to_collections=v1": "False"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "complainant"
+     ],
+     "cls": "cert",
+     "condition": "(closed present, attachments present)",
+     "sql": "(closed IS NOT NULL AND attachments IS NOT NULL)",
+     "support": 0.78,
+     "rows": 3786,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.001,
+     "score": 0.861,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "respondent"
+     ],
+     "cls": "dom",
+     "condition": "(attachments present)",
+     "sql": "(attachments IS NOT NULL)",
+     "support": 0.925,
+     "rows": 4486,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.001,
+     "score": 0.844,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "opened"
+     ],
+     "cls": "dom",
+     "condition": "(attachments present)",
+     "sql": "(attachments IS NOT NULL)",
+     "support": 0.925,
+     "rows": 4486,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.0,
+     "score": 0.844,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "subject",
+      "areas_of_law"
+     ],
+     "cls": "pos",
+     "condition": "(attachments present)",
+     "sql": "(attachments IS NOT NULL)",
+     "support": 0.925,
+     "rows": 4486,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.144,
+     "score": 0.844,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "url",
+      "description"
+     ],
+     "cls": "cert",
+     "condition": "(sent_to_collections = \"False\" (90%), attachments present)",
+     "sql": "(sent_to_collections = 'False' AND attachments IS NOT NULL)",
+     "support": 0.828,
+     "rows": 4016,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.008,
+     "score": 0.788,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "sent_to_collections=v1": "False"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "url",
+      "earliest_complaint"
+     ],
+     "cls": "cert",
+     "condition": "(sent_to_collections = \"False\" (90%), attachments present)",
+     "sql": "(sent_to_collections = 'False' AND attachments IS NOT NULL)",
+     "support": 0.828,
+     "rows": 4016,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.001,
+     "score": 0.788,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "sent_to_collections=v1": "False"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "url",
+      "complainant"
+     ],
+     "cls": "cert",
+     "condition": "(sent_to_collections = \"False\" (90%), attachments present)",
+     "sql": "(sent_to_collections = 'False' AND attachments IS NOT NULL)",
+     "support": 0.828,
+     "rows": 4016,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.037,
+     "score": 0.788,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "sent_to_collections=v1": "False"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "url",
+      "respondent"
+     ],
+     "cls": "part",
+     "condition": "(attachments present)",
+     "sql": "(attachments IS NOT NULL)",
+     "support": 0.925,
+     "rows": 4486,
+     "uncond": "dom",
+     "gain": 1,
+     "nulls_in_scope": 0.001,
+     "score": 0.75,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "subject"
+     ],
+     "cls": "cand",
+     "condition": "(complainant missing)",
+     "sql": "(complainant IS NULL)",
+     "support": 0.045,
+     "rows": 218,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.742,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "attachments",
+      "subject"
+     ],
+     "cls": "dom",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.267,
+     "score": 0.692,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "attachments",
+      "subject"
+     ],
+     "cls": "dom",
+     "condition": "(areas_of_law missing)",
+     "sql": "(areas_of_law IS NULL)",
+     "support": 0.192,
+     "rows": 934,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.31,
+     "score": 0.684,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "subject"
+     ],
+     "cls": "cand",
+     "condition": "(closed present, sent_to_collections = \"True\" (10%))",
+     "sql": "(closed IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 380,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.653,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "subject"
+     ],
+     "cls": "cand",
+     "condition": "(areas_of_law present, sent_to_collections = \"True\" (10%))",
+     "sql": "(areas_of_law IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 378,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.651,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "opened"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.001,
+     "score": 0.649,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "url",
+      "respondent"
+     ],
+     "cls": "cert",
+     "condition": "(sent_to_collections = \"False\" (90%), attachments present)",
+     "sql": "(sent_to_collections = 'False' AND attachments IS NOT NULL)",
+     "support": 0.828,
+     "rows": 4016,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.0,
+     "score": 0.631,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "sent_to_collections=v1": "False"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "respondent",
+      "description"
+     ],
+     "cls": "cert",
+     "condition": "(attachments present)",
+     "sql": "(attachments IS NOT NULL)",
+     "support": 0.925,
+     "rows": 4486,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.008,
+     "score": 0.625,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "respondent",
+      "complainant"
+     ],
+     "cls": "cert",
+     "condition": "(attachments present)",
+     "sql": "(attachments IS NOT NULL)",
+     "support": 0.925,
+     "rows": 4486,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.039,
+     "score": 0.625,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "description",
+      "earliest_complaint"
+     ],
+     "cls": "cert",
+     "condition": "(attachments present)",
+     "sql": "(attachments IS NOT NULL)",
+     "support": 0.925,
+     "rows": 4486,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.008,
+     "score": 0.625,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "description",
+      "complainant"
+     ],
+     "cls": "cert",
+     "condition": "(attachments present)",
+     "sql": "(attachments IS NOT NULL)",
+     "support": 0.925,
+     "rows": 4486,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.046,
+     "score": 0.625,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "description",
+      "opened"
+     ],
+     "cls": "cert",
+     "condition": "(attachments present)",
+     "sql": "(attachments IS NOT NULL)",
+     "support": 0.925,
+     "rows": 4486,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.008,
+     "score": 0.625,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "description",
+      "total_penalties"
+     ],
+     "cls": "cert",
+     "condition": "(attachments present)",
+     "sql": "(attachments IS NOT NULL)",
+     "support": 0.925,
+     "rows": 4486,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.008,
+     "score": 0.625,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "closed",
+      "earliest_complaint"
+     ],
+     "cls": "cert",
+     "condition": "(attachments present)",
+     "sql": "(attachments IS NOT NULL)",
+     "support": 0.925,
+     "rows": 4486,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.157,
+     "score": 0.625,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "closed",
+      "opened"
+     ],
+     "cls": "cert",
+     "condition": "(attachments present)",
+     "sql": "(attachments IS NOT NULL)",
+     "support": 0.925,
+     "rows": 4486,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.156,
+     "score": 0.625,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "earliest_complaint",
+      "complainant"
+     ],
+     "cls": "cert",
+     "condition": "(attachments present)",
+     "sql": "(attachments IS NOT NULL)",
+     "support": 0.925,
+     "rows": 4486,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.039,
+     "score": 0.625,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "earliest_complaint",
+      "total_penalties"
+     ],
+     "cls": "cert",
+     "condition": "(attachments present)",
+     "sql": "(attachments IS NOT NULL)",
+     "support": 0.925,
+     "rows": 4486,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.001,
+     "score": 0.625,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "complainant",
+      "opened"
+     ],
+     "cls": "cert",
+     "condition": "(attachments present)",
+     "sql": "(attachments IS NOT NULL)",
+     "support": 0.925,
+     "rows": 4486,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.038,
+     "score": 0.625,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "complainant",
+      "total_penalties"
+     ],
+     "cls": "cert",
+     "condition": "(attachments present)",
+     "sql": "(attachments IS NOT NULL)",
+     "support": 0.925,
+     "rows": 4486,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.038,
+     "score": 0.625,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "opened",
+      "total_penalties"
+     ],
+     "cls": "cert",
+     "condition": "(attachments present)",
+     "sql": "(attachments IS NOT NULL)",
+     "support": 0.925,
+     "rows": 4486,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.0,
+     "score": 0.625,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "url",
+      "respondent"
+     ],
+     "cls": "cert",
+     "condition": "(closed present, attachments present)",
+     "sql": "(closed IS NOT NULL AND attachments IS NOT NULL)",
+     "support": 0.78,
+     "rows": 3786,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.001,
+     "score": 0.612,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "description",
+      "closed"
+     ],
+     "cls": "cert",
+     "condition": "(areas_of_law present)",
+     "sql": "(areas_of_law IS NOT NULL)",
+     "support": 0.808,
+     "rows": 3918,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.026,
+     "score": 0.584,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "description",
+      "total_penalties"
+     ],
+     "cls": "cert",
+     "condition": "(areas_of_law present)",
+     "sql": "(areas_of_law IS NOT NULL)",
+     "support": 0.808,
+     "rows": 3918,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.008,
+     "score": 0.584,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "respondent",
+      "closed"
+     ],
+     "cls": "cert",
+     "condition": "(areas_of_law present)",
+     "sql": "(areas_of_law IS NOT NULL)",
+     "support": 0.808,
+     "rows": 3918,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.037,
+     "score": 0.584,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "respondent",
+      "closed"
+     ],
+     "cls": "cert",
+     "condition": "(closed present)",
+     "sql": "(closed IS NOT NULL)",
+     "support": 0.803,
+     "rows": 3897,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.028,
+     "score": 0.583,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "url",
+      "earliest_complaint"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.001,
+     "score": 0.577,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "subject"
+     ],
+     "cls": "dom",
+     "condition": "(sent_to_collections = \"True\" (10%))",
+     "sql": "(sent_to_collections = 'True')",
+     "support": 0.1,
+     "rows": 483,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.027,
+     "score": 0.554,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "subject",
+      "complainant"
+     ],
+     "cls": "cert",
+     "condition": "(sent_to_collections = \"True\" (10%))",
+     "sql": "(sent_to_collections = 'True')",
+     "support": 0.1,
+     "rows": 483,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.046,
+     "score": 0.554,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "updated_at",
+      "respondent",
+      "areas_of_law"
+     ],
+     "cls": "cand",
+     "condition": "(areas_of_law present)",
+     "sql": "(areas_of_law IS NOT NULL)",
+     "support": 0.808,
+     "rows": 3918,
+     "uncond": "pos",
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.539,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "complainant"
+     ],
+     "cls": "part",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": "pos",
+     "gain": 2,
+     "nulls_in_scope": 0.229,
+     "score": 0.519,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "subject"
+     ],
+     "cls": "cand",
+     "condition": "(areas_of_law missing, attachments missing)",
+     "sql": "(areas_of_law IS NULL AND attachments IS NULL)",
+     "support": 0.06,
+     "rows": 290,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.513,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "respondent",
+      "total_penalties"
+     ],
+     "cls": "cert",
+     "condition": "(attachments present)",
+     "sql": "(attachments IS NOT NULL)",
+     "support": 0.925,
+     "rows": 4486,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.001,
+     "score": 0.5,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "description",
+      "closed"
+     ],
+     "cls": "part",
+     "condition": "(attachments present)",
+     "sql": "(attachments IS NOT NULL)",
+     "support": 0.925,
+     "rows": 4486,
+     "uncond": "pos",
+     "gain": 2,
+     "nulls_in_scope": 0.164,
+     "score": 0.5,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "subject",
+      "total_penalties"
+     ],
+     "cls": "cand",
+     "condition": "(sent_to_collections = \"True\" (10%))",
+     "sql": "(sent_to_collections = 'True')",
+     "support": 0.1,
+     "rows": 483,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.497,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "subject",
+      "total_suspended"
+     ],
+     "cls": "cand",
+     "condition": "(sent_to_collections = \"True\" (10%))",
+     "sql": "(sent_to_collections = 'True')",
+     "support": 0.1,
+     "rows": 483,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.497,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "subject",
+      "complainant"
+     ],
+     "cls": "cert",
+     "condition": "(attachments missing)",
+     "sql": "(attachments IS NULL)",
+     "support": 0.075,
+     "rows": 366,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.131,
+     "score": 0.482,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "subject"
+     ],
+     "cls": "cand",
+     "condition": "(closed missing, attachments missing)",
+     "sql": "(closed IS NULL AND attachments IS NULL)",
+     "support": 0.053,
+     "rows": 255,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.481,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "respondent",
+      "description"
+     ],
+     "cls": "cert",
+     "condition": "(areas_of_law present)",
+     "sql": "(areas_of_law IS NOT NULL)",
+     "support": 0.808,
+     "rows": 3918,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.028,
+     "score": 0.467,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "respondent",
+      "earliest_complaint"
+     ],
+     "cls": "cert",
+     "condition": "(areas_of_law present)",
+     "sql": "(areas_of_law IS NOT NULL)",
+     "support": 0.808,
+     "rows": 3918,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.02,
+     "score": 0.467,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "respondent",
+      "earliest_complaint"
+     ],
+     "cls": "cert",
+     "condition": "(closed present)",
+     "sql": "(closed IS NOT NULL)",
+     "support": 0.803,
+     "rows": 3897,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.029,
+     "score": 0.466,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "respondent"
+     ],
+     "cls": "cert",
+     "condition": "(sent_to_collections = \"True\" (10%))",
+     "sql": "(sent_to_collections = 'True')",
+     "support": 0.1,
+     "rows": 483,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.006,
+     "score": 0.461,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "earliest_complaint"
+     ],
+     "cls": "cert",
+     "condition": "(sent_to_collections = \"True\" (10%))",
+     "sql": "(sent_to_collections = 'True')",
+     "support": 0.1,
+     "rows": 483,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.006,
+     "score": 0.461,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "opened"
+     ],
+     "cls": "cert",
+     "condition": "(sent_to_collections = \"True\" (10%))",
+     "sql": "(sent_to_collections = 'True')",
+     "support": 0.1,
+     "rows": 483,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.006,
+     "score": 0.461,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "url",
+      "description"
+     ],
+     "cls": "part",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": "pos",
+     "gain": 2,
+     "nulls_in_scope": 0.002,
+     "score": 0.461,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "attachments",
+      "description"
+     ],
+     "cls": "part",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": "pos",
+     "gain": 2,
+     "nulls_in_scope": 0.268,
+     "score": 0.461,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "updated_at",
+      "respondent"
+     ],
+     "cls": "cand",
+     "condition": "(attachments missing)",
+     "sql": "(attachments IS NULL)",
+     "support": 0.075,
+     "rows": 366,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.433,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "respondent"
+     ],
+     "cls": "cert",
+     "condition": "(attachments missing)",
+     "sql": "(attachments IS NULL)",
+     "support": 0.075,
+     "rows": 366,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.093,
+     "score": 0.402,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "earliest_complaint"
+     ],
+     "cls": "dom",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.001,
+     "score": 0.389,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "subject",
+      "areas_of_law"
+     ],
+     "cls": "pos",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.929,
+     "score": 0.389,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "updated_at",
+      "closed"
+     ],
+     "cls": "pos",
+     "condition": "(areas_of_law missing)",
+     "sql": "(areas_of_law IS NULL)",
+     "support": 0.192,
+     "rows": 934,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.95,
+     "score": 0.385,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "subject",
+      "respondent"
+     ],
+     "cls": "cand",
+     "condition": "(attachments missing)",
+     "sql": "(attachments IS NULL)",
+     "support": 0.075,
+     "rows": 366,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.385,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "description",
+      "closed"
+     ],
+     "cls": "cert",
+     "condition": "(closed present, attachments present)",
+     "sql": "(closed IS NOT NULL AND attachments IS NOT NULL)",
+     "support": 0.78,
+     "rows": 3786,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.009,
+     "score": 0.383,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "complainant"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing, complainant present)",
+     "sql": "(closed IS NULL AND complainant IS NOT NULL)",
+     "support": 0.152,
+     "rows": 737,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.001,
+     "score": 0.38,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "url",
+      "description"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing, areas_of_law missing)",
+     "sql": "(closed IS NULL AND areas_of_law IS NULL)",
+     "support": 0.183,
+     "rows": 887,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.001,
+     "score": 0.371,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "attachments",
+      "description"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing, areas_of_law missing)",
+     "sql": "(closed IS NULL AND areas_of_law IS NULL)",
+     "support": 0.183,
+     "rows": 887,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.287,
+     "score": 0.371,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "respondent"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing, attachments present)",
+     "sql": "(closed IS NULL AND attachments IS NOT NULL)",
+     "support": 0.144,
+     "rows": 700,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.001,
+     "score": 0.37,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "complainant"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing, attachments present)",
+     "sql": "(closed IS NULL AND attachments IS NOT NULL)",
+     "support": 0.144,
+     "rows": 700,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.243,
+     "score": 0.37,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "subject",
+      "closed"
+     ],
+     "cls": "cert",
+     "condition": "(attachments missing)",
+     "sql": "(attachments IS NULL)",
+     "support": 0.075,
+     "rows": 366,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.697,
+     "score": 0.357,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "earliest_complaint"
+     ],
+     "cls": "cert",
+     "condition": "(areas_of_law missing, attachments present)",
+     "sql": "(areas_of_law IS NULL AND attachments IS NOT NULL)",
+     "support": 0.133,
+     "rows": 644,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.003,
+     "score": 0.355,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "opened"
+     ],
+     "cls": "cert",
+     "condition": "(areas_of_law missing, attachments present)",
+     "sql": "(areas_of_law IS NULL AND attachments IS NOT NULL)",
+     "support": 0.133,
+     "rows": 644,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.003,
+     "score": 0.355,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "respondent",
+      "areas_of_law"
+     ],
+     "cls": "dom",
+     "condition": "(areas_of_law present)",
+     "sql": "(areas_of_law IS NOT NULL)",
+     "support": 0.808,
+     "rows": 3918,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.019,
+     "score": 0.35,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "respondent",
+      "closed"
+     ],
+     "cls": "cert",
+     "condition": "(closed present)",
+     "sql": "(closed IS NOT NULL)",
+     "support": 0.803,
+     "rows": 3897,
+     "uncond": "part",
+     "gain": 1,
+     "nulls_in_scope": 0.009,
+     "score": 0.35,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "respondent",
+      "areas_of_law"
+     ],
+     "cls": "dom",
+     "condition": "(closed present)",
+     "sql": "(closed IS NOT NULL)",
+     "support": 0.803,
+     "rows": 3897,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.032,
+     "score": 0.35,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "subject",
+      "total_penalties"
+     ],
+     "cls": "dom",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.267,
+     "score": 0.346,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "description",
+      "earliest_complaint"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.346,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "description",
+      "complainant"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.23,
+     "score": 0.346,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "description",
+      "opened"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.346,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "description",
+      "total_penalties"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.346,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "description",
+      "total_suspended"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.346,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "url",
+      "respondent"
+     ],
+     "cls": "part",
+     "condition": "(areas_of_law missing)",
+     "sql": "(areas_of_law IS NULL)",
+     "support": 0.192,
+     "rows": 934,
+     "uncond": "dom",
+     "gain": 1,
+     "nulls_in_scope": 0.04,
+     "score": 0.342,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "respondent",
+      "description"
+     ],
+     "cls": "cert",
+     "condition": "(areas_of_law missing)",
+     "sql": "(areas_of_law IS NULL)",
+     "support": 0.192,
+     "rows": 934,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.342,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "subject",
+      "total_penalties"
+     ],
+     "cls": "dom",
+     "condition": "(areas_of_law missing)",
+     "sql": "(areas_of_law IS NULL)",
+     "support": 0.192,
+     "rows": 934,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.31,
+     "score": 0.342,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "description",
+      "earliest_complaint"
+     ],
+     "cls": "cert",
+     "condition": "(areas_of_law missing)",
+     "sql": "(areas_of_law IS NULL)",
+     "support": 0.192,
+     "rows": 934,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.342,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "description",
+      "opened"
+     ],
+     "cls": "cert",
+     "condition": "(areas_of_law missing)",
+     "sql": "(areas_of_law IS NULL)",
+     "support": 0.192,
+     "rows": 934,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.342,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "description",
+      "total_penalties"
+     ],
+     "cls": "cert",
+     "condition": "(areas_of_law missing)",
+     "sql": "(areas_of_law IS NULL)",
+     "support": 0.192,
+     "rows": 934,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.342,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "earliest_complaint"
+     ],
+     "cls": "cand",
+     "condition": "(closed missing, attachments present)",
+     "sql": "(closed IS NULL AND attachments IS NOT NULL)",
+     "support": 0.144,
+     "rows": 700,
+     "uncond": "pos",
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.342,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "updated_at",
+      "respondent"
+     ],
+     "cls": "cand",
+     "condition": "(complainant missing)",
+     "sql": "(complainant IS NULL)",
+     "support": 0.045,
+     "rows": 218,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.334,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "url",
+      "description"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing, attachments present)",
+     "sql": "(closed IS NULL AND attachments IS NOT NULL)",
+     "support": 0.144,
+     "rows": 700,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.001,
+     "score": 0.329,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "description"
+     ],
+     "cls": "part",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.002,
+     "score": 0.324,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "url",
+      "description"
+     ],
+     "cls": "cert",
+     "condition": "(areas_of_law missing, attachments present)",
+     "sql": "(areas_of_law IS NULL AND attachments IS NOT NULL)",
+     "support": 0.133,
+     "rows": 644,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.003,
+     "score": 0.316,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "respondent"
+     ],
+     "cls": "cert",
+     "condition": "(complainant missing)",
+     "sql": "(complainant IS NULL)",
+     "support": 0.045,
+     "rows": 218,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.22,
+     "score": 0.31,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "respondent",
+      "description"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.003,
+     "score": 0.288,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "respondent",
+      "complainant"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.23,
+     "score": 0.288,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "respondent",
+      "total_suspended"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.002,
+     "score": 0.288,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "description",
+      "earliest_complaint"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.002,
+     "score": 0.288,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "description",
+      "complainant"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.23,
+     "score": 0.288,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "earliest_complaint",
+      "complainant"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.229,
+     "score": 0.288,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "earliest_complaint",
+      "total_penalties"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.001,
+     "score": 0.288,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "earliest_complaint",
+      "total_suspended"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.001,
+     "score": 0.288,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "description",
+      "earliest_complaint"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.268,
+     "score": 0.288,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "description",
+      "opened"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.268,
+     "score": 0.288,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "respondent"
+     ],
+     "cls": "cand",
+     "condition": "(complainant missing)",
+     "sql": "(complainant IS NULL)",
+     "support": 0.045,
+     "rows": 218,
+     "uncond": "pos",
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.286,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "earliest_complaint"
+     ],
+     "cls": "cand",
+     "condition": "(complainant missing)",
+     "sql": "(complainant IS NULL)",
+     "support": 0.045,
+     "rows": 218,
+     "uncond": "pos",
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.286,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "opened"
+     ],
+     "cls": "cand",
+     "condition": "(complainant missing)",
+     "sql": "(complainant IS NULL)",
+     "support": 0.045,
+     "rows": 218,
+     "uncond": "pos",
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.286,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "description",
+      "closed"
+     ],
+     "cls": "part",
+     "condition": "(areas_of_law missing)",
+     "sql": "(areas_of_law IS NULL)",
+     "support": 0.192,
+     "rows": 934,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.951,
+     "score": 0.285,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "respondent"
+     ],
+     "cls": "part",
+     "condition": "(areas_of_law missing, attachments present)",
+     "sql": "(areas_of_law IS NULL AND attachments IS NOT NULL)",
+     "support": 0.133,
+     "rows": 644,
+     "uncond": "pos",
+     "gain": 2,
+     "nulls_in_scope": 0.005,
+     "score": 0.284,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "respondent"
+     ],
+     "cls": "dom",
+     "condition": "(sent_to_collections = \"True\" (10%))",
+     "sql": "(sent_to_collections = 'True')",
+     "support": 0.1,
+     "rows": 483,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.027,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "subject",
+      "areas_of_law"
+     ],
+     "cls": "pos",
+     "condition": "(sent_to_collections = \"True\" (10%))",
+     "sql": "(sent_to_collections = 'True')",
+     "support": 0.1,
+     "rows": 483,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.217,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "attachments",
+      "description"
+     ],
+     "cls": "cert",
+     "condition": "(complainant missing)",
+     "sql": "(complainant IS NULL)",
+     "support": 0.045,
+     "rows": 218,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.22,
+     "score": 0.276,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "url",
+      "description"
+     ],
+     "cls": "cert",
+     "condition": "(sent_to_collections = \"True\" (10%), attachments present)",
+     "sql": "(sent_to_collections = 'True' AND attachments IS NOT NULL)",
+     "support": 0.097,
+     "rows": 470,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.002,
+     "score": 0.27,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "subject",
+      "total_penalties"
+     ],
+     "cls": "cand",
+     "condition": "(areas_of_law missing, attachments missing)",
+     "sql": "(areas_of_law IS NULL AND attachments IS NULL)",
+     "support": 0.06,
+     "rows": 290,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.257,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "url",
+      "description"
+     ],
+     "cls": "cand",
+     "condition": "(complainant missing)",
+     "sql": "(complainant IS NULL)",
+     "support": 0.045,
+     "rows": 218,
+     "uncond": "pos",
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.254,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "description"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing, areas_of_law missing)",
+     "sql": "(closed IS NULL AND areas_of_law IS NULL)",
+     "support": 0.183,
+     "rows": 887,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.25,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "description"
+     ],
+     "cls": "cand",
+     "condition": "(sent_to_collections = \"True\" (10%))",
+     "sql": "(sent_to_collections = 'True')",
+     "support": 0.1,
+     "rows": 483,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.248,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "earliest_complaint"
+     ],
+     "cls": "cand",
+     "condition": "(sent_to_collections = \"True\" (10%))",
+     "sql": "(sent_to_collections = 'True')",
+     "support": 0.1,
+     "rows": 483,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.248,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "opened"
+     ],
+     "cls": "cand",
+     "condition": "(sent_to_collections = \"True\" (10%))",
+     "sql": "(sent_to_collections = 'True')",
+     "support": 0.1,
+     "rows": 483,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.248,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "updated_at",
+      "closed"
+     ],
+     "cls": "pos",
+     "condition": "(attachments missing)",
+     "sql": "(attachments IS NULL)",
+     "support": 0.075,
+     "rows": 366,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.697,
+     "score": 0.241,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "updated_at",
+      "areas_of_law"
+     ],
+     "cls": "pos",
+     "condition": "(attachments missing)",
+     "sql": "(attachments IS NULL)",
+     "support": 0.075,
+     "rows": 366,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.792,
+     "score": 0.241,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "description"
+     ],
+     "cls": "cert",
+     "condition": "(attachments missing)",
+     "sql": "(attachments IS NULL)",
+     "support": 0.075,
+     "rows": 366,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 0.241,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "complainant"
+     ],
+     "cls": "cert",
+     "condition": "(attachments missing)",
+     "sql": "(attachments IS NULL)",
+     "support": 0.075,
+     "rows": 366,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.131,
+     "score": 0.241,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "subject",
+      "total_penalties"
+     ],
+     "cls": "cand",
+     "condition": "(closed missing, attachments missing)",
+     "sql": "(closed IS NULL AND attachments IS NULL)",
+     "support": 0.053,
+     "rows": 255,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.241,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "updated_at",
+      "respondent",
+      "earliest_complaint"
+     ],
+     "cls": "dom",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.001,
+     "score": 0.231,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "updated_at",
+      "respondent",
+      "complainant"
+     ],
+     "cls": "dom",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.229,
+     "score": 0.231,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "updated_at",
+      "respondent",
+      "opened"
+     ],
+     "cls": "dom",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.001,
+     "score": 0.231,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "respondent",
+      "total_penalties"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.002,
+     "score": 0.231,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "description",
+      "total_penalties"
+     ],
+     "cls": "part",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": "pos",
+     "gain": 2,
+     "nulls_in_scope": 0.002,
+     "score": 0.231,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "respondent",
+      "description"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.269,
+     "score": 0.231,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "description",
+      "complainant"
+     ],
+     "cls": "part",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": "pos",
+     "gain": 2,
+     "nulls_in_scope": 0.446,
+     "score": 0.231,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "description",
+      "total_penalties"
+     ],
+     "cls": "part",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": "pos",
+     "gain": 2,
+     "nulls_in_scope": 0.268,
+     "score": 0.231,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "updated_at",
+      "respondent",
+      "earliest_complaint"
+     ],
+     "cls": "dom",
+     "condition": "(areas_of_law missing)",
+     "sql": "(areas_of_law IS NULL)",
+     "support": 0.192,
+     "rows": 934,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.001,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "updated_at",
+      "respondent",
+      "complainant"
+     ],
+     "cls": "dom",
+     "condition": "(areas_of_law missing)",
+     "sql": "(areas_of_law IS NULL)",
+     "support": 0.192,
+     "rows": 934,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.234,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "updated_at",
+      "respondent",
+      "opened"
+     ],
+     "cls": "dom",
+     "condition": "(areas_of_law missing)",
+     "sql": "(areas_of_law IS NULL)",
+     "support": 0.192,
+     "rows": 934,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.001,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "respondent",
+      "total_penalties"
+     ],
+     "cls": "cert",
+     "condition": "(areas_of_law missing)",
+     "sql": "(areas_of_law IS NULL)",
+     "support": 0.192,
+     "rows": 934,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.04,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "description",
+      "earliest_complaint"
+     ],
+     "cls": "cand",
+     "condition": "(closed missing, areas_of_law missing)",
+     "sql": "(closed IS NULL AND areas_of_law IS NULL)",
+     "support": 0.183,
+     "rows": 887,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.224,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "description",
+      "opened"
+     ],
+     "cls": "cand",
+     "condition": "(closed missing, areas_of_law missing)",
+     "sql": "(closed IS NULL AND areas_of_law IS NULL)",
+     "support": 0.183,
+     "rows": 887,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.224,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "earliest_complaint"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing, attachments missing)",
+     "sql": "(closed IS NULL AND attachments IS NULL)",
+     "support": 0.053,
+     "rows": 255,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.004,
+     "score": 0.224,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "attachments",
+      "respondent"
+     ],
+     "cls": "dom",
+     "condition": "(closed missing, sent_to_collections = \"False\" (90%))",
+     "sql": "(closed IS NULL AND sent_to_collections = 'False')",
+     "support": 0.176,
+     "rows": 852,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.291,
+     "score": 0.218,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v1": "False"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "earliest_complaint"
+     ],
+     "cls": "cand",
+     "condition": "(attachments missing)",
+     "sql": "(attachments IS NULL)",
+     "support": 0.075,
+     "rows": 366,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.216,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "attachments",
+      "respondent"
+     ],
+     "cls": "dom",
+     "condition": "(areas_of_law missing, sent_to_collections = \"False\" (90%))",
+     "sql": "(areas_of_law IS NULL AND sent_to_collections = 'False')",
+     "support": 0.171,
+     "rows": 829,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.339,
+     "score": 0.215,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v1": "False"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "closed",
+      "opened"
+     ],
+     "cls": "cert",
+     "condition": "(attachments missing)",
+     "sql": "(attachments IS NULL)",
+     "support": 0.075,
+     "rows": 366,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.697,
+     "score": 0.214,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "closed",
+      "total_penalties"
+     ],
+     "cls": "cert",
+     "condition": "(attachments missing)",
+     "sql": "(attachments IS NULL)",
+     "support": 0.075,
+     "rows": 366,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.697,
+     "score": 0.214,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "opened",
+      "areas_of_law"
+     ],
+     "cls": "cert",
+     "condition": "(attachments missing)",
+     "sql": "(attachments IS NULL)",
+     "support": 0.075,
+     "rows": 366,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.792,
+     "score": 0.214,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "areas_of_law",
+      "total_penalties"
+     ],
+     "cls": "cert",
+     "condition": "(attachments missing)",
+     "sql": "(attachments IS NULL)",
+     "support": 0.075,
+     "rows": 366,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.792,
+     "score": 0.214,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "description"
+     ],
+     "cls": "cert",
+     "condition": "(areas_of_law missing, attachments present)",
+     "sql": "(areas_of_law IS NULL AND attachments IS NOT NULL)",
+     "support": 0.133,
+     "rows": 644,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.213,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "description",
+      "closed"
+     ],
+     "cls": "cert",
+     "condition": "(sent_to_collections = \"True\" (10%))",
+     "sql": "(sent_to_collections = 'True')",
+     "support": 0.1,
+     "rows": 483,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.219,
+     "score": 0.205,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "description",
+      "total_penalties"
+     ],
+     "cls": "cert",
+     "condition": "(sent_to_collections = \"True\" (10%))",
+     "sql": "(sent_to_collections = 'True')",
+     "support": 0.1,
+     "rows": 483,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.006,
+     "score": 0.205,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "complainant",
+      "total_penalties"
+     ],
+     "cls": "cert",
+     "condition": "(sent_to_collections = \"True\" (10%))",
+     "sql": "(sent_to_collections = 'True')",
+     "support": 0.1,
+     "rows": 483,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.052,
+     "score": 0.205,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "respondent",
+      "total_penalties"
+     ],
+     "cls": "cert",
+     "condition": "(sent_to_collections = \"True\" (10%))",
+     "sql": "(sent_to_collections = 'True')",
+     "support": 0.1,
+     "rows": 483,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.027,
+     "score": 0.205,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "respondent",
+      "total_suspended"
+     ],
+     "cls": "cert",
+     "condition": "(sent_to_collections = \"True\" (10%))",
+     "sql": "(sent_to_collections = 'True')",
+     "support": 0.1,
+     "rows": 483,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.027,
+     "score": 0.205,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "description",
+      "closed"
+     ],
+     "cls": "cert",
+     "condition": "(sent_to_collections = \"True\" (10%))",
+     "sql": "(sent_to_collections = 'True')",
+     "support": 0.1,
+     "rows": 483,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.224,
+     "score": 0.205,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "description",
+      "total_penalties"
+     ],
+     "cls": "cert",
+     "condition": "(sent_to_collections = \"True\" (10%))",
+     "sql": "(sent_to_collections = 'True')",
+     "support": 0.1,
+     "rows": 483,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.027,
+     "score": 0.205,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "url",
+      "description"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing, attachments missing)",
+     "sql": "(closed IS NULL AND attachments IS NULL)",
+     "support": 0.053,
+     "rows": 255,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.004,
+     "score": 0.199,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "subject",
+      "respondent",
+      "total_penalties"
+     ],
+     "cls": "cand",
+     "condition": "(attachments missing)",
+     "sql": "(attachments IS NULL)",
+     "support": 0.075,
+     "rows": 366,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.192,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "description",
+      "earliest_complaint"
+     ],
+     "cls": "cand",
+     "condition": "(areas_of_law missing, attachments present)",
+     "sql": "(areas_of_law IS NULL AND attachments IS NOT NULL)",
+     "support": 0.133,
+     "rows": 644,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.191,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "description",
+      "opened"
+     ],
+     "cls": "cand",
+     "condition": "(areas_of_law missing, attachments present)",
+     "sql": "(areas_of_law IS NULL AND attachments IS NOT NULL)",
+     "support": 0.133,
+     "rows": 644,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.191,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "description",
+      "closed",
+      "complainant"
+     ],
+     "cls": "cert",
+     "condition": "(areas_of_law missing, attachments present)",
+     "sql": "(areas_of_law IS NULL AND attachments IS NOT NULL)",
+     "support": 0.133,
+     "rows": 644,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.981,
+     "score": 0.189,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "updated_at",
+      "closed"
+     ],
+     "cls": "pos",
+     "condition": "(complainant missing)",
+     "sql": "(complainant IS NULL)",
+     "support": 0.045,
+     "rows": 218,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.186,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "updated_at",
+      "areas_of_law"
+     ],
+     "cls": "pos",
+     "condition": "(complainant missing)",
+     "sql": "(complainant IS NULL)",
+     "support": 0.045,
+     "rows": 218,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.186,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "description",
+      "total_penalties"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing, areas_of_law missing)",
+     "sql": "(closed IS NULL AND areas_of_law IS NULL)",
+     "support": 0.183,
+     "rows": 887,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.001,
+     "score": 0.185,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "description",
+      "complainant"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing, areas_of_law missing)",
+     "sql": "(closed IS NULL AND areas_of_law IS NULL)",
+     "support": 0.183,
+     "rows": 887,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.479,
+     "score": 0.185,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "description",
+      "total_penalties"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing, areas_of_law missing)",
+     "sql": "(closed IS NULL AND areas_of_law IS NULL)",
+     "support": 0.183,
+     "rows": 887,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.287,
+     "score": 0.185,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "subject",
+      "closed",
+      "total_penalties"
+     ],
+     "cls": "cert",
+     "condition": "(attachments missing)",
+     "sql": "(attachments IS NULL)",
+     "support": 0.075,
+     "rows": 366,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.697,
+     "score": 0.179,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "respondent",
+      "opened"
+     ],
+     "cls": "dom",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.268,
+     "score": 0.173,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "respondent",
+      "total_penalties"
+     ],
+     "cls": "dom",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.268,
+     "score": 0.173,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "earliest_complaint",
+      "areas_of_law"
+     ],
+     "cls": "pos",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.929,
+     "score": 0.173,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "complainant",
+      "areas_of_law"
+     ],
+     "cls": "pos",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.929,
+     "score": 0.173,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "opened",
+      "areas_of_law"
+     ],
+     "cls": "pos",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.929,
+     "score": 0.173,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "areas_of_law",
+      "total_penalties"
+     ],
+     "cls": "pos",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.929,
+     "score": 0.173,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "areas_of_law",
+      "total_suspended"
+     ],
+     "cls": "pos",
+     "condition": "(closed missing)",
+     "sql": "(closed IS NULL)",
+     "support": 0.197,
+     "rows": 955,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.929,
+     "score": 0.173,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "respondent",
+      "opened"
+     ],
+     "cls": "dom",
+     "condition": "(areas_of_law missing)",
+     "sql": "(areas_of_law IS NULL)",
+     "support": 0.192,
+     "rows": 934,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.312,
+     "score": 0.171,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "respondent",
+      "total_penalties"
+     ],
+     "cls": "dom",
+     "condition": "(areas_of_law missing)",
+     "sql": "(areas_of_law IS NULL)",
+     "support": 0.192,
+     "rows": 934,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.312,
+     "score": 0.171,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "closed",
+      "earliest_complaint"
+     ],
+     "cls": "pos",
+     "condition": "(areas_of_law missing)",
+     "sql": "(areas_of_law IS NULL)",
+     "support": 0.192,
+     "rows": 934,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.95,
+     "score": 0.171,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "closed",
+      "complainant"
+     ],
+     "cls": "pos",
+     "condition": "(areas_of_law missing)",
+     "sql": "(areas_of_law IS NULL)",
+     "support": 0.192,
+     "rows": 934,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.95,
+     "score": 0.171,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "closed",
+      "opened"
+     ],
+     "cls": "pos",
+     "condition": "(areas_of_law missing)",
+     "sql": "(areas_of_law IS NULL)",
+     "support": 0.192,
+     "rows": 934,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.95,
+     "score": 0.171,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "closed",
+      "total_penalties"
+     ],
+     "cls": "pos",
+     "condition": "(areas_of_law missing)",
+     "sql": "(areas_of_law IS NULL)",
+     "support": 0.192,
+     "rows": 934,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.95,
+     "score": 0.171,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "closed",
+      "total_suspended"
+     ],
+     "cls": "pos",
+     "condition": "(areas_of_law missing)",
+     "sql": "(areas_of_law IS NULL)",
+     "support": 0.192,
+     "rows": 934,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.95,
+     "score": 0.171,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "description",
+      "complainant"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing, complainant present)",
+     "sql": "(closed IS NULL AND complainant IS NOT NULL)",
+     "support": 0.152,
+     "rows": 737,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.282,
+     "score": 0.169,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "description"
+     ],
+     "cls": "cand",
+     "condition": "(complainant missing)",
+     "sql": "(complainant IS NULL)",
+     "support": 0.045,
+     "rows": 218,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.167,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "earliest_complaint"
+     ],
+     "cls": "cand",
+     "condition": "(complainant missing)",
+     "sql": "(complainant IS NULL)",
+     "support": 0.045,
+     "rows": 218,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.167,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "opened"
+     ],
+     "cls": "cand",
+     "condition": "(complainant missing)",
+     "sql": "(complainant IS NULL)",
+     "support": 0.045,
+     "rows": 218,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.167,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "description",
+      "earliest_complaint"
+     ],
+     "cls": "cand",
+     "condition": "(complainant missing)",
+     "sql": "(complainant IS NULL)",
+     "support": 0.045,
+     "rows": 218,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.167,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "description",
+      "opened"
+     ],
+     "cls": "cand",
+     "condition": "(complainant missing)",
+     "sql": "(complainant IS NULL)",
+     "support": 0.045,
+     "rows": 218,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.167,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "closed",
+      "total_penalties"
+     ],
+     "cls": "cert",
+     "condition": "(complainant missing)",
+     "sql": "(complainant IS NULL)",
+     "support": 0.045,
+     "rows": 218,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 1.0,
+     "score": 0.165,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "areas_of_law",
+      "total_penalties"
+     ],
+     "cls": "cert",
+     "condition": "(complainant missing)",
+     "sql": "(complainant IS NULL)",
+     "support": 0.045,
+     "rows": 218,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 1.0,
+     "score": 0.165,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "closed",
+      "complainant"
+     ],
+     "cls": "part",
+     "condition": "(sent_to_collections = \"True\" (10%))",
+     "sql": "(sent_to_collections = 'True')",
+     "support": 0.1,
+     "rows": 483,
+     "uncond": "pos",
+     "gain": 2,
+     "nulls_in_scope": 0.219,
+     "score": 0.164,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "closed"
+     ],
+     "cls": "dom",
+     "condition": "(closed present, sent_to_collections = \"True\" (10%))",
+     "sql": "(closed IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 380,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.013,
+     "score": 0.164,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "opened"
+     ],
+     "cls": "dom",
+     "condition": "(closed present, sent_to_collections = \"True\" (10%))",
+     "sql": "(closed IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 380,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.013,
+     "score": 0.164,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "total_penalties"
+     ],
+     "cls": "dom",
+     "condition": "(closed present, sent_to_collections = \"True\" (10%))",
+     "sql": "(closed IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 380,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.013,
+     "score": 0.164,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "closed"
+     ],
+     "cls": "dom",
+     "condition": "(areas_of_law present, sent_to_collections = \"True\" (10%))",
+     "sql": "(areas_of_law IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 378,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.011,
+     "score": 0.163,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "complainant"
+     ],
+     "cls": "dom",
+     "condition": "(areas_of_law present, sent_to_collections = \"True\" (10%))",
+     "sql": "(areas_of_law IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 378,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.008,
+     "score": 0.163,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "opened"
+     ],
+     "cls": "dom",
+     "condition": "(areas_of_law present, sent_to_collections = \"True\" (10%))",
+     "sql": "(areas_of_law IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 378,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.008,
+     "score": 0.163,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "total_penalties"
+     ],
+     "cls": "dom",
+     "condition": "(areas_of_law present, sent_to_collections = \"True\" (10%))",
+     "sql": "(areas_of_law IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 378,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.008,
+     "score": 0.163,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "respondent",
+      "total_suspended"
+     ],
+     "cls": "cert",
+     "condition": "(areas_of_law missing, attachments present)",
+     "sql": "(areas_of_law IS NULL AND attachments IS NOT NULL)",
+     "support": 0.133,
+     "rows": 644,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.005,
+     "score": 0.158,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "description",
+      "closed"
+     ],
+     "cls": "cert",
+     "condition": "(areas_of_law missing, attachments present)",
+     "sql": "(areas_of_law IS NULL AND attachments IS NOT NULL)",
+     "support": 0.133,
+     "rows": 644,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.984,
+     "score": 0.158,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "respondent",
+      "total_penalties"
+     ],
+     "cls": "cand",
+     "condition": "(complainant missing)",
+     "sql": "(complainant IS NULL)",
+     "support": 0.045,
+     "rows": 218,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.148,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "respondent",
+      "total_suspended"
+     ],
+     "cls": "cand",
+     "condition": "(complainant missing)",
+     "sql": "(complainant IS NULL)",
+     "support": 0.045,
+     "rows": 218,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.148,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "total_penalties",
+      "total_suspended"
+     ],
+     "cls": "cand",
+     "condition": "(complainant missing)",
+     "sql": "(complainant IS NULL)",
+     "support": 0.045,
+     "rows": 218,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.148,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "earliest_complaint"
+     ],
+     "cls": "dom",
+     "condition": "(closed missing, attachments present)",
+     "sql": "(closed IS NULL AND attachments IS NOT NULL)",
+     "support": 0.144,
+     "rows": 700,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.001,
+     "score": 0.148,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "opened"
+     ],
+     "cls": "dom",
+     "condition": "(closed missing, attachments present)",
+     "sql": "(closed IS NULL AND attachments IS NOT NULL)",
+     "support": 0.144,
+     "rows": 700,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.001,
+     "score": 0.148,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "attachments",
+      "earliest_complaint"
+     ],
+     "cls": "dom",
+     "condition": "(closed present, sent_to_collections = \"True\" (10%))",
+     "sql": "(closed IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 380,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.013,
+     "score": 0.146,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "areas_of_law",
+      "total_penalties"
+     ],
+     "cls": "cert",
+     "condition": "(closed present, sent_to_collections = \"True\" (10%))",
+     "sql": "(closed IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 380,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.146,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "attachments",
+      "description"
+     ],
+     "cls": "dom",
+     "condition": "(areas_of_law present, sent_to_collections = \"True\" (10%))",
+     "sql": "(areas_of_law IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 378,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.008,
+     "score": 0.145,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "attachments",
+      "earliest_complaint"
+     ],
+     "cls": "dom",
+     "condition": "(areas_of_law present, sent_to_collections = \"True\" (10%))",
+     "sql": "(areas_of_law IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 378,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.008,
+     "score": 0.145,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "attachments",
+      "areas_of_law"
+     ],
+     "cls": "dom",
+     "condition": "(areas_of_law present, sent_to_collections = \"True\" (10%))",
+     "sql": "(areas_of_law IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 378,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.008,
+     "score": 0.145,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "attachments",
+      "total_suspended"
+     ],
+     "cls": "dom",
+     "condition": "(areas_of_law present, sent_to_collections = \"True\" (10%))",
+     "sql": "(areas_of_law IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 378,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.008,
+     "score": 0.145,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "closed",
+      "complainant"
+     ],
+     "cls": "cert",
+     "condition": "(areas_of_law present, sent_to_collections = \"True\" (10%))",
+     "sql": "(areas_of_law IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 378,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 0.145,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "closed",
+      "total_penalties"
+     ],
+     "cls": "cert",
+     "condition": "(areas_of_law present, sent_to_collections = \"True\" (10%))",
+     "sql": "(areas_of_law IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 378,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 0.145,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "closed",
+      "total_suspended"
+     ],
+     "cls": "cert",
+     "condition": "(areas_of_law present, sent_to_collections = \"True\" (10%))",
+     "sql": "(areas_of_law IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 378,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 0.145,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "earliest_complaint"
+     ],
+     "cls": "dom",
+     "condition": "(areas_of_law missing, attachments present)",
+     "sql": "(areas_of_law IS NULL AND attachments IS NOT NULL)",
+     "support": 0.133,
+     "rows": 644,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.002,
+     "score": 0.142,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "opened"
+     ],
+     "cls": "dom",
+     "condition": "(areas_of_law missing, attachments present)",
+     "sql": "(areas_of_law IS NULL AND attachments IS NOT NULL)",
+     "support": 0.133,
+     "rows": 644,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.002,
+     "score": 0.142,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "description",
+      "closed"
+     ],
+     "cls": "cert",
+     "condition": "(complainant missing)",
+     "sql": "(complainant IS NULL)",
+     "support": 0.045,
+     "rows": 218,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 1.0,
+     "score": 0.138,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "description",
+      "closed"
+     ],
+     "cls": "cert",
+     "condition": "(complainant missing)",
+     "sql": "(complainant IS NULL)",
+     "support": 0.045,
+     "rows": 218,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 1.0,
+     "score": 0.138,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "description",
+      "total_penalties"
+     ],
+     "cls": "cert",
+     "condition": "(complainant missing)",
+     "sql": "(complainant IS NULL)",
+     "support": 0.045,
+     "rows": 218,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.22,
+     "score": 0.138,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "closed",
+      "complainant"
+     ],
+     "cls": "cert",
+     "condition": "(complainant present, sent_to_collections = \"True\" (10%))",
+     "sql": "(complainant IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.095,
+     "rows": 461,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.182,
+     "score": 0.134,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "closed",
+      "complainant"
+     ],
+     "cls": "cand",
+     "condition": "(closed present, sent_to_collections = \"True\" (10%))",
+     "sql": "(closed IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 380,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.131,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "closed",
+      "total_penalties"
+     ],
+     "cls": "cand",
+     "condition": "(closed present, sent_to_collections = \"True\" (10%))",
+     "sql": "(closed IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 380,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.131,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "closed",
+      "total_suspended"
+     ],
+     "cls": "cand",
+     "condition": "(closed present, sent_to_collections = \"True\" (10%))",
+     "sql": "(closed IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 380,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.131,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "total_penalties",
+      "total_suspended"
+     ],
+     "cls": "cand",
+     "condition": "(closed present, sent_to_collections = \"True\" (10%))",
+     "sql": "(closed IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 380,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.131,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "areas_of_law",
+      "total_penalties"
+     ],
+     "cls": "cand",
+     "condition": "(areas_of_law present, sent_to_collections = \"True\" (10%))",
+     "sql": "(areas_of_law IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 378,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.13,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "total_penalties",
+      "total_suspended"
+     ],
+     "cls": "cand",
+     "condition": "(areas_of_law present, sent_to_collections = \"True\" (10%))",
+     "sql": "(areas_of_law IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 378,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.13,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "opened"
+     ],
+     "cls": "cand",
+     "condition": "(areas_of_law missing, attachments missing)",
+     "sql": "(areas_of_law IS NULL AND attachments IS NULL)",
+     "support": 0.06,
+     "rows": 290,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.128,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "description",
+      "total_penalties"
+     ],
+     "cls": "cand",
+     "condition": "(complainant missing)",
+     "sql": "(complainant IS NULL)",
+     "support": 0.045,
+     "rows": 218,
+     "uncond": "pos",
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.127,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "description",
+      "earliest_complaint"
+     ],
+     "cls": "dom",
+     "condition": "(sent_to_collections = \"True\" (10%))",
+     "sql": "(sent_to_collections = 'True')",
+     "support": 0.1,
+     "rows": 483,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.027,
+     "score": 0.123,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "description",
+      "opened"
+     ],
+     "cls": "dom",
+     "condition": "(sent_to_collections = \"True\" (10%))",
+     "sql": "(sent_to_collections = 'True')",
+     "support": 0.1,
+     "rows": 483,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.027,
+     "score": 0.123,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "closed",
+      "complainant"
+     ],
+     "cls": "pos",
+     "condition": "(sent_to_collections = \"True\" (10%))",
+     "sql": "(sent_to_collections = 'True')",
+     "support": 0.1,
+     "rows": 483,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.213,
+     "score": 0.123,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "closed",
+      "total_penalties"
+     ],
+     "cls": "pos",
+     "condition": "(sent_to_collections = \"True\" (10%))",
+     "sql": "(sent_to_collections = 'True')",
+     "support": 0.1,
+     "rows": 483,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.213,
+     "score": 0.123,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "closed",
+      "total_suspended"
+     ],
+     "cls": "pos",
+     "condition": "(sent_to_collections = \"True\" (10%))",
+     "sql": "(sent_to_collections = 'True')",
+     "support": 0.1,
+     "rows": 483,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.213,
+     "score": 0.123,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "areas_of_law",
+      "total_penalties"
+     ],
+     "cls": "pos",
+     "condition": "(sent_to_collections = \"True\" (10%))",
+     "sql": "(sent_to_collections = 'True')",
+     "support": 0.1,
+     "rows": 483,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.217,
+     "score": 0.123,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "closed",
+      "complainant"
+     ],
+     "cls": "cert",
+     "condition": "(closed present, sent_to_collections = \"True\" (10%))",
+     "sql": "(closed IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 380,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.008,
+     "score": 0.121,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "closed",
+      "earliest_complaint"
+     ],
+     "cls": "cert",
+     "condition": "(closed present, sent_to_collections = \"True\" (10%))",
+     "sql": "(closed IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 380,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.013,
+     "score": 0.121,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "closed",
+      "opened"
+     ],
+     "cls": "cert",
+     "condition": "(closed present, sent_to_collections = \"True\" (10%))",
+     "sql": "(closed IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 380,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.013,
+     "score": 0.121,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "closed",
+      "earliest_complaint"
+     ],
+     "cls": "cert",
+     "condition": "(areas_of_law present, sent_to_collections = \"True\" (10%))",
+     "sql": "(areas_of_law IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 378,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.011,
+     "score": 0.121,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "closed",
+      "opened"
+     ],
+     "cls": "cert",
+     "condition": "(areas_of_law present, sent_to_collections = \"True\" (10%))",
+     "sql": "(areas_of_law IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 378,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.011,
+     "score": 0.121,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "opened"
+     ],
+     "cls": "cand",
+     "condition": "(closed missing, attachments missing)",
+     "sql": "(closed IS NULL AND attachments IS NULL)",
+     "support": 0.053,
+     "rows": 255,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.12,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "description",
+      "earliest_complaint"
+     ],
+     "cls": "cand",
+     "condition": "(closed missing, attachments missing)",
+     "sql": "(closed IS NULL AND attachments IS NULL)",
+     "support": 0.053,
+     "rows": 255,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.12,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "description",
+      "opened"
+     ],
+     "cls": "cand",
+     "condition": "(closed missing, attachments missing)",
+     "sql": "(closed IS NULL AND attachments IS NULL)",
+     "support": 0.053,
+     "rows": 255,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.12,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "respondent",
+      "total_penalties"
+     ],
+     "cls": "cand",
+     "condition": "(areas_of_law missing, attachments missing)",
+     "sql": "(areas_of_law IS NULL AND attachments IS NULL)",
+     "support": 0.06,
+     "rows": 290,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.114,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "respondent",
+      "total_suspended"
+     ],
+     "cls": "cand",
+     "condition": "(areas_of_law missing, attachments missing)",
+     "sql": "(areas_of_law IS NULL AND attachments IS NULL)",
+     "support": 0.06,
+     "rows": 290,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.114,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "total_penalties",
+      "total_suspended"
+     ],
+     "cls": "cand",
+     "condition": "(areas_of_law missing, attachments missing)",
+     "sql": "(areas_of_law IS NULL AND attachments IS NULL)",
+     "support": 0.06,
+     "rows": 290,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.114,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "closed",
+      "total_suspended"
+     ],
+     "cls": "pos",
+     "condition": "(attachments missing)",
+     "sql": "(attachments IS NULL)",
+     "support": 0.075,
+     "rows": 366,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.697,
+     "score": 0.107,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "areas_of_law",
+      "total_suspended"
+     ],
+     "cls": "pos",
+     "condition": "(attachments missing)",
+     "sql": "(attachments IS NULL)",
+     "support": 0.075,
+     "rows": 366,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.792,
+     "score": 0.107,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "respondent",
+      "total_penalties"
+     ],
+     "cls": "cand",
+     "condition": "(closed missing, attachments missing)",
+     "sql": "(closed IS NULL AND attachments IS NULL)",
+     "support": 0.053,
+     "rows": 255,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.107,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "total_paid",
+      "respondent",
+      "total_suspended"
+     ],
+     "cls": "cand",
+     "condition": "(closed missing, attachments missing)",
+     "sql": "(closed IS NULL AND attachments IS NULL)",
+     "support": 0.053,
+     "rows": 255,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.107,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "total_penalties",
+      "total_suspended"
+     ],
+     "cls": "cand",
+     "condition": "(closed missing, attachments missing)",
+     "sql": "(closed IS NULL AND attachments IS NULL)",
+     "support": 0.053,
+     "rows": 255,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.107,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "total_suspended"
+     ],
+     "cls": "cand",
+     "condition": "(complainant missing, sent_to_collections = \"False\" (90%))",
+     "sql": "(complainant IS NULL AND sent_to_collections = 'False')",
+     "support": 0.04,
+     "rows": 196,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.106,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v1": "False"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "url",
+      "description",
+      "total_penalties"
+     ],
+     "cls": "cert",
+     "condition": "(closed missing, attachments missing)",
+     "sql": "(closed IS NULL AND attachments IS NULL)",
+     "support": 0.053,
+     "rows": 255,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.004,
+     "score": 0.099,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "closed",
+      "total_suspended"
+     ],
+     "cls": "pos",
+     "condition": "(complainant missing)",
+     "sql": "(complainant IS NULL)",
+     "support": 0.045,
+     "rows": 218,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "respondent",
+      "areas_of_law",
+      "total_suspended"
+     ],
+     "cls": "pos",
+     "condition": "(complainant missing)",
+     "sql": "(complainant IS NULL)",
+     "support": 0.045,
+     "rows": 218,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.083,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "earliest_complaint",
+      "complainant"
+     ],
+     "cls": "dom",
+     "condition": "(closed present, sent_to_collections = \"True\" (10%))",
+     "sql": "(closed IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 380,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.013,
+     "score": 0.073,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "earliest_complaint",
+      "areas_of_law"
+     ],
+     "cls": "dom",
+     "condition": "(closed present, sent_to_collections = \"True\" (10%))",
+     "sql": "(closed IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 380,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.016,
+     "score": 0.073,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "earliest_complaint",
+      "total_suspended"
+     ],
+     "cls": "dom",
+     "condition": "(closed present, sent_to_collections = \"True\" (10%))",
+     "sql": "(closed IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 380,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.013,
+     "score": 0.073,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "earliest_complaint",
+      "areas_of_law"
+     ],
+     "cls": "dom",
+     "condition": "(areas_of_law present, sent_to_collections = \"True\" (10%))",
+     "sql": "(areas_of_law IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 378,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.008,
+     "score": 0.073,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "earliest_complaint",
+      "total_suspended"
+     ],
+     "cls": "dom",
+     "condition": "(areas_of_law present, sent_to_collections = \"True\" (10%))",
+     "sql": "(areas_of_law IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 378,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.008,
+     "score": 0.073,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t36712",
+     "K": [
+      "attachments",
+      "areas_of_law",
+      "total_suspended"
+     ],
+     "cls": "dom",
+     "condition": "(areas_of_law present, sent_to_collections = \"True\" (10%))",
+     "sql": "(areas_of_law IS NOT NULL AND sent_to_collections = 'True')",
+     "support": 0.078,
+     "rows": 378,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.008,
+     "score": 0.073,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "sent_to_collections=v2": "True"
+     }
+    }
+   ],
+   "unconditional": {
+    "Id": "cand",
+    "url": "pos",
+    "case": "cand",
+    "attachments": "pos",
+    "updated_at,url": "cert",
+    "updated_at,attachments": "pos",
+    "updated_at,subject": "cand",
+    "updated_at,description": "cert",
+    "total_paid,url": "pos",
+    "total_paid,attachments": "pos",
+    "url,attachments": "pos",
+    "url,subject": "cert",
+    "url,respondent": "pos",
+    "url,description": "pos",
+    "url,closed": "pos",
+    "url,earliest_complaint": "pos",
+    "url,complainant": "pos",
+    "url,opened": "pos",
+    "url,areas_of_law": "pos",
+    "url,total_penalties": "pos",
+    "url,total_suspended": "pos",
+    "attachments,subject": "pos",
+    "attachments,respondent": "pos",
+    "attachments,description": "pos",
+    "attachments,closed": "pos",
+    "attachments,earliest_complaint": "pos",
+    "attachments,complainant": "pos",
+    "attachments,opened": "pos",
+    "attachments,areas_of_law": "pos",
+    "attachments,total_penalties": "pos",
+    "attachments,total_suspended": "pos",
+    "subject,description": "cert",
+    "subject,closed": "pos",
+    "subject,earliest_complaint": "cert",
+    "subject,opened": "cand",
+    "updated_at,total_paid,url": "cert",
+    "updated_at,total_paid,attachments": "pos",
+    "updated_at,total_paid,description": "cert",
+    "updated_at,url,attachments": "cert",
+    "updated_at,url,respondent": "cert",
+    "updated_at,url,description": "cert",
+    "updated_at,url,closed": "cert",
+    "updated_at,url,earliest_complaint": "cert",
+    "updated_at,url,complainant": "cert",
+    "updated_at,url,opened": "cert",
+    "updated_at,url,areas_of_law": "cert",
+    "updated_at,url,total_penalties": "cert",
+    "updated_at,url,total_suspended": "cert",
+    "updated_at,attachments,respondent": "dom",
+    "updated_at,attachments,description": "cert",
+    "updated_at,attachments,closed": "pos",
+    "updated_at,attachments,earliest_complaint": "pos",
+    "updated_at,attachments,complainant": "pos",
+    "updated_at,attachments,opened": "pos",
+    "updated_at,attachments,areas_of_law": "pos",
+    "updated_at,attachments,total_penalties": "pos",
+    "updated_at,attachments,total_suspended": "pos",
+    "updated_at,respondent,description": "cert",
+    "updated_at,respondent,areas_of_law": "pos",
+    "updated_at,description,closed": "cert",
+    "updated_at,description,earliest_complaint": "cert",
+    "updated_at,description,complainant": "cert",
+    "updated_at,description,opened": "cert",
+    "updated_at,description,areas_of_law": "cert",
+    "updated_at,description,total_penalties": "cert",
+    "updated_at,description,total_suspended": "cert",
+    "updated_at,closed,areas_of_law": "pos",
+    "total_paid,url,attachments": "pos",
+    "total_paid,url,subject": "cert",
+    "total_paid,url,respondent": "dom",
+    "total_paid,url,description": "pos",
+    "total_paid,url,closed": "dom",
+    "total_paid,url,earliest_complaint": "pos",
+    "total_paid,url,complainant": "pos",
+    "total_paid,url,opened": "pos",
+    "total_paid,url,areas_of_law": "pos",
+    "total_paid,url,total_penalties": "pos",
+    "total_paid,url,total_suspended": "pos",
+    "total_paid,attachments,subject": "pos",
+    "total_paid,attachments,respondent": "pos",
+    "total_paid,attachments,description": "pos",
+    "total_paid,attachments,closed": "pos",
+    "total_paid,attachments,earliest_complaint": "pos",
+    "total_paid,attachments,complainant": "pos",
+    "total_paid,attachments,opened": "pos",
+    "total_paid,attachments,areas_of_law": "pos",
+    "total_paid,attachments,total_penalties": "pos",
+    "total_paid,attachments,total_suspended": "pos",
+    "total_paid,subject,description": "cert",
+    "total_paid,subject,closed": "pos",
+    "total_paid,subject,earliest_complaint": "cert",
+    "total_paid,subject,complainant": "dom",
+    "url,attachments,subject": "cert",
+    "url,attachments,respondent": "dom",
+    "url,attachments,description": "pos",
+    "url,attachments,closed": "pos",
+    "url,attachments,earliest_complaint": "pos",
+    "url,attachments,complainant": "pos",
+    "url,attachments,opened": "pos",
+    "url,attachments,areas_of_law": "pos",
+    "url,attachments,total_penalties": "pos",
+    "url,attachments,total_suspended": "pos",
+    "url,subject,respondent": "cert",
+    "url,subject,description": "cert",
+    "url,subject,closed": "cert",
+    "url,subject,earliest_complaint": "cert",
+    "url,subject,complainant": "cert",
+    "url,subject,areas_of_law": "cert",
+    "url,subject,total_penalties": "cert",
+    "url,subject,total_suspended": "cert",
+    "url,respondent,description": "pos",
+    "url,respondent,closed": "part",
+    "url,respondent,earliest_complaint": "cert",
+    "url,respondent,complainant": "pos",
+    "url,respondent,opened": "cert",
+    "url,respondent,areas_of_law": "pos",
+    "url,respondent,total_penalties": "dom",
+    "url,respondent,total_suspended": "pos",
+    "url,description,closed": "pos",
+    "url,description,earliest_complaint": "pos",
+    "url,description,complainant": "pos",
+    "url,description,opened": "pos",
+    "url,description,areas_of_law": "pos",
+    "url,description,total_penalties": "pos",
+    "url,description,total_suspended": "pos",
+    "url,closed,earliest_complaint": "pos",
+    "url,closed,complainant": "pos",
+    "url,closed,opened": "pos",
+    "url,closed,areas_of_law": "pos",
+    "url,closed,total_penalties": "dom",
+    "url,closed,total_suspended": "pos",
+    "url,earliest_complaint,complainant": "pos",
+    "url,earliest_complaint,opened": "pos",
+    "url,earliest_complaint,areas_of_law": "pos",
+    "url,earliest_complaint,total_penalties": "pos",
+    "url,earliest_complaint,total_suspended": "pos",
+    "url,complainant,opened": "pos",
+    "url,complainant,areas_of_law": "pos",
+    "url,complainant,total_penalties": "pos",
+    "url,complainant,total_suspended": "pos",
+    "url,opened,areas_of_law": "pos",
+    "url,opened,total_penalties": "pos",
+    "url,opened,total_suspended": "pos",
+    "url,areas_of_law,total_penalties": "pos",
+    "url,areas_of_law,total_suspended": "pos",
+    "url,total_penalties,total_suspended": "pos",
+    "attachments,subject,respondent": "pos",
+    "attachments,subject,description": "cert",
+    "attachments,subject,closed": "pos",
+    "attachments,subject,earliest_complaint": "cert",
+    "attachments,subject,complainant": "dom",
+    "attachments,subject,areas_of_law": "pos",
+    "attachments,subject,total_penalties": "pos",
+    "attachments,subject,total_suspended": "pos",
+    "attachments,respondent,description": "dom",
+    "attachments,respondent,closed": "pos",
+    "attachments,respondent,earliest_complaint": "dom",
+    "attachments,respondent,complainant": "dom",
+    "attachments,respondent,opened": "pos",
+    "attachments,respondent,areas_of_law": "pos",
+    "attachments,respondent,total_penalties": "pos",
+    "attachments,respondent,total_suspended": "pos",
+    "attachments,description,closed": "pos",
+    "attachments,description,earliest_complaint": "pos",
+    "attachments,description,complainant": "pos",
+    "attachments,description,opened": "pos",
+    "attachments,description,areas_of_law": "pos",
+    "attachments,description,total_penalties": "pos",
+    "attachments,description,total_suspended": "pos",
+    "attachments,closed,earliest_complaint": "pos",
+    "attachments,closed,complainant": "pos",
+    "attachments,closed,opened": "pos",
+    "attachments,closed,areas_of_law": "pos",
+    "attachments,closed,total_penalties": "pos",
+    "attachments,closed,total_suspended": "pos",
+    "attachments,earliest_complaint,complainant": "pos",
+    "attachments,earliest_complaint,opened": "pos",
+    "attachments,earliest_complaint,areas_of_law": "pos",
+    "attachments,earliest_complaint,total_penalties": "pos",
+    "attachments,earliest_complaint,total_suspended": "pos",
+    "attachments,complainant,opened": "pos",
+    "attachments,complainant,areas_of_law": "pos",
+    "attachments,complainant,total_penalties": "pos",
+    "attachments,complainant,total_suspended": "pos",
+    "attachments,opened,areas_of_law": "pos",
+    "attachments,opened,total_penalties": "pos",
+    "attachments,opened,total_suspended": "pos",
+    "attachments,areas_of_law,total_penalties": "pos",
+    "attachments,areas_of_law,total_suspended": "pos",
+    "attachments,total_penalties,total_suspended": "pos",
+    "subject,respondent,description": "cert",
+    "subject,respondent,closed": "pos",
+    "subject,respondent,earliest_complaint": "cert",
+    "subject,respondent,areas_of_law": "pos",
+    "subject,description,closed": "cert",
+    "subject,description,earliest_complaint": "cert",
+    "subject,description,complainant": "cert",
+    "subject,description,areas_of_law": "cert",
+    "subject,description,total_penalties": "cert",
+    "subject,description,total_suspended": "cert",
+    "subject,closed,earliest_complaint": "cert",
+    "subject,closed,complainant": "pos",
+    "subject,closed,areas_of_law": "pos",
+    "subject,closed,total_penalties": "pos",
+    "subject,closed,total_suspended": "pos",
+    "subject,earliest_complaint,complainant": "cert",
+    "subject,earliest_complaint,areas_of_law": "cert",
+    "subject,earliest_complaint,total_penalties": "cert",
+    "subject,earliest_complaint,total_suspended": "cert",
+    "subject,complainant,areas_of_law": "pos",
+    "subject,complainant,total_suspended": "dom"
+   }
+  }
+ ]
+}

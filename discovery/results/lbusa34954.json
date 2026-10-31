@@ -1,0 +1,7460 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "ENROLLMENT ID",
+   "ADDRESS LINE 1",
+   "DOING BUSINESS AS NAME",
+   "NURSING HOME PROVIDER NAME",
+   "ASSOCIATE ID",
+   "ORGANIZATION NAME",
+   "INCORPORATION DATE",
+   "AFFILIATION ENTITY NAME",
+   "AFFILIATION ENTITY ID",
+   "CCN",
+   "NPI",
+   "ZIP CODE",
+   "CITY"
+  ]
+ },
+ "sample_rows": 14815,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbusa.t34954",
+   "rows": 14815,
+   "cols": [
+    "ENROLLMENT ID",
+    "ENROLLMENT STATE",
+    "PROVIDER TYPE CODE",
+    "PROVIDER TYPE TEXT",
+    "NPI",
+    "MULTIPLE NPI FLAG",
+    "CCN",
+    "ASSOCIATE ID",
+    "ORGANIZATION NAME",
+    "DOING BUSINESS AS NAME",
+    "INCORPORATION DATE",
+    "INCORPORATION STATE",
+    "ORGANIZATION TYPE STRUCTURE",
+    "PROPRIETARY_NONPROFIT",
+    "NURSING HOME PROVIDER NAME",
+    "AFFILIATION ENTITY NAME",
+    "AFFILIATION ENTITY ID",
+    "ADDRESS LINE 1",
+    "CITY",
+    "STATE",
+    "ZIP CODE"
+   ],
+   "n_conditional": 369,
+   "conditional": [
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "cert",
+     "condition": "(DOING BUSINESS AS NAME present)",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL)",
+     "support": 0.851,
+     "rows": 12604,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.023,
+     "score": 2.878,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(DOING BUSINESS AS NAME present)",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL)",
+     "support": 0.851,
+     "rows": 12604,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.023,
+     "score": 2.878,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.671,
+     "rows": 9944,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.867,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION STATE present)",
+     "sql": "(INCORPORATION STATE IS NOT NULL)",
+     "support": 0.812,
+     "rows": 12032,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.839,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION DATE present)",
+     "sql": "(INCORPORATION DATE IS NOT NULL)",
+     "support": 0.802,
+     "rows": 11877,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.82,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.661,
+     "rows": 9800,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.562,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "NURSING HOME PROVIDER NAME"
+     ],
+     "cls": "dom",
+     "condition": "(DOING BUSINESS AS NAME present)",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL)",
+     "support": 0.851,
+     "rows": 12604,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.023,
+     "score": 2.158,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ZIP CODE"
+     ],
+     "cls": "dom",
+     "condition": "(DOING BUSINESS AS NAME present)",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL)",
+     "support": 0.851,
+     "rows": 12604,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.023,
+     "score": 2.158,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "ORGANIZATION TYPE STRUCTURE in {\"LLC\", \"CORPORATION\"}",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC') OR (ORGANIZATION TYPE STRUCTURE = 'CORPORATION')",
+     "support": 0.848,
+     "rows": 12562,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.149,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC",
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME present, INCORPORATION STATE present)",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND INCORPORATION STATE IS NOT NULL)",
+     "support": 0.685,
+     "rows": 10143,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.931,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME present, INCORPORATION DATE present)",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND INCORPORATION DATE IS NOT NULL)",
+     "support": 0.676,
+     "rows": 10009,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.918,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME present, AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.594,
+     "rows": 8803,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.799,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "NURSING HOME PROVIDER NAME"
+     ],
+     "cls": "cert",
+     "condition": "(DOING BUSINESS AS NAME present, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.578,
+     "rows": 8561,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.028,
+     "score": 1.779,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "dom",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.671,
+     "rows": 9944,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.163,
+     "score": 1.704,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NPI"
+     ],
+     "cls": "cert",
+     "condition": "(AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.339,
+     "rows": 5015,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.242,
+     "score": 1.702,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "NURSING HOME PROVIDER NAME"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME present, AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.594,
+     "rows": 8803,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.619,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "ASSOCIATE ID"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME present, AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.594,
+     "rows": 8803,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.619,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME present, AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.594,
+     "rows": 8803,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.619,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "AFFILIATION ENTITY ID",
+      "NPI"
+     ],
+     "cls": "pos",
+     "condition": "(DOING BUSINESS AS NAME present)",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL)",
+     "support": 0.851,
+     "rows": 12604,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.302,
+     "score": 1.619,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "ASSOCIATE ID"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME present, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.578,
+     "rows": 8561,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.596,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "cert",
+     "condition": "(DOING BUSINESS AS NAME present, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.578,
+     "rows": 8561,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.028,
+     "score": 1.581,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "NURSING HOME PROVIDER NAME"
+     ],
+     "cls": "cert",
+     "condition": "(DOING BUSINESS AS NAME present, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.456,
+     "rows": 6751,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.027,
+     "score": 1.58,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "NURSING HOME PROVIDER NAME"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION DATE missing)",
+     "sql": "(INCORPORATION DATE IS NULL)",
+     "support": 0.198,
+     "rows": 2938,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.019,
+     "score": 1.563,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "NURSING HOME PROVIDER NAME"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION STATE missing)",
+     "sql": "(INCORPORATION STATE IS NULL)",
+     "support": 0.188,
+     "rows": 2783,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.019,
+     "score": 1.521,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "dom",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.52,
+     "rows": 7698,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.147,
+     "score": 1.499,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "NURSING HOME PROVIDER NAME",
+      "ORGANIZATION NAME"
+     ],
+     "cls": "cert",
+     "condition": "(DOING BUSINESS AS NAME present)",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL)",
+     "support": 0.851,
+     "rows": 12604,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.023,
+     "score": 1.439,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "NURSING HOME PROVIDER NAME",
+      "INCORPORATION DATE"
+     ],
+     "cls": "cert",
+     "condition": "(DOING BUSINESS AS NAME present)",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL)",
+     "support": 0.851,
+     "rows": 12604,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.225,
+     "score": 1.439,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "ASSOCIATE ID",
+      "AFFILIATION ENTITY ID"
+     ],
+     "cls": "pos",
+     "condition": "(DOING BUSINESS AS NAME present)",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL)",
+     "support": 0.851,
+     "rows": 12604,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.302,
+     "score": 1.439,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ORGANIZATION NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(DOING BUSINESS AS NAME present)",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL)",
+     "support": 0.851,
+     "rows": 12604,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.023,
+     "score": 1.439,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "DOING BUSINESS AS NAME"
+     ],
+     "cls": "dom",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.671,
+     "rows": 9944,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.139,
+     "score": 1.438,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "DOING BUSINESS AS NAME"
+     ],
+     "cls": "dom",
+     "condition": "(AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.661,
+     "rows": 9800,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.102,
+     "score": 1.427,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "ASSOCIATE ID"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME present, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.456,
+     "rows": 6751,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.418,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ASSOCIATE ID",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME present, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.456,
+     "rows": 6751,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.418,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "cert",
+     "condition": "(DOING BUSINESS AS NAME present, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.456,
+     "rows": 6751,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.027,
+     "score": 1.404,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION DATE missing)",
+     "sql": "(INCORPORATION DATE IS NULL)",
+     "support": 0.198,
+     "rows": 2938,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.019,
+     "score": 1.389,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION STATE missing)",
+     "sql": "(INCORPORATION STATE IS NULL)",
+     "support": 0.188,
+     "rows": 2783,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.019,
+     "score": 1.352,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NPI"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION DATE missing)",
+     "sql": "(INCORPORATION DATE IS NULL)",
+     "support": 0.198,
+     "rows": 2938,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.117,
+     "score": 1.303,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "NURSING HOME PROVIDER NAME"
+     ],
+     "cls": "cert",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.137,
+     "rows": 2037,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.015,
+     "score": 1.302,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.137,
+     "rows": 2037,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.015,
+     "score": 1.302,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "ZIP CODE"
+     ],
+     "cls": "dom",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.671,
+     "rows": 9944,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.163,
+     "score": 1.278,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ASSOCIATE ID",
+      "ZIP CODE"
+     ],
+     "cls": "dom",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.671,
+     "rows": 9944,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.139,
+     "score": 1.278,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "ZIP CODE"
+     ],
+     "cls": "dom",
+     "condition": "(AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.661,
+     "rows": 9800,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.102,
+     "score": 1.269,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ASSOCIATE ID",
+      "ZIP CODE"
+     ],
+     "cls": "dom",
+     "condition": "(AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.661,
+     "rows": 9800,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.102,
+     "score": 1.269,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NPI"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION STATE missing)",
+     "sql": "(INCORPORATION STATE IS NULL)",
+     "support": 0.188,
+     "rows": 2783,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.116,
+     "score": 1.268,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION STATE present, AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(INCORPORATION STATE IS NOT NULL AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.279,
+     "rows": 4126,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.231,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION DATE present, AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(INCORPORATION DATE IS NOT NULL AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.274,
+     "rows": 4053,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.22,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "NURSING HOME PROVIDER NAME"
+     ],
+     "cls": "cert",
+     "condition": "(DOING BUSINESS AS NAME present, ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%))",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND ORGANIZATION TYPE STRUCTURE = 'CORPORATION')",
+     "support": 0.259,
+     "rows": 3830,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.018,
+     "score": 1.19,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION DATE missing)",
+     "sql": "(INCORPORATION DATE IS NULL)",
+     "support": 0.198,
+     "rows": 2938,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.133,
+     "score": 1.158,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ASSOCIATE ID",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION DATE missing)",
+     "sql": "(INCORPORATION DATE IS NULL)",
+     "support": 0.198,
+     "rows": 2938,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.117,
+     "score": 1.158,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION STATE missing)",
+     "sql": "(INCORPORATION STATE IS NULL)",
+     "support": 0.188,
+     "rows": 2783,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.133,
+     "score": 1.127,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ASSOCIATE ID",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION STATE missing)",
+     "sql": "(INCORPORATION STATE IS NULL)",
+     "support": 0.188,
+     "rows": 2783,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.116,
+     "score": 1.127,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "DOING BUSINESS AS NAME"
+     ],
+     "cls": "cert",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.137,
+     "rows": 2037,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.098,
+     "score": 1.085,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ZIP CODE"
+     ],
+     "cls": "dom",
+     "condition": "(INCORPORATION DATE missing)",
+     "sql": "(INCORPORATION DATE IS NULL)",
+     "support": 0.198,
+     "rows": 2938,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.019,
+     "score": 1.042,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "AFFILIATION ENTITY ID"
+     ],
+     "cls": "pos",
+     "condition": "(AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.339,
+     "rows": 5015,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 1.021,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "AFFILIATION ENTITY ID"
+     ],
+     "cls": "pos",
+     "condition": "(AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.339,
+     "rows": 5015,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 1.021,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ASSOCIATE ID",
+      "AFFILIATION ENTITY ID"
+     ],
+     "cls": "pos",
+     "condition": "(AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.339,
+     "rows": 5015,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 1.021,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "AFFILIATION ENTITY ID",
+      "NPI"
+     ],
+     "cls": "pos",
+     "condition": "(AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.339,
+     "rows": 5015,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 1.021,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "AFFILIATION ENTITY ID",
+      "ZIP CODE"
+     ],
+     "cls": "pos",
+     "condition": "(AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.339,
+     "rows": 5015,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 1.021,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ZIP CODE"
+     ],
+     "cls": "dom",
+     "condition": "(INCORPORATION STATE missing)",
+     "sql": "(INCORPORATION STATE IS NULL)",
+     "support": 0.188,
+     "rows": 2783,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.019,
+     "score": 1.014,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ASSOCIATE ID",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.137,
+     "rows": 2037,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.098,
+     "score": 0.964,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "DOING BUSINESS AS NAME"
+     ],
+     "cls": "dom",
+     "condition": "ORGANIZATION TYPE STRUCTURE in {\"LLC\", \"OTHER\"}",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC') OR (ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.657,
+     "rows": 9735,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.118,
+     "score": 0.948,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC",
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "NURSING HOME PROVIDER NAME"
+     ],
+     "cls": "cert",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (67%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.164,
+     "rows": 2431,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.114,
+     "score": 0.948,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "NURSING HOME PROVIDER NAME"
+     ],
+     "cls": "cert",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%), PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION' AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.149,
+     "rows": 2207,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.027,
+     "score": 0.903,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION",
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1"
+     ],
+     "cls": "cand",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%), AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION' AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.147,
+     "rows": 2176,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.894,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "pos",
+     "condition": "(DOING BUSINESS AS NAME present, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.578,
+     "rows": 8561,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.028,
+     "score": 0.889,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "INCORPORATION DATE",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(DOING BUSINESS AS NAME present, INCORPORATION STATE present)",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND INCORPORATION STATE IS NOT NULL)",
+     "support": 0.685,
+     "rows": 10143,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.038,
+     "score": 0.861,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "INCORPORATION DATE",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(DOING BUSINESS AS NAME present, INCORPORATION DATE present)",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND INCORPORATION DATE IS NOT NULL)",
+     "support": 0.676,
+     "rows": 10009,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.024,
+     "score": 0.855,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION DATE missing, AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(INCORPORATION DATE IS NULL AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.133,
+     "rows": 1976,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.852,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (67%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.164,
+     "rows": 2431,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.851,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ASSOCIATE ID",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (67%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.164,
+     "rows": 2431,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.851,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "ZIP CODE"
+     ],
+     "cls": "dom",
+     "condition": "ORGANIZATION TYPE STRUCTURE in {\"LLC\", \"OTHER\"}",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC') OR (ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.657,
+     "rows": 9735,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.139,
+     "score": 0.843,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC",
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ASSOCIATE ID",
+      "ZIP CODE"
+     ],
+     "cls": "dom",
+     "condition": "ORGANIZATION TYPE STRUCTURE in {\"LLC\", \"OTHER\"}",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC') OR (ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.657,
+     "rows": 9735,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.118,
+     "score": 0.843,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC",
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION STATE missing, AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(INCORPORATION STATE IS NULL AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.128,
+     "rows": 1894,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.834,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%), PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION' AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.149,
+     "rows": 2207,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.811,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION",
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "ORGANIZATION NAME"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME present, AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.594,
+     "rows": 8803,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.809,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "INCORPORATION DATE",
+      "NPI"
+     ],
+     "cls": "pos",
+     "condition": "(DOING BUSINESS AS NAME present)",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL)",
+     "support": 0.851,
+     "rows": 12604,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.206,
+     "score": 0.809,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "AFFILIATION ENTITY NAME",
+      "NPI"
+     ],
+     "cls": "pos",
+     "condition": "(DOING BUSINESS AS NAME present)",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL)",
+     "support": 0.851,
+     "rows": 12604,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.302,
+     "score": 0.809,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%), AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION' AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.147,
+     "rows": 2176,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.805,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%), PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION' AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.149,
+     "rows": 2207,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.027,
+     "score": 0.803,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION",
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "AFFILIATION ENTITY ID"
+     ],
+     "cls": "pos",
+     "condition": "ORGANIZATION TYPE STRUCTURE in {\"CORPORATION\", \"OTHER\"}",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION') OR (ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.466,
+     "rows": 6901,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.512,
+     "score": 0.799,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION",
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "ORGANIZATION NAME"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME present, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.578,
+     "rows": 8561,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.798,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "pos",
+     "condition": "(DOING BUSINESS AS NAME present, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.456,
+     "rows": 6751,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.027,
+     "score": 0.79,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "AFFILIATION ENTITY ID",
+      "NPI"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION DATE missing)",
+     "sql": "(INCORPORATION DATE IS NULL)",
+     "support": 0.198,
+     "rows": 2938,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.327,
+     "score": 0.782,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "ASSOCIATE ID"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION DATE missing, AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(INCORPORATION DATE IS NULL AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.133,
+     "rows": 1976,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.767,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION DATE missing, AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(INCORPORATION DATE IS NULL AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.133,
+     "rows": 1976,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.767,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "DOING BUSINESS AS NAME"
+     ],
+     "cls": "dom",
+     "condition": "(INCORPORATION STATE missing)",
+     "sql": "(INCORPORATION STATE IS NULL)",
+     "support": 0.188,
+     "rows": 2783,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.116,
+     "score": 0.761,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "AFFILIATION ENTITY ID",
+      "NPI"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION STATE missing)",
+     "sql": "(INCORPORATION STATE IS NULL)",
+     "support": 0.188,
+     "rows": 2783,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.319,
+     "score": 0.761,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "ASSOCIATE ID"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION STATE missing, AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(INCORPORATION STATE IS NULL AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.128,
+     "rows": 1894,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.751,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION STATE missing, AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(INCORPORATION STATE IS NULL AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.128,
+     "rows": 1894,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.751,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID",
+      "CITY"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME present, AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.594,
+     "rows": 8803,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.719,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "ASSOCIATE ID",
+      "AFFILIATION ENTITY NAME"
+     ],
+     "cls": "pos",
+     "condition": "(DOING BUSINESS AS NAME present)",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL)",
+     "support": 0.851,
+     "rows": 12604,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.302,
+     "score": 0.719,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "ORGANIZATION NAME",
+      "AFFILIATION ENTITY ID"
+     ],
+     "cls": "pos",
+     "condition": "(DOING BUSINESS AS NAME present)",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL)",
+     "support": 0.851,
+     "rows": 12604,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.302,
+     "score": 0.719,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "NURSING HOME PROVIDER NAME"
+     ],
+     "cls": "cert",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.094,
+     "rows": 1400,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.147,
+     "score": 0.719,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "cert",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.094,
+     "rows": 1400,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.197,
+     "score": 0.719,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "cert",
+     "condition": "(DOING BUSINESS AS NAME missing, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.093,
+     "rows": 1383,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.025,
+     "score": 0.715,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(DOING BUSINESS AS NAME missing, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.093,
+     "rows": 1383,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.025,
+     "score": 0.715,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME missing, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.093,
+     "rows": 1383,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.713,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "AFFILIATION ENTITY ID",
+      "ZIP CODE"
+     ],
+     "cls": "pos",
+     "condition": "ORGANIZATION TYPE STRUCTURE in {\"CORPORATION\", \"OTHER\"}",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION') OR (ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.466,
+     "rows": 6901,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.512,
+     "score": 0.71,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION",
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "ORGANIZATION NAME"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME present, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.456,
+     "rows": 6751,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.709,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ORGANIZATION NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME present, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.456,
+     "rows": 6751,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.709,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "part",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (67%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.164,
+     "rows": 2431,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.32,
+     "score": 0.702,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (67%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.164,
+     "rows": 2431,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.32,
+     "score": 0.702,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "ASSOCIATE ID",
+      "AFFILIATION ENTITY ID"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION DATE missing)",
+     "sql": "(INCORPORATION DATE IS NULL)",
+     "support": 0.198,
+     "rows": 2938,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.327,
+     "score": 0.695,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ORGANIZATION NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION DATE missing)",
+     "sql": "(INCORPORATION DATE IS NULL)",
+     "support": 0.198,
+     "rows": 2938,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.019,
+     "score": 0.695,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "INCORPORATION DATE"
+     ],
+     "cls": "cert",
+     "condition": "(DOING BUSINESS AS NAME missing)",
+     "sql": "(DOING BUSINESS AS NAME IS NULL)",
+     "support": 0.149,
+     "rows": 2211,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.155,
+     "score": 0.678,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "AFFILIATION ENTITY ID"
+     ],
+     "cls": "pos",
+     "condition": "(DOING BUSINESS AS NAME missing)",
+     "sql": "(DOING BUSINESS AS NAME IS NULL)",
+     "support": 0.149,
+     "rows": 2211,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.549,
+     "score": 0.678,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "AFFILIATION ENTITY ID"
+     ],
+     "cls": "pos",
+     "condition": "(DOING BUSINESS AS NAME missing)",
+     "sql": "(DOING BUSINESS AS NAME IS NULL)",
+     "support": 0.149,
+     "rows": 2211,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.549,
+     "score": 0.678,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "ASSOCIATE ID",
+      "AFFILIATION ENTITY ID"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION STATE missing)",
+     "sql": "(INCORPORATION STATE IS NULL)",
+     "support": 0.188,
+     "rows": 2783,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.319,
+     "score": 0.676,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ORGANIZATION NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION STATE missing)",
+     "sql": "(INCORPORATION STATE IS NULL)",
+     "support": 0.188,
+     "rows": 2783,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.019,
+     "score": 0.676,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION DATE missing, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(INCORPORATION DATE IS NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.083,
+     "rows": 1234,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.024,
+     "score": 0.675,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION DATE missing, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(INCORPORATION DATE IS NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.083,
+     "rows": 1234,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.024,
+     "score": 0.675,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ASSOCIATE ID",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION DATE missing, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(INCORPORATION DATE IS NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.102,
+     "rows": 1508,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.67,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "part",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%), PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION' AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.149,
+     "rows": 2207,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.198,
+     "score": 0.669,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION",
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%), PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION' AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.149,
+     "rows": 2207,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.198,
+     "score": 0.669,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION",
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ASSOCIATE ID",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%), PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION' AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.149,
+     "rows": 2207,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.175,
+     "score": 0.669,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION",
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NPI"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME missing, AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.082,
+     "rows": 1214,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.668,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1"
+     ],
+     "cls": "cand",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%), AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'OTHER' AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.081,
+     "rows": 1195,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.663,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION STATE missing, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(INCORPORATION STATE IS NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.08,
+     "rows": 1186,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.024,
+     "score": 0.662,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION STATE missing, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(INCORPORATION STATE IS NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.08,
+     "rows": 1186,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.024,
+     "score": 0.662,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ZIP CODE"
+     ],
+     "cls": "dom",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.137,
+     "rows": 2037,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.098,
+     "score": 0.651,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ASSOCIATE ID",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION STATE missing, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(INCORPORATION STATE IS NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.095,
+     "rows": 1412,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.648,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "ASSOCIATE ID"
+     ],
+     "cls": "cand",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.094,
+     "rows": 1400,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.646,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ASSOCIATE ID",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.094,
+     "rows": 1400,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.646,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION STATE missing, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(INCORPORATION STATE IS NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.095,
+     "rows": 1412,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.176,
+     "score": 0.642,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ASSOCIATE ID",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME missing, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.093,
+     "rows": 1383,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.642,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "INCORPORATION DATE"
+     ],
+     "cls": "pos",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.671,
+     "rows": 9944,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.288,
+     "score": 0.639,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ORGANIZATION NAME",
+      "ZIP CODE"
+     ],
+     "cls": "dom",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.671,
+     "rows": 9944,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.139,
+     "score": 0.639,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ORGANIZATION NAME",
+      "ZIP CODE"
+     ],
+     "cls": "dom",
+     "condition": "(AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.661,
+     "rows": 9800,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.102,
+     "score": 0.634,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "dom",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (67%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.164,
+     "rows": 2431,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.221,
+     "score": 0.632,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ZIP CODE"
+     ],
+     "cls": "dom",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (67%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.164,
+     "rows": 2431,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.114,
+     "score": 0.632,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION DATE missing, ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%))",
+     "sql": "(INCORPORATION DATE IS NULL AND ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.102,
+     "rows": 1518,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.08,
+     "score": 0.624,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION STATE present, AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(INCORPORATION STATE IS NOT NULL AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.279,
+     "rows": 4126,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.257,
+     "score": 0.617,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION DATE present, AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(INCORPORATION DATE IS NOT NULL AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.274,
+     "rows": 4053,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.258,
+     "score": 0.612,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "ASSOCIATE ID"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION DATE missing, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(INCORPORATION DATE IS NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.083,
+     "rows": 1234,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.606,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ASSOCIATE ID",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION DATE missing, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(INCORPORATION DATE IS NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.083,
+     "rows": 1234,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.606,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION STATE missing, ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%))",
+     "sql": "(INCORPORATION STATE IS NULL AND ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.097,
+     "rows": 1431,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.082,
+     "score": 0.606,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME missing, AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.067,
+     "rows": 997,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.605,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "INCORPORATION DATE",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(DOING BUSINESS AS NAME missing)",
+     "sql": "(DOING BUSINESS AS NAME IS NULL)",
+     "support": 0.149,
+     "rows": 2211,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.175,
+     "score": 0.603,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ASSOCIATE ID",
+      "AFFILIATION ENTITY ID",
+      "ZIP CODE"
+     ],
+     "cls": "pos",
+     "condition": "(DOING BUSINESS AS NAME missing)",
+     "sql": "(DOING BUSINESS AS NAME IS NULL)",
+     "support": 0.149,
+     "rows": 2211,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.549,
+     "score": 0.603,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ZIP CODE"
+     ],
+     "cls": "dom",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%), PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION' AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.149,
+     "rows": 2207,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.027,
+     "score": 0.602,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION",
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "DOING BUSINESS AS NAME"
+     ],
+     "cls": "cert",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.094,
+     "rows": 1400,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.197,
+     "score": 0.599,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.094,
+     "rows": 1400,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.197,
+     "score": 0.599,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION DATE missing, AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(INCORPORATION DATE IS NULL AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.065,
+     "rows": 962,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.057,
+     "score": 0.596,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "ASSOCIATE ID"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION STATE missing, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(INCORPORATION STATE IS NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.08,
+     "rows": 1186,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.594,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ASSOCIATE ID",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION STATE missing, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(INCORPORATION STATE IS NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.08,
+     "rows": 1186,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.594,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(DOING BUSINESS AS NAME missing, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.064,
+     "rows": 947,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.025,
+     "score": 0.592,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME missing, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.064,
+     "rows": 947,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.59,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ASSOCIATE ID"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME missing, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.064,
+     "rows": 947,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.59,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ORGANIZATION NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION DATE missing)",
+     "sql": "(INCORPORATION DATE IS NULL)",
+     "support": 0.198,
+     "rows": 2938,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.117,
+     "score": 0.579,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION STATE missing, AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(INCORPORATION STATE IS NULL AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.06,
+     "rows": 889,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.058,
+     "score": 0.573,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ORGANIZATION NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION STATE missing)",
+     "sql": "(INCORPORATION STATE IS NULL)",
+     "support": 0.188,
+     "rows": 2783,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.116,
+     "score": 0.563,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%), AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'OTHER' AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.081,
+     "rows": 1195,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.046,
+     "score": 0.554,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "part",
+     "condition": "(INCORPORATION DATE missing, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(INCORPORATION DATE IS NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.102,
+     "rows": 1508,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.176,
+     "score": 0.553,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME missing, AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.067,
+     "rows": 997,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.545,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "AFFILIATION ENTITY ID"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME missing, AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.067,
+     "rows": 997,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.545,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME missing, AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.067,
+     "rows": 997,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.545,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ASSOCIATE ID",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME missing, AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.067,
+     "rows": 997,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.545,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "CITY"
+     ],
+     "cls": "cert",
+     "condition": "(DOING BUSINESS AS NAME present, ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%))",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND ORGANIZATION TYPE STRUCTURE = 'CORPORATION')",
+     "support": 0.259,
+     "rows": 3830,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.018,
+     "score": 0.529,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "INCORPORATION DATE",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(DOING BUSINESS AS NAME present, ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%))",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND ORGANIZATION TYPE STRUCTURE = 'CORPORATION')",
+     "support": 0.259,
+     "rows": 3830,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.038,
+     "score": 0.529,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "INCORPORATION DATE",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(DOING BUSINESS AS NAME present, AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.257,
+     "rows": 3801,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.271,
+     "score": 0.527,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "INCORPORATION DATE"
+     ],
+     "cls": "pos",
+     "condition": "(AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.339,
+     "rows": 5015,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.4,
+     "score": 0.511,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ORGANIZATION NAME",
+      "AFFILIATION ENTITY ID"
+     ],
+     "cls": "pos",
+     "condition": "(AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.339,
+     "rows": 5015,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.511,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "INCORPORATION DATE",
+      "NPI"
+     ],
+     "cls": "pos",
+     "condition": "(AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.339,
+     "rows": 5015,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.192,
+     "score": 0.511,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "pos",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.181,
+     "rows": 2688,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.287,
+     "score": 0.498,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION DATE missing, AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(INCORPORATION DATE IS NULL AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.065,
+     "rows": 962,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.177,
+     "score": 0.497,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "ORGANIZATION NAME"
+     ],
+     "cls": "dom",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (67%), AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.507,
+     "rows": 7513,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.112,
+     "score": 0.494,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "AFFILIATION ENTITY ID"
+     ],
+     "cls": "pos",
+     "condition": "(DOING BUSINESS AS NAME present, INCORPORATION DATE missing)",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND INCORPORATION DATE IS NULL)",
+     "support": 0.175,
+     "rows": 2595,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.305,
+     "score": 0.49,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ORGANIZATION NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.137,
+     "rows": 2037,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.098,
+     "score": 0.482,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NPI",
+      "CITY"
+     ],
+     "cls": "cert",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.137,
+     "rows": 2037,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.098,
+     "score": 0.482,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "dom",
+     "condition": "(INCORPORATION STATE missing, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(INCORPORATION STATE IS NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.095,
+     "rows": 1412,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.026,
+     "score": 0.482,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ZIP CODE"
+     ],
+     "cls": "dom",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.094,
+     "rows": 1400,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.147,
+     "score": 0.48,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION STATE missing, AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(INCORPORATION STATE IS NULL AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.06,
+     "rows": 889,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.171,
+     "score": 0.478,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "AFFILIATION ENTITY ID"
+     ],
+     "cls": "pos",
+     "condition": "(DOING BUSINESS AS NAME present, INCORPORATION STATE missing)",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND INCORPORATION STATE IS NULL)",
+     "support": 0.166,
+     "rows": 2461,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.299,
+     "score": 0.477,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ASSOCIATE ID",
+      "CITY"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME present, ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%))",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND ORGANIZATION TYPE STRUCTURE = 'CORPORATION')",
+     "support": 0.259,
+     "rows": 3830,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.475,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ZIP CODE"
+     ],
+     "cls": "dom",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (67%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.164,
+     "rows": 2431,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.221,
+     "score": 0.474,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "pos",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (67%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.164,
+     "rows": 2431,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.114,
+     "score": 0.474,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "INCORPORATION DATE",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (67%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.164,
+     "rows": 2431,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.16,
+     "score": 0.474,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION STATE present, ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%))",
+     "sql": "(INCORPORATION STATE IS NOT NULL AND ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.041,
+     "rows": 606,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.472,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION STATE present, ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%))",
+     "sql": "(INCORPORATION STATE IS NOT NULL AND ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.041,
+     "rows": 606,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.472,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'OTHER' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.057,
+     "rows": 842,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.171,
+     "score": 0.465,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "ORGANIZATION NAME"
+     ],
+     "cls": "dom",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%), AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC' AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.425,
+     "rows": 6298,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.107,
+     "score": 0.452,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "pos",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%), PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION' AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.149,
+     "rows": 2207,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.175,
+     "score": 0.452,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION",
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "pos",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%), PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION' AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.149,
+     "rows": 2207,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.027,
+     "score": 0.452,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION",
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "AFFILIATION ENTITY ID"
+     ],
+     "cls": "pos",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%), PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION' AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.149,
+     "rows": 2207,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.411,
+     "score": 0.452,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION",
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "dom",
+     "condition": "(INCORPORATION DATE missing, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(INCORPORATION DATE IS NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.083,
+     "rows": 1234,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.156,
+     "score": 0.45,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "CITY"
+     ],
+     "cls": "pos",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION')",
+     "support": 0.328,
+     "rows": 4864,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.227,
+     "score": 0.447,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ASSOCIATE ID",
+      "CITY"
+     ],
+     "cls": "pos",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION')",
+     "support": 0.328,
+     "rows": 4864,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.213,
+     "score": 0.447,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "INCORPORATION DATE"
+     ],
+     "cls": "pos",
+     "condition": "(DOING BUSINESS AS NAME present, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.578,
+     "rows": 8561,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.173,
+     "score": 0.445,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "dom",
+     "condition": "(INCORPORATION STATE missing, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(INCORPORATION STATE IS NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.08,
+     "rows": 1186,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.153,
+     "score": 0.441,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION DATE present, ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%))",
+     "sql": "(INCORPORATION DATE IS NOT NULL AND ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.035,
+     "rows": 519,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.437,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION DATE present, ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%))",
+     "sql": "(INCORPORATION DATE IS NOT NULL AND ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.035,
+     "rows": 519,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.437,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID",
+      "CITY"
+     ],
+     "cls": "pos",
+     "condition": "(DOING BUSINESS AS NAME present, INCORPORATION STATE present)",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND INCORPORATION STATE IS NOT NULL)",
+     "support": 0.685,
+     "rows": 10143,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.024,
+     "score": 0.43,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID",
+      "CITY"
+     ],
+     "cls": "pos",
+     "condition": "(DOING BUSINESS AS NAME present, INCORPORATION DATE present)",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND INCORPORATION DATE IS NOT NULL)",
+     "support": 0.676,
+     "rows": 10009,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.024,
+     "score": 0.427,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ORGANIZATION NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (67%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.164,
+     "rows": 2431,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.425,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "INCORPORATION DATE"
+     ],
+     "cls": "pos",
+     "condition": "ORGANIZATION TYPE STRUCTURE in {\"LLC\", \"OTHER\"}",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC') OR (ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.657,
+     "rows": 9735,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.385,
+     "score": 0.422,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC",
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ORGANIZATION NAME",
+      "ZIP CODE"
+     ],
+     "cls": "dom",
+     "condition": "ORGANIZATION TYPE STRUCTURE in {\"LLC\", \"OTHER\"}",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC') OR (ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.657,
+     "rows": 9735,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.118,
+     "score": 0.422,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC",
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION STATE present, ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%))",
+     "sql": "(INCORPORATION STATE IS NOT NULL AND ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.041,
+     "rows": 606,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.153,
+     "score": 0.421,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "CITY"
+     ],
+     "cls": "cand",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%), AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION' AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.147,
+     "rows": 2176,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.402,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ORGANIZATION NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%), PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION' AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.149,
+     "rows": 2207,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.027,
+     "score": 0.401,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION",
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "INCORPORATION DATE",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%), PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION' AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.149,
+     "rows": 2207,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.049,
+     "score": 0.401,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION",
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "AFFILIATION ENTITY NAME"
+     ],
+     "cls": "pos",
+     "condition": "ORGANIZATION TYPE STRUCTURE in {\"CORPORATION\", \"OTHER\"}",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION') OR (ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.466,
+     "rows": 6901,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.512,
+     "score": 0.399,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION",
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ORGANIZATION NAME",
+      "AFFILIATION ENTITY ID"
+     ],
+     "cls": "pos",
+     "condition": "(DOING BUSINESS AS NAME present, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.578,
+     "rows": 8561,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.221,
+     "score": 0.395,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "AFFILIATION ENTITY NAME",
+      "NPI"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION DATE missing)",
+     "sql": "(INCORPORATION DATE IS NULL)",
+     "support": 0.198,
+     "rows": 2938,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.327,
+     "score": 0.391,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION DATE present, ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%))",
+     "sql": "(INCORPORATION DATE IS NOT NULL AND ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.035,
+     "rows": 519,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.168,
+     "score": 0.389,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "ORGANIZATION NAME"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION DATE missing, AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(INCORPORATION DATE IS NULL AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.133,
+     "rows": 1976,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.383,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "CITY"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION DATE missing, AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(INCORPORATION DATE IS NULL AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.133,
+     "rows": 1976,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.383,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "INCORPORATION DATE"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION STATE missing)",
+     "sql": "(INCORPORATION STATE IS NULL)",
+     "support": 0.188,
+     "rows": 2783,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.993,
+     "score": 0.38,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "INCORPORATION DATE"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION STATE missing)",
+     "sql": "(INCORPORATION STATE IS NULL)",
+     "support": 0.188,
+     "rows": 2783,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.995,
+     "score": 0.38,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "INCORPORATION DATE"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION STATE missing)",
+     "sql": "(INCORPORATION STATE IS NULL)",
+     "support": 0.188,
+     "rows": 2783,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.993,
+     "score": 0.38,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ASSOCIATE ID",
+      "INCORPORATION DATE"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION STATE missing)",
+     "sql": "(INCORPORATION STATE IS NULL)",
+     "support": 0.188,
+     "rows": 2783,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.993,
+     "score": 0.38,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "INCORPORATION DATE",
+      "NPI"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION STATE missing)",
+     "sql": "(INCORPORATION STATE IS NULL)",
+     "support": 0.188,
+     "rows": 2783,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.993,
+     "score": 0.38,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "INCORPORATION DATE",
+      "ZIP CODE"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION STATE missing)",
+     "sql": "(INCORPORATION STATE IS NULL)",
+     "support": 0.188,
+     "rows": 2783,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.993,
+     "score": 0.38,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "AFFILIATION ENTITY NAME",
+      "NPI"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION STATE missing)",
+     "sql": "(INCORPORATION STATE IS NULL)",
+     "support": 0.188,
+     "rows": 2783,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.319,
+     "score": 0.38,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "ORGANIZATION NAME"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION STATE missing, AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(INCORPORATION STATE IS NULL AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.128,
+     "rows": 1894,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.375,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "CITY"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION STATE missing, AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(INCORPORATION STATE IS NULL AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.128,
+     "rows": 1894,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.375,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION DATE missing, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(INCORPORATION DATE IS NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.102,
+     "rows": 1508,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.153,
+     "score": 0.373,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION DATE missing, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(INCORPORATION DATE IS NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.102,
+     "rows": 1508,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.027,
+     "score": 0.373,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION STATE missing, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(INCORPORATION STATE IS NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.095,
+     "rows": 1412,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.153,
+     "score": 0.361,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ORGANIZATION NAME",
+      "CITY"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME present, AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.594,
+     "rows": 8803,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.36,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "ORGANIZATION NAME",
+      "AFFILIATION ENTITY NAME"
+     ],
+     "cls": "pos",
+     "condition": "(DOING BUSINESS AS NAME present)",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL)",
+     "support": 0.851,
+     "rows": 12604,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.302,
+     "score": 0.36,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "INCORPORATION DATE"
+     ],
+     "cls": "cert",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.094,
+     "rows": 1400,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.193,
+     "score": 0.36,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ORGANIZATION NAME"
+     ],
+     "cls": "cert",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.094,
+     "rows": 1400,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.197,
+     "score": 0.36,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "pos",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.094,
+     "rows": 1400,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.147,
+     "score": 0.36,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "INCORPORATION DATE",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.094,
+     "rows": 1400,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.193,
+     "score": 0.36,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ORGANIZATION NAME"
+     ],
+     "cls": "cert",
+     "condition": "(DOING BUSINESS AS NAME missing, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.093,
+     "rows": 1383,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.025,
+     "score": 0.357,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "AFFILIATION ENTITY NAME",
+      "ZIP CODE"
+     ],
+     "cls": "pos",
+     "condition": "ORGANIZATION TYPE STRUCTURE in {\"CORPORATION\", \"OTHER\"}",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION') OR (ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.466,
+     "rows": 6901,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.512,
+     "score": 0.355,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION",
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "AFFILIATION ENTITY ID",
+      "CITY"
+     ],
+     "cls": "pos",
+     "condition": "ORGANIZATION TYPE STRUCTURE in {\"CORPORATION\", \"OTHER\"}",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION') OR (ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.466,
+     "rows": 6901,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.512,
+     "score": 0.355,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION",
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "ORGANIZATION NAME"
+     ],
+     "cls": "part",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (67%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.164,
+     "rows": 2431,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.32,
+     "score": 0.351,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ORGANIZATION NAME",
+      "AFFILIATION ENTITY ID"
+     ],
+     "cls": "pos",
+     "condition": "(DOING BUSINESS AS NAME present, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.456,
+     "rows": 6751,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.166,
+     "score": 0.351,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "ASSOCIATE ID",
+      "AFFILIATION ENTITY NAME"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION DATE missing)",
+     "sql": "(INCORPORATION DATE IS NULL)",
+     "support": 0.198,
+     "rows": 2938,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.327,
+     "score": 0.347,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "ORGANIZATION NAME",
+      "AFFILIATION ENTITY ID"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION DATE missing)",
+     "sql": "(INCORPORATION DATE IS NULL)",
+     "support": 0.198,
+     "rows": 2938,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.327,
+     "score": 0.347,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "AFFILIATION ENTITY ID",
+      "CITY"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION DATE missing)",
+     "sql": "(INCORPORATION DATE IS NULL)",
+     "support": 0.198,
+     "rows": 2938,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.327,
+     "score": 0.347,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "AFFILIATION ENTITY NAME"
+     ],
+     "cls": "pos",
+     "condition": "(DOING BUSINESS AS NAME missing)",
+     "sql": "(DOING BUSINESS AS NAME IS NULL)",
+     "support": 0.149,
+     "rows": 2211,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.549,
+     "score": 0.339,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "AFFILIATION ENTITY NAME"
+     ],
+     "cls": "pos",
+     "condition": "(DOING BUSINESS AS NAME missing)",
+     "sql": "(DOING BUSINESS AS NAME IS NULL)",
+     "support": 0.149,
+     "rows": 2211,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.549,
+     "score": 0.339,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "ASSOCIATE ID",
+      "AFFILIATION ENTITY NAME"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION STATE missing)",
+     "sql": "(INCORPORATION STATE IS NULL)",
+     "support": 0.188,
+     "rows": 2783,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.319,
+     "score": 0.338,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "ORGANIZATION NAME",
+      "AFFILIATION ENTITY ID"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION STATE missing)",
+     "sql": "(INCORPORATION STATE IS NULL)",
+     "support": 0.188,
+     "rows": 2783,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.319,
+     "score": 0.338,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "AFFILIATION ENTITY ID",
+      "CITY"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION STATE missing)",
+     "sql": "(INCORPORATION STATE IS NULL)",
+     "support": 0.188,
+     "rows": 2783,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.319,
+     "score": 0.338,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ORGANIZATION NAME"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION DATE missing, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(INCORPORATION DATE IS NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.083,
+     "rows": 1234,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.024,
+     "score": 0.338,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ORGANIZATION NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION DATE missing, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(INCORPORATION DATE IS NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.102,
+     "rows": 1508,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.335,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "ORGANIZATION NAME"
+     ],
+     "cls": "part",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%), PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION' AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.149,
+     "rows": 2207,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.198,
+     "score": 0.335,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION",
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ORGANIZATION NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%), PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION' AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.149,
+     "rows": 2207,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.175,
+     "score": 0.335,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION",
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "INCORPORATION DATE",
+      "ZIP CODE"
+     ],
+     "cls": "cert",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%), PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION' AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.149,
+     "rows": 2207,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.194,
+     "score": 0.335,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION",
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID",
+      "CITY"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION DATE missing, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(INCORPORATION DATE IS NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.102,
+     "rows": 1508,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.027,
+     "score": 0.332,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ORGANIZATION NAME"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION STATE missing, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(INCORPORATION STATE IS NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.08,
+     "rows": 1186,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.024,
+     "score": 0.331,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME"
+     ],
+     "cls": "pos",
+     "condition": "(DOING BUSINESS AS NAME missing, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.064,
+     "rows": 947,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.025,
+     "score": 0.329,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "INCORPORATION DATE"
+     ],
+     "cls": "pos",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.137,
+     "rows": 2037,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.745,
+     "score": 0.325,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "INCORPORATION DATE"
+     ],
+     "cls": "pos",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.137,
+     "rows": 2037,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.783,
+     "score": 0.325,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "INCORPORATION DATE"
+     ],
+     "cls": "pos",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.137,
+     "rows": 2037,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.751,
+     "score": 0.325,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "INCORPORATION DATE",
+      "ZIP CODE"
+     ],
+     "cls": "pos",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.137,
+     "rows": 2037,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.745,
+     "score": 0.325,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ORGANIZATION NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION STATE missing, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(INCORPORATION STATE IS NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.095,
+     "rows": 1412,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.324,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "ORGANIZATION NAME"
+     ],
+     "cls": "cand",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.094,
+     "rows": 1400,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.323,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "CITY"
+     ],
+     "cls": "cand",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.094,
+     "rows": 1400,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.323,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ORGANIZATION NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'LLC' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.094,
+     "rows": 1400,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.323,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "ORGANIZATION NAME"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION STATE missing, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(INCORPORATION STATE IS NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.095,
+     "rows": 1412,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.176,
+     "score": 0.321,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ASSOCIATE ID",
+      "CITY"
+     ],
+     "cls": "cert",
+     "condition": "(INCORPORATION STATE missing, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(INCORPORATION STATE IS NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.095,
+     "rows": 1412,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.026,
+     "score": 0.321,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ORGANIZATION NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME missing, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.093,
+     "rows": 1383,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.321,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ORGANIZATION NAME"
+     ],
+     "cls": "dom",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (67%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.164,
+     "rows": 2431,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.221,
+     "score": 0.316,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME"
+     ],
+     "cls": "dom",
+     "condition": "(INCORPORATION STATE present, ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%))",
+     "sql": "(INCORPORATION STATE IS NOT NULL AND ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.041,
+     "rows": 606,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.153,
+     "score": 0.316,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ORGANIZATION NAME"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION STATE present, AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(INCORPORATION STATE IS NOT NULL AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.279,
+     "rows": 4126,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.257,
+     "score": 0.309,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ORGANIZATION NAME"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION DATE present, AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(INCORPORATION DATE IS NOT NULL AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.274,
+     "rows": 4053,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.258,
+     "score": 0.306,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "ORGANIZATION NAME"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION DATE missing, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(INCORPORATION DATE IS NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.083,
+     "rows": 1234,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.303,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ORGANIZATION NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION DATE missing, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(INCORPORATION DATE IS NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.083,
+     "rows": 1234,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.303,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ASSOCIATE ID",
+      "AFFILIATION ENTITY NAME",
+      "ZIP CODE"
+     ],
+     "cls": "pos",
+     "condition": "(DOING BUSINESS AS NAME missing)",
+     "sql": "(DOING BUSINESS AS NAME IS NULL)",
+     "support": 0.149,
+     "rows": 2211,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.549,
+     "score": 0.301,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ORGANIZATION NAME",
+      "AFFILIATION ENTITY ID",
+      "ZIP CODE"
+     ],
+     "cls": "pos",
+     "condition": "(DOING BUSINESS AS NAME missing)",
+     "sql": "(DOING BUSINESS AS NAME IS NULL)",
+     "support": 0.149,
+     "rows": 2211,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.549,
+     "score": 0.301,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "CITY"
+     ],
+     "cls": "cand",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%), AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'OTHER' AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.081,
+     "rows": 1195,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.298,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NPI",
+      "CITY"
+     ],
+     "cls": "cand",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%), AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'OTHER' AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.081,
+     "rows": 1195,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.298,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "CITY"
+     ],
+     "cls": "pos",
+     "condition": "(DOING BUSINESS AS NAME present, ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%))",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND ORGANIZATION TYPE STRUCTURE = 'CORPORATION')",
+     "support": 0.259,
+     "rows": 3830,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.018,
+     "score": 0.297,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "ORGANIZATION NAME"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION STATE missing, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(INCORPORATION STATE IS NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.08,
+     "rows": 1186,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.297,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ORGANIZATION NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(INCORPORATION STATE missing, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(INCORPORATION STATE IS NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.08,
+     "rows": 1186,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.297,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ORGANIZATION NAME"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME missing, ORGANIZATION TYPE STRUCTURE = \"LLC\" (52%))",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND ORGANIZATION TYPE STRUCTURE = 'LLC')",
+     "support": 0.064,
+     "rows": 947,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.295,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v1": "LLC"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME"
+     ],
+     "cls": "dom",
+     "condition": "(INCORPORATION DATE present, ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%))",
+     "sql": "(INCORPORATION DATE IS NOT NULL AND ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.035,
+     "rows": 519,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.168,
+     "score": 0.292,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "AFFILIATION ENTITY ID",
+      "NPI",
+      "CITY"
+     ],
+     "cls": "pos",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.137,
+     "rows": 2037,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.413,
+     "score": 0.289,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "ORGANIZATION NAME"
+     ],
+     "cls": "part",
+     "condition": "(INCORPORATION DATE missing, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(INCORPORATION DATE IS NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.102,
+     "rows": 1508,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.176,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "CITY"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION STATE present, AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(INCORPORATION STATE IS NOT NULL AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.279,
+     "rows": 4126,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.315,
+     "score": 0.274,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ORGANIZATION NAME"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME missing, AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.067,
+     "rows": 997,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.272,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "AFFILIATION ENTITY NAME"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME missing, AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.067,
+     "rows": 997,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.272,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "CITY"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME missing, AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.067,
+     "rows": 997,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.272,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ORGANIZATION NAME",
+      "ZIP CODE"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME missing, AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(DOING BUSINESS AS NAME IS NULL AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.067,
+     "rows": 997,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.272,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "CITY"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION DATE present, AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(INCORPORATION DATE IS NOT NULL AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.274,
+     "rows": 4053,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.316,
+     "score": 0.272,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "INCORPORATION DATE"
+     ],
+     "cls": "dom",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%), PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION' AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.149,
+     "rows": 2207,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.217,
+     "score": 0.268,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION",
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "NURSING HOME PROVIDER NAME",
+      "CITY"
+     ],
+     "cls": "dom",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%), PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION' AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.149,
+     "rows": 2207,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.198,
+     "score": 0.268,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION",
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "INCORPORATION DATE",
+      "CITY"
+     ],
+     "cls": "cert",
+     "condition": "(DOING BUSINESS AS NAME present, ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%))",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND ORGANIZATION TYPE STRUCTURE = 'CORPORATION')",
+     "support": 0.259,
+     "rows": 3830,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.02,
+     "score": 0.264,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION STATE present, ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%))",
+     "sql": "(INCORPORATION STATE IS NOT NULL AND ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.041,
+     "rows": 606,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.021,
+     "score": 0.263,
+     "tags": [
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ASSOCIATE ID",
+      "CITY"
+     ],
+     "cls": "dom",
+     "condition": "(INCORPORATION DATE missing, AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(INCORPORATION DATE IS NULL AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.133,
+     "rows": 1976,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.088,
+     "score": 0.253,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ORGANIZATION NAME"
+     ],
+     "cls": "pos",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.181,
+     "rows": 2688,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.287,
+     "score": 0.249,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "CITY"
+     ],
+     "cls": "dom",
+     "condition": "(INCORPORATION DATE missing, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(INCORPORATION DATE IS NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.102,
+     "rows": 1508,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.027,
+     "score": 0.249,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ASSOCIATE ID",
+      "CITY"
+     ],
+     "cls": "dom",
+     "condition": "(INCORPORATION STATE missing, AFFILIATION ENTITY NAME present [same rows: AFFILIATION ENTITY ID present])",
+     "sql": "(INCORPORATION STATE IS NULL AND AFFILIATION ENTITY NAME IS NOT NULL)",
+     "support": 0.128,
+     "rows": 1894,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.09,
+     "score": 0.248,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "AFFILIATION ENTITY NAME"
+     ],
+     "cls": "pos",
+     "condition": "(DOING BUSINESS AS NAME present, INCORPORATION DATE missing)",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND INCORPORATION DATE IS NULL)",
+     "support": 0.175,
+     "rows": 2595,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.305,
+     "score": 0.245,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION DATE present, ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%))",
+     "sql": "(INCORPORATION DATE IS NOT NULL AND ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.035,
+     "rows": 519,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.021,
+     "score": 0.243,
+     "tags": [
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ORGANIZATION NAME"
+     ],
+     "cls": "dom",
+     "condition": "(INCORPORATION STATE missing, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(INCORPORATION STATE IS NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.095,
+     "rows": 1412,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.026,
+     "score": 0.241,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "CITY"
+     ],
+     "cls": "dom",
+     "condition": "(INCORPORATION STATE missing, PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(INCORPORATION STATE IS NULL AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.095,
+     "rows": 1412,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.026,
+     "score": 0.241,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "AFFILIATION ENTITY NAME"
+     ],
+     "cls": "pos",
+     "condition": "(DOING BUSINESS AS NAME present, INCORPORATION STATE missing)",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND INCORPORATION STATE IS NULL)",
+     "support": 0.166,
+     "rows": 2461,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.299,
+     "score": 0.238,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ORGANIZATION NAME",
+      "CITY"
+     ],
+     "cls": "cand",
+     "condition": "(DOING BUSINESS AS NAME present, ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%))",
+     "sql": "(DOING BUSINESS AS NAME IS NOT NULL AND ORGANIZATION TYPE STRUCTURE = 'CORPORATION')",
+     "support": 0.259,
+     "rows": 3830,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.237,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "INCORPORATION DATE"
+     ],
+     "cls": "pos",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (67%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.164,
+     "rows": 2431,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.16,
+     "score": 0.237,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "ORGANIZATION NAME"
+     ],
+     "cls": "pos",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (67%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.164,
+     "rows": 2431,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.114,
+     "score": 0.237,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "INCORPORATION DATE"
+     ],
+     "cls": "pos",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (67%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.164,
+     "rows": 2431,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.257,
+     "score": 0.237,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "NURSING HOME PROVIDER NAME",
+      "CITY"
+     ],
+     "cls": "pos",
+     "condition": "(PROPRIETARY_NONPROFIT = \"P\" (67%), AFFILIATION ENTITY NAME missing [same rows: AFFILIATION ENTITY ID missing])",
+     "sql": "(PROPRIETARY_NONPROFIT = 'P' AND AFFILIATION ENTITY NAME IS NULL)",
+     "support": 0.164,
+     "rows": 2431,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.114,
+     "score": 0.237,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ASSOCIATE ID"
+     ],
+     "cls": "pos",
+     "condition": "(INCORPORATION STATE present, ORGANIZATION TYPE STRUCTURE = \"OTHER\" (14%))",
+     "sql": "(INCORPORATION STATE IS NOT NULL AND ORGANIZATION TYPE STRUCTURE = 'OTHER')",
+     "support": 0.041,
+     "rows": 606,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.134,
+     "score": 0.237,
+     "tags": [
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v3": "OTHER"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "ADDRESS LINE 1",
+      "INCORPORATION DATE"
+     ],
+     "cls": "pos",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%), PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION' AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.149,
+     "rows": 2207,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.023,
+     "score": 0.226,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION",
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t34954",
+     "K": [
+      "DOING BUSINESS AS NAME",
+      "ORGANIZATION NAME"
+     ],
+     "cls": "pos",
+     "condition": "(ORGANIZATION TYPE STRUCTURE = \"CORPORATION\" (33%), PROPRIETARY_NONPROFIT = \"P\" (67%))",
+     "sql": "(ORGANIZATION TYPE STRUCTURE = 'CORPORATION' AND PROPRIETARY_NONPROFIT = 'P')",
+     "support": 0.149,
+     "rows": 2207,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.175,
+     "score": 0.226,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ORGANIZATION TYPE STRUCTURE=v2": "CORPORATION",
+      "PROPRIETARY_NONPROFIT=v1": "P"
+     }
+    }
+   ],
+   "unconditional": {
+    "ENROLLMENT ID": "cand",
+    "CCN": "cand",
+    "ADDRESS LINE 1,DOING BUSINESS AS NAME": "pos",
+    "DOING BUSINESS AS NAME,NPI": "pos",
+    "DOING BUSINESS AS NAME,ZIP CODE": "pos",
+    "NURSING HOME PROVIDER NAME,NPI": "cert",
+    "NPI,ZIP CODE": "cand",
+    "ADDRESS LINE 1,DOING BUSINESS AS NAME,NURSING HOME PROVIDER NAME": "pos",
+    "ADDRESS LINE 1,DOING BUSINESS AS NAME,ASSOCIATE ID": "pos",
+    "ADDRESS LINE 1,DOING BUSINESS AS NAME,ORGANIZATION NAME": "pos",
+    "ADDRESS LINE 1,DOING BUSINESS AS NAME,INCORPORATION DATE": "dom",
+    "ADDRESS LINE 1,DOING BUSINESS AS NAME,AFFILIATION ENTITY NAME": "pos",
+    "ADDRESS LINE 1,DOING BUSINESS AS NAME,AFFILIATION ENTITY ID": "pos",
+    "ADDRESS LINE 1,DOING BUSINESS AS NAME,NPI": "cert",
+    "ADDRESS LINE 1,DOING BUSINESS AS NAME,ZIP CODE": "pos",
+    "ADDRESS LINE 1,DOING BUSINESS AS NAME,CITY": "pos",
+    "ADDRESS LINE 1,NURSING HOME PROVIDER NAME,NPI": "cert",
+    "ADDRESS LINE 1,INCORPORATION DATE,NPI": "pos",
+    "ADDRESS LINE 1,AFFILIATION ENTITY NAME,NPI": "pos",
+    "ADDRESS LINE 1,AFFILIATION ENTITY ID,NPI": "pos",
+    "DOING BUSINESS AS NAME,NURSING HOME PROVIDER NAME,NPI": "cert",
+    "DOING BUSINESS AS NAME,NURSING HOME PROVIDER NAME,ZIP CODE": "pos",
+    "DOING BUSINESS AS NAME,ASSOCIATE ID,NPI": "pos",
+    "DOING BUSINESS AS NAME,ASSOCIATE ID,ZIP CODE": "pos",
+    "DOING BUSINESS AS NAME,ORGANIZATION NAME,NPI": "pos",
+    "DOING BUSINESS AS NAME,ORGANIZATION NAME,ZIP CODE": "pos",
+    "DOING BUSINESS AS NAME,INCORPORATION DATE,NPI": "pos",
+    "DOING BUSINESS AS NAME,INCORPORATION DATE,ZIP CODE": "pos",
+    "DOING BUSINESS AS NAME,AFFILIATION ENTITY NAME,NPI": "pos",
+    "DOING BUSINESS AS NAME,AFFILIATION ENTITY NAME,ZIP CODE": "pos",
+    "DOING BUSINESS AS NAME,AFFILIATION ENTITY ID,NPI": "pos",
+    "DOING BUSINESS AS NAME,AFFILIATION ENTITY ID,ZIP CODE": "pos",
+    "DOING BUSINESS AS NAME,NPI,CITY": "pos",
+    "DOING BUSINESS AS NAME,ZIP CODE,CITY": "pos",
+    "NURSING HOME PROVIDER NAME,ASSOCIATE ID,NPI": "cert",
+    "NURSING HOME PROVIDER NAME,ORGANIZATION NAME,NPI": "cert",
+    "NURSING HOME PROVIDER NAME,INCORPORATION DATE,NPI": "cert",
+    "NURSING HOME PROVIDER NAME,AFFILIATION ENTITY NAME,NPI": "cert",
+    "NURSING HOME PROVIDER NAME,AFFILIATION ENTITY ID,NPI": "cert",
+    "NURSING HOME PROVIDER NAME,NPI,CITY": "cert"
+   }
+  }
+ ]
+}

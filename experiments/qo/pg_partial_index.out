@@ -1,0 +1,70 @@
+== 1 left join, predicate in ON (partial unique index)
+                   QUERY PLAN                    
+-------------------------------------------------
+ Hash Left Join
+   Hash Cond: (a.k = b.k)
+   ->  Seq Scan on t a
+   ->  Hash
+         ->  Index Only Scan using t_k_s1 on t b
+(5 rows)
+
+== 2 left join, predicate in a subquery (partial unique index)
+                  QUERY PLAN                   
+-----------------------------------------------
+ Hash Left Join
+   Hash Cond: (a.k = t.k)
+   ->  Seq Scan on t a
+   ->  Hash
+         ->  Index Only Scan using t_k_s1 on t
+(5 rows)
+
+== 3 DISTINCT over the key within the scope (partial unique index)
+               QUERY PLAN                
+-----------------------------------------
+ Unique
+   ->  Index Only Scan using t_k_s1 on t
+(2 rows)
+
+== 4 inner self-join on the key within the scope (self-join elimination, PG 18)
+ enable_self_join_elimination 
+------------------------------
+ on
+(1 row)
+
+              QUERY PLAN              
+--------------------------------------
+ Merge Join
+   Merge Cond: (a.k = b.k)
+   ->  Index Scan using t_k_s1 on t a
+   ->  Index Scan using t_k_s1 on t b
+(4 rows)
+
+== control: the same queries with a full unique index
+== 5 left join (full unique index)
+   QUERY PLAN    
+-----------------
+ Seq Scan on u a
+(1 row)
+
+== 6 left join, predicate in a subquery (full unique index)
+   QUERY PLAN    
+-----------------
+ Seq Scan on u a
+(1 row)
+
+== 7 DISTINCT (full unique index)
+       QUERY PLAN        
+-------------------------
+ HashAggregate
+   Group Key: k
+   ->  Seq Scan on u
+         Filter: (s = 1)
+(4 rows)
+
+== 8 inner self-join (full unique index)
+               QUERY PLAN                
+-----------------------------------------
+ Seq Scan on u b
+   Filter: ((k IS NOT NULL) AND (s = 1))
+(2 rows)
+

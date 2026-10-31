@@ -1,0 +1,2795 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "instn_name",
+   "instn_street_name",
+   "seq_no",
+   "instn_code",
+   "instn_ofc_no",
+   "instn_email",
+   "instn_pc",
+   "instn_unit_no",
+   "instn_blk_hse_no",
+   "instn_flr_no"
+  ]
+ },
+ "sample_rows": 4601,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbsg.t6",
+   "rows": 4601,
+   "cols": [
+    "seq_no",
+    "instn_code",
+    "instn_name",
+    "instn_srvc_type_cde",
+    "instn_srvc_type",
+    "instn_blk_hse_no",
+    "instn_street_name",
+    "instn_flr_no",
+    "instn_unit_no",
+    "instn_pc",
+    "instn_ofc_no",
+    "instn_email"
+   ],
+   "n_conditional": 108,
+   "conditional": [
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_street_name",
+      "instn_blk_hse_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_srvc_type_cde = \"CC\" (34%) [same rows: instn_srvc_type =v1])",
+     "sql": "(instn_srvc_type_cde = 'CC')",
+     "support": 0.337,
+     "rows": 1549,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 1.81,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_code"
+     ],
+     "cls": "cand",
+     "condition": "instn_srvc_type_cde in {\"CC\", \"HC\", \"OS\", \"PH\"}",
+     "sql": "(instn_srvc_type_cde = 'CC') OR (instn_srvc_type_cde = 'HC') OR (instn_srvc_type_cde = 'OS') OR (instn_srvc_type_cde = 'PH')",
+     "support": 0.864,
+     "rows": 3975,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.301,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC",
+      "instn_srvc_type_cde=v2": "HC",
+      "instn_srvc_type_cde=v3": "OS",
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_code"
+     ],
+     "cls": "cand",
+     "condition": "(instn_unit_no missing)",
+     "sql": "(instn_unit_no IS NULL)",
+     "support": 0.155,
+     "rows": 711,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.238,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_code"
+     ],
+     "cls": "cand",
+     "condition": "(instn_flr_no missing)",
+     "sql": "(instn_flr_no IS NULL)",
+     "support": 0.149,
+     "rows": 685,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.215,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_code"
+     ],
+     "cls": "cand",
+     "condition": "(instn_srvc_type_cde = \"KN\" (10%) [same rows: instn_srvc_type =v4])",
+     "sql": "(instn_srvc_type_cde = 'KN')",
+     "support": 0.096,
+     "rows": 442,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.085,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_street_name",
+      "instn_unit_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_srvc_type_cde = \"CC\" (34%) [same rows: instn_srvc_type =v1], instn_flr_no present)",
+     "sql": "(instn_srvc_type_cde = 'CC' AND instn_flr_no IS NOT NULL)",
+     "support": 0.26,
+     "rows": 1198,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 1.061,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_street_name",
+      "instn_ofc_no",
+      "instn_unit_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_srvc_type_cde = \"CC\" (34%) [same rows: instn_srvc_type =v1], instn_flr_no present)",
+     "sql": "(instn_srvc_type_cde = 'CC' AND instn_flr_no IS NOT NULL)",
+     "support": 0.26,
+     "rows": 1198,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 1.061,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_street_name",
+      "instn_ofc_no",
+      "instn_blk_hse_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_srvc_type_cde = \"CC\" (34%) [same rows: instn_srvc_type =v1], instn_flr_no present)",
+     "sql": "(instn_srvc_type_cde = 'CC' AND instn_flr_no IS NOT NULL)",
+     "support": 0.26,
+     "rows": 1198,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 1.061,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_unit_no",
+      "instn_blk_hse_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_srvc_type_cde = \"CC\" (34%) [same rows: instn_srvc_type =v1], instn_unit_no present)",
+     "sql": "(instn_srvc_type_cde = 'CC' AND instn_unit_no IS NOT NULL)",
+     "support": 0.259,
+     "rows": 1192,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 1.059,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_street_name",
+      "instn_ofc_no",
+      "instn_unit_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_srvc_type_cde = \"CC\" (34%) [same rows: instn_srvc_type =v1], instn_unit_no present)",
+     "sql": "(instn_srvc_type_cde = 'CC' AND instn_unit_no IS NOT NULL)",
+     "support": 0.259,
+     "rows": 1192,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 1.059,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_street_name",
+      "instn_ofc_no",
+      "instn_blk_hse_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_srvc_type_cde = \"CC\" (34%) [same rows: instn_srvc_type =v1], instn_unit_no present)",
+     "sql": "(instn_srvc_type_cde = 'CC' AND instn_unit_no IS NOT NULL)",
+     "support": 0.259,
+     "rows": 1192,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 1.059,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_ofc_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_email missing)",
+     "sql": "(instn_email IS NULL)",
+     "support": 0.088,
+     "rows": 406,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.012,
+     "score": 1.043,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_code"
+     ],
+     "cls": "cand",
+     "condition": "(instn_email missing)",
+     "sql": "(instn_email IS NULL)",
+     "support": 0.088,
+     "rows": 406,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.04,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_street_name"
+     ],
+     "cls": "cand",
+     "condition": "(instn_srvc_type_cde = \"KN\" (10%) [same rows: instn_srvc_type =v4])",
+     "sql": "(instn_srvc_type_cde = 'KN')",
+     "support": 0.096,
+     "rows": 442,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.976,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_street_name",
+      "instn_unit_no"
+     ],
+     "cls": "cand",
+     "condition": "(instn_srvc_type_cde = \"CC\" (34%) [same rows: instn_srvc_type =v1], instn_unit_no present)",
+     "sql": "(instn_srvc_type_cde = 'CC' AND instn_unit_no IS NOT NULL)",
+     "support": 0.259,
+     "rows": 1192,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.95,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_street_name",
+      "instn_unit_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_email missing)",
+     "sql": "(instn_email IS NULL)",
+     "support": 0.088,
+     "rows": 406,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.101,
+     "score": 0.927,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_street_name",
+      "instn_flr_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_email missing)",
+     "sql": "(instn_email IS NULL)",
+     "support": 0.088,
+     "rows": 406,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.101,
+     "score": 0.927,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_unit_no",
+      "instn_blk_hse_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_email missing)",
+     "sql": "(instn_email IS NULL)",
+     "support": 0.088,
+     "rows": 406,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.103,
+     "score": 0.927,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_unit_no",
+      "instn_flr_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_email missing)",
+     "sql": "(instn_email IS NULL)",
+     "support": 0.088,
+     "rows": 406,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.101,
+     "score": 0.927,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_pc"
+     ],
+     "cls": "cand",
+     "condition": "(instn_srvc_type_cde = \"CC\" (34%) [same rows: instn_srvc_type =v1])",
+     "sql": "(instn_srvc_type_cde = 'CC')",
+     "support": 0.337,
+     "rows": 1549,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.914,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_street_name",
+      "instn_email",
+      "instn_blk_hse_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_srvc_type_cde = \"CC\" (34%) [same rows: instn_srvc_type =v1])",
+     "sql": "(instn_srvc_type_cde = 'CC')",
+     "support": 0.337,
+     "rows": 1549,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.905,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_street_name",
+      "instn_unit_no"
+     ],
+     "cls": "cert",
+     "condition": "instn_srvc_type_cde in {\"KN\", \"PH\"}",
+     "sql": "(instn_srvc_type_cde = 'KN') OR (instn_srvc_type_cde = 'PH')",
+     "support": 0.146,
+     "rows": 671,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.291,
+     "score": 0.794,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN",
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_unit_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_srvc_type_cde = \"PH\" (5%) [same rows: instn_srvc_type =v5])",
+     "sql": "(instn_srvc_type_cde = 'PH')",
+     "support": 0.05,
+     "rows": 229,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.052,
+     "score": 0.783,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_unit_no",
+      "instn_blk_hse_no"
+     ],
+     "cls": "dom",
+     "condition": "(instn_srvc_type_cde = \"CC\" (34%) [same rows: instn_srvc_type =v1], instn_flr_no present)",
+     "sql": "(instn_srvc_type_cde = 'CC' AND instn_flr_no IS NOT NULL)",
+     "support": 0.26,
+     "rows": 1198,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.007,
+     "score": 0.708,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_flr_no"
+     ],
+     "cls": "pos",
+     "condition": "(instn_unit_no missing)",
+     "sql": "(instn_unit_no IS NULL)",
+     "support": 0.155,
+     "rows": 711,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.959,
+     "score": 0.69,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_code",
+      "instn_flr_no"
+     ],
+     "cls": "pos",
+     "condition": "(instn_unit_no missing)",
+     "sql": "(instn_unit_no IS NULL)",
+     "support": 0.155,
+     "rows": 711,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.959,
+     "score": 0.69,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_ofc_no",
+      "instn_flr_no"
+     ],
+     "cls": "pos",
+     "condition": "(instn_unit_no missing)",
+     "sql": "(instn_unit_no IS NULL)",
+     "support": 0.155,
+     "rows": 711,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.959,
+     "score": 0.69,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(instn_flr_no missing)",
+     "sql": "(instn_flr_no IS NULL)",
+     "support": 0.149,
+     "rows": 685,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.996,
+     "score": 0.677,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_code",
+      "instn_unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(instn_flr_no missing)",
+     "sql": "(instn_flr_no IS NULL)",
+     "support": 0.149,
+     "rows": 685,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.996,
+     "score": 0.677,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_street_name",
+      "instn_unit_no"
+     ],
+     "cls": "pos",
+     "condition": "instn_srvc_type_cde in {\"CC\", \"PH\"}",
+     "sql": "(instn_srvc_type_cde = 'CC') OR (instn_srvc_type_cde = 'PH')",
+     "support": 0.386,
+     "rows": 1778,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.208,
+     "score": 0.647,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC",
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_pc",
+      "instn_unit_no"
+     ],
+     "cls": "cert",
+     "condition": "instn_srvc_type_cde in {\"CC\", \"PH\"}",
+     "sql": "(instn_srvc_type_cde = 'CC') OR (instn_srvc_type_cde = 'PH')",
+     "support": 0.386,
+     "rows": 1778,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.208,
+     "score": 0.647,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC",
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_unit_no",
+      "instn_blk_hse_no"
+     ],
+     "cls": "pos",
+     "condition": "instn_srvc_type_cde in {\"CC\", \"PH\"}",
+     "sql": "(instn_srvc_type_cde = 'CC') OR (instn_srvc_type_cde = 'PH')",
+     "support": 0.386,
+     "rows": 1778,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.208,
+     "score": 0.647,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC",
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_street_name",
+      "instn_ofc_no",
+      "instn_unit_no"
+     ],
+     "cls": "pos",
+     "condition": "instn_srvc_type_cde in {\"CC\", \"PH\"}",
+     "sql": "(instn_srvc_type_cde = 'CC') OR (instn_srvc_type_cde = 'PH')",
+     "support": 0.386,
+     "rows": 1778,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.22,
+     "score": 0.647,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC",
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_blk_hse_no",
+      "instn_flr_no"
+     ],
+     "cls": "dom",
+     "condition": "(instn_email missing)",
+     "sql": "(instn_email IS NULL)",
+     "support": 0.088,
+     "rows": 406,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.103,
+     "score": 0.618,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_street_name",
+      "instn_ofc_no",
+      "instn_unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(instn_flr_no missing)",
+     "sql": "(instn_flr_no IS NULL)",
+     "support": 0.149,
+     "rows": 685,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.996,
+     "score": 0.602,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_street_name",
+      "instn_unit_no",
+      "instn_blk_hse_no"
+     ],
+     "cls": "pos",
+     "condition": "(instn_flr_no missing)",
+     "sql": "(instn_flr_no IS NULL)",
+     "support": 0.149,
+     "rows": 685,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.997,
+     "score": 0.602,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_ofc_no",
+      "instn_pc"
+     ],
+     "cls": "cert",
+     "condition": "(instn_srvc_type_cde = \"CC\" (34%) [same rows: instn_srvc_type =v1], instn_flr_no present)",
+     "sql": "(instn_srvc_type_cde = 'CC' AND instn_flr_no IS NOT NULL)",
+     "support": 0.26,
+     "rows": 1198,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.597,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_ofc_no",
+      "instn_pc"
+     ],
+     "cls": "cert",
+     "condition": "(instn_srvc_type_cde = \"CC\" (34%) [same rows: instn_srvc_type =v1], instn_unit_no present)",
+     "sql": "(instn_srvc_type_cde = 'CC' AND instn_unit_no IS NOT NULL)",
+     "support": 0.259,
+     "rows": 1192,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.596,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_street_name",
+      "instn_ofc_no",
+      "instn_unit_no"
+     ],
+     "cls": "part",
+     "condition": "(instn_srvc_type_cde = \"PH\" (5%) [same rows: instn_srvc_type =v5])",
+     "sql": "(instn_srvc_type_cde = 'PH')",
+     "support": 0.05,
+     "rows": 229,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.144,
+     "score": 0.58,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name"
+     ],
+     "cls": "cand",
+     "condition": "(instn_srvc_type_cde = \"KN\" (10%) [same rows: instn_srvc_type =v4], instn_flr_no present)",
+     "sql": "(instn_srvc_type_cde = 'KN' AND instn_flr_no IS NOT NULL)",
+     "support": 0.06,
+     "rows": 277,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.573,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name"
+     ],
+     "cls": "cand",
+     "condition": "(instn_srvc_type_cde = \"KN\" (10%) [same rows: instn_srvc_type =v4], instn_unit_no present)",
+     "sql": "(instn_srvc_type_cde = 'KN' AND instn_unit_no IS NOT NULL)",
+     "support": 0.056,
+     "rows": 259,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.554,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_flr_no"
+     ],
+     "cls": "pos",
+     "condition": "(instn_srvc_type_cde = \"KN\" (10%) [same rows: instn_srvc_type =v4])",
+     "sql": "(instn_srvc_type_cde = 'KN')",
+     "support": 0.096,
+     "rows": 442,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.373,
+     "score": 0.544,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_street_name",
+      "instn_email",
+      "instn_unit_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_srvc_type_cde = \"CC\" (34%) [same rows: instn_srvc_type =v1], instn_flr_no present)",
+     "sql": "(instn_srvc_type_cde = 'CC' AND instn_flr_no IS NOT NULL)",
+     "support": 0.26,
+     "rows": 1198,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 0.531,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_street_name",
+      "instn_ofc_no"
+     ],
+     "cls": "dom",
+     "condition": "instn_srvc_type_cde in {\"KN\", \"PH\"}",
+     "sql": "(instn_srvc_type_cde = 'KN') OR (instn_srvc_type_cde = 'PH')",
+     "support": 0.146,
+     "rows": 671,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.031,
+     "score": 0.53,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN",
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_street_name",
+      "instn_email",
+      "instn_unit_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_srvc_type_cde = \"CC\" (34%) [same rows: instn_srvc_type =v1], instn_unit_no present)",
+     "sql": "(instn_srvc_type_cde = 'CC' AND instn_unit_no IS NOT NULL)",
+     "support": 0.259,
+     "rows": 1192,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.529,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_ofc_no"
+     ],
+     "cls": "dom",
+     "condition": "(instn_srvc_type_cde = \"PH\" (5%) [same rows: instn_srvc_type =v5])",
+     "sql": "(instn_srvc_type_cde = 'PH')",
+     "support": 0.05,
+     "rows": 229,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.092,
+     "score": 0.522,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_ofc_no",
+      "instn_blk_hse_no"
+     ],
+     "cls": "cand",
+     "condition": "(instn_srvc_type_cde = \"CC\" (34%) [same rows: instn_srvc_type =v1], instn_unit_no missing)",
+     "sql": "(instn_srvc_type_cde = 'CC' AND instn_unit_no IS NULL)",
+     "support": 0.078,
+     "rows": 357,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.52,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_ofc_no",
+      "instn_blk_hse_no"
+     ],
+     "cls": "cand",
+     "condition": "(instn_srvc_type_cde = \"CC\" (34%) [same rows: instn_srvc_type =v1], instn_flr_no missing)",
+     "sql": "(instn_srvc_type_cde = 'CC' AND instn_flr_no IS NULL)",
+     "support": 0.076,
+     "rows": 351,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.516,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_street_name",
+      "instn_ofc_no"
+     ],
+     "cls": "cand",
+     "condition": "(instn_srvc_type_cde = \"KN\" (10%) [same rows: instn_srvc_type =v4], instn_flr_no present)",
+     "sql": "(instn_srvc_type_cde = 'KN' AND instn_flr_no IS NOT NULL)",
+     "support": 0.06,
+     "rows": 277,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.515,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_email",
+      "instn_pc"
+     ],
+     "cls": "cert",
+     "condition": "(instn_srvc_type_cde = \"CC\" (34%) [same rows: instn_srvc_type =v1])",
+     "sql": "(instn_srvc_type_cde = 'CC')",
+     "support": 0.337,
+     "rows": 1549,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.509,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_street_name",
+      "instn_ofc_no"
+     ],
+     "cls": "cand",
+     "condition": "(instn_srvc_type_cde = \"KN\" (10%) [same rows: instn_srvc_type =v4], instn_unit_no present)",
+     "sql": "(instn_srvc_type_cde = 'KN' AND instn_unit_no IS NOT NULL)",
+     "support": 0.056,
+     "rows": 259,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.498,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_pc"
+     ],
+     "cls": "cand",
+     "condition": "(instn_srvc_type_cde = \"KN\" (10%) [same rows: instn_srvc_type =v4])",
+     "sql": "(instn_srvc_type_cde = 'KN')",
+     "support": 0.096,
+     "rows": 442,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.488,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_street_name",
+      "instn_ofc_no",
+      "instn_unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(instn_srvc_type_cde = \"KN\" (10%) [same rows: instn_srvc_type =v4])",
+     "sql": "(instn_srvc_type_cde = 'KN')",
+     "support": 0.096,
+     "rows": 442,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.414,
+     "score": 0.484,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_street_name",
+      "instn_email",
+      "instn_unit_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_srvc_type_cde = \"KN\" (10%) [same rows: instn_srvc_type =v4])",
+     "sql": "(instn_srvc_type_cde = 'KN')",
+     "support": 0.096,
+     "rows": 442,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.414,
+     "score": 0.484,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_street_name",
+      "instn_email",
+      "instn_blk_hse_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_srvc_type_cde = \"KN\" (10%) [same rows: instn_srvc_type =v4])",
+     "sql": "(instn_srvc_type_cde = 'KN')",
+     "support": 0.096,
+     "rows": 442,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 0.484,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_street_name",
+      "instn_ofc_no",
+      "instn_blk_hse_no"
+     ],
+     "cls": "dom",
+     "condition": "(instn_srvc_type_cde = \"PH\" (5%) [same rows: instn_srvc_type =v5])",
+     "sql": "(instn_srvc_type_cde = 'PH')",
+     "support": 0.05,
+     "rows": 229,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.092,
+     "score": 0.464,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_street_name",
+      "instn_ofc_no",
+      "instn_flr_no"
+     ],
+     "cls": "dom",
+     "condition": "(instn_srvc_type_cde = \"PH\" (5%) [same rows: instn_srvc_type =v5])",
+     "sql": "(instn_srvc_type_cde = 'PH')",
+     "support": 0.05,
+     "rows": 229,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.135,
+     "score": 0.464,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_pc",
+      "instn_unit_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_email missing)",
+     "sql": "(instn_email IS NULL)",
+     "support": 0.088,
+     "rows": 406,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.101,
+     "score": 0.463,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_pc",
+      "instn_flr_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_email missing)",
+     "sql": "(instn_email IS NULL)",
+     "support": 0.088,
+     "rows": 406,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.101,
+     "score": 0.463,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_street_name",
+      "instn_email",
+      "instn_unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(instn_srvc_type_cde = \"CC\" (34%) [same rows: instn_srvc_type =v1])",
+     "sql": "(instn_srvc_type_cde = 'CC')",
+     "support": 0.337,
+     "rows": 1549,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.231,
+     "score": 0.453,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_street_name",
+      "instn_ofc_no",
+      "instn_unit_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_srvc_type_cde = \"PH\" (5%) [same rows: instn_srvc_type =v5], instn_unit_no present)",
+     "sql": "(instn_srvc_type_cde = 'PH' AND instn_unit_no IS NOT NULL)",
+     "support": 0.047,
+     "rows": 217,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.097,
+     "score": 0.452,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_unit_no"
+     ],
+     "cls": "pos",
+     "condition": "instn_srvc_type_cde in {\"KN\", \"PH\"}",
+     "sql": "(instn_srvc_type_cde = 'KN') OR (instn_srvc_type_cde = 'PH')",
+     "support": 0.146,
+     "rows": 671,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.291,
+     "score": 0.447,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN",
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_street_name",
+      "instn_ofc_no",
+      "instn_email"
+     ],
+     "cls": "cand",
+     "condition": "(instn_srvc_type_cde = \"KN\" (10%) [same rows: instn_srvc_type =v4])",
+     "sql": "(instn_srvc_type_cde = 'KN')",
+     "support": 0.096,
+     "rows": 442,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.434,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_ofc_no",
+      "instn_pc"
+     ],
+     "cls": "dom",
+     "condition": "instn_srvc_type_cde in {\"CC\", \"PH\"}",
+     "sql": "(instn_srvc_type_cde = 'CC') OR (instn_srvc_type_cde = 'PH')",
+     "support": 0.386,
+     "rows": 1778,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.012,
+     "score": 0.431,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC",
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_street_name",
+      "instn_email",
+      "instn_blk_hse_no"
+     ],
+     "cls": "dom",
+     "condition": "instn_srvc_type_cde in {\"CC\", \"PH\"}",
+     "sql": "(instn_srvc_type_cde = 'CC') OR (instn_srvc_type_cde = 'PH')",
+     "support": 0.386,
+     "rows": 1778,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.004,
+     "score": 0.431,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC",
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_street_name",
+      "instn_email"
+     ],
+     "cls": "cert",
+     "condition": "instn_srvc_type_cde in {\"KN\", \"PH\"}",
+     "sql": "(instn_srvc_type_cde = 'KN') OR (instn_srvc_type_cde = 'PH')",
+     "support": 0.146,
+     "rows": 671,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.397,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN",
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_ofc_no",
+      "instn_flr_no"
+     ],
+     "cls": "pos",
+     "condition": "instn_srvc_type_cde in {\"KN\", \"PH\"}",
+     "sql": "(instn_srvc_type_cde = 'KN') OR (instn_srvc_type_cde = 'PH')",
+     "support": 0.146,
+     "rows": 671,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.292,
+     "score": 0.397,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN",
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_street_name",
+      "instn_ofc_no",
+      "instn_flr_no"
+     ],
+     "cls": "pos",
+     "condition": "instn_srvc_type_cde in {\"KN\", \"PH\"}",
+     "sql": "(instn_srvc_type_cde = 'KN') OR (instn_srvc_type_cde = 'PH')",
+     "support": 0.146,
+     "rows": 671,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.292,
+     "score": 0.397,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN",
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_street_name",
+      "instn_ofc_no"
+     ],
+     "cls": "pos",
+     "condition": "(instn_srvc_type_cde = \"PH\" (5%) [same rows: instn_srvc_type =v5])",
+     "sql": "(instn_srvc_type_cde = 'PH')",
+     "support": 0.05,
+     "rows": 229,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.092,
+     "score": 0.392,
+     "tags": [
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_email",
+      "instn_blk_hse_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_srvc_type_cde = \"PH\" (5%) [same rows: instn_srvc_type =v5])",
+     "sql": "(instn_srvc_type_cde = 'PH')",
+     "support": 0.05,
+     "rows": 229,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.026,
+     "score": 0.348,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_email",
+      "instn_flr_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_srvc_type_cde = \"PH\" (5%) [same rows: instn_srvc_type =v5])",
+     "sql": "(instn_srvc_type_cde = 'PH')",
+     "support": 0.05,
+     "rows": 229,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.061,
+     "score": 0.348,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_email",
+      "instn_flr_no"
+     ],
+     "cls": "pos",
+     "condition": "(instn_unit_no missing)",
+     "sql": "(instn_unit_no IS NULL)",
+     "support": 0.155,
+     "rows": 711,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.959,
+     "score": 0.345,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_email",
+      "instn_unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(instn_flr_no missing)",
+     "sql": "(instn_flr_no IS NULL)",
+     "support": 0.149,
+     "rows": 685,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.996,
+     "score": 0.339,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_pc",
+      "instn_unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(instn_flr_no missing)",
+     "sql": "(instn_flr_no IS NULL)",
+     "support": 0.149,
+     "rows": 685,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.996,
+     "score": 0.339,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_email",
+      "instn_pc"
+     ],
+     "cls": "cert",
+     "condition": "instn_srvc_type_cde in {\"CC\", \"PH\"}",
+     "sql": "(instn_srvc_type_cde = 'CC') OR (instn_srvc_type_cde = 'PH')",
+     "support": 0.386,
+     "rows": 1778,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.323,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC",
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_ofc_no",
+      "instn_pc",
+      "instn_unit_no"
+     ],
+     "cls": "pos",
+     "condition": "instn_srvc_type_cde in {\"CC\", \"PH\"}",
+     "sql": "(instn_srvc_type_cde = 'CC') OR (instn_srvc_type_cde = 'PH')",
+     "support": 0.386,
+     "rows": 1778,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.22,
+     "score": 0.323,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC",
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_ofc_no",
+      "instn_pc",
+      "instn_flr_no"
+     ],
+     "cls": "pos",
+     "condition": "instn_srvc_type_cde in {\"CC\", \"PH\"}",
+     "sql": "(instn_srvc_type_cde = 'CC') OR (instn_srvc_type_cde = 'PH')",
+     "support": 0.386,
+     "rows": 1778,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.215,
+     "score": 0.323,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC",
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_email",
+      "instn_pc",
+      "instn_unit_no"
+     ],
+     "cls": "cert",
+     "condition": "instn_srvc_type_cde in {\"CC\", \"PH\"}",
+     "sql": "(instn_srvc_type_cde = 'CC') OR (instn_srvc_type_cde = 'PH')",
+     "support": 0.386,
+     "rows": 1778,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.21,
+     "score": 0.323,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC",
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_ofc_no",
+      "instn_pc",
+      "instn_unit_no"
+     ],
+     "cls": "part",
+     "condition": "(instn_srvc_type_cde = \"PH\" (5%) [same rows: instn_srvc_type =v5])",
+     "sql": "(instn_srvc_type_cde = 'PH')",
+     "support": 0.05,
+     "rows": 229,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.144,
+     "score": 0.29,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_email",
+      "instn_unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(instn_srvc_type_cde = \"KN\" (10%) [same rows: instn_srvc_type =v4])",
+     "sql": "(instn_srvc_type_cde = 'KN')",
+     "support": 0.096,
+     "rows": 442,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.414,
+     "score": 0.272,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_street_name",
+      "instn_ofc_no",
+      "instn_email"
+     ],
+     "cls": "dom",
+     "condition": "instn_srvc_type_cde in {\"KN\", \"PH\"}",
+     "sql": "(instn_srvc_type_cde = 'KN') OR (instn_srvc_type_cde = 'PH')",
+     "support": 0.146,
+     "rows": 671,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.037,
+     "score": 0.265,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN",
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_email"
+     ],
+     "cls": "dom",
+     "condition": "(instn_srvc_type_cde = \"PH\" (5%) [same rows: instn_srvc_type =v5])",
+     "sql": "(instn_srvc_type_cde = 'PH')",
+     "support": 0.05,
+     "rows": 229,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.026,
+     "score": 0.261,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_ofc_no",
+      "instn_pc"
+     ],
+     "cls": "dom",
+     "condition": "(instn_srvc_type_cde = \"PH\" (5%) [same rows: instn_srvc_type =v5])",
+     "sql": "(instn_srvc_type_cde = 'PH')",
+     "support": 0.05,
+     "rows": 229,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.092,
+     "score": 0.261,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_email",
+      "instn_blk_hse_no"
+     ],
+     "cls": "cand",
+     "condition": "(instn_srvc_type_cde = \"CC\" (34%) [same rows: instn_srvc_type =v1], instn_unit_no missing)",
+     "sql": "(instn_srvc_type_cde = 'CC' AND instn_unit_no IS NULL)",
+     "support": 0.078,
+     "rows": 357,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.26,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_ofc_no",
+      "instn_email",
+      "instn_blk_hse_no"
+     ],
+     "cls": "cand",
+     "condition": "(instn_srvc_type_cde = \"CC\" (34%) [same rows: instn_srvc_type =v1], instn_unit_no missing)",
+     "sql": "(instn_srvc_type_cde = 'CC' AND instn_unit_no IS NULL)",
+     "support": 0.078,
+     "rows": 357,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.26,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_email",
+      "instn_blk_hse_no"
+     ],
+     "cls": "cand",
+     "condition": "(instn_srvc_type_cde = \"CC\" (34%) [same rows: instn_srvc_type =v1], instn_flr_no missing)",
+     "sql": "(instn_srvc_type_cde = 'CC' AND instn_flr_no IS NULL)",
+     "support": 0.076,
+     "rows": 351,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.258,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_ofc_no",
+      "instn_email",
+      "instn_blk_hse_no"
+     ],
+     "cls": "cand",
+     "condition": "(instn_srvc_type_cde = \"CC\" (34%) [same rows: instn_srvc_type =v1], instn_flr_no missing)",
+     "sql": "(instn_srvc_type_cde = 'CC' AND instn_flr_no IS NULL)",
+     "support": 0.076,
+     "rows": 351,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.258,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_ofc_no",
+      "instn_pc"
+     ],
+     "cls": "cand",
+     "condition": "(instn_srvc_type_cde = \"KN\" (10%) [same rows: instn_srvc_type =v4], instn_flr_no present)",
+     "sql": "(instn_srvc_type_cde = 'KN' AND instn_flr_no IS NOT NULL)",
+     "support": 0.06,
+     "rows": 277,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.258,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_ofc_no",
+      "instn_email",
+      "instn_blk_hse_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_srvc_type_cde = \"KN\" (10%) [same rows: instn_srvc_type =v4], instn_flr_no present)",
+     "sql": "(instn_srvc_type_cde = 'KN' AND instn_flr_no IS NOT NULL)",
+     "support": 0.06,
+     "rows": 277,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.255,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_pc",
+      "instn_unit_no",
+      "instn_flr_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_srvc_type_cde = \"KN\" (10%) [same rows: instn_srvc_type =v4], instn_flr_no present)",
+     "sql": "(instn_srvc_type_cde = 'KN' AND instn_flr_no IS NOT NULL)",
+     "support": 0.06,
+     "rows": 277,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.072,
+     "score": 0.255,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_ofc_no",
+      "instn_pc"
+     ],
+     "cls": "cand",
+     "condition": "(instn_srvc_type_cde = \"KN\" (10%) [same rows: instn_srvc_type =v4], instn_unit_no present)",
+     "sql": "(instn_srvc_type_cde = 'KN' AND instn_unit_no IS NOT NULL)",
+     "support": 0.056,
+     "rows": 259,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.249,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_email",
+      "instn_unit_no"
+     ],
+     "cls": "cand",
+     "condition": "(instn_srvc_type_cde = \"KN\" (10%) [same rows: instn_srvc_type =v4], instn_unit_no present)",
+     "sql": "(instn_srvc_type_cde = 'KN' AND instn_unit_no IS NOT NULL)",
+     "support": 0.056,
+     "rows": 259,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.249,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_ofc_no",
+      "instn_email",
+      "instn_blk_hse_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_srvc_type_cde = \"KN\" (10%) [same rows: instn_srvc_type =v4], instn_unit_no present)",
+     "sql": "(instn_srvc_type_cde = 'KN' AND instn_unit_no IS NOT NULL)",
+     "support": 0.056,
+     "rows": 259,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.247,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_pc",
+      "instn_unit_no",
+      "instn_flr_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_srvc_type_cde = \"KN\" (10%) [same rows: instn_srvc_type =v4], instn_unit_no present)",
+     "sql": "(instn_srvc_type_cde = 'KN' AND instn_unit_no IS NOT NULL)",
+     "support": 0.056,
+     "rows": 259,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.247,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_email",
+      "instn_pc"
+     ],
+     "cls": "cand",
+     "condition": "(instn_srvc_type_cde = \"KN\" (10%) [same rows: instn_srvc_type =v4])",
+     "sql": "(instn_srvc_type_cde = 'KN')",
+     "support": 0.096,
+     "rows": 442,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.244,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_email",
+      "instn_pc"
+     ],
+     "cls": "dom",
+     "condition": "instn_srvc_type_cde in {\"CC\", \"PH\"}",
+     "sql": "(instn_srvc_type_cde = 'CC') OR (instn_srvc_type_cde = 'PH')",
+     "support": 0.386,
+     "rows": 1778,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.004,
+     "score": 0.242,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v1": "CC",
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_ofc_no",
+      "instn_pc",
+      "instn_unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(instn_srvc_type_cde = \"KN\" (10%) [same rows: instn_srvc_type =v4])",
+     "sql": "(instn_srvc_type_cde = 'KN')",
+     "support": 0.096,
+     "rows": 442,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.414,
+     "score": 0.242,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_ofc_no",
+      "instn_pc",
+      "instn_flr_no"
+     ],
+     "cls": "pos",
+     "condition": "(instn_srvc_type_cde = \"KN\" (10%) [same rows: instn_srvc_type =v4])",
+     "sql": "(instn_srvc_type_cde = 'KN')",
+     "support": 0.096,
+     "rows": 442,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.373,
+     "score": 0.242,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_pc",
+      "instn_unit_no",
+      "instn_flr_no"
+     ],
+     "cls": "pos",
+     "condition": "(instn_srvc_type_cde = \"KN\" (10%) [same rows: instn_srvc_type =v4])",
+     "sql": "(instn_srvc_type_cde = 'KN')",
+     "support": 0.096,
+     "rows": 442,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.419,
+     "score": 0.242,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_ofc_no",
+      "instn_email",
+      "instn_blk_hse_no"
+     ],
+     "cls": "dom",
+     "condition": "(instn_srvc_type_cde = \"PH\" (5%) [same rows: instn_srvc_type =v5])",
+     "sql": "(instn_srvc_type_cde = 'PH')",
+     "support": 0.05,
+     "rows": 229,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.109,
+     "score": 0.232,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_email"
+     ],
+     "cls": "cand",
+     "condition": "(instn_srvc_type_cde = \"PH\" (5%) [same rows: instn_srvc_type =v5], instn_email present)",
+     "sql": "(instn_srvc_type_cde = 'PH' AND instn_email IS NOT NULL)",
+     "support": 0.048,
+     "rows": 223,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.231,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_street_name",
+      "instn_ofc_no",
+      "instn_email"
+     ],
+     "cls": "cert",
+     "condition": "(instn_srvc_type_cde = \"PH\" (5%) [same rows: instn_srvc_type =v5], instn_email present)",
+     "sql": "(instn_srvc_type_cde = 'PH' AND instn_email IS NOT NULL)",
+     "support": 0.048,
+     "rows": 223,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.085,
+     "score": 0.229,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_ofc_no",
+      "instn_pc",
+      "instn_unit_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_srvc_type_cde = \"PH\" (5%) [same rows: instn_srvc_type =v5], instn_unit_no present)",
+     "sql": "(instn_srvc_type_cde = 'PH' AND instn_unit_no IS NOT NULL)",
+     "support": 0.047,
+     "rows": 217,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.097,
+     "score": 0.226,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_street_name",
+      "instn_email",
+      "instn_blk_hse_no"
+     ],
+     "cls": "cand",
+     "condition": "(instn_srvc_type_cde = \"PH\" (5%) [same rows: instn_srvc_type =v5], instn_email present)",
+     "sql": "(instn_srvc_type_cde = 'PH' AND instn_email IS NOT NULL)",
+     "support": 0.048,
+     "rows": 223,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.205,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_name",
+      "instn_email",
+      "instn_flr_no"
+     ],
+     "cls": "pos",
+     "condition": "instn_srvc_type_cde in {\"KN\", \"PH\"}",
+     "sql": "(instn_srvc_type_cde = 'KN') OR (instn_srvc_type_cde = 'PH')",
+     "support": 0.146,
+     "rows": 671,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.267,
+     "score": 0.199,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN",
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_email",
+      "instn_unit_no"
+     ],
+     "cls": "dom",
+     "condition": "(instn_srvc_type_cde = \"KN\" (10%) [same rows: instn_srvc_type =v4], instn_flr_no present)",
+     "sql": "(instn_srvc_type_cde = 'KN' AND instn_flr_no IS NOT NULL)",
+     "support": 0.06,
+     "rows": 277,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.072,
+     "score": 0.191,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v4": "KN"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_email",
+      "instn_pc",
+      "instn_flr_no"
+     ],
+     "cls": "cert",
+     "condition": "(instn_srvc_type_cde = \"PH\" (5%) [same rows: instn_srvc_type =v5])",
+     "sql": "(instn_srvc_type_cde = 'PH')",
+     "support": 0.05,
+     "rows": 229,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.061,
+     "score": 0.174,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    },
+    {
+     "table": "lbsg.t6",
+     "K": [
+      "instn_email",
+      "instn_pc"
+     ],
+     "cls": "cand",
+     "condition": "(instn_srvc_type_cde = \"PH\" (5%) [same rows: instn_srvc_type =v5], instn_email present)",
+     "sql": "(instn_srvc_type_cde = 'PH' AND instn_email IS NOT NULL)",
+     "support": 0.048,
+     "rows": 223,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.116,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "instn_srvc_type_cde=v5": "PH"
+     }
+    }
+   ],
+   "unconditional": {
+    "seq_no": "cand"
+   }
+  }
+ ]
+}

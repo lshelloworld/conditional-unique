@@ -1,0 +1,93 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "registration_incorporation_date",
+   "building_name",
+   "secondary_ssic_description",
+   "secondary_ssic_code",
+   "primary_ssic_code"
+  ]
+ },
+ "sample_rows": 40129,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbsg.t56",
+   "rows": 40129,
+   "cols": [
+    "primary_ssic_code",
+    "issuance_agency_id",
+    "building_name",
+    "registration_incorporation_date",
+    "no_of_charges",
+    "secondary_ssic_code",
+    "secondary_ssic_description"
+   ],
+   "n_conditional": 2,
+   "conditional": [
+    {
+     "table": "lbsg.t56",
+     "K": [
+      "registration_incorporation_date",
+      "building_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(secondary_ssic_code IS NULL)",
+     "support": 0.469,
+     "rows": 18801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.534,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t56",
+     "K": [
+      "registration_incorporation_date",
+      "secondary_ssic_description",
+      "primary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(secondary_ssic_code IS NULL)",
+     "support": 0.469,
+     "rows": 18801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.534,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    }
+   ],
+   "unconditional": {}
+  }
+ ]
+}

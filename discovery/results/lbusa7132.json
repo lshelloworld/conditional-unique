@@ -1,0 +1,906 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "ActivityNumber",
+   "ActivityName",
+   "End Date",
+   "Start Date",
+   "Address/Location",
+   "Address",
+   "Description",
+   "Activity Facility",
+   "Ages",
+   "End Time",
+   "Fee",
+   "Secondary Category",
+   "Start Time",
+   "Location",
+   "Sessions",
+   "Days of the Week",
+   "Zip",
+   "Primary Category"
+  ]
+ },
+ "sample_rows": 1446,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbusa.t7132",
+   "rows": 1446,
+   "cols": [
+    "Season",
+    "Primary Category",
+    "Secondary Category",
+    "ActivityName",
+    "Description",
+    "ActivityNumber",
+    "Ages",
+    "Location",
+    "Address",
+    "City",
+    "State",
+    "Zip",
+    "Activity Facility",
+    "Start Date",
+    "End Date",
+    "Start Time",
+    "End Time",
+    "Sessions",
+    "Days of the Week",
+    "Fee",
+    "Status",
+    "Address/Location"
+   ],
+   "n_conditional": 29,
+   "conditional": [
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityNumber",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(City present [same rows: Zip present])",
+     "sql": "(City IS NOT NULL)",
+     "support": 0.968,
+     "rows": 1400,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.136,
+     "score": 1.151,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityNumber",
+      "Secondary Category"
+     ],
+     "cls": "cert",
+     "condition": "(City present [same rows: Zip present])",
+     "sql": "(City IS NOT NULL)",
+     "support": 0.968,
+     "rows": 1400,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.047,
+     "score": 1.151,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityNumber",
+      "Primary Category"
+     ],
+     "cls": "cand",
+     "condition": "(City present [same rows: Zip present])",
+     "sql": "(City IS NOT NULL)",
+     "support": 0.968,
+     "rows": 1400,
+     "uncond": "dom",
+     "gain": 3,
+     "nulls_in_scope": 0.0,
+     "score": 1.107,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityName",
+      "Start Date"
+     ],
+     "cls": "cert",
+     "condition": "(City missing [same rows: Zip missing])",
+     "sql": "(City IS NULL)",
+     "support": 0.032,
+     "rows": 46,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.022,
+     "score": 0.626,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityNumber",
+      "Secondary Category"
+     ],
+     "cls": "cert",
+     "condition": "(Description missing)",
+     "sql": "(Description IS NULL)",
+     "support": 0.138,
+     "rows": 199,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.06,
+     "score": 0.434,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityNumber",
+      "Primary Category"
+     ],
+     "cls": "cand",
+     "condition": "(Description missing)",
+     "sql": "(Description IS NULL)",
+     "support": 0.138,
+     "rows": 199,
+     "uncond": "dom",
+     "gain": 3,
+     "nulls_in_scope": 0.0,
+     "score": 0.417,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityName",
+      "End Date",
+      "Address"
+     ],
+     "cls": "cert",
+     "condition": "(Secondary Category missing)",
+     "sql": "(Secondary Category IS NULL)",
+     "support": 0.046,
+     "rows": 67,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.015,
+     "score": 0.336,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityName",
+      "End Date",
+      "Zip"
+     ],
+     "cls": "cert",
+     "condition": "(Secondary Category missing)",
+     "sql": "(Secondary Category IS NULL)",
+     "support": 0.046,
+     "rows": 67,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.015,
+     "score": 0.336,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityName",
+      "Start Date",
+      "Address"
+     ],
+     "cls": "cert",
+     "condition": "(Secondary Category missing)",
+     "sql": "(Secondary Category IS NULL)",
+     "support": 0.046,
+     "rows": 67,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.015,
+     "score": 0.336,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityName",
+      "Start Date",
+      "Zip"
+     ],
+     "cls": "cert",
+     "condition": "(Secondary Category missing)",
+     "sql": "(Secondary Category IS NULL)",
+     "support": 0.046,
+     "rows": 67,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.015,
+     "score": 0.336,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityName",
+      "End Date",
+      "Address/Location"
+     ],
+     "cls": "cand",
+     "condition": "(Secondary Category missing)",
+     "sql": "(Secondary Category IS NULL)",
+     "support": 0.046,
+     "rows": 67,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.301,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityName",
+      "End Date",
+      "Activity Facility"
+     ],
+     "cls": "cand",
+     "condition": "(Secondary Category missing)",
+     "sql": "(Secondary Category IS NULL)",
+     "support": 0.046,
+     "rows": 67,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.301,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityName",
+      "End Date",
+      "Location"
+     ],
+     "cls": "cand",
+     "condition": "(Secondary Category missing)",
+     "sql": "(Secondary Category IS NULL)",
+     "support": 0.046,
+     "rows": 67,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.301,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityName",
+      "Start Date",
+      "Address/Location"
+     ],
+     "cls": "cand",
+     "condition": "(Secondary Category missing)",
+     "sql": "(Secondary Category IS NULL)",
+     "support": 0.046,
+     "rows": 67,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.301,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityName",
+      "Start Date",
+      "Activity Facility"
+     ],
+     "cls": "cand",
+     "condition": "(Secondary Category missing)",
+     "sql": "(Secondary Category IS NULL)",
+     "support": 0.046,
+     "rows": 67,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.301,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityName",
+      "Start Date",
+      "Location"
+     ],
+     "cls": "cand",
+     "condition": "(Secondary Category missing)",
+     "sql": "(Secondary Category IS NULL)",
+     "support": 0.046,
+     "rows": 67,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.301,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityName",
+      "End Date",
+      "Address/Location"
+     ],
+     "cls": "cert",
+     "condition": "(City missing [same rows: Zip missing])",
+     "sql": "(City IS NULL)",
+     "support": 0.032,
+     "rows": 46,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.022,
+     "score": 0.278,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityName",
+      "End Date",
+      "Address"
+     ],
+     "cls": "cert",
+     "condition": "(City missing [same rows: Zip missing])",
+     "sql": "(City IS NULL)",
+     "support": 0.032,
+     "rows": 46,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.13,
+     "score": 0.278,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityName",
+      "End Date",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(City missing [same rows: Zip missing])",
+     "sql": "(City IS NULL)",
+     "support": 0.032,
+     "rows": 46,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.217,
+     "score": 0.278,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityName",
+      "End Date",
+      "Activity Facility"
+     ],
+     "cls": "cert",
+     "condition": "(City missing [same rows: Zip missing])",
+     "sql": "(City IS NULL)",
+     "support": 0.032,
+     "rows": 46,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.022,
+     "score": 0.278,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityName",
+      "End Date",
+      "Ages"
+     ],
+     "cls": "cert",
+     "condition": "(City missing [same rows: Zip missing])",
+     "sql": "(City IS NULL)",
+     "support": 0.032,
+     "rows": 46,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.283,
+     "score": 0.278,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityName",
+      "End Date",
+      "End Time"
+     ],
+     "cls": "cert",
+     "condition": "(City missing [same rows: Zip missing])",
+     "sql": "(City IS NULL)",
+     "support": 0.032,
+     "rows": 46,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.022,
+     "score": 0.278,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityName",
+      "End Date",
+      "Start Time"
+     ],
+     "cls": "cert",
+     "condition": "(City missing [same rows: Zip missing])",
+     "sql": "(City IS NULL)",
+     "support": 0.032,
+     "rows": 46,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.022,
+     "score": 0.278,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityName",
+      "End Date",
+      "Location"
+     ],
+     "cls": "cert",
+     "condition": "(City missing [same rows: Zip missing])",
+     "sql": "(City IS NULL)",
+     "support": 0.032,
+     "rows": 46,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.022,
+     "score": 0.278,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityName",
+      "End Date",
+      "Sessions"
+     ],
+     "cls": "cert",
+     "condition": "(City missing [same rows: Zip missing])",
+     "sql": "(City IS NULL)",
+     "support": 0.032,
+     "rows": 46,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.022,
+     "score": 0.278,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityName",
+      "End Date",
+      "Days of the Week"
+     ],
+     "cls": "cert",
+     "condition": "(City missing [same rows: Zip missing])",
+     "sql": "(City IS NULL)",
+     "support": 0.032,
+     "rows": 46,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.022,
+     "score": 0.278,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityName",
+      "End Date",
+      "Zip"
+     ],
+     "cls": "cert",
+     "condition": "(City missing [same rows: Zip missing])",
+     "sql": "(City IS NULL)",
+     "support": 0.032,
+     "rows": 46,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 1.0,
+     "score": 0.278,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityNumber",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(Secondary Category missing)",
+     "sql": "(Secondary Category IS NULL)",
+     "support": 0.046,
+     "rows": 67,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.179,
+     "score": 0.252,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t7132",
+     "K": [
+      "ActivityNumber",
+      "Primary Category"
+     ],
+     "cls": "cand",
+     "condition": "(Secondary Category missing)",
+     "sql": "(Secondary Category IS NULL)",
+     "support": 0.046,
+     "rows": 67,
+     "uncond": "dom",
+     "gain": 3,
+     "nulls_in_scope": 0.0,
+     "score": 0.242,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    }
+   ],
+   "unconditional": {
+    "ActivityNumber": "dom",
+    "ActivityNumber,ActivityName": "cert",
+    "ActivityNumber,End Date": "dom",
+    "ActivityNumber,Start Date": "dom",
+    "ActivityNumber,Address/Location": "dom",
+    "ActivityNumber,Address": "dom",
+    "ActivityNumber,Description": "dom",
+    "ActivityNumber,Activity Facility": "dom",
+    "ActivityNumber,Ages": "dom",
+    "ActivityNumber,End Time": "dom",
+    "ActivityNumber,Fee": "dom",
+    "ActivityNumber,Secondary Category": "dom",
+    "ActivityNumber,Start Time": "dom",
+    "ActivityNumber,Location": "dom",
+    "ActivityNumber,Sessions": "dom",
+    "ActivityNumber,Days of the Week": "dom",
+    "ActivityNumber,Zip": "dom",
+    "ActivityNumber,Primary Category": "dom",
+    "ActivityNumber,ActivityName,End Date": "cert",
+    "ActivityNumber,ActivityName,Start Date": "cert",
+    "ActivityNumber,ActivityName,Address/Location": "cert",
+    "ActivityNumber,ActivityName,Address": "cert",
+    "ActivityNumber,ActivityName,Description": "cert",
+    "ActivityNumber,ActivityName,Activity Facility": "cert",
+    "ActivityNumber,ActivityName,Ages": "cert",
+    "ActivityNumber,ActivityName,End Time": "cert",
+    "ActivityNumber,ActivityName,Fee": "cert",
+    "ActivityNumber,ActivityName,Secondary Category": "cert",
+    "ActivityNumber,ActivityName,Start Time": "cert",
+    "ActivityNumber,ActivityName,Location": "cert",
+    "ActivityNumber,ActivityName,Sessions": "cert",
+    "ActivityNumber,ActivityName,Days of the Week": "cert",
+    "ActivityNumber,ActivityName,Zip": "cert",
+    "ActivityNumber,ActivityName,Primary Category": "cert",
+    "ActivityNumber,End Date,Start Date": "dom",
+    "ActivityNumber,End Date,Address/Location": "dom",
+    "ActivityNumber,End Date,Address": "dom",
+    "ActivityNumber,End Date,Description": "dom",
+    "ActivityNumber,End Date,Activity Facility": "dom",
+    "ActivityNumber,End Date,Ages": "dom",
+    "ActivityNumber,End Date,End Time": "dom",
+    "ActivityNumber,End Date,Fee": "dom",
+    "ActivityNumber,End Date,Secondary Category": "dom",
+    "ActivityNumber,End Date,Start Time": "dom",
+    "ActivityNumber,End Date,Location": "dom",
+    "ActivityNumber,End Date,Sessions": "dom",
+    "ActivityNumber,End Date,Days of the Week": "dom",
+    "ActivityNumber,End Date,Zip": "dom",
+    "ActivityNumber,End Date,Primary Category": "dom",
+    "ActivityNumber,Start Date,Address/Location": "dom",
+    "ActivityNumber,Start Date,Address": "dom",
+    "ActivityNumber,Start Date,Description": "dom",
+    "ActivityNumber,Start Date,Activity Facility": "dom",
+    "ActivityNumber,Start Date,Ages": "dom",
+    "ActivityNumber,Start Date,End Time": "dom",
+    "ActivityNumber,Start Date,Fee": "dom",
+    "ActivityNumber,Start Date,Secondary Category": "dom",
+    "ActivityNumber,Start Date,Start Time": "dom",
+    "ActivityNumber,Start Date,Location": "dom",
+    "ActivityNumber,Start Date,Sessions": "dom",
+    "ActivityNumber,Start Date,Days of the Week": "dom",
+    "ActivityNumber,Start Date,Zip": "dom",
+    "ActivityNumber,Start Date,Primary Category": "dom",
+    "ActivityNumber,Address/Location,Address": "dom",
+    "ActivityNumber,Address/Location,Description": "dom",
+    "ActivityNumber,Address/Location,Activity Facility": "dom",
+    "ActivityNumber,Address/Location,Ages": "dom",
+    "ActivityNumber,Address/Location,End Time": "dom",
+    "ActivityNumber,Address/Location,Fee": "dom",
+    "ActivityNumber,Address/Location,Secondary Category": "dom",
+    "ActivityNumber,Address/Location,Start Time": "dom",
+    "ActivityNumber,Address/Location,Location": "dom",
+    "ActivityNumber,Address/Location,Sessions": "dom",
+    "ActivityNumber,Address/Location,Days of the Week": "dom",
+    "ActivityNumber,Address/Location,Zip": "dom",
+    "ActivityNumber,Address/Location,Primary Category": "dom",
+    "ActivityNumber,Address,Description": "dom",
+    "ActivityNumber,Address,Activity Facility": "dom",
+    "ActivityNumber,Address,Ages": "dom",
+    "ActivityNumber,Address,End Time": "dom",
+    "ActivityNumber,Address,Fee": "dom",
+    "ActivityNumber,Address,Secondary Category": "dom",
+    "ActivityNumber,Address,Start Time": "dom",
+    "ActivityNumber,Address,Location": "dom",
+    "ActivityNumber,Address,Sessions": "dom",
+    "ActivityNumber,Address,Days of the Week": "dom",
+    "ActivityNumber,Address,Zip": "dom",
+    "ActivityNumber,Address,Primary Category": "dom",
+    "ActivityNumber,Description,Activity Facility": "dom",
+    "ActivityNumber,Description,Ages": "dom",
+    "ActivityNumber,Description,End Time": "dom",
+    "ActivityNumber,Description,Fee": "dom",
+    "ActivityNumber,Description,Secondary Category": "dom",
+    "ActivityNumber,Description,Start Time": "dom",
+    "ActivityNumber,Description,Location": "dom",
+    "ActivityNumber,Description,Sessions": "dom",
+    "ActivityNumber,Description,Days of the Week": "dom",
+    "ActivityNumber,Description,Zip": "dom",
+    "ActivityNumber,Description,Primary Category": "dom",
+    "ActivityNumber,Activity Facility,Ages": "dom",
+    "ActivityNumber,Activity Facility,End Time": "dom",
+    "ActivityNumber,Activity Facility,Fee": "dom",
+    "ActivityNumber,Activity Facility,Secondary Category": "dom",
+    "ActivityNumber,Activity Facility,Start Time": "dom",
+    "ActivityNumber,Activity Facility,Location": "dom",
+    "ActivityNumber,Activity Facility,Sessions": "dom",
+    "ActivityNumber,Activity Facility,Days of the Week": "dom",
+    "ActivityNumber,Activity Facility,Zip": "dom",
+    "ActivityNumber,Activity Facility,Primary Category": "dom",
+    "ActivityNumber,Ages,End Time": "dom",
+    "ActivityNumber,Ages,Fee": "dom",
+    "ActivityNumber,Ages,Secondary Category": "dom",
+    "ActivityNumber,Ages,Start Time": "dom",
+    "ActivityNumber,Ages,Location": "dom",
+    "ActivityNumber,Ages,Sessions": "dom",
+    "ActivityNumber,Ages,Days of the Week": "dom",
+    "ActivityNumber,Ages,Zip": "dom",
+    "ActivityNumber,Ages,Primary Category": "dom",
+    "ActivityNumber,End Time,Fee": "dom",
+    "ActivityNumber,End Time,Secondary Category": "dom",
+    "ActivityNumber,End Time,Start Time": "dom",
+    "ActivityNumber,End Time,Location": "dom",
+    "ActivityNumber,End Time,Sessions": "dom",
+    "ActivityNumber,End Time,Days of the Week": "dom",
+    "ActivityNumber,End Time,Zip": "dom",
+    "ActivityNumber,End Time,Primary Category": "dom",
+    "ActivityNumber,Fee,Secondary Category": "dom",
+    "ActivityNumber,Fee,Start Time": "dom",
+    "ActivityNumber,Fee,Location": "dom",
+    "ActivityNumber,Fee,Sessions": "dom",
+    "ActivityNumber,Fee,Days of the Week": "dom",
+    "ActivityNumber,Fee,Zip": "dom",
+    "ActivityNumber,Fee,Primary Category": "dom",
+    "ActivityNumber,Secondary Category,Start Time": "dom",
+    "ActivityNumber,Secondary Category,Location": "dom",
+    "ActivityNumber,Secondary Category,Sessions": "dom",
+    "ActivityNumber,Secondary Category,Days of the Week": "dom",
+    "ActivityNumber,Secondary Category,Zip": "dom",
+    "ActivityNumber,Secondary Category,Primary Category": "dom",
+    "ActivityNumber,Start Time,Location": "dom",
+    "ActivityNumber,Start Time,Sessions": "dom",
+    "ActivityNumber,Start Time,Days of the Week": "dom",
+    "ActivityNumber,Start Time,Zip": "dom",
+    "ActivityNumber,Start Time,Primary Category": "dom",
+    "ActivityNumber,Location,Sessions": "dom",
+    "ActivityNumber,Location,Days of the Week": "dom",
+    "ActivityNumber,Location,Zip": "dom",
+    "ActivityNumber,Location,Primary Category": "dom",
+    "ActivityNumber,Sessions,Days of the Week": "dom",
+    "ActivityNumber,Sessions,Zip": "dom",
+    "ActivityNumber,Sessions,Primary Category": "dom",
+    "ActivityNumber,Days of the Week,Zip": "dom",
+    "ActivityNumber,Days of the Week,Primary Category": "dom",
+    "ActivityNumber,Zip,Primary Category": "dom"
+   }
+  }
+ ]
+}

@@ -1,0 +1,113 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "Service Request Number",
+   "Street Address",
+   "Creation Date",
+   "Completion Date",
+   "Longitude",
+   "Location",
+   "Latitude",
+   "Y Coordinate",
+   "X Coordinate"
+  ]
+ },
+ "sample_rows": 163414,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbusa.t33215",
+   "rows": 163414,
+   "cols": [
+    "Creation Date",
+    "Status",
+    "Completion Date",
+    "Service Request Number",
+    "Type of Service Request",
+    "If Yes, where is the debris located?",
+    "Current Activity",
+    "Most Recent Action",
+    "Street Address",
+    "ZIP Code",
+    "X Coordinate",
+    "Y Coordinate",
+    "Ward",
+    "Police District",
+    "Community Area",
+    "Latitude",
+    "Longitude",
+    "Location"
+   ],
+   "n_conditional": 2,
+   "conditional": [
+    {
+     "table": "lbusa.t33215",
+     "K": [
+      "Service Request Number"
+     ],
+     "cls": "cand",
+     "condition": "(Status = \"Completed - Dup\" (11%))",
+     "sql": "(Status = 'Completed - Dup')",
+     "support": 0.108,
+     "rows": 17646,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.15,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Status=v2": "Completed - Dup"
+     }
+    },
+    {
+     "table": "lbusa.t33215",
+     "K": [
+      "Service Request Number"
+     ],
+     "cls": "cand",
+     "condition": "(Status = \"Completed\" (89%), Current Activity missing)",
+     "sql": "(Status = 'Completed' AND Current Activity IS NULL)",
+     "support": 0.051,
+     "rows": 8388,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.529,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Status=v1": "Completed"
+     }
+    }
+   ],
+   "unconditional": {
+    "Service Request Number,Completion Date": "cert",
+    "Service Request Number,Street Address,Completion Date": "cert",
+    "Service Request Number,Creation Date,Completion Date": "cert",
+    "Service Request Number,Completion Date,Longitude": "cert",
+    "Service Request Number,Completion Date,Location": "cert",
+    "Service Request Number,Completion Date,Latitude": "cert",
+    "Service Request Number,Completion Date,Y Coordinate": "cert",
+    "Service Request Number,Completion Date,X Coordinate": "cert"
+   }
+  }
+ ]
+}

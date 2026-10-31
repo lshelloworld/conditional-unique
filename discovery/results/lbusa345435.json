@@ -1,0 +1,7726 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "Rfrg_Prvdr_Last_Name_Org",
+   "Rfrg_NPI",
+   "Suplr_Mdcr_Stdzd_Pymt_Amt",
+   "DME_Suplr_Mdcr_Pymt_Amt",
+   "Rfrg_Prvdr_St1",
+   "POS_Suplr_Mdcr_Alowd_Amt",
+   "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+   "POS_Suplr_Sbmtd_Chrgs",
+   "Tot_Suplr_Srvcs",
+   "DME_Tot_Suplr_Srvcs",
+   "Rfrg_Prvdr_City"
+  ]
+ },
+ "sample_rows": 168701,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbusa.t345435",
+   "rows": 168701,
+   "cols": [
+    "Rfrg_Prvdr_Gndr",
+    "Tot_Suplrs",
+    "POS_Tot_Suplr_HCPCS_Cds",
+    "POS_Tot_Suplrs",
+    "Rfrg_NPI",
+    "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+    "Rfrg_Prvdr_City",
+    "Rfrg_Prvdr_St1",
+    "DME_Suplr_Mdcr_Pymt_Amt",
+    "Rfrg_Prvdr_Last_Name_Org",
+    "POS_Suplr_Mdcr_Alowd_Amt",
+    "Rfrg_Prvdr_RUCA",
+    "POS_Tot_Suplr_Clms",
+    "Rfrg_Prvdr_Ent_Cd",
+    "DME_Tot_Suplr_HCPCS_Cds",
+    "POS_Suplr_Sbmtd_Chrgs",
+    "Rfrg_Prvdr_Type",
+    "Suplr_Mdcr_Stdzd_Pymt_Amt",
+    "DME_Tot_Suplr_Srvcs",
+    "Tot_Suplr_Srvcs",
+    "Tot_Suplr_HCPCS_Cds",
+    "Drug_Sprsn_Ind"
+   ],
+   "n_conditional": 488,
+   "conditional": [
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "cert",
+     "condition": "(Drug_Sprsn_Ind = \"*\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '*')",
+     "support": 0.254,
+     "rows": 42813,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 1.768,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "dom",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds present [same rows: POS_Tot_Suplrs present, POS_Suplr_Mdcr_Stdzd_Pymt_Amt present, POS_Suplr_Mdcr_Alowd_Amt present ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NOT NULL)",
+     "support": 0.512,
+     "rows": 86299,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.0,
+     "score": 1.674,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "dom",
+     "condition": "(Drug_Sprsn_Ind missing)",
+     "sql": "(Drug_Sprsn_Ind IS NULL)",
+     "support": 0.497,
+     "rows": 83900,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.0,
+     "score": 1.65,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "dom",
+     "condition": "(Rfrg_Prvdr_Gndr = \"F\" (45%))",
+     "sql": "(Rfrg_Prvdr_Gndr = 'F')",
+     "support": 0.448,
+     "rows": 75595,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.0,
+     "score": 1.566,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "cert",
+     "condition": "(Rfrg_Prvdr_Gndr = \"M\" (55%), POS_Tot_Suplr_HCPCS_Cds present [same rows: POS_Tot_Suplrs present, POS_Suplr_Mdcr_Stdzd_Pymt_Amt present, POS_Suplr_Mdcr_Alowd_Amt present ...])",
+     "sql": "(Rfrg_Prvdr_Gndr = 'M' AND POS_Tot_Suplr_HCPCS_Cds IS NOT NULL)",
+     "support": 0.303,
+     "rows": 51151,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 1.288,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v1": "M"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "cert",
+     "condition": "(Rfrg_Prvdr_Gndr = \"M\" (55%), Drug_Sprsn_Ind missing)",
+     "sql": "(Rfrg_Prvdr_Gndr = 'M' AND Drug_Sprsn_Ind IS NULL)",
+     "support": 0.288,
+     "rows": 48563,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 1.255,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v1": "M"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Rfrg_Prvdr_St1"
+     ],
+     "cls": "cand",
+     "condition": "(Rfrg_Prvdr_Gndr = \"M\" (55%))",
+     "sql": "(Rfrg_Prvdr_Gndr = 'M')",
+     "support": 0.552,
+     "rows": 93104,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.17,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v1": "M"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "cert",
+     "condition": "(Rfrg_Prvdr_Gndr = \"F\" (45%), POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(Rfrg_Prvdr_Gndr = 'F' AND POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.24,
+     "rows": 40449,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 1.146,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "cert",
+     "condition": "(Rfrg_Prvdr_Gndr = \"F\" (45%), Drug_Sprsn_Ind present)",
+     "sql": "(Rfrg_Prvdr_Gndr = 'F' AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.239,
+     "rows": 40260,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 1.143,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Rfrg_Prvdr_St1"
+     ],
+     "cls": "cand",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.117,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Rfrg_Prvdr_St1"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.101,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "cand",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt missing [same rows: DME_Tot_Suplr_HCPCS_Cds missing, DME_Tot_Suplr_Srvcs missing])",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NULL)",
+     "support": 0.119,
+     "rows": 20124,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.088,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cand",
+     "condition": "(Drug_Sprsn_Ind = \"*\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '*')",
+     "support": 0.254,
+     "rows": 42813,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.793,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "cert",
+     "condition": "(Rfrg_Prvdr_Gndr = \"F\" (45%), Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Rfrg_Prvdr_Gndr = 'F' AND Drug_Sprsn_Ind = '#')",
+     "support": 0.106,
+     "rows": 17821,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.761,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v2": "F",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Rfrg_Prvdr_St1"
+     ],
+     "cls": "cand",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.744,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Mdcr_Pymt_Amt"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL)",
+     "support": 0.433,
+     "rows": 73038,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.691,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Mdcr_Pymt_Amt"
+     ],
+     "cls": "cand",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present], Drug_Sprsn_Ind present)",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.433,
+     "rows": 73038,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.691,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Mdcr_Pymt_Amt"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.139,
+     "score": 0.622,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Mdcr_Alowd_Amt"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.873,
+     "score": 0.622,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.873,
+     "score": 0.622,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Sbmtd_Chrgs"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.873,
+     "score": 0.622,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Mdcr_Pymt_Amt"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.114,
+     "score": 0.613,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Mdcr_Alowd_Amt"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.613,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.613,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Sbmtd_Chrgs"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.613,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Rfrg_Prvdr_St1",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "(Rfrg_Prvdr_Gndr = \"M\" (55%))",
+     "sql": "(Rfrg_Prvdr_Gndr = 'M')",
+     "support": 0.552,
+     "rows": 93104,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.579,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v1": "M"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Rfrg_Prvdr_St1",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.553,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cert",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.553,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Rfrg_Prvdr_St1",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.545,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cert",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.545,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Rfrg_Prvdr_St1"
+     ],
+     "cls": "cand",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt missing [same rows: DME_Tot_Suplr_HCPCS_Cds missing, DME_Tot_Suplr_Srvcs missing])",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NULL)",
+     "support": 0.119,
+     "rows": 20124,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.544,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cand",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt missing [same rows: DME_Tot_Suplr_HCPCS_Cds missing, DME_Tot_Suplr_Srvcs missing])",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NULL)",
+     "support": 0.119,
+     "rows": 20124,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.544,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds present [same rows: POS_Tot_Suplrs present, POS_Suplr_Mdcr_Stdzd_Pymt_Amt present, POS_Suplr_Mdcr_Alowd_Amt present ...], Drug_Sprsn_Ind present)",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NOT NULL AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.064,
+     "rows": 10760,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.53,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cand",
+     "condition": "(Rfrg_Prvdr_Gndr = \"M\" (55%), POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(Rfrg_Prvdr_Gndr = 'M' AND POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.249,
+     "rows": 41953,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.524,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v1": "M"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Rfrg_Prvdr_St1",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "(Rfrg_Prvdr_Gndr = \"F\" (45%))",
+     "sql": "(Rfrg_Prvdr_Gndr = 'F')",
+     "support": 0.448,
+     "rows": 75595,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.522,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cert",
+     "condition": "(Rfrg_Prvdr_Gndr = \"F\" (45%))",
+     "sql": "(Rfrg_Prvdr_Gndr = 'F')",
+     "support": 0.448,
+     "rows": 75595,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.522,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Mdcr_Pymt_Amt"
+     ],
+     "cls": "cand",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present], Drug_Sprsn_Ind = \"*\" (25%))",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL AND Drug_Sprsn_Ind = '*')",
+     "support": 0.239,
+     "rows": 40269,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.513,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "cand",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present], Drug_Sprsn_Ind = \"*\" (25%))",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL AND Drug_Sprsn_Ind = '*')",
+     "support": 0.239,
+     "rows": 40269,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.513,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cand",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.496,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds present [same rows: POS_Tot_Suplrs present, POS_Suplr_Mdcr_Stdzd_Pymt_Amt present, POS_Suplr_Mdcr_Alowd_Amt present ...], Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NOT NULL AND Drug_Sprsn_Ind = '#')",
+     "support": 0.055,
+     "rows": 9219,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.491,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.489,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], Drug_Sprsn_Ind missing)",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND Drug_Sprsn_Ind IS NULL)",
+     "support": 0.05,
+     "rows": 8361,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.468,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Mdcr_Pymt_Amt"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND Drug_Sprsn_Ind = '#')",
+     "support": 0.194,
+     "rows": 32769,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.463,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Mdcr_Pymt_Amt"
+     ],
+     "cls": "cand",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present], Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL AND Drug_Sprsn_Ind = '#')",
+     "support": 0.194,
+     "rows": 32769,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.463,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND Drug_Sprsn_Ind = '#')",
+     "support": 0.194,
+     "rows": 32769,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.463,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "cand",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present], Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL AND Drug_Sprsn_Ind = '#')",
+     "support": 0.194,
+     "rows": 32769,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.463,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND Drug_Sprsn_Ind = '#')",
+     "support": 0.194,
+     "rows": 32769,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.463,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cand",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present], Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL AND Drug_Sprsn_Ind = '#')",
+     "support": 0.194,
+     "rows": 32769,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.463,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind = \"*\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '*')",
+     "support": 0.254,
+     "rows": 42813,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.059,
+     "score": 0.442,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '#')",
+     "support": 0.249,
+     "rows": 41988,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.22,
+     "score": 0.438,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '#')",
+     "support": 0.249,
+     "rows": 41988,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.22,
+     "score": 0.438,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Mdcr_Pymt_Amt"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.139,
+     "score": 0.415,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Mdcr_Alowd_Amt"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.873,
+     "score": 0.415,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.873,
+     "score": 0.415,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Sbmtd_Chrgs"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.873,
+     "score": 0.415,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "(Drug_Sprsn_Ind = \"*\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '*')",
+     "support": 0.254,
+     "rows": 42813,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.059,
+     "score": 0.393,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "(Drug_Sprsn_Ind = \"*\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '*')",
+     "support": 0.254,
+     "rows": 42813,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.059,
+     "score": 0.393,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Rfrg_Prvdr_St1",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.369,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cert",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.369,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "dom",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.139,
+     "score": 0.369,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "dom",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.139,
+     "score": 0.369,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cand",
+     "condition": "(Rfrg_Prvdr_Gndr = \"M\" (55%), Drug_Sprsn_Ind = \"*\" (25%))",
+     "sql": "(Rfrg_Prvdr_Gndr = 'M' AND Drug_Sprsn_Ind = '*')",
+     "support": 0.121,
+     "rows": 20374,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.365,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v1": "M",
+      "Drug_Sprsn_Ind=v1": "*"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "dom",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.114,
+     "score": 0.363,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "dom",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.114,
+     "score": 0.363,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "dom",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.114,
+     "score": 0.363,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "dom",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.114,
+     "score": 0.363,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], Drug_Sprsn_Ind present)",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.439,
+     "rows": 74041,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.014,
+     "score": 0.344,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cert",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], Drug_Sprsn_Ind present)",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.439,
+     "rows": 74041,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.014,
+     "score": 0.344,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], Drug_Sprsn_Ind present)",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.439,
+     "rows": 74041,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.014,
+     "score": 0.344,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cert",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], Drug_Sprsn_Ind present)",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.439,
+     "rows": 74041,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.014,
+     "score": 0.344,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt"
+     ],
+     "cls": "dom",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND Drug_Sprsn_Ind = '#')",
+     "support": 0.194,
+     "rows": 32769,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.0,
+     "score": 0.344,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt"
+     ],
+     "cls": "dom",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present], Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL AND Drug_Sprsn_Ind = '#')",
+     "support": 0.194,
+     "rows": 32769,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.0,
+     "score": 0.344,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1"
+     ],
+     "cls": "cert",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL)",
+     "support": 0.433,
+     "rows": 73038,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.342,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1"
+     ],
+     "cls": "cert",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present], Drug_Sprsn_Ind present)",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.433,
+     "rows": 73038,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.342,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL)",
+     "support": 0.433,
+     "rows": 73038,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.342,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present], Drug_Sprsn_Ind present)",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.433,
+     "rows": 73038,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.342,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cert",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL)",
+     "support": 0.433,
+     "rows": 73038,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.342,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cert",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present], Drug_Sprsn_Ind present)",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.433,
+     "rows": 73038,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.342,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Rfrg_Prvdr_St1",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL)",
+     "support": 0.433,
+     "rows": 73038,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.342,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Rfrg_Prvdr_St1",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present], Drug_Sprsn_Ind present)",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.433,
+     "rows": 73038,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.342,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cand",
+     "condition": "(Rfrg_Prvdr_Gndr = \"F\" (45%), Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Rfrg_Prvdr_Gndr = 'F' AND Drug_Sprsn_Ind = '#')",
+     "support": 0.106,
+     "rows": 17821,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.341,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v2": "F",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cand",
+     "condition": "(Rfrg_Prvdr_Gndr = \"F\" (45%), Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Rfrg_Prvdr_Gndr = 'F' AND Drug_Sprsn_Ind = '#')",
+     "support": 0.106,
+     "rows": 17821,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.341,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v2": "F",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1"
+     ],
+     "cls": "cert",
+     "condition": "(Rfrg_Prvdr_Gndr = \"F\" (45%), DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present])",
+     "sql": "(Rfrg_Prvdr_Gndr = 'F' AND DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL)",
+     "support": 0.408,
+     "rows": 68877,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.332,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cand",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.331,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Mdcr_Alowd_Amt"
+     ],
+     "cls": "part",
+     "condition": "(Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '#')",
+     "support": 0.249,
+     "rows": 41988,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 1.0,
+     "score": 0.324,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "part",
+     "condition": "(Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '#')",
+     "support": 0.249,
+     "rows": 41988,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 1.0,
+     "score": 0.324,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Sbmtd_Chrgs"
+     ],
+     "cls": "part",
+     "condition": "(Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '#')",
+     "support": 0.249,
+     "rows": 41988,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 1.0,
+     "score": 0.324,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Mdcr_Alowd_Amt",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "part",
+     "condition": "(Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '#')",
+     "support": 0.249,
+     "rows": 41988,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 1.0,
+     "score": 0.324,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "part",
+     "condition": "(Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '#')",
+     "support": 0.249,
+     "rows": 41988,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 1.0,
+     "score": 0.324,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Sbmtd_Chrgs",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "part",
+     "condition": "(Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '#')",
+     "support": 0.249,
+     "rows": 41988,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 1.0,
+     "score": 0.324,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL)",
+     "support": 0.433,
+     "rows": 73038,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.307,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "cand",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present], Drug_Sprsn_Ind present)",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.433,
+     "rows": 73038,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.307,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL)",
+     "support": 0.433,
+     "rows": 73038,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.307,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cand",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present], Drug_Sprsn_Ind present)",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.433,
+     "rows": 73038,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.307,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL)",
+     "support": 0.433,
+     "rows": 73038,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.307,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cand",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present], Drug_Sprsn_Ind present)",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.433,
+     "rows": 73038,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.307,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL)",
+     "support": 0.433,
+     "rows": 73038,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.307,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cand",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present], Drug_Sprsn_Ind present)",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.433,
+     "rows": 73038,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.307,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt missing [same rows: DME_Tot_Suplr_HCPCS_Cds missing, DME_Tot_Suplr_Srvcs missing])",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NULL)",
+     "support": 0.119,
+     "rows": 20124,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.303,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Mdcr_Alowd_Amt"
+     ],
+     "cls": "pos",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt missing [same rows: DME_Tot_Suplr_HCPCS_Cds missing, DME_Tot_Suplr_Srvcs missing])",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NULL)",
+     "support": 0.119,
+     "rows": 20124,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.465,
+     "score": 0.303,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "pos",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt missing [same rows: DME_Tot_Suplr_HCPCS_Cds missing, DME_Tot_Suplr_Srvcs missing])",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NULL)",
+     "support": 0.119,
+     "rows": 20124,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.465,
+     "score": 0.303,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Sbmtd_Chrgs"
+     ],
+     "cls": "pos",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt missing [same rows: DME_Tot_Suplr_HCPCS_Cds missing, DME_Tot_Suplr_Srvcs missing])",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NULL)",
+     "support": 0.119,
+     "rows": 20124,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.465,
+     "score": 0.303,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt missing [same rows: DME_Tot_Suplr_HCPCS_Cds missing, DME_Tot_Suplr_Srvcs missing])",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NULL)",
+     "support": 0.119,
+     "rows": 20124,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.303,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt"
+     ],
+     "cls": "pos",
+     "condition": "(Rfrg_Prvdr_Gndr = \"M\" (55%), Drug_Sprsn_Ind present)",
+     "sql": "(Rfrg_Prvdr_Gndr = 'M' AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.264,
+     "rows": 44541,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.185,
+     "score": 0.301,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v1": "M"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(Rfrg_Prvdr_Gndr = \"M\" (55%), Drug_Sprsn_Ind present)",
+     "sql": "(Rfrg_Prvdr_Gndr = 'M' AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.264,
+     "rows": 44541,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.185,
+     "score": 0.301,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v1": "M"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt"
+     ],
+     "cls": "pos",
+     "condition": "(Rfrg_Prvdr_Gndr = \"M\" (55%), POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(Rfrg_Prvdr_Gndr = 'M' AND POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.249,
+     "rows": 41953,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.135,
+     "score": 0.292,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v1": "M"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(Rfrg_Prvdr_Gndr = \"M\" (55%), POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(Rfrg_Prvdr_Gndr = 'M' AND POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.249,
+     "rows": 41953,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.135,
+     "score": 0.292,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v1": "M"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Mdcr_Pymt_Amt"
+     ],
+     "cls": "dom",
+     "condition": "(Rfrg_Prvdr_Gndr = \"F\" (45%), Drug_Sprsn_Ind = \"*\" (25%))",
+     "sql": "(Rfrg_Prvdr_Gndr = 'F' AND Drug_Sprsn_Ind = '*')",
+     "support": 0.133,
+     "rows": 22439,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.051,
+     "score": 0.284,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v2": "F",
+      "Drug_Sprsn_Ind=v1": "*"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "dom",
+     "condition": "(Rfrg_Prvdr_Gndr = \"F\" (45%), Drug_Sprsn_Ind = \"*\" (25%))",
+     "sql": "(Rfrg_Prvdr_Gndr = 'F' AND Drug_Sprsn_Ind = '*')",
+     "support": 0.133,
+     "rows": 22439,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.051,
+     "score": 0.284,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v2": "F",
+      "Drug_Sprsn_Ind=v1": "*"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.139,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Mdcr_Alowd_Amt"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Sbmtd_Chrgs"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.139,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.139,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Mdcr_Alowd_Amt"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.873,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.873,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Sbmtd_Chrgs"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.873,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Rfrg_Prvdr_St1",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.139,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "POS_Suplr_Mdcr_Alowd_Amt",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "POS_Suplr_Sbmtd_Chrgs",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.139,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Mdcr_Alowd_Amt"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Sbmtd_Chrgs"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.139,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Mdcr_Alowd_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Mdcr_Alowd_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Sbmtd_Chrgs",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Sbmtd_Chrgs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.139,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Mdcr_Alowd_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.873,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Mdcr_Alowd_Amt",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.873,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Sbmtd_Chrgs",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.873,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Sbmtd_Chrgs",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "POS_Suplr_Mdcr_Alowd_Amt",
+      "Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.873,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "POS_Suplr_Mdcr_Alowd_Amt",
+      "DME_Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.873,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "POS_Suplr_Sbmtd_Chrgs",
+      "Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.873,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "POS_Suplr_Sbmtd_Chrgs",
+      "DME_Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind present)",
+     "sql": "(Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.114,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Mdcr_Alowd_Amt"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Sbmtd_Chrgs"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.114,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.114,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Mdcr_Alowd_Amt"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Sbmtd_Chrgs"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Rfrg_Prvdr_St1",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.114,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "POS_Suplr_Mdcr_Alowd_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "POS_Suplr_Mdcr_Alowd_Amt",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "POS_Suplr_Mdcr_Alowd_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "POS_Suplr_Sbmtd_Chrgs",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "POS_Suplr_Sbmtd_Chrgs",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "POS_Suplr_Sbmtd_Chrgs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Mdcr_Alowd_Amt"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Sbmtd_Chrgs"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.114,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Mdcr_Alowd_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Mdcr_Alowd_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Sbmtd_Chrgs",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Sbmtd_Chrgs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.114,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Mdcr_Alowd_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Mdcr_Alowd_Amt",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Sbmtd_Chrgs",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Sbmtd_Chrgs",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "POS_Suplr_Mdcr_Alowd_Amt",
+      "Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "POS_Suplr_Mdcr_Alowd_Amt",
+      "DME_Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "POS_Suplr_Sbmtd_Chrgs",
+      "Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "POS_Suplr_Sbmtd_Chrgs",
+      "DME_Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.488,
+     "rows": 82402,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.273,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Mdcr_Alowd_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "(Rfrg_Prvdr_Gndr = \"M\" (55%), Drug_Sprsn_Ind present)",
+     "sql": "(Rfrg_Prvdr_Gndr = 'M' AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.264,
+     "rows": 44541,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.826,
+     "score": 0.267,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v1": "M"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "(Rfrg_Prvdr_Gndr = \"M\" (55%), Drug_Sprsn_Ind present)",
+     "sql": "(Rfrg_Prvdr_Gndr = 'M' AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.264,
+     "rows": 44541,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.826,
+     "score": 0.267,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v1": "M"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Sbmtd_Chrgs",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "(Rfrg_Prvdr_Gndr = \"M\" (55%), Drug_Sprsn_Ind present)",
+     "sql": "(Rfrg_Prvdr_Gndr = 'M' AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.264,
+     "rows": 44541,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.826,
+     "score": 0.267,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v1": "M"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Mdcr_Alowd_Amt"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds present [same rows: POS_Tot_Suplrs present, POS_Suplr_Mdcr_Stdzd_Pymt_Amt present, POS_Suplr_Mdcr_Alowd_Amt present ...], DME_Suplr_Mdcr_Pymt_Amt missing [same rows: DME_Tot_Suplr_HCPCS_Cds missing, DME_Tot_Suplr_Srvcs missing])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NOT NULL AND DME_Suplr_Mdcr_Pymt_Amt IS NULL)",
+     "support": 0.064,
+     "rows": 10760,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.265,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Mdcr_Alowd_Amt"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds present [same rows: POS_Tot_Suplrs present, POS_Suplr_Mdcr_Stdzd_Pymt_Amt present, POS_Suplr_Mdcr_Alowd_Amt present ...], Drug_Sprsn_Ind present)",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NOT NULL AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.064,
+     "rows": 10760,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.265,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds present [same rows: POS_Tot_Suplrs present, POS_Suplr_Mdcr_Stdzd_Pymt_Amt present, POS_Suplr_Mdcr_Alowd_Amt present ...], DME_Suplr_Mdcr_Pymt_Amt missing [same rows: DME_Tot_Suplr_HCPCS_Cds missing, DME_Tot_Suplr_Srvcs missing])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NOT NULL AND DME_Suplr_Mdcr_Pymt_Amt IS NULL)",
+     "support": 0.064,
+     "rows": 10760,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.265,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds present [same rows: POS_Tot_Suplrs present, POS_Suplr_Mdcr_Stdzd_Pymt_Amt present, POS_Suplr_Mdcr_Alowd_Amt present ...], Drug_Sprsn_Ind present)",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NOT NULL AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.064,
+     "rows": 10760,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.265,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Sbmtd_Chrgs"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds present [same rows: POS_Tot_Suplrs present, POS_Suplr_Mdcr_Stdzd_Pymt_Amt present, POS_Suplr_Mdcr_Alowd_Amt present ...], DME_Suplr_Mdcr_Pymt_Amt missing [same rows: DME_Tot_Suplr_HCPCS_Cds missing, DME_Tot_Suplr_Srvcs missing])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NOT NULL AND DME_Suplr_Mdcr_Pymt_Amt IS NULL)",
+     "support": 0.064,
+     "rows": 10760,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.265,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Sbmtd_Chrgs"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds present [same rows: POS_Tot_Suplrs present, POS_Suplr_Mdcr_Stdzd_Pymt_Amt present, POS_Suplr_Mdcr_Alowd_Amt present ...], Drug_Sprsn_Ind present)",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NOT NULL AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.064,
+     "rows": 10760,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.265,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds present [same rows: POS_Tot_Suplrs present, POS_Suplr_Mdcr_Stdzd_Pymt_Amt present, POS_Suplr_Mdcr_Alowd_Amt present ...], Drug_Sprsn_Ind present)",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NOT NULL AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.064,
+     "rows": 10760,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.265,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1"
+     ],
+     "cls": "pos",
+     "condition": "(Rfrg_Prvdr_Gndr = \"F\" (45%))",
+     "sql": "(Rfrg_Prvdr_Gndr = 'F')",
+     "support": 0.448,
+     "rows": 75595,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.089,
+     "score": 0.261,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Mdcr_Alowd_Amt"
+     ],
+     "cls": "dom",
+     "condition": "(Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '#')",
+     "support": 0.249,
+     "rows": 41988,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 1.0,
+     "score": 0.259,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "dom",
+     "condition": "(Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '#')",
+     "support": 0.249,
+     "rows": 41988,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 1.0,
+     "score": 0.259,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Sbmtd_Chrgs"
+     ],
+     "cls": "dom",
+     "condition": "(Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '#')",
+     "support": 0.249,
+     "rows": 41988,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 1.0,
+     "score": 0.259,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Mdcr_Alowd_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "dom",
+     "condition": "(Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '#')",
+     "support": 0.249,
+     "rows": 41988,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.78,
+     "score": 0.259,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "dom",
+     "condition": "(Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '#')",
+     "support": 0.249,
+     "rows": 41988,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.78,
+     "score": 0.259,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Sbmtd_Chrgs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "dom",
+     "condition": "(Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '#')",
+     "support": 0.249,
+     "rows": 41988,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.78,
+     "score": 0.259,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Mdcr_Alowd_Amt"
+     ],
+     "cls": "dom",
+     "condition": "(Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '#')",
+     "support": 0.249,
+     "rows": 41988,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 1.0,
+     "score": 0.259,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "dom",
+     "condition": "(Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '#')",
+     "support": 0.249,
+     "rows": 41988,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 1.0,
+     "score": 0.259,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Sbmtd_Chrgs"
+     ],
+     "cls": "dom",
+     "condition": "(Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '#')",
+     "support": 0.249,
+     "rows": 41988,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 1.0,
+     "score": 0.259,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cert",
+     "condition": "(Rfrg_Prvdr_Gndr = \"M\" (55%), POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(Rfrg_Prvdr_Gndr = 'M' AND POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.249,
+     "rows": 41953,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.135,
+     "score": 0.259,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v1": "M"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cert",
+     "condition": "(Rfrg_Prvdr_Gndr = \"M\" (55%), POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(Rfrg_Prvdr_Gndr = 'M' AND POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.249,
+     "rows": 41953,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.135,
+     "score": 0.259,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v1": "M"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "(Rfrg_Prvdr_Gndr = \"F\" (45%), POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(Rfrg_Prvdr_Gndr = 'F' AND POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.24,
+     "rows": 40449,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.092,
+     "score": 0.255,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cert",
+     "condition": "(Rfrg_Prvdr_Gndr = \"F\" (45%), POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(Rfrg_Prvdr_Gndr = 'F' AND POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.24,
+     "rows": 40449,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.092,
+     "score": 0.255,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "(Rfrg_Prvdr_Gndr = \"F\" (45%), POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(Rfrg_Prvdr_Gndr = 'F' AND POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.24,
+     "rows": 40449,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.092,
+     "score": 0.255,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cert",
+     "condition": "(Rfrg_Prvdr_Gndr = \"F\" (45%), POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...])",
+     "sql": "(Rfrg_Prvdr_Gndr = 'F' AND POS_Tot_Suplr_HCPCS_Cds IS NULL)",
+     "support": 0.24,
+     "rows": 40449,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.092,
+     "score": 0.255,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1"
+     ],
+     "cls": "cert",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present], Drug_Sprsn_Ind = \"*\" (25%))",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL AND Drug_Sprsn_Ind = '*')",
+     "support": 0.239,
+     "rows": 40269,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.254,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present], Drug_Sprsn_Ind = \"*\" (25%))",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL AND Drug_Sprsn_Ind = '*')",
+     "support": 0.239,
+     "rows": 40269,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.254,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cert",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present], Drug_Sprsn_Ind = \"*\" (25%))",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL AND Drug_Sprsn_Ind = '*')",
+     "support": 0.239,
+     "rows": 40269,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.254,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Rfrg_Prvdr_St1",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present], Drug_Sprsn_Ind = \"*\" (25%))",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL AND Drug_Sprsn_Ind = '*')",
+     "support": 0.239,
+     "rows": 40269,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.254,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "(Rfrg_Prvdr_Gndr = \"F\" (45%), Drug_Sprsn_Ind present)",
+     "sql": "(Rfrg_Prvdr_Gndr = 'F' AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.239,
+     "rows": 40260,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.087,
+     "score": 0.254,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cert",
+     "condition": "(Rfrg_Prvdr_Gndr = \"F\" (45%), Drug_Sprsn_Ind present)",
+     "sql": "(Rfrg_Prvdr_Gndr = 'F' AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.239,
+     "rows": 40260,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.087,
+     "score": 0.254,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "(Rfrg_Prvdr_Gndr = \"F\" (45%), Drug_Sprsn_Ind present)",
+     "sql": "(Rfrg_Prvdr_Gndr = 'F' AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.239,
+     "rows": 40260,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.087,
+     "score": 0.254,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cert",
+     "condition": "(Rfrg_Prvdr_Gndr = \"F\" (45%), Drug_Sprsn_Ind present)",
+     "sql": "(Rfrg_Prvdr_Gndr = 'F' AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.239,
+     "rows": 40260,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.087,
+     "score": 0.254,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Mdcr_Pymt_Amt"
+     ],
+     "cls": "dom",
+     "condition": "(Rfrg_Prvdr_Gndr = \"F\" (45%), Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Rfrg_Prvdr_Gndr = 'F' AND Drug_Sprsn_Ind = '#')",
+     "support": 0.106,
+     "rows": 17821,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.133,
+     "score": 0.254,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v2": "F",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "dom",
+     "condition": "(Rfrg_Prvdr_Gndr = \"F\" (45%), Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Rfrg_Prvdr_Gndr = 'F' AND Drug_Sprsn_Ind = '#')",
+     "support": 0.106,
+     "rows": 17821,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.133,
+     "score": 0.254,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v2": "F",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], DME_Suplr_Mdcr_Pymt_Amt missing [same rows: DME_Tot_Suplr_HCPCS_Cds missing, DME_Tot_Suplr_Srvcs missing])",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND DME_Suplr_Mdcr_Pymt_Amt IS NULL)",
+     "support": 0.056,
+     "rows": 9364,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.247,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "dom",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.139,
+     "score": 0.246,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "dom",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.139,
+     "score": 0.246,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Mdcr_Alowd_Amt"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds present [same rows: POS_Tot_Suplrs present, POS_Suplr_Mdcr_Stdzd_Pymt_Amt present, POS_Suplr_Mdcr_Alowd_Amt present ...], Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NOT NULL AND Drug_Sprsn_Ind = '#')",
+     "support": 0.055,
+     "rows": 9219,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.245,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Mdcr_Alowd_Amt"
+     ],
+     "cls": "cand",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt missing [same rows: DME_Tot_Suplr_HCPCS_Cds missing, DME_Tot_Suplr_Srvcs missing], Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NULL AND Drug_Sprsn_Ind = '#')",
+     "support": 0.055,
+     "rows": 9219,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.245,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds present [same rows: POS_Tot_Suplrs present, POS_Suplr_Mdcr_Stdzd_Pymt_Amt present, POS_Suplr_Mdcr_Alowd_Amt present ...], Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NOT NULL AND Drug_Sprsn_Ind = '#')",
+     "support": 0.055,
+     "rows": 9219,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.245,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "cand",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt missing [same rows: DME_Tot_Suplr_HCPCS_Cds missing, DME_Tot_Suplr_Srvcs missing], Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NULL AND Drug_Sprsn_Ind = '#')",
+     "support": 0.055,
+     "rows": 9219,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.245,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Sbmtd_Chrgs"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds present [same rows: POS_Tot_Suplrs present, POS_Suplr_Mdcr_Stdzd_Pymt_Amt present, POS_Suplr_Mdcr_Alowd_Amt present ...], Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NOT NULL AND Drug_Sprsn_Ind = '#')",
+     "support": 0.055,
+     "rows": 9219,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.245,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Sbmtd_Chrgs"
+     ],
+     "cls": "cand",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt missing [same rows: DME_Tot_Suplr_HCPCS_Cds missing, DME_Tot_Suplr_Srvcs missing], Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NULL AND Drug_Sprsn_Ind = '#')",
+     "support": 0.055,
+     "rows": 9219,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.245,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds present [same rows: POS_Tot_Suplrs present, POS_Suplr_Mdcr_Stdzd_Pymt_Amt present, POS_Suplr_Mdcr_Alowd_Amt present ...], Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NOT NULL AND Drug_Sprsn_Ind = '#')",
+     "support": 0.055,
+     "rows": 9219,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.245,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Rfrg_Prvdr_St1",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cand",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt missing [same rows: DME_Tot_Suplr_HCPCS_Cds missing, DME_Tot_Suplr_Srvcs missing])",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NULL)",
+     "support": 0.119,
+     "rows": 20124,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.242,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cand",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt missing [same rows: DME_Tot_Suplr_HCPCS_Cds missing, DME_Tot_Suplr_Srvcs missing])",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NULL)",
+     "support": 0.119,
+     "rows": 20124,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.242,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], Drug_Sprsn_Ind missing)",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND Drug_Sprsn_Ind IS NULL)",
+     "support": 0.05,
+     "rows": 8361,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.234,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cand",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt missing [same rows: DME_Tot_Suplr_HCPCS_Cds missing, DME_Tot_Suplr_Srvcs missing], Drug_Sprsn_Ind missing)",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NULL AND Drug_Sprsn_Ind IS NULL)",
+     "support": 0.05,
+     "rows": 8361,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.234,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], Drug_Sprsn_Ind missing)",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND Drug_Sprsn_Ind IS NULL)",
+     "support": 0.05,
+     "rows": 8361,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.234,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND Drug_Sprsn_Ind = '#')",
+     "support": 0.194,
+     "rows": 32769,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.231,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1"
+     ],
+     "cls": "cand",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present], Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL AND Drug_Sprsn_Ind = '#')",
+     "support": 0.194,
+     "rows": 32769,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.231,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1"
+     ],
+     "cls": "dom",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], Drug_Sprsn_Ind present)",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.439,
+     "rows": 74041,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.014,
+     "score": 0.23,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "dom",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], Drug_Sprsn_Ind present)",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.439,
+     "rows": 74041,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.014,
+     "score": 0.23,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "dom",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], Drug_Sprsn_Ind present)",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.439,
+     "rows": 74041,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.014,
+     "score": 0.23,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Rfrg_Prvdr_St1",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "dom",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], Drug_Sprsn_Ind present)",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND Drug_Sprsn_Ind IS NOT NULL)",
+     "support": 0.439,
+     "rows": 74041,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.014,
+     "score": 0.23,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND Drug_Sprsn_Ind = '#')",
+     "support": 0.194,
+     "rows": 32769,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.229,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present], Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL AND Drug_Sprsn_Ind = '#')",
+     "support": 0.194,
+     "rows": 32769,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.229,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cert",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND Drug_Sprsn_Ind = '#')",
+     "support": 0.194,
+     "rows": 32769,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.229,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cert",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present], Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL AND Drug_Sprsn_Ind = '#')",
+     "support": 0.194,
+     "rows": 32769,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.229,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Rfrg_Prvdr_St1",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND Drug_Sprsn_Ind = '#')",
+     "support": 0.194,
+     "rows": 32769,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.229,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Rfrg_Prvdr_St1",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present], Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL AND Drug_Sprsn_Ind = '#')",
+     "support": 0.194,
+     "rows": 32769,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.229,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cand",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present], Drug_Sprsn_Ind = \"*\" (25%))",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL AND Drug_Sprsn_Ind = '*')",
+     "support": 0.239,
+     "rows": 40269,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cand",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present], Drug_Sprsn_Ind = \"*\" (25%))",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL AND Drug_Sprsn_Ind = '*')",
+     "support": 0.239,
+     "rows": 40269,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '#')",
+     "support": 0.249,
+     "rows": 41988,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.22,
+     "score": 0.219,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cand",
+     "condition": "(Rfrg_Prvdr_Gndr = \"F\" (45%), DME_Suplr_Mdcr_Pymt_Amt missing [same rows: DME_Tot_Suplr_HCPCS_Cds missing, DME_Tot_Suplr_Srvcs missing])",
+     "sql": "(Rfrg_Prvdr_Gndr = 'F' AND DME_Suplr_Mdcr_Pymt_Amt IS NULL)",
+     "support": 0.04,
+     "rows": 6718,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.21,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v2": "F"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cand",
+     "condition": "(POS_Tot_Suplr_HCPCS_Cds missing [same rows: POS_Tot_Suplrs missing, POS_Suplr_Mdcr_Stdzd_Pymt_Amt missing, POS_Suplr_Mdcr_Alowd_Amt missing ...], Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(POS_Tot_Suplr_HCPCS_Cds IS NULL AND Drug_Sprsn_Ind = '#')",
+     "support": 0.194,
+     "rows": 32769,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.206,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "cand",
+     "condition": "(DME_Suplr_Mdcr_Pymt_Amt present [same rows: DME_Tot_Suplr_HCPCS_Cds present, DME_Tot_Suplr_Srvcs present], Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(DME_Suplr_Mdcr_Pymt_Amt IS NOT NULL AND Drug_Sprsn_Ind = '#')",
+     "support": 0.194,
+     "rows": 32769,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.206,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt"
+     ],
+     "cls": "pos",
+     "condition": "(Rfrg_Prvdr_Gndr = \"M\" (55%), Drug_Sprsn_Ind = \"*\" (25%))",
+     "sql": "(Rfrg_Prvdr_Gndr = 'M' AND Drug_Sprsn_Ind = '*')",
+     "support": 0.121,
+     "rows": 20374,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.068,
+     "score": 0.203,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v1": "M",
+      "Drug_Sprsn_Ind=v1": "*"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Mdcr_Alowd_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "(Rfrg_Prvdr_Gndr = \"M\" (55%), Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Rfrg_Prvdr_Gndr = 'M' AND Drug_Sprsn_Ind = '#')",
+     "support": 0.143,
+     "rows": 24167,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.717,
+     "score": 0.197,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v1": "M",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "(Rfrg_Prvdr_Gndr = \"M\" (55%), Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Rfrg_Prvdr_Gndr = 'M' AND Drug_Sprsn_Ind = '#')",
+     "support": 0.143,
+     "rows": 24167,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.717,
+     "score": 0.197,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v1": "M",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "POS_Suplr_Sbmtd_Chrgs",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "cert",
+     "condition": "(Rfrg_Prvdr_Gndr = \"M\" (55%), Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Rfrg_Prvdr_Gndr = 'M' AND Drug_Sprsn_Ind = '#')",
+     "support": 0.143,
+     "rows": 24167,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.717,
+     "score": 0.197,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Rfrg_Prvdr_Gndr=v1": "M",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "POS_Suplr_Mdcr_Alowd_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '#')",
+     "support": 0.249,
+     "rows": 41988,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.78,
+     "score": 0.195,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "POS_Suplr_Mdcr_Alowd_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '#')",
+     "support": 0.249,
+     "rows": 41988,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.78,
+     "score": 0.195,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '#')",
+     "support": 0.249,
+     "rows": 41988,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.78,
+     "score": 0.195,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '#')",
+     "support": 0.249,
+     "rows": 41988,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.78,
+     "score": 0.195,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "POS_Suplr_Sbmtd_Chrgs",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '#')",
+     "support": 0.249,
+     "rows": 41988,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.78,
+     "score": 0.195,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "POS_Suplr_Sbmtd_Chrgs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '#')",
+     "support": 0.249,
+     "rows": 41988,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.78,
+     "score": 0.195,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "(Drug_Sprsn_Ind = \"#\" (25%))",
+     "sql": "(Drug_Sprsn_Ind = '#')",
+     "support": 0.249,
+     "rows": 41988,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.22,
+     "score": 0.195,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.139,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Mdcr_Alowd_Amt"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Sbmtd_Chrgs"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.139,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.139,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Mdcr_Alowd_Amt"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.873,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.873,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Sbmtd_Chrgs"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.873,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "Rfrg_Prvdr_St1",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.139,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "POS_Suplr_Mdcr_Alowd_Amt",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_Last_Name_Org",
+      "POS_Suplr_Sbmtd_Chrgs",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.139,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Mdcr_Alowd_Amt"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Sbmtd_Chrgs"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Rfrg_Prvdr_St1",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.139,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Mdcr_Alowd_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Mdcr_Alowd_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Sbmtd_Chrgs",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "POS_Suplr_Sbmtd_Chrgs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "DME_Suplr_Mdcr_Pymt_Amt",
+      "Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.139,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Mdcr_Alowd_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.873,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Mdcr_Alowd_Amt",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.873,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Mdcr_Stdzd_Pymt_Amt",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Sbmtd_Chrgs",
+      "Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.873,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "Rfrg_Prvdr_St1",
+      "POS_Suplr_Sbmtd_Chrgs",
+      "DME_Tot_Suplr_Srvcs"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    },
+    {
+     "table": "lbusa.t345435",
+     "K": [
+      "POS_Suplr_Mdcr_Alowd_Amt",
+      "Tot_Suplr_Srvcs",
+      "Rfrg_Prvdr_City"
+     ],
+     "cls": "pos",
+     "condition": "Drug_Sprsn_Ind in {\"*\", \"#\"}",
+     "sql": "(Drug_Sprsn_Ind = '*') OR (Drug_Sprsn_Ind = '#')",
+     "support": 0.503,
+     "rows": 84801,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.873,
+     "score": 0.184,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Drug_Sprsn_Ind=v1": "*",
+      "Drug_Sprsn_Ind=v2": "#"
+     }
+    }
+   ],
+   "unconditional": {
+    "Rfrg_NPI": "cand",
+    "Rfrg_Prvdr_Last_Name_Org,Suplr_Mdcr_Stdzd_Pymt_Amt,DME_Suplr_Mdcr_Pymt_Amt": "cert",
+    "Rfrg_Prvdr_Last_Name_Org,Suplr_Mdcr_Stdzd_Pymt_Amt,Rfrg_Prvdr_St1": "cert",
+    "Rfrg_Prvdr_Last_Name_Org,Suplr_Mdcr_Stdzd_Pymt_Amt,POS_Suplr_Mdcr_Alowd_Amt": "pos",
+    "Rfrg_Prvdr_Last_Name_Org,Suplr_Mdcr_Stdzd_Pymt_Amt,POS_Suplr_Mdcr_Stdzd_Pymt_Amt": "pos",
+    "Rfrg_Prvdr_Last_Name_Org,Suplr_Mdcr_Stdzd_Pymt_Amt,POS_Suplr_Sbmtd_Chrgs": "pos",
+    "Rfrg_Prvdr_Last_Name_Org,Suplr_Mdcr_Stdzd_Pymt_Amt,Tot_Suplr_Srvcs": "cert",
+    "Rfrg_Prvdr_Last_Name_Org,Suplr_Mdcr_Stdzd_Pymt_Amt,DME_Tot_Suplr_Srvcs": "cert",
+    "Rfrg_Prvdr_Last_Name_Org,Suplr_Mdcr_Stdzd_Pymt_Amt,Rfrg_Prvdr_City": "cert"
+   }
+  }
+ ]
+}

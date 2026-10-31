@@ -1,0 +1,259 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "entity_name",
+   "block",
+   "secondary_ssic_code"
+  ]
+ },
+ "sample_rows": 106071,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbsg.t23",
+   "rows": 106071,
+   "cols": [
+    "level_no",
+    "block",
+    "business_constitution_description",
+    "entity_name",
+    "entity_status_description",
+    "primary_ssic_code",
+    "secondary_ssic_code",
+    "no_of_officers"
+   ],
+   "n_conditional": 9,
+   "conditional": [
+    {
+     "table": "lbsg.t23",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description missing)",
+     "sql": "(business_constitution_description IS NULL)",
+     "support": 0.479,
+     "rows": 50833,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.439,
+     "score": 1.215,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t23",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(business_constitution_description missing, secondary_ssic_code present)",
+     "sql": "(business_constitution_description IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.269,
+     "rows": 28533,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.089,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t23",
+     "K": [
+      "entity_name",
+      "block"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description missing, secondary_ssic_code present)",
+     "sql": "(business_constitution_description IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.269,
+     "rows": 28533,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.607,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t23",
+     "K": [
+      "entity_name",
+      "block",
+      "secondary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(level_no present, business_constitution_description missing)",
+     "sql": "(level_no IS NOT NULL AND business_constitution_description IS NULL)",
+     "support": 0.406,
+     "rows": 43099,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.435,
+     "score": 0.442,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t23",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing, entity_status_description missing)",
+     "sql": "(level_no IS NULL AND entity_status_description IS NULL)",
+     "support": 0.071,
+     "rows": 7482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.507,
+     "score": 0.311,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t23",
+     "K": [
+      "entity_name",
+      "block"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description = \"Partnership\" (10%), secondary_ssic_code missing)",
+     "sql": "(business_constitution_description = 'Partnership' AND secondary_ssic_code IS NULL)",
+     "support": 0.046,
+     "rows": 4893,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.005,
+     "score": 0.251,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t23",
+     "K": [
+      "entity_name",
+      "block"
+     ],
+     "cls": "dom",
+     "condition": "(level_no missing, entity_status_description missing)",
+     "sql": "(level_no IS NULL AND entity_status_description IS NULL)",
+     "support": 0.071,
+     "rows": 7482,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.041,
+     "score": 0.207,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t23",
+     "K": [
+      "entity_name",
+      "block",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Sole Proprietor\" (42%), entity_status_description missing)",
+     "sql": "(business_constitution_description = 'Sole Proprietor' AND entity_status_description IS NULL)",
+     "support": 0.134,
+     "rows": 14243,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.473,
+     "score": 0.191,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "business_constitution_description=v1": "Sole Proprietor"
+     }
+    },
+    {
+     "table": "lbsg.t23",
+     "K": [
+      "entity_name",
+      "block",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(level_no missing, business_constitution_description = \"Partnership\" (10%))",
+     "sql": "(level_no IS NULL AND business_constitution_description = 'Partnership')",
+     "support": 0.033,
+     "rows": 3496,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.479,
+     "score": 0.189,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    }
+   ],
+   "unconditional": {}
+  }
+ ]
+}

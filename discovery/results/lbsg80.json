@@ -1,0 +1,84 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "licence_number",
+   "licensee_name",
+   "premises_address"
+  ]
+ },
+ "sample_rows": 36687,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbsg.t80",
+   "rows": 36687,
+   "cols": [
+    "licensee_name",
+    "licence_number",
+    "premises_address",
+    "grade"
+   ],
+   "n_conditional": 2,
+   "conditional": [
+    {
+     "table": "lbsg.t80",
+     "K": [
+      "licence_number",
+      "licensee_name"
+     ],
+     "cls": "cand",
+     "condition": "(grade = \"B\" (40%))",
+     "sql": "(grade = 'B')",
+     "support": 0.4,
+     "rows": 14686,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.993,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "grade=v2": "B"
+     }
+    },
+    {
+     "table": "lbsg.t80",
+     "K": [
+      "licence_number",
+      "licensee_name"
+     ],
+     "cls": "cand",
+     "condition": "(grade missing)",
+     "sql": "(grade IS NULL)",
+     "support": 0.145,
+     "rows": 5302,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.197,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    }
+   ],
+   "unconditional": {}
+  }
+ ]
+}

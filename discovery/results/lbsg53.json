@@ -1,0 +1,5411 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "device_registration_number",
+   "models_name",
+   "device_name",
+   "identifier",
+   "product_owner_address",
+   "product_owner_short_name",
+   "product_owner_name",
+   "registration_date",
+   "change_nfy_approval_date",
+   "registrant_name",
+   "registrant_address",
+   "imported_by_name",
+   "imported_by_address",
+   "expiry_date",
+   "description",
+   "gmdn"
+  ]
+ },
+ "sample_rows": 18078,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbsg.t53",
+   "rows": 18078,
+   "cols": [
+    "device_name",
+    "description",
+    "gmdn",
+    "medical_speciality_area",
+    "hs_code",
+    "hsa_product_code",
+    "medical_device_class",
+    "device_registration_number",
+    "registration_date",
+    "change_nfy_approval_date",
+    "expiry_date",
+    "product_owner_name",
+    "product_owner_short_name",
+    "product_owner_address",
+    "registrant_name",
+    "registrant_address",
+    "imported_by_name",
+    "imported_by_address",
+    "models_name",
+    "identifier"
+   ],
+   "n_conditional": 211,
+   "conditional": [
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "identifier"
+     ],
+     "cls": "cert",
+     "condition": "(hs_code present)",
+     "sql": "(hs_code IS NOT NULL)",
+     "support": 0.531,
+     "rows": 9603,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 2.558,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "identifier"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code present)",
+     "sql": "(hsa_product_code IS NOT NULL)",
+     "support": 0.524,
+     "rows": 9480,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 2.542,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "identifier"
+     ],
+     "cls": "cert",
+     "condition": "(hs_code missing)",
+     "sql": "(hs_code IS NULL)",
+     "support": 0.469,
+     "rows": 8475,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 2.403,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "identifier",
+      "description"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code missing)",
+     "sql": "(hsa_product_code IS NULL)",
+     "support": 0.476,
+     "rows": 8598,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 2.152,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "device_name",
+      "expiry_date"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing)",
+     "sql": "(hsa_product_code IS NULL)",
+     "support": 0.476,
+     "rows": 8598,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.931,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "device_name",
+      "expiry_date"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code missing)",
+     "sql": "(hs_code IS NULL)",
+     "support": 0.469,
+     "rows": 8475,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.917,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name"
+     ],
+     "cls": "cand",
+     "condition": "(medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(medical_device_class = 'CLASS B IVD')",
+     "support": 0.129,
+     "rows": 2327,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.256,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "identifier"
+     ],
+     "cls": "cand",
+     "condition": "(medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(medical_device_class = 'CLASS B IVD')",
+     "support": 0.129,
+     "rows": 2327,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.13,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "description"
+     ],
+     "cls": "cand",
+     "condition": "(medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(medical_device_class = 'CLASS B IVD')",
+     "support": 0.129,
+     "rows": 2327,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.13,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_short_name",
+      "registration_date"
+     ],
+     "cls": "cert",
+     "condition": "(medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(medical_device_class = 'CLASS B IVD')",
+     "support": 0.129,
+     "rows": 2327,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 1.119,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_short_name",
+      "change_nfy_approval_date"
+     ],
+     "cls": "cert",
+     "condition": "(medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(medical_device_class = 'CLASS B IVD')",
+     "support": 0.129,
+     "rows": 2327,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 1.119,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "identifier",
+      "gmdn"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code missing)",
+     "sql": "(hsa_product_code IS NULL)",
+     "support": 0.476,
+     "rows": 8598,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 1.076,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "identifier"
+     ],
+     "cls": "cert",
+     "condition": "medical_device_class in {\"CLASS C\", \"CLASS B IVD\", \"CLASS D\", \"CLASS C IVD\"}",
+     "sql": "(medical_device_class = 'CLASS C') OR (medical_device_class = 'CLASS B IVD') OR (medical_device_class = 'CLASS D') OR (medical_device_class = 'CLASS C IVD')",
+     "support": 0.551,
+     "rows": 9956,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 1.042,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v2": "CLASS C",
+      "medical_device_class=v3": "CLASS B IVD",
+      "medical_device_class=v4": "CLASS D",
+      "medical_device_class=v5": "CLASS C IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "registration_date",
+      "change_nfy_approval_date"
+     ],
+     "cls": "cand",
+     "condition": "medical_device_class in {\"CLASS C\", \"CLASS C IVD\"}",
+     "sql": "(medical_device_class = 'CLASS C') OR (medical_device_class = 'CLASS C IVD')",
+     "support": 0.308,
+     "rows": 5561,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.035,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v2": "CLASS C",
+      "medical_device_class=v5": "CLASS C IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "change_nfy_approval_date",
+      "expiry_date"
+     ],
+     "cls": "cand",
+     "condition": "medical_device_class in {\"CLASS C\", \"CLASS C IVD\"}",
+     "sql": "(medical_device_class = 'CLASS C') OR (medical_device_class = 'CLASS C IVD')",
+     "support": 0.308,
+     "rows": 5561,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.035,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v2": "CLASS C",
+      "medical_device_class=v5": "CLASS C IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "product_owner_address",
+      "description"
+     ],
+     "cls": "cand",
+     "condition": "(medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(medical_device_class = 'CLASS B IVD')",
+     "support": 0.129,
+     "rows": 2327,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.005,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_address",
+      "change_nfy_approval_date"
+     ],
+     "cls": "cand",
+     "condition": "(medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(medical_device_class = 'CLASS B IVD')",
+     "support": 0.129,
+     "rows": 2327,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.005,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_name",
+      "registration_date"
+     ],
+     "cls": "cand",
+     "condition": "(medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(medical_device_class = 'CLASS B IVD')",
+     "support": 0.129,
+     "rows": 2327,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.005,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_name",
+      "change_nfy_approval_date"
+     ],
+     "cls": "cand",
+     "condition": "(medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(medical_device_class = 'CLASS B IVD')",
+     "support": 0.129,
+     "rows": 2327,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.005,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "registration_date",
+      "change_nfy_approval_date"
+     ],
+     "cls": "cand",
+     "condition": "(medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(medical_device_class = 'CLASS B IVD')",
+     "support": 0.129,
+     "rows": 2327,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.005,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "change_nfy_approval_date",
+      "registrant_name"
+     ],
+     "cls": "cand",
+     "condition": "(medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(medical_device_class = 'CLASS B IVD')",
+     "support": 0.129,
+     "rows": 2327,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.005,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "change_nfy_approval_date",
+      "registrant_address"
+     ],
+     "cls": "cand",
+     "condition": "(medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(medical_device_class = 'CLASS B IVD')",
+     "support": 0.129,
+     "rows": 2327,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.005,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "registration_date"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS B\" (42%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS B')",
+     "support": 0.2,
+     "rows": 3614,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.939,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v1": "CLASS B"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "expiry_date"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS B\" (42%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS B')",
+     "support": 0.2,
+     "rows": 3614,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.939,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v1": "CLASS B"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "device_name"
+     ],
+     "cls": "cand",
+     "condition": "medical_device_class in {\"CLASS C\", \"CLASS B IVD\", \"CLASS D\", \"CLASS C IVD\"}",
+     "sql": "(medical_device_class = 'CLASS C') OR (medical_device_class = 'CLASS B IVD') OR (medical_device_class = 'CLASS D') OR (medical_device_class = 'CLASS C IVD')",
+     "support": 0.551,
+     "rows": 9956,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.935,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v2": "CLASS C",
+      "medical_device_class=v3": "CLASS B IVD",
+      "medical_device_class=v4": "CLASS D",
+      "medical_device_class=v5": "CLASS C IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "identifier"
+     ],
+     "cls": "cand",
+     "condition": "medical_device_class in {\"CLASS B IVD\", \"CLASS C IVD\"}",
+     "sql": "(medical_device_class = 'CLASS B IVD') OR (medical_device_class = 'CLASS C IVD')",
+     "support": 0.195,
+     "rows": 3530,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.928,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD",
+      "medical_device_class=v5": "CLASS C IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "registration_date"
+     ],
+     "cls": "cand",
+     "condition": "medical_device_class in {\"CLASS B IVD\", \"CLASS C IVD\"}",
+     "sql": "(medical_device_class = 'CLASS B IVD') OR (medical_device_class = 'CLASS C IVD')",
+     "support": 0.195,
+     "rows": 3530,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.928,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD",
+      "medical_device_class=v5": "CLASS C IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "description"
+     ],
+     "cls": "cand",
+     "condition": "medical_device_class in {\"CLASS B IVD\", \"CLASS C IVD\"}",
+     "sql": "(medical_device_class = 'CLASS B IVD') OR (medical_device_class = 'CLASS C IVD')",
+     "support": 0.195,
+     "rows": 3530,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.928,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD",
+      "medical_device_class=v5": "CLASS C IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name"
+     ],
+     "cls": "cand",
+     "condition": "(medical_device_class = \"CLASS C IVD\" (7%))",
+     "sql": "(medical_device_class = 'CLASS C IVD')",
+     "support": 0.067,
+     "rows": 1203,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.903,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v5": "CLASS C IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "identifier",
+      "product_owner_address"
+     ],
+     "cls": "cert",
+     "condition": "medical_device_class in {\"CLASS B IVD\", \"CLASS D\", \"CLASS C IVD\"}",
+     "sql": "(medical_device_class = 'CLASS B IVD') OR (medical_device_class = 'CLASS D') OR (medical_device_class = 'CLASS C IVD')",
+     "support": 0.31,
+     "rows": 5598,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.868,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD",
+      "medical_device_class=v4": "CLASS D",
+      "medical_device_class=v5": "CLASS C IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "identifier",
+      "product_owner_short_name"
+     ],
+     "cls": "cert",
+     "condition": "medical_device_class in {\"CLASS B IVD\", \"CLASS D\", \"CLASS C IVD\"}",
+     "sql": "(medical_device_class = 'CLASS B IVD') OR (medical_device_class = 'CLASS D') OR (medical_device_class = 'CLASS C IVD')",
+     "support": 0.31,
+     "rows": 5598,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 0.868,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD",
+      "medical_device_class=v4": "CLASS D",
+      "medical_device_class=v5": "CLASS C IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "identifier",
+      "product_owner_name"
+     ],
+     "cls": "cert",
+     "condition": "medical_device_class in {\"CLASS B IVD\", \"CLASS D\", \"CLASS C IVD\"}",
+     "sql": "(medical_device_class = 'CLASS B IVD') OR (medical_device_class = 'CLASS D') OR (medical_device_class = 'CLASS C IVD')",
+     "support": 0.31,
+     "rows": 5598,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.868,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD",
+      "medical_device_class=v4": "CLASS D",
+      "medical_device_class=v5": "CLASS C IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "identifier",
+      "registration_date"
+     ],
+     "cls": "cert",
+     "condition": "medical_device_class in {\"CLASS B IVD\", \"CLASS D\", \"CLASS C IVD\"}",
+     "sql": "(medical_device_class = 'CLASS B IVD') OR (medical_device_class = 'CLASS D') OR (medical_device_class = 'CLASS C IVD')",
+     "support": 0.31,
+     "rows": 5598,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.868,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD",
+      "medical_device_class=v4": "CLASS D",
+      "medical_device_class=v5": "CLASS C IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "identifier",
+      "registrant_name"
+     ],
+     "cls": "cert",
+     "condition": "medical_device_class in {\"CLASS B IVD\", \"CLASS D\", \"CLASS C IVD\"}",
+     "sql": "(medical_device_class = 'CLASS B IVD') OR (medical_device_class = 'CLASS D') OR (medical_device_class = 'CLASS C IVD')",
+     "support": 0.31,
+     "rows": 5598,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.868,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD",
+      "medical_device_class=v4": "CLASS D",
+      "medical_device_class=v5": "CLASS C IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "identifier",
+      "registrant_address"
+     ],
+     "cls": "cert",
+     "condition": "medical_device_class in {\"CLASS B IVD\", \"CLASS D\", \"CLASS C IVD\"}",
+     "sql": "(medical_device_class = 'CLASS B IVD') OR (medical_device_class = 'CLASS D') OR (medical_device_class = 'CLASS C IVD')",
+     "support": 0.31,
+     "rows": 5598,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.868,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD",
+      "medical_device_class=v4": "CLASS D",
+      "medical_device_class=v5": "CLASS C IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "identifier",
+      "description"
+     ],
+     "cls": "cert",
+     "condition": "medical_device_class in {\"CLASS B IVD\", \"CLASS D\", \"CLASS C IVD\"}",
+     "sql": "(medical_device_class = 'CLASS B IVD') OR (medical_device_class = 'CLASS D') OR (medical_device_class = 'CLASS C IVD')",
+     "support": 0.31,
+     "rows": 5598,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.868,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD",
+      "medical_device_class=v4": "CLASS D",
+      "medical_device_class=v5": "CLASS C IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "registration_date",
+      "description"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS B\" (42%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS B')",
+     "support": 0.205,
+     "rows": 3703,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.845,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v1": "CLASS B"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "expiry_date",
+      "description"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS B\" (42%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS B')",
+     "support": 0.205,
+     "rows": 3703,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.845,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v1": "CLASS B"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "product_owner_short_name",
+      "change_nfy_approval_date"
+     ],
+     "cls": "cert",
+     "condition": "(hs_code present, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hs_code IS NOT NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.13,
+     "rows": 2353,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.005,
+     "score": 0.75,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "product_owner_short_name",
+      "change_nfy_approval_date"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.13,
+     "rows": 2342,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.005,
+     "score": 0.749,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "identifier",
+      "imported_by_name"
+     ],
+     "cls": "dom",
+     "condition": "(medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(medical_device_class = 'CLASS D')",
+     "support": 0.114,
+     "rows": 2068,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.021,
+     "score": 0.703,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "identifier",
+      "imported_by_address"
+     ],
+     "cls": "dom",
+     "condition": "(medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(medical_device_class = 'CLASS D')",
+     "support": 0.114,
+     "rows": 2068,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.021,
+     "score": 0.703,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "identifier"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.112,
+     "rows": 2016,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.701,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "registration_date"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.112,
+     "rows": 2016,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.701,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "expiry_date"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.112,
+     "rows": 2016,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.701,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "registration_date"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.112,
+     "rows": 2016,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.701,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "registration_date"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.111,
+     "rows": 2005,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.699,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "expiry_date"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.111,
+     "rows": 2005,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.699,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "registration_date"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.111,
+     "rows": 2005,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.699,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_short_name",
+      "expiry_date"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.112,
+     "rows": 2016,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.695,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "imported_by_name",
+      "expiry_date"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.112,
+     "rows": 2016,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.017,
+     "score": 0.695,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "imported_by_address",
+      "expiry_date"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.112,
+     "rows": 2016,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.017,
+     "score": 0.695,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_short_name",
+      "expiry_date"
+     ],
+     "cls": "cert",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.111,
+     "rows": 2005,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.693,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "imported_by_name",
+      "expiry_date"
+     ],
+     "cls": "cert",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.111,
+     "rows": 2005,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.017,
+     "score": 0.693,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "imported_by_address",
+      "expiry_date"
+     ],
+     "cls": "cert",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.111,
+     "rows": 2005,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.017,
+     "score": 0.693,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "imported_by_name"
+     ],
+     "cls": "dom",
+     "condition": "medical_device_class in {\"CLASS B IVD\", \"CLASS C IVD\"}",
+     "sql": "(medical_device_class = 'CLASS B IVD') OR (medical_device_class = 'CLASS C IVD')",
+     "support": 0.195,
+     "rows": 3530,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.011,
+     "score": 0.689,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD",
+      "medical_device_class=v5": "CLASS C IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "imported_by_address"
+     ],
+     "cls": "dom",
+     "condition": "medical_device_class in {\"CLASS B IVD\", \"CLASS C IVD\"}",
+     "sql": "(medical_device_class = 'CLASS B IVD') OR (medical_device_class = 'CLASS C IVD')",
+     "support": 0.195,
+     "rows": 3530,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.011,
+     "score": 0.689,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD",
+      "medical_device_class=v5": "CLASS C IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "product_owner_address",
+      "change_nfy_approval_date"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code present, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hs_code IS NOT NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.13,
+     "rows": 2353,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.673,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "product_owner_name",
+      "change_nfy_approval_date"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code present, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hs_code IS NOT NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.13,
+     "rows": 2353,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.673,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "change_nfy_approval_date",
+      "description"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code present, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hs_code IS NOT NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.13,
+     "rows": 2353,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.673,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "product_owner_address",
+      "change_nfy_approval_date"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.13,
+     "rows": 2342,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.672,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "product_owner_name",
+      "change_nfy_approval_date"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.13,
+     "rows": 2342,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.672,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "change_nfy_approval_date",
+      "description"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.13,
+     "rows": 2342,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.672,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_address",
+      "expiry_date"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.112,
+     "rows": 2016,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.623,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_name",
+      "expiry_date"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.112,
+     "rows": 2016,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.623,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "change_nfy_approval_date",
+      "expiry_date"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.112,
+     "rows": 2016,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.623,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "registrant_name",
+      "expiry_date"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.112,
+     "rows": 2016,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.623,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "registrant_address",
+      "expiry_date"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.112,
+     "rows": 2016,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.623,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "expiry_date",
+      "description"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.112,
+     "rows": 2016,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.623,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_address",
+      "expiry_date"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.111,
+     "rows": 2005,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.622,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_name",
+      "expiry_date"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.111,
+     "rows": 2005,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.622,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "change_nfy_approval_date",
+      "expiry_date"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.111,
+     "rows": 2005,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.622,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "registrant_name",
+      "expiry_date"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.111,
+     "rows": 2005,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.622,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "registrant_address",
+      "expiry_date"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.111,
+     "rows": 2005,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.622,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "expiry_date",
+      "description"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.111,
+     "rows": 2005,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.622,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "registration_date"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.073,
+     "rows": 1326,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.569,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_short_name",
+      "imported_by_name"
+     ],
+     "cls": "pos",
+     "condition": "(medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(medical_device_class = 'CLASS B IVD')",
+     "support": 0.129,
+     "rows": 2327,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.016,
+     "score": 0.56,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_short_name",
+      "imported_by_address"
+     ],
+     "cls": "pos",
+     "condition": "(medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(medical_device_class = 'CLASS B IVD')",
+     "support": 0.129,
+     "rows": 2327,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.016,
+     "score": 0.56,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_short_name",
+      "gmdn"
+     ],
+     "cls": "cert",
+     "condition": "(medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(medical_device_class = 'CLASS B IVD')",
+     "support": 0.129,
+     "rows": 2327,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.56,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_name",
+      "imported_by_name"
+     ],
+     "cls": "pos",
+     "condition": "(medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(medical_device_class = 'CLASS B IVD')",
+     "support": 0.129,
+     "rows": 2327,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.012,
+     "score": 0.56,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_name",
+      "imported_by_address"
+     ],
+     "cls": "pos",
+     "condition": "(medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(medical_device_class = 'CLASS B IVD')",
+     "support": 0.129,
+     "rows": 2327,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.012,
+     "score": 0.56,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.055,
+     "rows": 1001,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.549,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "identifier"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 979,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.545,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_address"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 979,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.545,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_name"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 979,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.545,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "registration_date"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 979,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.545,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "registrant_name"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 979,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.545,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "registrant_address"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 979,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.545,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "description"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 979,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.545,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_address"
+     ],
+     "cls": "cert",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 978,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.544,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_name"
+     ],
+     "cls": "cert",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 978,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.544,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "registration_date"
+     ],
+     "cls": "cert",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 978,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.544,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "registrant_name"
+     ],
+     "cls": "cert",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 978,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.544,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "registrant_address"
+     ],
+     "cls": "cert",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 978,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.544,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "description"
+     ],
+     "cls": "cert",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 978,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.544,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.054,
+     "rows": 980,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.543,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "registration_date"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1090,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.516,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "description"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1090,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.516,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "registration_date"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1089,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.515,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "description"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1089,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.515,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "product_owner_short_name",
+      "change_nfy_approval_date"
+     ],
+     "cls": "cert",
+     "condition": "(hs_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1090,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.019,
+     "score": 0.511,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "product_owner_short_name",
+      "expiry_date"
+     ],
+     "cls": "cert",
+     "condition": "(hs_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1090,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.019,
+     "score": 0.511,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "imported_by_name",
+      "expiry_date"
+     ],
+     "cls": "cert",
+     "condition": "(hs_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1090,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.012,
+     "score": 0.511,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "imported_by_address",
+      "expiry_date"
+     ],
+     "cls": "cert",
+     "condition": "(hs_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1090,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.012,
+     "score": 0.511,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "product_owner_short_name",
+      "change_nfy_approval_date"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1089,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.019,
+     "score": 0.511,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "product_owner_short_name",
+      "expiry_date"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1089,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.019,
+     "score": 0.511,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "imported_by_name",
+      "expiry_date"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1089,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.012,
+     "score": 0.511,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "imported_by_address",
+      "expiry_date"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1089,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.012,
+     "score": 0.511,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_name",
+      "gmdn"
+     ],
+     "cls": "cand",
+     "condition": "(medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(medical_device_class = 'CLASS B IVD')",
+     "support": 0.129,
+     "rows": 2327,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.502,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "change_nfy_approval_date",
+      "gmdn"
+     ],
+     "cls": "cand",
+     "condition": "(medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(medical_device_class = 'CLASS B IVD')",
+     "support": 0.129,
+     "rows": 2327,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.502,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "product_owner_address"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.055,
+     "rows": 1001,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.494,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "product_owner_short_name"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.055,
+     "rows": 1001,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.494,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "product_owner_name"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.055,
+     "rows": 1001,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.494,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "registration_date"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.055,
+     "rows": 1001,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.494,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "change_nfy_approval_date"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.055,
+     "rows": 1001,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.494,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "expiry_date"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.055,
+     "rows": 1001,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.494,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "description"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.055,
+     "rows": 1001,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.494,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "product_owner_address"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.054,
+     "rows": 980,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.489,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "product_owner_short_name"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.054,
+     "rows": 980,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.489,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "product_owner_name"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.054,
+     "rows": 980,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.489,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "registration_date"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.054,
+     "rows": 980,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.489,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "change_nfy_approval_date"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.054,
+     "rows": 980,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.489,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "expiry_date"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.054,
+     "rows": 980,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.489,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "description"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.054,
+     "rows": 980,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.489,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "product_owner_address"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 979,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.489,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "product_owner_name"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 979,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.489,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "change_nfy_approval_date"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 979,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.489,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "product_owner_address"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 978,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.488,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "product_owner_name"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 978,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.488,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "change_nfy_approval_date"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 978,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.488,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_short_name",
+      "change_nfy_approval_date"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 979,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.484,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_short_name",
+      "imported_by_name"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 979,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.036,
+     "score": 0.484,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_short_name",
+      "imported_by_address"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 979,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.036,
+     "score": 0.484,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_short_name",
+      "expiry_date"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 979,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.484,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "change_nfy_approval_date",
+      "expiry_date"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 979,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.484,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "imported_by_name",
+      "expiry_date"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 979,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.029,
+     "score": 0.484,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "imported_by_address",
+      "expiry_date"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 979,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.029,
+     "score": 0.484,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_short_name",
+      "change_nfy_approval_date"
+     ],
+     "cls": "cert",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 978,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.484,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_short_name",
+      "imported_by_name"
+     ],
+     "cls": "cert",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 978,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.036,
+     "score": 0.484,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_short_name",
+      "imported_by_address"
+     ],
+     "cls": "cert",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 978,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.036,
+     "score": 0.484,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_short_name",
+      "expiry_date"
+     ],
+     "cls": "cert",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 978,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.484,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "change_nfy_approval_date",
+      "expiry_date"
+     ],
+     "cls": "cert",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 978,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.484,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "imported_by_name",
+      "expiry_date"
+     ],
+     "cls": "cert",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 978,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.029,
+     "score": 0.484,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "imported_by_address",
+      "expiry_date"
+     ],
+     "cls": "cert",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 978,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.029,
+     "score": 0.484,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "product_owner_address",
+      "change_nfy_approval_date"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1090,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.458,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "product_owner_address",
+      "expiry_date"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1090,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.458,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "product_owner_name",
+      "change_nfy_approval_date"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1090,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.458,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "product_owner_name",
+      "expiry_date"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1090,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.458,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "change_nfy_approval_date",
+      "registrant_name"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1090,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.458,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "change_nfy_approval_date",
+      "registrant_address"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1090,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.458,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "change_nfy_approval_date",
+      "expiry_date"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1090,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.458,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "registrant_name",
+      "expiry_date"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1090,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.458,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "registrant_address",
+      "expiry_date"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1090,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.458,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "product_owner_address",
+      "change_nfy_approval_date"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1089,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.458,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "product_owner_address",
+      "expiry_date"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1089,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.458,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "product_owner_name",
+      "change_nfy_approval_date"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1089,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.458,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "product_owner_name",
+      "expiry_date"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1089,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.458,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "change_nfy_approval_date",
+      "registrant_name"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1089,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.458,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "change_nfy_approval_date",
+      "registrant_address"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1089,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.458,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "change_nfy_approval_date",
+      "expiry_date"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1089,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.458,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "registrant_name",
+      "expiry_date"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1089,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.458,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "registrant_address",
+      "expiry_date"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1089,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.458,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_short_name"
+     ],
+     "cls": "part",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 979,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.008,
+     "score": 0.454,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_short_name"
+     ],
+     "cls": "part",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 978,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.008,
+     "score": 0.454,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "identifier",
+      "imported_by_name"
+     ],
+     "cls": "pos",
+     "condition": "medical_device_class in {\"CLASS B IVD\", \"CLASS D\", \"CLASS C IVD\"}",
+     "sql": "(medical_device_class = 'CLASS B IVD') OR (medical_device_class = 'CLASS D') OR (medical_device_class = 'CLASS C IVD')",
+     "support": 0.31,
+     "rows": 5598,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.015,
+     "score": 0.434,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD",
+      "medical_device_class=v4": "CLASS D",
+      "medical_device_class=v5": "CLASS C IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "identifier",
+      "imported_by_address"
+     ],
+     "cls": "pos",
+     "condition": "medical_device_class in {\"CLASS B IVD\", \"CLASS D\", \"CLASS C IVD\"}",
+     "sql": "(medical_device_class = 'CLASS B IVD') OR (medical_device_class = 'CLASS D') OR (medical_device_class = 'CLASS C IVD')",
+     "support": 0.31,
+     "rows": 5598,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.015,
+     "score": 0.434,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD",
+      "medical_device_class=v4": "CLASS D",
+      "medical_device_class=v5": "CLASS C IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "identifier",
+      "gmdn"
+     ],
+     "cls": "cert",
+     "condition": "medical_device_class in {\"CLASS B IVD\", \"CLASS D\", \"CLASS C IVD\"}",
+     "sql": "(medical_device_class = 'CLASS B IVD') OR (medical_device_class = 'CLASS D') OR (medical_device_class = 'CLASS C IVD')",
+     "support": 0.31,
+     "rows": 5598,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.434,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD",
+      "medical_device_class=v4": "CLASS D",
+      "medical_device_class=v5": "CLASS C IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "product_owner_short_name",
+      "description"
+     ],
+     "cls": "pos",
+     "condition": "medical_device_class in {\"CLASS B IVD\", \"CLASS D\", \"CLASS C IVD\"}",
+     "sql": "(medical_device_class = 'CLASS B IVD') OR (medical_device_class = 'CLASS D') OR (medical_device_class = 'CLASS C IVD')",
+     "support": 0.31,
+     "rows": 5598,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.007,
+     "score": 0.434,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD",
+      "medical_device_class=v4": "CLASS D",
+      "medical_device_class=v5": "CLASS C IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS C IVD\" (7%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS C IVD')",
+     "support": 0.033,
+     "rows": 602,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.426,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v5": "CLASS C IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS C IVD\" (7%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS C IVD')",
+     "support": 0.033,
+     "rows": 602,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.426,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v5": "CLASS C IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS C IVD\" (7%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS C IVD')",
+     "support": 0.033,
+     "rows": 601,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.425,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v5": "CLASS C IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS C IVD\" (7%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS C IVD')",
+     "support": 0.033,
+     "rows": 601,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.425,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v5": "CLASS C IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "registration_date",
+      "gmdn"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS B\" (42%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS B')",
+     "support": 0.205,
+     "rows": 3703,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.422,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v1": "CLASS B"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "expiry_date",
+      "gmdn"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS B\" (42%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS B')",
+     "support": 0.205,
+     "rows": 3703,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.422,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v1": "CLASS B"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "expiry_date"
+     ],
+     "cls": "dom",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 979,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.001,
+     "score": 0.363,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "expiry_date"
+     ],
+     "cls": "dom",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 978,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.001,
+     "score": 0.363,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "change_nfy_approval_date",
+      "imported_by_name"
+     ],
+     "cls": "dom",
+     "condition": "(hs_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1090,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.012,
+     "score": 0.34,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "change_nfy_approval_date",
+      "imported_by_address"
+     ],
+     "cls": "dom",
+     "condition": "(hs_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1090,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.012,
+     "score": 0.34,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "change_nfy_approval_date",
+      "imported_by_name"
+     ],
+     "cls": "dom",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1089,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.012,
+     "score": 0.34,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "change_nfy_approval_date",
+      "imported_by_address"
+     ],
+     "cls": "dom",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1089,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.012,
+     "score": 0.34,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "change_nfy_approval_date",
+      "gmdn"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code present, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hs_code IS NOT NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.13,
+     "rows": 2353,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.337,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "device_name",
+      "change_nfy_approval_date",
+      "gmdn"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.13,
+     "rows": 2342,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.336,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "expiry_date",
+      "gmdn"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.112,
+     "rows": 2016,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.312,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "expiry_date",
+      "gmdn"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS C\" (24%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS C')",
+     "support": 0.111,
+     "rows": 2005,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.311,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v2": "CLASS C"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_address",
+      "imported_by_name"
+     ],
+     "cls": "pos",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.073,
+     "rows": 1326,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.017,
+     "score": 0.282,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_address",
+      "imported_by_address"
+     ],
+     "cls": "pos",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.073,
+     "rows": 1326,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.017,
+     "score": 0.282,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "registrant_name",
+      "imported_by_name"
+     ],
+     "cls": "pos",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.073,
+     "rows": 1326,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.017,
+     "score": 0.282,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "registrant_name",
+      "imported_by_address"
+     ],
+     "cls": "pos",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.073,
+     "rows": 1326,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.017,
+     "score": 0.282,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "registrant_address",
+      "imported_by_name"
+     ],
+     "cls": "pos",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.073,
+     "rows": 1326,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.017,
+     "score": 0.282,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "registrant_address",
+      "imported_by_address"
+     ],
+     "cls": "pos",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.073,
+     "rows": 1326,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.017,
+     "score": 0.282,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "imported_by_name",
+      "expiry_date"
+     ],
+     "cls": "pos",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.073,
+     "rows": 1326,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.017,
+     "score": 0.282,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "imported_by_address",
+      "expiry_date"
+     ],
+     "cls": "pos",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.073,
+     "rows": 1326,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.017,
+     "score": 0.282,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_address",
+      "gmdn"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.073,
+     "rows": 1326,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.253,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "registrant_name",
+      "gmdn"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.073,
+     "rows": 1326,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.253,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "registrant_address",
+      "gmdn"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.073,
+     "rows": 1326,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.253,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_short_name",
+      "gmdn"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 979,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.242,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "change_nfy_approval_date",
+      "gmdn"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 979,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.242,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "imported_by_name",
+      "gmdn"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 979,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.029,
+     "score": 0.242,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "imported_by_address",
+      "gmdn"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 979,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.029,
+     "score": 0.242,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "expiry_date",
+      "gmdn"
+     ],
+     "cls": "cert",
+     "condition": "(hsa_product_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 979,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.242,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "product_owner_short_name",
+      "gmdn"
+     ],
+     "cls": "cert",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 978,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.242,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "change_nfy_approval_date",
+      "gmdn"
+     ],
+     "cls": "cert",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 978,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.242,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "imported_by_name",
+      "gmdn"
+     ],
+     "cls": "cert",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 978,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.029,
+     "score": 0.242,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "imported_by_address",
+      "gmdn"
+     ],
+     "cls": "cert",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 978,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.029,
+     "score": 0.242,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "expiry_date",
+      "gmdn"
+     ],
+     "cls": "cert",
+     "condition": "(hs_code missing, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.054,
+     "rows": 978,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.242,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "change_nfy_approval_date",
+      "gmdn"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1090,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.229,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "expiry_date",
+      "gmdn"
+     ],
+     "cls": "cand",
+     "condition": "(hs_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hs_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1090,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.229,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "change_nfy_approval_date",
+      "gmdn"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1089,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.229,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "models_name",
+      "expiry_date",
+      "gmdn"
+     ],
+     "cls": "cand",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS D\" (11%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS D')",
+     "support": 0.06,
+     "rows": 1089,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.229,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v4": "CLASS D"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "imported_by_name",
+      "gmdn"
+     ],
+     "cls": "dom",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.073,
+     "rows": 1326,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.017,
+     "score": 0.188,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    },
+    {
+     "table": "lbsg.t53",
+     "K": [
+      "identifier",
+      "imported_by_address",
+      "gmdn"
+     ],
+     "cls": "dom",
+     "condition": "(hsa_product_code present, medical_device_class = \"CLASS B IVD\" (13%))",
+     "sql": "(hsa_product_code IS NOT NULL AND medical_device_class = 'CLASS B IVD')",
+     "support": 0.073,
+     "rows": 1326,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.017,
+     "score": 0.188,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "medical_device_class=v3": "CLASS B IVD"
+     }
+    }
+   ],
+   "unconditional": {
+    "device_registration_number": "cand",
+    "models_name,device_name,identifier": "cert",
+    "models_name,device_name,registration_date": "cand",
+    "device_name,identifier,product_owner_address": "cert",
+    "device_name,identifier,product_owner_short_name": "cert",
+    "device_name,identifier,product_owner_name": "cert",
+    "device_name,identifier,registration_date": "cert",
+    "device_name,identifier,registrant_name": "cert",
+    "device_name,identifier,registrant_address": "cert",
+    "device_name,identifier,imported_by_name": "cert",
+    "device_name,identifier,imported_by_address": "cert",
+    "device_name,identifier,expiry_date": "cert",
+    "device_name,identifier,description": "cert"
+   }
+  }
+ ]
+}

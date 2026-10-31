@@ -1,0 +1,7327 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "_id",
+   "SaleNumber",
+   "ID",
+   "Address",
+   "Street",
+   "DocketNumber",
+   "AttorneyName",
+   "PPDate",
+   "Defendant",
+   "latitude",
+   "longitude",
+   "CostsTaxes",
+   "AdditionalNotes",
+   "Plaintiff",
+   "Municipality",
+   "City",
+   "ZIPCode"
+  ]
+ },
+ "sample_rows": 13452,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbusa.t33429",
+   "rows": 13452,
+   "cols": [
+    "_id",
+    "SaleNumber",
+    "DocketNumber",
+    "ID",
+    "AttorneyName",
+    "Plaintiff",
+    "Defendant",
+    "SaleType",
+    "SaleDate",
+    "SaleStatus",
+    "PPDate",
+    "Street",
+    "City",
+    "State",
+    "ZIPCode",
+    "Address",
+    "Municipality",
+    "CostsTaxes",
+    "ServiceCompleted",
+    "Delivered3129",
+    "ReadyForSale",
+    "latitude",
+    "longitude",
+    "AdditionalNotes",
+    "RecordDate"
+   ],
+   "n_conditional": 6776,
+   "conditional": [
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "SaleNumber"
+     ],
+     "cls": "cand",
+     "condition": "(Municipality missing)",
+     "sql": "(Municipality IS NULL)",
+     "support": 0.408,
+     "rows": 5484,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.235,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "SaleNumber"
+     ],
+     "cls": "cand",
+     "condition": "(ZIPCode missing)",
+     "sql": "(ZIPCode IS NULL)",
+     "support": 0.257,
+     "rows": 3462,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.776,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "SaleNumber"
+     ],
+     "cls": "cand",
+     "condition": "(City missing)",
+     "sql": "(City IS NULL)",
+     "support": 0.257,
+     "rows": 3460,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.775,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address"
+     ],
+     "cls": "cand",
+     "condition": "(Delivered3129 = \"True\" (31%))",
+     "sql": "(Delivered3129 = 'True')",
+     "support": 0.306,
+     "rows": 4119,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.743,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Delivered3129=v1": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address"
+     ],
+     "cls": "cand",
+     "condition": "(ReadyForSale = \"True\" (27%))",
+     "sql": "(ReadyForSale = 'True')",
+     "support": 0.273,
+     "rows": 3678,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.647,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "ReadyForSale=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "SaleNumber"
+     ],
+     "cls": "cand",
+     "condition": "(Address missing)",
+     "sql": "(Address IS NULL)",
+     "support": 0.218,
+     "rows": 2936,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.635,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(ZIPCode missing)",
+     "sql": "(ZIPCode IS NULL)",
+     "support": 0.257,
+     "rows": 3462,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.157,
+     "score": 1.583,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(City missing)",
+     "sql": "(City IS NULL)",
+     "support": 0.257,
+     "rows": 3460,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.158,
+     "score": 1.582,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "SaleNumber"
+     ],
+     "cls": "cand",
+     "condition": "(ID missing)",
+     "sql": "(ID IS NULL)",
+     "support": 0.201,
+     "rows": 2710,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.571,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "SaleNumber"
+     ],
+     "cls": "cand",
+     "condition": "(AttorneyName missing)",
+     "sql": "(AttorneyName IS NULL)",
+     "support": 0.197,
+     "rows": 2652,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.554,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(Address missing)",
+     "sql": "(Address IS NULL)",
+     "support": 0.218,
+     "rows": 2936,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.098,
+     "score": 1.458,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cand",
+     "condition": "(AttorneyName missing)",
+     "sql": "(AttorneyName IS NULL)",
+     "support": 0.197,
+     "rows": 2652,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.399,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "AttorneyName"
+     ],
+     "cls": "part",
+     "condition": "(Address missing)",
+     "sql": "(Address IS NULL)",
+     "support": 0.218,
+     "rows": 2936,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 1.0,
+     "score": 1.215,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "part",
+     "condition": "(Address missing)",
+     "sql": "(Address IS NULL)",
+     "support": 0.218,
+     "rows": 2936,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.506,
+     "score": 1.215,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address"
+     ],
+     "cls": "pos",
+     "condition": "(Municipality missing)",
+     "sql": "(Municipality IS NULL)",
+     "support": 0.408,
+     "rows": 5484,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.365,
+     "score": 1.121,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "pos",
+     "condition": "(Municipality missing)",
+     "sql": "(Municipality IS NULL)",
+     "support": 0.408,
+     "rows": 5484,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.362,
+     "score": 1.121,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "pos",
+     "condition": "(Municipality missing)",
+     "sql": "(Municipality IS NULL)",
+     "support": 0.408,
+     "rows": 5484,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.441,
+     "score": 1.121,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "dom",
+     "condition": "(Address missing)",
+     "sql": "(Address IS NULL)",
+     "support": 0.218,
+     "rows": 2936,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.098,
+     "score": 1.093,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cert",
+     "condition": "(ZIPCode missing, latitude present [same rows: longitude present])",
+     "sql": "(ZIPCode IS NULL AND latitude IS NOT NULL)",
+     "support": 0.218,
+     "rows": 2931,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.098,
+     "score": 1.092,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cert",
+     "condition": "(City missing, latitude present [same rows: longitude present])",
+     "sql": "(City IS NULL AND latitude IS NOT NULL)",
+     "support": 0.218,
+     "rows": 2929,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.098,
+     "score": 1.092,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cand",
+     "condition": "(ID present, Municipality missing)",
+     "sql": "(ID IS NOT NULL AND Municipality IS NULL)",
+     "support": 0.26,
+     "rows": 3499,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.071,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "SaleNumber"
+     ],
+     "cls": "cand",
+     "condition": "Delivered3129 in {\"True\", \"TRUE\", \"False\", \"FALSE\"}",
+     "sql": "(Delivered3129 = 'True') OR (Delivered3129 = 'TRUE') OR (Delivered3129 = 'False') OR (Delivered3129 = 'FALSE')",
+     "support": 0.577,
+     "rows": 7765,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.064,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Delivered3129=v1": "True",
+      "Delivered3129=v3": "TRUE",
+      "Delivered3129=v4": "False",
+      "Delivered3129=v5": "FALSE"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "SaleNumber"
+     ],
+     "cls": "cand",
+     "condition": "ReadyForSale in {\"True\", \"False\", \"TRUE\", \"FALSE\"}",
+     "sql": "(ReadyForSale = 'True') OR (ReadyForSale = 'False') OR (ReadyForSale = 'TRUE') OR (ReadyForSale = 'FALSE')",
+     "support": 0.577,
+     "rows": 7765,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.064,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "ReadyForSale=v2": "True",
+      "ReadyForSale=v3": "False",
+      "ReadyForSale=v4": "TRUE",
+      "ReadyForSale=v5": "FALSE"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(ID present, Municipality missing)",
+     "sql": "(ID IS NOT NULL AND Municipality IS NULL)",
+     "support": 0.26,
+     "rows": 3499,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 1.061,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address",
+      "DocketNumber"
+     ],
+     "cls": "dom",
+     "condition": "(ZIPCode missing)",
+     "sql": "(ZIPCode IS NULL)",
+     "support": 0.257,
+     "rows": 3462,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.163,
+     "score": 1.055,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "dom",
+     "condition": "(ZIPCode missing)",
+     "sql": "(ZIPCode IS NULL)",
+     "support": 0.257,
+     "rows": 3462,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.528,
+     "score": 1.055,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address",
+      "DocketNumber"
+     ],
+     "cls": "dom",
+     "condition": "(City missing)",
+     "sql": "(City IS NULL)",
+     "support": 0.257,
+     "rows": 3460,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.163,
+     "score": 1.055,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "dom",
+     "condition": "(City missing)",
+     "sql": "(City IS NULL)",
+     "support": 0.257,
+     "rows": 3460,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.528,
+     "score": 1.055,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address"
+     ],
+     "cls": "dom",
+     "condition": "(AttorneyName missing)",
+     "sql": "(AttorneyName IS NULL)",
+     "support": 0.197,
+     "rows": 2652,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.998,
+     "score": 1.039,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cert",
+     "condition": "(Address missing, Municipality present)",
+     "sql": "(Address IS NULL AND Municipality IS NOT NULL)",
+     "support": 0.196,
+     "rows": 2631,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 1.035,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address"
+     ],
+     "cls": "cand",
+     "condition": "(ReadyForSale = \"False\" (11%))",
+     "sql": "(ReadyForSale = 'False')",
+     "support": 0.107,
+     "rows": 1439,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.03,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "ReadyForSale=v3": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(ReadyForSale = \"False\" (11%))",
+     "sql": "(ReadyForSale = 'False')",
+     "support": 0.107,
+     "rows": 1439,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 1.02,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "ReadyForSale=v3": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(ReadyForSale = \"False\" (11%))",
+     "sql": "(ReadyForSale = 'False')",
+     "support": 0.107,
+     "rows": 1439,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.353,
+     "score": 1.02,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "ReadyForSale=v3": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address",
+      "DocketNumber"
+     ],
+     "cls": "cert",
+     "condition": "(ZIPCode missing, Address present)",
+     "sql": "(ZIPCode IS NULL AND Address IS NOT NULL)",
+     "support": 0.235,
+     "rows": 3155,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.082,
+     "score": 1.007,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "AttorneyName"
+     ],
+     "cls": "cert",
+     "condition": "(ZIPCode missing, Address present)",
+     "sql": "(ZIPCode IS NULL AND Address IS NOT NULL)",
+     "support": 0.235,
+     "rows": 3155,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.082,
+     "score": 1.007,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address",
+      "DocketNumber"
+     ],
+     "cls": "cert",
+     "condition": "(City missing, Address present)",
+     "sql": "(City IS NULL AND Address IS NOT NULL)",
+     "support": 0.234,
+     "rows": 3153,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.082,
+     "score": 1.007,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "AttorneyName"
+     ],
+     "cls": "cert",
+     "condition": "(City missing, Address present)",
+     "sql": "(City IS NULL AND Address IS NOT NULL)",
+     "support": 0.234,
+     "rows": 3153,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.082,
+     "score": 1.007,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "CostsTaxes"
+     ],
+     "cls": "cand",
+     "condition": "(Municipality missing)",
+     "sql": "(Municipality IS NULL)",
+     "support": 0.408,
+     "rows": 5484,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.006,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "cand",
+     "condition": "(PPDate present, Municipality missing)",
+     "sql": "(PPDate IS NOT NULL AND Municipality IS NULL)",
+     "support": 0.228,
+     "rows": 3068,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.003,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "PPDate"
+     ],
+     "cls": "pos",
+     "condition": "(Municipality missing)",
+     "sql": "(Municipality IS NULL)",
+     "support": 0.408,
+     "rows": 5484,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.639,
+     "score": 0.996,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "pos",
+     "condition": "(Municipality missing)",
+     "sql": "(Municipality IS NULL)",
+     "support": 0.408,
+     "rows": 5484,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.366,
+     "score": 0.996,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "PPDate",
+      "Defendant"
+     ],
+     "cls": "pos",
+     "condition": "(Municipality missing)",
+     "sql": "(Municipality IS NULL)",
+     "support": 0.408,
+     "rows": 5484,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.486,
+     "score": 0.996,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "AttorneyName",
+      "Defendant",
+      "CostsTaxes"
+     ],
+     "cls": "cert",
+     "condition": "(Municipality missing)",
+     "sql": "(Municipality IS NULL)",
+     "support": 0.408,
+     "rows": 5484,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.996,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cand",
+     "condition": "(ID present, ZIPCode missing)",
+     "sql": "(ID IS NOT NULL AND ZIPCode IS NULL)",
+     "support": 0.217,
+     "rows": 2917,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.978,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cand",
+     "condition": "(ID present, City missing)",
+     "sql": "(ID IS NOT NULL AND City IS NULL)",
+     "support": 0.217,
+     "rows": 2915,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.978,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(ID present, ZIPCode missing)",
+     "sql": "(ID IS NOT NULL AND ZIPCode IS NULL)",
+     "support": 0.217,
+     "rows": 2917,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 0.969,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(ID present, City missing)",
+     "sql": "(ID IS NOT NULL AND City IS NULL)",
+     "support": 0.217,
+     "rows": 2915,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 0.968,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cand",
+     "condition": "Delivered3129 in {\"True\", \"TRUE\", \"False\", \"FALSE\"}",
+     "sql": "(Delivered3129 = 'True') OR (Delivered3129 = 'TRUE') OR (Delivered3129 = 'False') OR (Delivered3129 = 'FALSE')",
+     "support": 0.577,
+     "rows": 7765,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.957,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Delivered3129=v1": "True",
+      "Delivered3129=v3": "TRUE",
+      "Delivered3129=v4": "False",
+      "Delivered3129=v5": "FALSE"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cand",
+     "condition": "ReadyForSale in {\"True\", \"False\", \"TRUE\", \"FALSE\"}",
+     "sql": "(ReadyForSale = 'True') OR (ReadyForSale = 'False') OR (ReadyForSale = 'TRUE') OR (ReadyForSale = 'FALSE')",
+     "support": 0.577,
+     "rows": 7765,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.957,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ReadyForSale=v2": "True",
+      "ReadyForSale=v3": "False",
+      "ReadyForSale=v4": "TRUE",
+      "ReadyForSale=v5": "FALSE"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "Delivered3129 in {\"True\", \"TRUE\", \"False\", \"FALSE\"}",
+     "sql": "(Delivered3129 = 'True') OR (Delivered3129 = 'TRUE') OR (Delivered3129 = 'False') OR (Delivered3129 = 'FALSE')",
+     "support": 0.577,
+     "rows": 7765,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.341,
+     "score": 0.948,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Delivered3129=v1": "True",
+      "Delivered3129=v3": "TRUE",
+      "Delivered3129=v4": "False",
+      "Delivered3129=v5": "FALSE"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "ReadyForSale in {\"True\", \"False\", \"TRUE\", \"FALSE\"}",
+     "sql": "(ReadyForSale = 'True') OR (ReadyForSale = 'False') OR (ReadyForSale = 'TRUE') OR (ReadyForSale = 'FALSE')",
+     "support": 0.577,
+     "rows": 7765,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.341,
+     "score": 0.948,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ReadyForSale=v2": "True",
+      "ReadyForSale=v3": "False",
+      "ReadyForSale=v4": "TRUE",
+      "ReadyForSale=v5": "FALSE"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cand",
+     "condition": "(ID present, Address missing)",
+     "sql": "(ID IS NOT NULL AND Address IS NULL)",
+     "support": 0.197,
+     "rows": 2649,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.932,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address"
+     ],
+     "cls": "cand",
+     "condition": "(Street present, ZIPCode missing)",
+     "sql": "(Street IS NOT NULL AND ZIPCode IS NULL)",
+     "support": 0.197,
+     "rows": 2644,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.931,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address"
+     ],
+     "cls": "cand",
+     "condition": "(State = \"PA\" (94%), ZIPCode missing)",
+     "sql": "(State = 'PA' AND ZIPCode IS NULL)",
+     "support": 0.197,
+     "rows": 2644,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.931,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "State=v1": "PA"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address"
+     ],
+     "cls": "cand",
+     "condition": "(State present, ZIPCode missing)",
+     "sql": "(State IS NOT NULL AND ZIPCode IS NULL)",
+     "support": 0.197,
+     "rows": 2644,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.931,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cand",
+     "condition": "(Street present, ZIPCode missing)",
+     "sql": "(Street IS NOT NULL AND ZIPCode IS NULL)",
+     "support": 0.197,
+     "rows": 2644,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.931,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cand",
+     "condition": "(State = \"PA\" (94%), ZIPCode missing)",
+     "sql": "(State = 'PA' AND ZIPCode IS NULL)",
+     "support": 0.197,
+     "rows": 2644,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.931,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "State=v1": "PA"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cand",
+     "condition": "(State present, ZIPCode missing)",
+     "sql": "(State IS NOT NULL AND ZIPCode IS NULL)",
+     "support": 0.197,
+     "rows": 2644,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.931,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address"
+     ],
+     "cls": "cand",
+     "condition": "(Street present, City missing)",
+     "sql": "(Street IS NOT NULL AND City IS NULL)",
+     "support": 0.196,
+     "rows": 2642,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.931,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address"
+     ],
+     "cls": "cand",
+     "condition": "(City missing, State = \"PA\" (94%))",
+     "sql": "(City IS NULL AND State = 'PA')",
+     "support": 0.196,
+     "rows": 2642,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.931,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "State=v1": "PA"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address"
+     ],
+     "cls": "cand",
+     "condition": "(City missing, State present)",
+     "sql": "(City IS NULL AND State IS NOT NULL)",
+     "support": 0.196,
+     "rows": 2642,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.931,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cand",
+     "condition": "(Street present, City missing)",
+     "sql": "(Street IS NOT NULL AND City IS NULL)",
+     "support": 0.196,
+     "rows": 2642,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.931,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cand",
+     "condition": "(City missing, State = \"PA\" (94%))",
+     "sql": "(City IS NULL AND State = 'PA')",
+     "support": 0.196,
+     "rows": 2642,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.931,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "State=v1": "PA"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cand",
+     "condition": "(City missing, State present)",
+     "sql": "(City IS NULL AND State IS NOT NULL)",
+     "support": 0.196,
+     "rows": 2642,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.931,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cand",
+     "condition": "(Street present, Address missing)",
+     "sql": "(Street IS NOT NULL AND Address IS NULL)",
+     "support": 0.195,
+     "rows": 2629,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.928,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cand",
+     "condition": "(City present, Address missing)",
+     "sql": "(City IS NOT NULL AND Address IS NULL)",
+     "support": 0.195,
+     "rows": 2629,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.928,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cand",
+     "condition": "(State = \"PA\" (94%), Address missing)",
+     "sql": "(State = 'PA' AND Address IS NULL)",
+     "support": 0.195,
+     "rows": 2629,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.928,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "State=v1": "PA"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cand",
+     "condition": "(State present, Address missing)",
+     "sql": "(State IS NOT NULL AND Address IS NULL)",
+     "support": 0.195,
+     "rows": 2629,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.928,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cand",
+     "condition": "(ZIPCode present, Address missing)",
+     "sql": "(ZIPCode IS NOT NULL AND Address IS NULL)",
+     "support": 0.195,
+     "rows": 2629,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.928,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(ID present, Address missing)",
+     "sql": "(ID IS NOT NULL AND Address IS NULL)",
+     "support": 0.197,
+     "rows": 2649,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 1.0,
+     "score": 0.923,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(Address missing, Municipality present)",
+     "sql": "(Address IS NULL AND Municipality IS NOT NULL)",
+     "support": 0.196,
+     "rows": 2631,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 1.0,
+     "score": 0.92,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(Street present, Address missing)",
+     "sql": "(Street IS NOT NULL AND Address IS NULL)",
+     "support": 0.195,
+     "rows": 2629,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 1.0,
+     "score": 0.92,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(City present, Address missing)",
+     "sql": "(City IS NOT NULL AND Address IS NULL)",
+     "support": 0.195,
+     "rows": 2629,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 1.0,
+     "score": 0.92,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(State = \"PA\" (94%), Address missing)",
+     "sql": "(State = 'PA' AND Address IS NULL)",
+     "support": 0.195,
+     "rows": 2629,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 1.0,
+     "score": 0.92,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "State=v1": "PA"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(State present, Address missing)",
+     "sql": "(State IS NOT NULL AND Address IS NULL)",
+     "support": 0.195,
+     "rows": 2629,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 1.0,
+     "score": 0.92,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(ZIPCode present, Address missing)",
+     "sql": "(ZIPCode IS NOT NULL AND Address IS NULL)",
+     "support": 0.195,
+     "rows": 2629,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 1.0,
+     "score": 0.92,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "DocketNumber",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(ReadyForSale = \"False\" (11%))",
+     "sql": "(ReadyForSale = 'False')",
+     "support": 0.107,
+     "rows": 1439,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.916,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ReadyForSale=v3": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address",
+      "DocketNumber"
+     ],
+     "cls": "cert",
+     "condition": "(ZIPCode missing, ServiceCompleted = \"1.0\" (73%))",
+     "sql": "(ZIPCode IS NULL AND ServiceCompleted = '1.0')",
+     "support": 0.193,
+     "rows": 2601,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.181,
+     "score": 0.915,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ServiceCompleted=v1": "1.0"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "AttorneyName"
+     ],
+     "cls": "cert",
+     "condition": "(ZIPCode missing, ServiceCompleted = \"1.0\" (73%))",
+     "sql": "(ZIPCode IS NULL AND ServiceCompleted = '1.0')",
+     "support": 0.193,
+     "rows": 2601,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.181,
+     "score": 0.915,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ServiceCompleted=v1": "1.0"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address",
+      "DocketNumber"
+     ],
+     "cls": "cert",
+     "condition": "(City missing, ServiceCompleted = \"1.0\" (73%))",
+     "sql": "(City IS NULL AND ServiceCompleted = '1.0')",
+     "support": 0.193,
+     "rows": 2599,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.181,
+     "score": 0.914,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ServiceCompleted=v1": "1.0"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "AttorneyName"
+     ],
+     "cls": "cert",
+     "condition": "(City missing, ServiceCompleted = \"1.0\" (73%))",
+     "sql": "(City IS NULL AND ServiceCompleted = '1.0')",
+     "support": 0.193,
+     "rows": 2599,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.181,
+     "score": 0.914,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ServiceCompleted=v1": "1.0"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address"
+     ],
+     "cls": "pos",
+     "condition": "(ZIPCode missing)",
+     "sql": "(ZIPCode IS NULL)",
+     "support": 0.257,
+     "rows": 3462,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.163,
+     "score": 0.89,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "pos",
+     "condition": "(ZIPCode missing)",
+     "sql": "(ZIPCode IS NULL)",
+     "support": 0.257,
+     "rows": 3462,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.157,
+     "score": 0.89,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "pos",
+     "condition": "(ZIPCode missing)",
+     "sql": "(ZIPCode IS NULL)",
+     "support": 0.257,
+     "rows": 3462,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.416,
+     "score": 0.89,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address"
+     ],
+     "cls": "pos",
+     "condition": "(City missing)",
+     "sql": "(City IS NULL)",
+     "support": 0.257,
+     "rows": 3460,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.163,
+     "score": 0.89,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "pos",
+     "condition": "(City missing)",
+     "sql": "(City IS NULL)",
+     "support": 0.257,
+     "rows": 3460,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.158,
+     "score": 0.89,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "pos",
+     "condition": "(City missing)",
+     "sql": "(City IS NULL)",
+     "support": 0.257,
+     "rows": 3460,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.416,
+     "score": 0.89,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "cand",
+     "condition": "(PPDate present, Delivered3129 = \"True\" (31%))",
+     "sql": "(PPDate IS NOT NULL AND Delivered3129 = 'True')",
+     "support": 0.177,
+     "rows": 2387,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.885,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Delivered3129=v1": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "CostsTaxes"
+     ],
+     "cls": "cand",
+     "condition": "(Delivered3129 = \"True\" (31%))",
+     "sql": "(Delivered3129 = 'True')",
+     "support": 0.306,
+     "rows": 4119,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.872,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Delivered3129=v1": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(State missing)",
+     "sql": "(State IS NULL)",
+     "support": 0.061,
+     "rows": 818,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.866,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "SaleNumber"
+     ],
+     "cls": "cand",
+     "condition": "(State missing)",
+     "sql": "(State IS NULL)",
+     "support": 0.061,
+     "rows": 818,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.863,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "cand",
+     "condition": "(SaleStatus = \"POSTPONED\" (43%), Municipality missing)",
+     "sql": "(SaleStatus = 'POSTPONED' AND Municipality IS NULL)",
+     "support": 0.169,
+     "rows": 2271,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.863,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleStatus=v1": "POSTPONED"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address"
+     ],
+     "cls": "cand",
+     "condition": "(Delivered3129 = \"False\" (7%))",
+     "sql": "(Delivered3129 = 'False')",
+     "support": 0.074,
+     "rows": 998,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.858,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Delivered3129=v4": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "PPDate",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(SaleStatus = \"POSTPONED\" (43%), Municipality missing)",
+     "sql": "(SaleStatus = 'POSTPONED' AND Municipality IS NULL)",
+     "support": 0.169,
+     "rows": 2271,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.014,
+     "score": 0.855,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleStatus=v1": "POSTPONED"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(Delivered3129 = \"False\" (7%))",
+     "sql": "(Delivered3129 = 'False')",
+     "support": 0.074,
+     "rows": 998,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.85,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Delivered3129=v4": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(Delivered3129 = \"False\" (7%))",
+     "sql": "(Delivered3129 = 'False')",
+     "support": 0.074,
+     "rows": 998,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.462,
+     "score": 0.85,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Delivered3129=v4": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "part",
+     "condition": "(ZIPCode missing, Address present)",
+     "sql": "(ZIPCode IS NULL AND Address IS NOT NULL)",
+     "support": 0.235,
+     "rows": 3155,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.483,
+     "score": 0.839,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "part",
+     "condition": "(City missing, Address present)",
+     "sql": "(City IS NULL AND Address IS NOT NULL)",
+     "support": 0.234,
+     "rows": 3153,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.483,
+     "score": 0.839,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(Street present, ZIPCode missing)",
+     "sql": "(Street IS NOT NULL AND ZIPCode IS NULL)",
+     "support": 0.197,
+     "rows": 2644,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.828,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(State = \"PA\" (94%), ZIPCode missing)",
+     "sql": "(State = 'PA' AND ZIPCode IS NULL)",
+     "support": 0.197,
+     "rows": 2644,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.828,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "State=v1": "PA"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(State present, ZIPCode missing)",
+     "sql": "(State IS NOT NULL AND ZIPCode IS NULL)",
+     "support": 0.197,
+     "rows": 2644,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.828,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(Street present, City missing)",
+     "sql": "(Street IS NOT NULL AND City IS NULL)",
+     "support": 0.196,
+     "rows": 2642,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.827,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(City missing, State = \"PA\" (94%))",
+     "sql": "(City IS NULL AND State = 'PA')",
+     "support": 0.196,
+     "rows": 2642,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.827,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "State=v1": "PA"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(City missing, State present)",
+     "sql": "(City IS NULL AND State IS NOT NULL)",
+     "support": 0.196,
+     "rows": 2642,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.827,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "CostsTaxes"
+     ],
+     "cls": "cand",
+     "condition": "(ReadyForSale = \"True\" (27%))",
+     "sql": "(ReadyForSale = 'True')",
+     "support": 0.273,
+     "rows": 3678,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.824,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ReadyForSale=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "AttorneyName"
+     ],
+     "cls": "pos",
+     "condition": "(Address missing)",
+     "sql": "(Address IS NULL)",
+     "support": 0.218,
+     "rows": 2936,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.902,
+     "score": 0.82,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "cand",
+     "condition": "(PPDate present, ZIPCode missing)",
+     "sql": "(PPDate IS NOT NULL AND ZIPCode IS NULL)",
+     "support": 0.15,
+     "rows": 2023,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.814,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "cand",
+     "condition": "(PPDate present, City missing)",
+     "sql": "(PPDate IS NOT NULL AND City IS NULL)",
+     "support": 0.15,
+     "rows": 2022,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.814,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "cand",
+     "condition": "(PPDate present, ReadyForSale = \"True\" (27%))",
+     "sql": "(PPDate IS NOT NULL AND ReadyForSale = 'True')",
+     "support": 0.148,
+     "rows": 1993,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.808,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ReadyForSale=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address",
+      "DocketNumber"
+     ],
+     "cls": "cert",
+     "condition": "(PPDate present, ZIPCode missing)",
+     "sql": "(PPDate IS NOT NULL AND ZIPCode IS NULL)",
+     "support": 0.15,
+     "rows": 2023,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.193,
+     "score": 0.807,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "AttorneyName"
+     ],
+     "cls": "cert",
+     "condition": "(PPDate present, ZIPCode missing)",
+     "sql": "(PPDate IS NOT NULL AND ZIPCode IS NULL)",
+     "support": 0.15,
+     "rows": 2023,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.193,
+     "score": 0.807,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address",
+      "DocketNumber"
+     ],
+     "cls": "cert",
+     "condition": "(PPDate present, City missing)",
+     "sql": "(PPDate IS NOT NULL AND City IS NULL)",
+     "support": 0.15,
+     "rows": 2022,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.193,
+     "score": 0.806,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "AttorneyName"
+     ],
+     "cls": "cert",
+     "condition": "(PPDate present, City missing)",
+     "sql": "(PPDate IS NOT NULL AND City IS NULL)",
+     "support": 0.15,
+     "rows": 2022,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.193,
+     "score": 0.806,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "CostsTaxes"
+     ],
+     "cls": "cand",
+     "condition": "(ZIPCode missing)",
+     "sql": "(ZIPCode IS NULL)",
+     "support": 0.257,
+     "rows": 3462,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.799,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "CostsTaxes"
+     ],
+     "cls": "cand",
+     "condition": "(City missing)",
+     "sql": "(City IS NULL)",
+     "support": 0.257,
+     "rows": 3460,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.799,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address"
+     ],
+     "cls": "dom",
+     "condition": "(ID present, Municipality missing)",
+     "sql": "(ID IS NOT NULL AND Municipality IS NULL)",
+     "support": 0.26,
+     "rows": 3499,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.005,
+     "score": 0.796,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "AttorneyName"
+     ],
+     "cls": "cert",
+     "condition": "(SaleType = \"Sci Fa sur Tax Lien\" (30%), Municipality missing)",
+     "sql": "(SaleType = 'Sci Fa sur Tax Lien' AND Municipality IS NULL)",
+     "support": 0.115,
+     "rows": 1543,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.01,
+     "score": 0.793,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleType=v2": "Sci Fa sur Tax Lien"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "PPDate"
+     ],
+     "cls": "pos",
+     "condition": "(ZIPCode missing)",
+     "sql": "(ZIPCode IS NULL)",
+     "support": 0.257,
+     "rows": 3462,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.528,
+     "score": 0.791,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "pos",
+     "condition": "(ZIPCode missing)",
+     "sql": "(ZIPCode IS NULL)",
+     "support": 0.257,
+     "rows": 3462,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.163,
+     "score": 0.791,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "PPDate",
+      "Defendant"
+     ],
+     "cls": "pos",
+     "condition": "(ZIPCode missing)",
+     "sql": "(ZIPCode IS NULL)",
+     "support": 0.257,
+     "rows": 3462,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.488,
+     "score": 0.791,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "AttorneyName",
+      "Defendant",
+      "CostsTaxes"
+     ],
+     "cls": "cert",
+     "condition": "(ZIPCode missing)",
+     "sql": "(ZIPCode IS NULL)",
+     "support": 0.257,
+     "rows": 3462,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 0.791,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "PPDate",
+      "Defendant",
+      "CostsTaxes"
+     ],
+     "cls": "cert",
+     "condition": "(ZIPCode missing)",
+     "sql": "(ZIPCode IS NULL)",
+     "support": 0.257,
+     "rows": 3462,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.416,
+     "score": 0.791,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "PPDate"
+     ],
+     "cls": "pos",
+     "condition": "(City missing)",
+     "sql": "(City IS NULL)",
+     "support": 0.257,
+     "rows": 3460,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.528,
+     "score": 0.791,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "pos",
+     "condition": "(City missing)",
+     "sql": "(City IS NULL)",
+     "support": 0.257,
+     "rows": 3460,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.163,
+     "score": 0.791,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "PPDate",
+      "Defendant"
+     ],
+     "cls": "pos",
+     "condition": "(City missing)",
+     "sql": "(City IS NULL)",
+     "support": 0.257,
+     "rows": 3460,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.488,
+     "score": 0.791,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "AttorneyName",
+      "Defendant",
+      "CostsTaxes"
+     ],
+     "cls": "cert",
+     "condition": "(City missing)",
+     "sql": "(City IS NULL)",
+     "support": 0.257,
+     "rows": 3460,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 0.791,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "PPDate",
+      "Defendant",
+      "CostsTaxes"
+     ],
+     "cls": "cert",
+     "condition": "(City missing)",
+     "sql": "(City IS NULL)",
+     "support": 0.257,
+     "rows": 3460,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.416,
+     "score": 0.791,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "pos",
+     "condition": "(ID missing)",
+     "sql": "(ID IS NULL)",
+     "support": 0.201,
+     "rows": 2710,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.444,
+     "score": 0.788,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "PPDate",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(PPDate present, Delivered3129 = \"True\" (31%))",
+     "sql": "(PPDate IS NOT NULL AND Delivered3129 = 'True')",
+     "support": 0.177,
+     "rows": 2387,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.786,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Delivered3129=v1": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "CostsTaxes"
+     ],
+     "cls": "cert",
+     "condition": "(AttorneyName missing)",
+     "sql": "(AttorneyName IS NULL)",
+     "support": 0.197,
+     "rows": 2652,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.779,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "DocketNumber"
+     ],
+     "cls": "pos",
+     "condition": "(AttorneyName missing)",
+     "sql": "(AttorneyName IS NULL)",
+     "support": 0.197,
+     "rows": 2652,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.998,
+     "score": 0.779,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(City missing, AdditionalNotes missing)",
+     "sql": "(City IS NULL AND AdditionalNotes IS NULL)",
+     "support": 0.111,
+     "rows": 1490,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.779,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(ZIPCode missing, AdditionalNotes missing)",
+     "sql": "(ZIPCode IS NULL AND AdditionalNotes IS NULL)",
+     "support": 0.111,
+     "rows": 1490,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.779,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cert",
+     "condition": "(PPDate missing, ZIPCode missing)",
+     "sql": "(PPDate IS NULL AND ZIPCode IS NULL)",
+     "support": 0.107,
+     "rows": 1439,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.108,
+     "score": 0.765,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cert",
+     "condition": "(PPDate missing, City missing)",
+     "sql": "(PPDate IS NULL AND City IS NULL)",
+     "support": 0.107,
+     "rows": 1438,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.108,
+     "score": 0.765,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "DocketNumber",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(Delivered3129 = \"False\" (7%))",
+     "sql": "(Delivered3129 = 'False')",
+     "support": 0.074,
+     "rows": 998,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.763,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Delivered3129=v4": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "part",
+     "condition": "(ZIPCode missing, ServiceCompleted = \"1.0\" (73%))",
+     "sql": "(ZIPCode IS NULL AND ServiceCompleted = '1.0')",
+     "support": 0.193,
+     "rows": 2601,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.575,
+     "score": 0.762,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ServiceCompleted=v1": "1.0"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "part",
+     "condition": "(City missing, ServiceCompleted = \"1.0\" (73%))",
+     "sql": "(City IS NULL AND ServiceCompleted = '1.0')",
+     "support": 0.193,
+     "rows": 2599,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.575,
+     "score": 0.762,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ServiceCompleted=v1": "1.0"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "cand",
+     "condition": "(SaleStatus = \"POSTPONED\" (43%), Delivered3129 = \"True\" (31%))",
+     "sql": "(SaleStatus = 'POSTPONED' AND Delivered3129 = 'True')",
+     "support": 0.131,
+     "rows": 1767,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.761,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleStatus=v1": "POSTPONED",
+      "Delivered3129=v1": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cert",
+     "condition": "(SaleStatus = \"POSTPONED\" (43%), Address missing)",
+     "sql": "(SaleStatus = 'POSTPONED' AND Address IS NULL)",
+     "support": 0.104,
+     "rows": 1405,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.021,
+     "score": 0.756,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleStatus=v1": "POSTPONED"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address"
+     ],
+     "cls": "dom",
+     "condition": "(ZIPCode missing, Address present)",
+     "sql": "(ZIPCode IS NULL AND Address IS NOT NULL)",
+     "support": 0.235,
+     "rows": 3155,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.082,
+     "score": 0.755,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "dom",
+     "condition": "(ZIPCode missing, Address present)",
+     "sql": "(ZIPCode IS NULL AND Address IS NOT NULL)",
+     "support": 0.235,
+     "rows": 3155,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.082,
+     "score": 0.755,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address"
+     ],
+     "cls": "dom",
+     "condition": "(City missing, Address present)",
+     "sql": "(City IS NULL AND Address IS NOT NULL)",
+     "support": 0.234,
+     "rows": 3153,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.082,
+     "score": 0.755,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "dom",
+     "condition": "(City missing, Address present)",
+     "sql": "(City IS NULL AND Address IS NOT NULL)",
+     "support": 0.234,
+     "rows": 3153,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.082,
+     "score": 0.755,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cert",
+     "condition": "(SaleStatus = \"ACTIVE\" (5%))",
+     "sql": "(SaleStatus = 'ACTIVE')",
+     "support": 0.046,
+     "rows": 619,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.753,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleStatus=v5": "ACTIVE"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "SaleNumber"
+     ],
+     "cls": "cand",
+     "condition": "(SaleStatus = \"ACTIVE\" (5%))",
+     "sql": "(SaleStatus = 'ACTIVE')",
+     "support": 0.046,
+     "rows": 619,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.751,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleStatus=v5": "ACTIVE"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate",
+      "Defendant"
+     ],
+     "cls": "dom",
+     "condition": "(Delivered3129 = \"TRUE\" (13%))",
+     "sql": "(Delivered3129 = 'TRUE')",
+     "support": 0.129,
+     "rows": 1733,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.51,
+     "score": 0.747,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Delivered3129=v3": "TRUE"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(Delivered3129 = \"True\" (31%), AdditionalNotes missing)",
+     "sql": "(Delivered3129 = 'True' AND AdditionalNotes IS NULL)",
+     "support": 0.128,
+     "rows": 1725,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.745,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Delivered3129=v1": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "cert",
+     "condition": "(PPDate present, Address missing)",
+     "sql": "(PPDate IS NOT NULL AND Address IS NULL)",
+     "support": 0.126,
+     "rows": 1697,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.146,
+     "score": 0.739,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "cand",
+     "condition": "(SaleStatus = \"POSTPONED\" (43%), ZIPCode missing)",
+     "sql": "(SaleStatus = 'POSTPONED' AND ZIPCode IS NULL)",
+     "support": 0.121,
+     "rows": 1629,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.731,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleStatus=v1": "POSTPONED"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "cand",
+     "condition": "(SaleStatus = \"POSTPONED\" (43%), City missing)",
+     "sql": "(SaleStatus = 'POSTPONED' AND City IS NULL)",
+     "support": 0.121,
+     "rows": 1628,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.731,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleStatus=v1": "POSTPONED"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "latitude"
+     ],
+     "cls": "cert",
+     "condition": "(Address missing)",
+     "sql": "(Address IS NULL)",
+     "support": 0.218,
+     "rows": 2936,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.164,
+     "score": 0.729,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "longitude"
+     ],
+     "cls": "cert",
+     "condition": "(Address missing)",
+     "sql": "(Address IS NULL)",
+     "support": 0.218,
+     "rows": 2936,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.164,
+     "score": 0.729,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "CostsTaxes"
+     ],
+     "cls": "cert",
+     "condition": "(Address missing)",
+     "sql": "(Address IS NULL)",
+     "support": 0.218,
+     "rows": 2936,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.099,
+     "score": 0.729,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "Plaintiff"
+     ],
+     "cls": "cert",
+     "condition": "(Address missing)",
+     "sql": "(Address IS NULL)",
+     "support": 0.218,
+     "rows": 2936,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.099,
+     "score": 0.729,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "PPDate"
+     ],
+     "cls": "pos",
+     "condition": "(Address missing)",
+     "sql": "(Address IS NULL)",
+     "support": 0.218,
+     "rows": 2936,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.729,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "pos",
+     "condition": "(Address missing)",
+     "sql": "(Address IS NULL)",
+     "support": 0.218,
+     "rows": 2936,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.729,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate",
+      "Defendant"
+     ],
+     "cls": "pos",
+     "condition": "(Address missing)",
+     "sql": "(Address IS NULL)",
+     "support": 0.218,
+     "rows": 2936,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.422,
+     "score": 0.729,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "Defendant",
+      "CostsTaxes"
+     ],
+     "cls": "cert",
+     "condition": "(Address missing)",
+     "sql": "(Address IS NULL)",
+     "support": 0.218,
+     "rows": 2936,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.729,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address"
+     ],
+     "cls": "dom",
+     "condition": "(ID present, ZIPCode missing)",
+     "sql": "(ID IS NOT NULL AND ZIPCode IS NULL)",
+     "support": 0.217,
+     "rows": 2917,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.007,
+     "score": 0.726,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address"
+     ],
+     "cls": "dom",
+     "condition": "(ID present, City missing)",
+     "sql": "(ID IS NOT NULL AND City IS NULL)",
+     "support": 0.217,
+     "rows": 2915,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.007,
+     "score": 0.726,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cert",
+     "condition": "(Address missing, ServiceCompleted = \"0.0\" (27%))",
+     "sql": "(Address IS NULL AND ServiceCompleted = '0.0')",
+     "support": 0.096,
+     "rows": 1289,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.011,
+     "score": 0.724,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ServiceCompleted=v2": "0.0"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address",
+      "DocketNumber"
+     ],
+     "cls": "cert",
+     "condition": "(SaleStatus = \"POSTPONED\" (43%), ZIPCode missing)",
+     "sql": "(SaleStatus = 'POSTPONED' AND ZIPCode IS NULL)",
+     "support": 0.121,
+     "rows": 1629,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.101,
+     "score": 0.724,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleStatus=v1": "POSTPONED"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "AttorneyName"
+     ],
+     "cls": "cert",
+     "condition": "(SaleStatus = \"POSTPONED\" (43%), ZIPCode missing)",
+     "sql": "(SaleStatus = 'POSTPONED' AND ZIPCode IS NULL)",
+     "support": 0.121,
+     "rows": 1629,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.101,
+     "score": 0.724,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleStatus=v1": "POSTPONED"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "PPDate",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(SaleStatus = \"POSTPONED\" (43%), ZIPCode missing)",
+     "sql": "(SaleStatus = 'POSTPONED' AND ZIPCode IS NULL)",
+     "support": 0.121,
+     "rows": 1629,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.02,
+     "score": 0.724,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleStatus=v1": "POSTPONED"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address",
+      "DocketNumber"
+     ],
+     "cls": "cert",
+     "condition": "(SaleStatus = \"POSTPONED\" (43%), City missing)",
+     "sql": "(SaleStatus = 'POSTPONED' AND City IS NULL)",
+     "support": 0.121,
+     "rows": 1628,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.101,
+     "score": 0.724,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleStatus=v1": "POSTPONED"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "AttorneyName"
+     ],
+     "cls": "cert",
+     "condition": "(SaleStatus = \"POSTPONED\" (43%), City missing)",
+     "sql": "(SaleStatus = 'POSTPONED' AND City IS NULL)",
+     "support": 0.121,
+     "rows": 1628,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.101,
+     "score": 0.724,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleStatus=v1": "POSTPONED"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "PPDate",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(SaleStatus = \"POSTPONED\" (43%), City missing)",
+     "sql": "(SaleStatus = 'POSTPONED' AND City IS NULL)",
+     "support": 0.121,
+     "rows": 1628,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.02,
+     "score": 0.724,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleStatus=v1": "POSTPONED"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(ReadyForSale = \"True\" (27%), AdditionalNotes missing)",
+     "sql": "(ReadyForSale = 'True' AND AdditionalNotes IS NULL)",
+     "support": 0.12,
+     "rows": 1612,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.72,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ReadyForSale=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "PPDate",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(PPDate present, ReadyForSale = \"True\" (27%))",
+     "sql": "(PPDate IS NOT NULL AND ReadyForSale = 'True')",
+     "support": 0.148,
+     "rows": 1993,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.719,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ReadyForSale=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(SaleType = \"Sci Fa sur Tax Lien\" (30%), Municipality missing)",
+     "sql": "(SaleType = 'Sci Fa sur Tax Lien' AND Municipality IS NULL)",
+     "support": 0.115,
+     "rows": 1543,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.711,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleType=v2": "Sci Fa sur Tax Lien"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address"
+     ],
+     "cls": "dom",
+     "condition": "Delivered3129 in {\"True\", \"TRUE\", \"False\", \"FALSE\"}",
+     "sql": "(Delivered3129 = 'True') OR (Delivered3129 = 'TRUE') OR (Delivered3129 = 'False') OR (Delivered3129 = 'FALSE')",
+     "support": 0.577,
+     "rows": 7765,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.341,
+     "score": 0.711,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Delivered3129=v1": "True",
+      "Delivered3129=v3": "TRUE",
+      "Delivered3129=v4": "False",
+      "Delivered3129=v5": "FALSE"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address"
+     ],
+     "cls": "dom",
+     "condition": "ReadyForSale in {\"True\", \"False\", \"TRUE\", \"FALSE\"}",
+     "sql": "(ReadyForSale = 'True') OR (ReadyForSale = 'False') OR (ReadyForSale = 'TRUE') OR (ReadyForSale = 'FALSE')",
+     "support": 0.577,
+     "rows": 7765,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.341,
+     "score": 0.711,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ReadyForSale=v2": "True",
+      "ReadyForSale=v3": "False",
+      "ReadyForSale=v4": "TRUE",
+      "ReadyForSale=v5": "FALSE"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cert",
+     "condition": "(PPDate missing, Address missing)",
+     "sql": "(PPDate IS NULL AND Address IS NULL)",
+     "support": 0.092,
+     "rows": 1239,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.031,
+     "score": 0.71,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cert",
+     "condition": "(Address missing, AdditionalNotes missing)",
+     "sql": "(Address IS NULL AND AdditionalNotes IS NULL)",
+     "support": 0.092,
+     "rows": 1234,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.012,
+     "score": 0.709,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "PPDate"
+     ],
+     "cls": "dom",
+     "condition": "(ID present, Municipality missing)",
+     "sql": "(ID IS NOT NULL AND Municipality IS NULL)",
+     "support": 0.26,
+     "rows": 3499,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.435,
+     "score": 0.707,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "CostsTaxes"
+     ],
+     "cls": "cand",
+     "condition": "(ID missing)",
+     "sql": "(ID IS NULL)",
+     "support": 0.201,
+     "rows": 2710,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.707,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address",
+      "DocketNumber"
+     ],
+     "cls": "cert",
+     "condition": "(SaleType = \"Sci Fa sur Tax Lien\" (30%), Municipality missing)",
+     "sql": "(SaleType = 'Sci Fa sur Tax Lien' AND Municipality IS NULL)",
+     "support": 0.115,
+     "rows": 1543,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.253,
+     "score": 0.704,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleType=v2": "Sci Fa sur Tax Lien"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "cand",
+     "condition": "(ID missing, PPDate present)",
+     "sql": "(ID IS NULL AND PPDate IS NOT NULL)",
+     "support": 0.112,
+     "rows": 1508,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.703,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "PPDate",
+      "Defendant"
+     ],
+     "cls": "pos",
+     "condition": "(ID missing)",
+     "sql": "(ID IS NULL)",
+     "support": 0.201,
+     "rows": 2710,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.536,
+     "score": 0.7,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "AttorneyName",
+      "Defendant",
+      "CostsTaxes"
+     ],
+     "cls": "cert",
+     "condition": "(ID missing)",
+     "sql": "(ID IS NULL)",
+     "support": 0.201,
+     "rows": 2710,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.7,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Defendant",
+      "Plaintiff"
+     ],
+     "cls": "cert",
+     "condition": "(AttorneyName missing)",
+     "sql": "(AttorneyName IS NULL)",
+     "support": 0.197,
+     "rows": 2652,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.693,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "PPDate",
+      "Defendant"
+     ],
+     "cls": "pos",
+     "condition": "(AttorneyName missing)",
+     "sql": "(AttorneyName IS NULL)",
+     "support": 0.197,
+     "rows": 2652,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.693,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate",
+      "Defendant"
+     ],
+     "cls": "pos",
+     "condition": "(AttorneyName missing)",
+     "sql": "(AttorneyName IS NULL)",
+     "support": 0.197,
+     "rows": 2652,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.454,
+     "score": 0.693,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "Defendant",
+      "CostsTaxes"
+     ],
+     "cls": "cert",
+     "condition": "(AttorneyName missing)",
+     "sql": "(AttorneyName IS NULL)",
+     "support": 0.197,
+     "rows": 2652,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.693,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Defendant",
+      "CostsTaxes"
+     ],
+     "cls": "cand",
+     "condition": "Delivered3129 in {\"True\", \"TRUE\"}",
+     "sql": "(Delivered3129 = 'True') OR (Delivered3129 = 'TRUE')",
+     "support": 0.435,
+     "rows": 5852,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.693,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Delivered3129=v1": "True",
+      "Delivered3129=v3": "TRUE"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address",
+      "DocketNumber"
+     ],
+     "cls": "cert",
+     "condition": "(City missing, AdditionalNotes missing)",
+     "sql": "(City IS NULL AND AdditionalNotes IS NULL)",
+     "support": 0.111,
+     "rows": 1490,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.11,
+     "score": 0.692,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address",
+      "DocketNumber"
+     ],
+     "cls": "cert",
+     "condition": "(ZIPCode missing, AdditionalNotes missing)",
+     "sql": "(ZIPCode IS NULL AND AdditionalNotes IS NULL)",
+     "support": 0.111,
+     "rows": 1490,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.11,
+     "score": 0.692,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "AttorneyName"
+     ],
+     "cls": "cert",
+     "condition": "(City missing, AdditionalNotes missing)",
+     "sql": "(City IS NULL AND AdditionalNotes IS NULL)",
+     "support": 0.111,
+     "rows": 1490,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.11,
+     "score": 0.692,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "AttorneyName"
+     ],
+     "cls": "cert",
+     "condition": "(ZIPCode missing, AdditionalNotes missing)",
+     "sql": "(ZIPCode IS NULL AND AdditionalNotes IS NULL)",
+     "support": 0.111,
+     "rows": 1490,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.11,
+     "score": 0.692,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "dom",
+     "condition": "(ZIPCode missing, ServiceCompleted = \"1.0\" (73%))",
+     "sql": "(ZIPCode IS NULL AND ServiceCompleted = '1.0')",
+     "support": 0.193,
+     "rows": 2601,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.181,
+     "score": 0.686,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ServiceCompleted=v1": "1.0"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "dom",
+     "condition": "(City missing, ServiceCompleted = \"1.0\" (73%))",
+     "sql": "(City IS NULL AND ServiceCompleted = '1.0')",
+     "support": 0.193,
+     "rows": 2599,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.181,
+     "score": 0.686,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ServiceCompleted=v1": "1.0"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "cand",
+     "condition": "(SaleStatus = \"POSTPONED\" (43%), ReadyForSale = \"True\" (27%))",
+     "sql": "(SaleStatus = 'POSTPONED' AND ReadyForSale = 'True')",
+     "support": 0.106,
+     "rows": 1420,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.682,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleStatus=v1": "POSTPONED",
+      "ReadyForSale=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(PPDate missing, ZIPCode missing)",
+     "sql": "(PPDate IS NULL AND ZIPCode IS NULL)",
+     "support": 0.107,
+     "rows": 1439,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.121,
+     "score": 0.68,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(PPDate missing, City missing)",
+     "sql": "(PPDate IS NULL AND City IS NULL)",
+     "support": 0.107,
+     "rows": 1438,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.121,
+     "score": 0.68,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "cand",
+     "condition": "(SaleStatus = \"POSTPONED\" (43%), Address missing)",
+     "sql": "(SaleStatus = 'POSTPONED' AND Address IS NULL)",
+     "support": 0.104,
+     "rows": 1405,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.679,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleStatus=v1": "POSTPONED"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "AttorneyName"
+     ],
+     "cls": "cand",
+     "condition": "(SaleType = \"Sci Fa sur Tax Lien\" (30%), Delivered3129 = \"True\" (31%))",
+     "sql": "(SaleType = 'Sci Fa sur Tax Lien' AND Delivered3129 = 'True')",
+     "support": 0.104,
+     "rows": 1398,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.677,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleType=v2": "Sci Fa sur Tax Lien",
+      "Delivered3129=v1": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(SaleType = \"Sci Fa sur Tax Lien\" (30%), Delivered3129 = \"True\" (31%))",
+     "sql": "(SaleType = 'Sci Fa sur Tax Lien' AND Delivered3129 = 'True')",
+     "support": 0.104,
+     "rows": 1398,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.677,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleType=v2": "Sci Fa sur Tax Lien",
+      "Delivered3129=v1": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "PPDate",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(SaleStatus = \"POSTPONED\" (43%), Delivered3129 = \"True\" (31%))",
+     "sql": "(SaleStatus = 'POSTPONED' AND Delivered3129 = 'True')",
+     "support": 0.131,
+     "rows": 1767,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.677,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleStatus=v1": "POSTPONED",
+      "Delivered3129=v1": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(SaleStatus = \"ACTIVE\" (5%))",
+     "sql": "(SaleStatus = 'ACTIVE')",
+     "support": 0.046,
+     "rows": 619,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.676,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleStatus=v5": "ACTIVE"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(SaleStatus = \"POSTPONED\" (43%), Address missing)",
+     "sql": "(SaleStatus = 'POSTPONED' AND Address IS NULL)",
+     "support": 0.104,
+     "rows": 1405,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 1.0,
+     "score": 0.672,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleStatus=v1": "POSTPONED"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "cand",
+     "condition": "(AttorneyName missing, SaleStatus = \"POSTPONED\" (43%))",
+     "sql": "(AttorneyName IS NULL AND SaleStatus = 'POSTPONED')",
+     "support": 0.102,
+     "rows": 1376,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.672,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleStatus=v1": "POSTPONED"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "AttorneyName"
+     ],
+     "cls": "cert",
+     "condition": "(SaleType = \"Sci Fa sur Tax Lien\" (30%), City missing)",
+     "sql": "(SaleType = 'Sci Fa sur Tax Lien' AND City IS NULL)",
+     "support": 0.082,
+     "rows": 1106,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.014,
+     "score": 0.671,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleType=v2": "Sci Fa sur Tax Lien"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "AttorneyName"
+     ],
+     "cls": "cert",
+     "condition": "(SaleType = \"Sci Fa sur Tax Lien\" (30%), ZIPCode missing)",
+     "sql": "(SaleType = 'Sci Fa sur Tax Lien' AND ZIPCode IS NULL)",
+     "support": 0.082,
+     "rows": 1106,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.014,
+     "score": 0.671,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleType=v2": "Sci Fa sur Tax Lien"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "PPDate",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(SaleType = \"Sci Fa sur Tax Lien\" (30%), Delivered3129 = \"True\" (31%))",
+     "sql": "(SaleType = 'Sci Fa sur Tax Lien' AND Delivered3129 = 'True')",
+     "support": 0.104,
+     "rows": 1398,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.242,
+     "score": 0.671,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleType=v2": "Sci Fa sur Tax Lien",
+      "Delivered3129=v1": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(SaleStatus = \"ACTIVE\" (5%))",
+     "sql": "(SaleStatus = 'ACTIVE')",
+     "support": 0.046,
+     "rows": 619,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.998,
+     "score": 0.669,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleStatus=v5": "ACTIVE"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(Municipality present, Delivered3129 = \"True\" (31%))",
+     "sql": "(Municipality IS NOT NULL AND Delivered3129 = 'True')",
+     "support": 0.102,
+     "rows": 1366,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.669,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Delivered3129=v1": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "DocketNumber",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(Delivered3129 = \"True\" (31%), AdditionalNotes missing)",
+     "sql": "(Delivered3129 = 'True' AND AdditionalNotes IS NULL)",
+     "support": 0.128,
+     "rows": 1725,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.668,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Delivered3129=v1": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cert",
+     "condition": "(SaleType = \"Sci Fa sur Tax Lien\" (30%), Address missing)",
+     "sql": "(SaleType = 'Sci Fa sur Tax Lien' AND Address IS NULL)",
+     "support": 0.08,
+     "rows": 1081,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.071,
+     "score": 0.663,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleType=v2": "Sci Fa sur Tax Lien"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(PPDate present, Address missing)",
+     "sql": "(PPDate IS NOT NULL AND Address IS NULL)",
+     "support": 0.126,
+     "rows": 1697,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.663,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "DocketNumber",
+      "AttorneyName"
+     ],
+     "cls": "cert",
+     "condition": "(Municipality present, Delivered3129 = \"True\" (31%))",
+     "sql": "(Municipality IS NOT NULL AND Delivered3129 = 'True')",
+     "support": 0.102,
+     "rows": 1366,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.663,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Delivered3129=v1": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(Municipality present, Delivered3129 = \"True\" (31%))",
+     "sql": "(Municipality IS NOT NULL AND Delivered3129 = 'True')",
+     "support": 0.102,
+     "rows": 1366,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.663,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Delivered3129=v1": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate",
+      "Defendant"
+     ],
+     "cls": "dom",
+     "condition": "(ReadyForSale = \"TRUE\" (10%))",
+     "sql": "(ReadyForSale = 'TRUE')",
+     "support": 0.101,
+     "rows": 1361,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.572,
+     "score": 0.662,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ReadyForSale=v4": "TRUE"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(Municipality present, ReadyForSale = \"True\" (27%))",
+     "sql": "(Municipality IS NOT NULL AND ReadyForSale = 'True')",
+     "support": 0.095,
+     "rows": 1281,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.648,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ReadyForSale=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(ServiceCompleted = \"1.0\" (73%), Delivered3129 = \"TRUE\" (13%))",
+     "sql": "(ServiceCompleted = '1.0' AND Delivered3129 = 'TRUE')",
+     "support": 0.095,
+     "rows": 1275,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.647,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ServiceCompleted=v1": "1.0",
+      "Delivered3129=v3": "TRUE"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "DocketNumber",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(ReadyForSale = \"True\" (27%), AdditionalNotes missing)",
+     "sql": "(ReadyForSale = 'True' AND AdditionalNotes IS NULL)",
+     "support": 0.12,
+     "rows": 1612,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.646,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ReadyForSale=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "PPDate"
+     ],
+     "cls": "dom",
+     "condition": "(ID present, ZIPCode missing)",
+     "sql": "(ID IS NOT NULL AND ZIPCode IS NULL)",
+     "support": 0.217,
+     "rows": 2917,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.44,
+     "score": 0.646,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "PPDate"
+     ],
+     "cls": "dom",
+     "condition": "(ID present, City missing)",
+     "sql": "(ID IS NOT NULL AND City IS NULL)",
+     "support": 0.217,
+     "rows": 2915,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.44,
+     "score": 0.646,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address",
+      "CostsTaxes"
+     ],
+     "cls": "cert",
+     "condition": "(Address present, Municipality missing)",
+     "sql": "(Address IS NOT NULL AND Municipality IS NULL)",
+     "support": 0.385,
+     "rows": 5179,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.328,
+     "score": 0.645,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "Defendant",
+      "CostsTaxes"
+     ],
+     "cls": "cert",
+     "condition": "(Address present, Municipality missing)",
+     "sql": "(Address IS NOT NULL AND Municipality IS NULL)",
+     "support": 0.385,
+     "rows": 5179,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.645,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(Address missing, ServiceCompleted = \"0.0\" (27%))",
+     "sql": "(Address IS NULL AND ServiceCompleted = '0.0')",
+     "support": 0.096,
+     "rows": 1289,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 1.0,
+     "score": 0.644,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ServiceCompleted=v2": "0.0"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Defendant",
+      "CostsTaxes"
+     ],
+     "cls": "cand",
+     "condition": "ReadyForSale in {\"True\", \"TRUE\"}",
+     "sql": "(ReadyForSale = 'True') OR (ReadyForSale = 'TRUE')",
+     "support": 0.375,
+     "rows": 5039,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.643,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ReadyForSale=v2": "True",
+      "ReadyForSale=v4": "TRUE"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "DocketNumber",
+      "AttorneyName"
+     ],
+     "cls": "cert",
+     "condition": "(Municipality present, ReadyForSale = \"True\" (27%))",
+     "sql": "(Municipality IS NOT NULL AND ReadyForSale = 'True')",
+     "support": 0.095,
+     "rows": 1281,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.642,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ReadyForSale=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(Municipality present, ReadyForSale = \"True\" (27%))",
+     "sql": "(Municipality IS NOT NULL AND ReadyForSale = 'True')",
+     "support": 0.095,
+     "rows": 1281,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.642,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ReadyForSale=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "part",
+     "condition": "(State missing)",
+     "sql": "(State IS NULL)",
+     "support": 0.061,
+     "rows": 818,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.658,
+     "score": 0.641,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(ServiceCompleted = \"1.0\" (73%), ReadyForSale = \"TRUE\" (10%))",
+     "sql": "(ServiceCompleted = '1.0' AND ReadyForSale = 'TRUE')",
+     "support": 0.093,
+     "rows": 1248,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.64,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ServiceCompleted=v1": "1.0",
+      "ReadyForSale=v4": "TRUE"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address",
+      "CostsTaxes"
+     ],
+     "cls": "cert",
+     "condition": "(State = \"PA\" (94%), Municipality missing)",
+     "sql": "(State = 'PA' AND Municipality IS NULL)",
+     "support": 0.37,
+     "rows": 4976,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.301,
+     "score": 0.633,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "State=v1": "PA"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address",
+      "CostsTaxes"
+     ],
+     "cls": "cert",
+     "condition": "(State present, Municipality missing)",
+     "sql": "(State IS NOT NULL AND Municipality IS NULL)",
+     "support": 0.37,
+     "rows": 4976,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.301,
+     "score": 0.633,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "PPDate"
+     ],
+     "cls": "dom",
+     "condition": "Delivered3129 in {\"True\", \"TRUE\", \"False\", \"FALSE\"}",
+     "sql": "(Delivered3129 = 'True') OR (Delivered3129 = 'TRUE') OR (Delivered3129 = 'False') OR (Delivered3129 = 'FALSE')",
+     "support": 0.577,
+     "rows": 7765,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.624,
+     "score": 0.632,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Delivered3129=v1": "True",
+      "Delivered3129=v3": "TRUE",
+      "Delivered3129=v4": "False",
+      "Delivered3129=v5": "FALSE"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "PPDate"
+     ],
+     "cls": "dom",
+     "condition": "ReadyForSale in {\"True\", \"False\", \"TRUE\", \"FALSE\"}",
+     "sql": "(ReadyForSale = 'True') OR (ReadyForSale = 'False') OR (ReadyForSale = 'TRUE') OR (ReadyForSale = 'FALSE')",
+     "support": 0.577,
+     "rows": 7765,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.624,
+     "score": 0.632,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ReadyForSale=v2": "True",
+      "ReadyForSale=v3": "False",
+      "ReadyForSale=v4": "TRUE",
+      "ReadyForSale=v5": "FALSE"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(PPDate missing, Address missing)",
+     "sql": "(PPDate IS NULL AND Address IS NULL)",
+     "support": 0.092,
+     "rows": 1239,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 1.0,
+     "score": 0.631,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(Address missing, AdditionalNotes missing)",
+     "sql": "(Address IS NULL AND AdditionalNotes IS NULL)",
+     "support": 0.092,
+     "rows": 1234,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 1.0,
+     "score": 0.63,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(Address missing, AdditionalNotes missing)",
+     "sql": "(Address IS NULL AND AdditionalNotes IS NULL)",
+     "support": 0.092,
+     "rows": 1234,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.478,
+     "score": 0.63,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "AttorneyName"
+     ],
+     "cls": "cand",
+     "condition": "(SaleType = \"Sci Fa sur Tax Lien\" (30%), ReadyForSale = \"True\" (27%))",
+     "sql": "(SaleType = 'Sci Fa sur Tax Lien' AND ReadyForSale = 'True')",
+     "support": 0.089,
+     "rows": 1201,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.627,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleType=v2": "Sci Fa sur Tax Lien",
+      "ReadyForSale=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(SaleType = \"Sci Fa sur Tax Lien\" (30%), ReadyForSale = \"True\" (27%))",
+     "sql": "(SaleType = 'Sci Fa sur Tax Lien' AND ReadyForSale = 'True')",
+     "support": 0.089,
+     "rows": 1201,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.627,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleType=v2": "Sci Fa sur Tax Lien",
+      "ReadyForSale=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(ServiceCompleted = \"0.0\" (27%), ReadyForSale = \"False\" (11%))",
+     "sql": "(ServiceCompleted = '0.0' AND ReadyForSale = 'False')",
+     "support": 0.091,
+     "rows": 1221,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.627,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ServiceCompleted=v2": "0.0",
+      "ReadyForSale=v3": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(AttorneyName missing, AdditionalNotes missing)",
+     "sql": "(AttorneyName IS NULL AND AdditionalNotes IS NULL)",
+     "support": 0.091,
+     "rows": 1220,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.484,
+     "score": 0.626,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "pos",
+     "condition": "Delivered3129 in {\"True\", \"TRUE\", \"False\"}",
+     "sql": "(Delivered3129 = 'True') OR (Delivered3129 = 'TRUE') OR (Delivered3129 = 'False')",
+     "support": 0.509,
+     "rows": 6850,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.449,
+     "score": 0.626,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Delivered3129=v1": "True",
+      "Delivered3129=v3": "TRUE",
+      "Delivered3129=v4": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address",
+      "CostsTaxes"
+     ],
+     "cls": "cert",
+     "condition": "(Street present, Municipality missing)",
+     "sql": "(Street IS NOT NULL AND Municipality IS NULL)",
+     "support": 0.361,
+     "rows": 4859,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.284,
+     "score": 0.625,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(SaleStatus = \"PLTF Cost & Tax\" (19%), Municipality missing)",
+     "sql": "(SaleStatus = 'PLTF Cost & Tax' AND Municipality IS NULL)",
+     "support": 0.088,
+     "rows": 1189,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.624,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleStatus=v3": "PLTF Cost & Tax"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "PPDate",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(SaleType = \"Sci Fa sur Tax Lien\" (30%), ReadyForSale = \"True\" (27%))",
+     "sql": "(SaleType = 'Sci Fa sur Tax Lien' AND ReadyForSale = 'True')",
+     "support": 0.089,
+     "rows": 1201,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.262,
+     "score": 0.622,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleType=v2": "Sci Fa sur Tax Lien",
+      "ReadyForSale=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(SaleStatus = \"PLTF Cost & Tax\" (19%), Municipality missing)",
+     "sql": "(SaleStatus = 'PLTF Cost & Tax' AND Municipality IS NULL)",
+     "support": 0.088,
+     "rows": 1189,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.603,
+     "score": 0.618,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleStatus=v3": "PLTF Cost & Tax"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(SaleStatus = \"PLTF Cost & Tax\" (19%), Municipality missing)",
+     "sql": "(SaleStatus = 'PLTF Cost & Tax' AND Municipality IS NULL)",
+     "support": 0.088,
+     "rows": 1189,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.109,
+     "score": 0.618,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleStatus=v3": "PLTF Cost & Tax"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "PPDate",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(SaleStatus = \"PLTF Cost & Tax\" (19%), Municipality missing)",
+     "sql": "(SaleStatus = 'PLTF Cost & Tax' AND Municipality IS NULL)",
+     "support": 0.088,
+     "rows": 1189,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.863,
+     "score": 0.618,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleStatus=v3": "PLTF Cost & Tax"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "AttorneyName",
+      "PPDate",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(SaleStatus = \"PLTF Cost & Tax\" (19%), Municipality missing)",
+     "sql": "(SaleStatus = 'PLTF Cost & Tax' AND Municipality IS NULL)",
+     "support": 0.088,
+     "rows": 1189,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.774,
+     "score": 0.618,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleStatus=v3": "PLTF Cost & Tax"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "PPDate"
+     ],
+     "cls": "dom",
+     "condition": "(ID present, Address missing)",
+     "sql": "(ID IS NOT NULL AND Address IS NULL)",
+     "support": 0.197,
+     "rows": 2649,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 1.0,
+     "score": 0.615,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "PPDate"
+     ],
+     "cls": "dom",
+     "condition": "(Street present, ZIPCode missing)",
+     "sql": "(Street IS NOT NULL AND ZIPCode IS NULL)",
+     "support": 0.197,
+     "rows": 2644,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.435,
+     "score": 0.615,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "PPDate"
+     ],
+     "cls": "dom",
+     "condition": "(State = \"PA\" (94%), ZIPCode missing)",
+     "sql": "(State = 'PA' AND ZIPCode IS NULL)",
+     "support": 0.197,
+     "rows": 2644,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.435,
+     "score": 0.615,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "State=v1": "PA"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "PPDate"
+     ],
+     "cls": "dom",
+     "condition": "(State present, ZIPCode missing)",
+     "sql": "(State IS NOT NULL AND ZIPCode IS NULL)",
+     "support": 0.197,
+     "rows": 2644,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.435,
+     "score": 0.615,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "PPDate"
+     ],
+     "cls": "dom",
+     "condition": "(Street present, City missing)",
+     "sql": "(Street IS NOT NULL AND City IS NULL)",
+     "support": 0.196,
+     "rows": 2642,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.435,
+     "score": 0.615,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "PPDate"
+     ],
+     "cls": "dom",
+     "condition": "(City missing, State = \"PA\" (94%))",
+     "sql": "(City IS NULL AND State = 'PA')",
+     "support": 0.196,
+     "rows": 2642,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.435,
+     "score": 0.615,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "State=v1": "PA"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "PPDate"
+     ],
+     "cls": "dom",
+     "condition": "(City missing, State present)",
+     "sql": "(City IS NULL AND State IS NOT NULL)",
+     "support": 0.196,
+     "rows": 2642,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.435,
+     "score": 0.615,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "PPDate"
+     ],
+     "cls": "dom",
+     "condition": "(Address missing, Municipality present)",
+     "sql": "(Address IS NULL AND Municipality IS NOT NULL)",
+     "support": 0.196,
+     "rows": 2631,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 1.0,
+     "score": 0.613,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "PPDate"
+     ],
+     "cls": "dom",
+     "condition": "(Street present, Address missing)",
+     "sql": "(Street IS NOT NULL AND Address IS NULL)",
+     "support": 0.195,
+     "rows": 2629,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 1.0,
+     "score": 0.613,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "PPDate"
+     ],
+     "cls": "dom",
+     "condition": "(City present, Address missing)",
+     "sql": "(City IS NOT NULL AND Address IS NULL)",
+     "support": 0.195,
+     "rows": 2629,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 1.0,
+     "score": 0.613,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "PPDate"
+     ],
+     "cls": "dom",
+     "condition": "(State = \"PA\" (94%), Address missing)",
+     "sql": "(State = 'PA' AND Address IS NULL)",
+     "support": 0.195,
+     "rows": 2629,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 1.0,
+     "score": 0.613,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "State=v1": "PA"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "PPDate"
+     ],
+     "cls": "dom",
+     "condition": "(State present, Address missing)",
+     "sql": "(State IS NOT NULL AND Address IS NULL)",
+     "support": 0.195,
+     "rows": 2629,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 1.0,
+     "score": 0.613,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "AttorneyName",
+      "PPDate"
+     ],
+     "cls": "dom",
+     "condition": "(ZIPCode present, Address missing)",
+     "sql": "(ZIPCode IS NOT NULL AND Address IS NULL)",
+     "support": 0.195,
+     "rows": 2629,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 1.0,
+     "score": 0.613,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(AttorneyName missing, PPDate present)",
+     "sql": "(AttorneyName IS NULL AND PPDate IS NOT NULL)",
+     "support": 0.108,
+     "rows": 1449,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.613,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "pos",
+     "condition": "ReadyForSale in {\"True\", \"False\", \"TRUE\"}",
+     "sql": "(ReadyForSale = 'True') OR (ReadyForSale = 'False') OR (ReadyForSale = 'TRUE')",
+     "support": 0.482,
+     "rows": 6478,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.459,
+     "score": 0.609,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ReadyForSale=v2": "True",
+      "ReadyForSale=v3": "False",
+      "ReadyForSale=v4": "TRUE"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "AdditionalNotes"
+     ],
+     "cls": "part",
+     "condition": "(Address missing)",
+     "sql": "(Address IS NULL)",
+     "support": 0.218,
+     "rows": 2936,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.513,
+     "score": 0.607,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "PPDate",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(SaleStatus = \"POSTPONED\" (43%), ReadyForSale = \"True\" (27%))",
+     "sql": "(SaleStatus = 'POSTPONED' AND ReadyForSale = 'True')",
+     "support": 0.106,
+     "rows": 1420,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.606,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleStatus=v1": "POSTPONED",
+      "ReadyForSale=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "dom",
+     "condition": "(PPDate present, ZIPCode missing)",
+     "sql": "(PPDate IS NOT NULL AND ZIPCode IS NULL)",
+     "support": 0.15,
+     "rows": 2023,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.192,
+     "score": 0.605,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "dom",
+     "condition": "(PPDate present, City missing)",
+     "sql": "(PPDate IS NOT NULL AND City IS NULL)",
+     "support": 0.15,
+     "rows": 2022,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.192,
+     "score": 0.605,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(SaleType = \"Sci Fa sur Tax Lien\" (30%), City missing)",
+     "sql": "(SaleType = 'Sci Fa sur Tax Lien' AND City IS NULL)",
+     "support": 0.082,
+     "rows": 1106,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.602,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleType=v2": "Sci Fa sur Tax Lien"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(SaleType = \"Sci Fa sur Tax Lien\" (30%), ZIPCode missing)",
+     "sql": "(SaleType = 'Sci Fa sur Tax Lien' AND ZIPCode IS NULL)",
+     "support": 0.082,
+     "rows": 1106,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.602,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleType=v2": "Sci Fa sur Tax Lien"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(SaleType = \"Sci Fa sur Tax Lien\" (30%), Delivered3129 = \"True\" (31%))",
+     "sql": "(SaleType = 'Sci Fa sur Tax Lien' AND Delivered3129 = 'True')",
+     "support": 0.104,
+     "rows": 1398,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.602,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleType=v2": "Sci Fa sur Tax Lien",
+      "Delivered3129=v1": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address",
+      "DocketNumber"
+     ],
+     "cls": "cert",
+     "condition": "(SaleType = \"Sci Fa sur Tax Lien\" (30%), City missing)",
+     "sql": "(SaleType = 'Sci Fa sur Tax Lien' AND City IS NULL)",
+     "support": 0.082,
+     "rows": 1106,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.111,
+     "score": 0.596,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleType=v2": "Sci Fa sur Tax Lien"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Address",
+      "DocketNumber"
+     ],
+     "cls": "cert",
+     "condition": "(SaleType = \"Sci Fa sur Tax Lien\" (30%), ZIPCode missing)",
+     "sql": "(SaleType = 'Sci Fa sur Tax Lien' AND ZIPCode IS NULL)",
+     "support": 0.082,
+     "rows": 1106,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.111,
+     "score": 0.596,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleType=v2": "Sci Fa sur Tax Lien"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "cert",
+     "condition": "(SaleType = \"Sci Fa sur Tax Lien\" (30%), City missing)",
+     "sql": "(SaleType = 'Sci Fa sur Tax Lien' AND City IS NULL)",
+     "support": 0.082,
+     "rows": 1106,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.412,
+     "score": 0.596,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleType=v2": "Sci Fa sur Tax Lien"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "cert",
+     "condition": "(SaleType = \"Sci Fa sur Tax Lien\" (30%), ZIPCode missing)",
+     "sql": "(SaleType = 'Sci Fa sur Tax Lien' AND ZIPCode IS NULL)",
+     "support": 0.082,
+     "rows": 1106,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.412,
+     "score": 0.596,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleType=v2": "Sci Fa sur Tax Lien"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(SaleType = \"Sci Fa sur Tax Lien\" (30%), Address missing)",
+     "sql": "(SaleType = 'Sci Fa sur Tax Lien' AND Address IS NULL)",
+     "support": 0.08,
+     "rows": 1081,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.595,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleType=v2": "Sci Fa sur Tax Lien"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(Municipality missing, ReadyForSale = \"False\" (11%))",
+     "sql": "(Municipality IS NULL AND ReadyForSale = 'False')",
+     "support": 0.081,
+     "rows": 1083,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.59,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ReadyForSale=v3": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "dom",
+     "condition": "(Delivered3129 = \"True\" (31%), AdditionalNotes present)",
+     "sql": "(Delivered3129 = 'True' AND AdditionalNotes IS NOT NULL)",
+     "support": 0.178,
+     "rows": 2394,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.442,
+     "score": 0.585,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Delivered3129=v1": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate",
+      "Defendant"
+     ],
+     "cls": "dom",
+     "condition": "(Delivered3129 = \"True\" (31%), AdditionalNotes present)",
+     "sql": "(Delivered3129 = 'True' AND AdditionalNotes IS NOT NULL)",
+     "support": 0.178,
+     "rows": 2394,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.442,
+     "score": 0.585,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Delivered3129=v1": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "PPDate",
+      "Defendant"
+     ],
+     "cls": "dom",
+     "condition": "(SaleType = \"Mortgage Foreclosure\" (66%), ReadyForSale = \"True\" (27%))",
+     "sql": "(SaleType = 'Mortgage Foreclosure' AND ReadyForSale = 'True')",
+     "support": 0.175,
+     "rows": 2357,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.561,
+     "score": 0.58,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleType=v1": "Mortgage Foreclosure",
+      "ReadyForSale=v2": "True"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber"
+     ],
+     "cls": "cand",
+     "condition": "(SaleType = \"Sci Fa sur Tax Lien\" (30%), Delivered3129 = \"TRUE\" (13%))",
+     "sql": "(SaleType = 'Sci Fa sur Tax Lien' AND Delivered3129 = 'TRUE')",
+     "support": 0.062,
+     "rows": 831,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.58,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleType=v2": "Sci Fa sur Tax Lien",
+      "Delivered3129=v3": "TRUE"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "DocketNumber"
+     ],
+     "cls": "dom",
+     "condition": "(State missing)",
+     "sql": "(State IS NULL)",
+     "support": 0.061,
+     "rows": 818,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.375,
+     "score": 0.577,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "dom",
+     "condition": "(State missing)",
+     "sql": "(State IS NULL)",
+     "support": 0.061,
+     "rows": 818,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.352,
+     "score": 0.577,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(Street missing, City missing)",
+     "sql": "(Street IS NULL AND City IS NULL)",
+     "support": 0.061,
+     "rows": 818,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.577,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "Defendant"
+     ],
+     "cls": "cert",
+     "condition": "(Street missing, ZIPCode missing)",
+     "sql": "(Street IS NULL AND ZIPCode IS NULL)",
+     "support": 0.061,
+     "rows": 818,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.577,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "part",
+     "condition": "(City missing, AdditionalNotes missing)",
+     "sql": "(City IS NULL AND AdditionalNotes IS NULL)",
+     "support": 0.111,
+     "rows": 1490,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.423,
+     "score": 0.577,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber",
+      "PPDate"
+     ],
+     "cls": "part",
+     "condition": "(ZIPCode missing, AdditionalNotes missing)",
+     "sql": "(ZIPCode IS NULL AND AdditionalNotes IS NULL)",
+     "support": 0.111,
+     "rows": 1490,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.423,
+     "score": 0.577,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "part",
+     "condition": "(City missing, AdditionalNotes missing)",
+     "sql": "(City IS NULL AND AdditionalNotes IS NULL)",
+     "support": 0.111,
+     "rows": 1490,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.012,
+     "score": 0.577,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "AttorneyName",
+      "Defendant"
+     ],
+     "cls": "part",
+     "condition": "(ZIPCode missing, AdditionalNotes missing)",
+     "sql": "(ZIPCode IS NULL AND AdditionalNotes IS NULL)",
+     "support": 0.111,
+     "rows": 1490,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.012,
+     "score": 0.577,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "Defendant"
+     ],
+     "cls": "cand",
+     "condition": "(AttorneyName missing, SaleType = \"Sci Fa sur Tax Lien\" (30%))",
+     "sql": "(AttorneyName IS NULL AND SaleType = 'Sci Fa sur Tax Lien')",
+     "support": 0.075,
+     "rows": 1004,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.574,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "SaleType=v2": "Sci Fa sur Tax Lien"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cert",
+     "condition": "(City missing, ServiceCompleted = \"0.0\" (27%))",
+     "sql": "(City IS NULL AND ServiceCompleted = '0.0')",
+     "support": 0.059,
+     "rows": 800,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.018,
+     "score": 0.571,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ServiceCompleted=v2": "0.0"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "DocketNumber"
+     ],
+     "cls": "cert",
+     "condition": "(ZIPCode missing, ServiceCompleted = \"0.0\" (27%))",
+     "sql": "(ZIPCode IS NULL AND ServiceCompleted = '0.0')",
+     "support": 0.059,
+     "rows": 800,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.018,
+     "score": 0.571,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ServiceCompleted=v2": "0.0"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "Defendant",
+      "CostsTaxes"
+     ],
+     "cls": "cand",
+     "condition": "(State = \"PA\" (94%), Municipality missing)",
+     "sql": "(State = 'PA' AND Municipality IS NULL)",
+     "support": 0.37,
+     "rows": 4976,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.568,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "State=v1": "PA"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "Defendant",
+      "CostsTaxes"
+     ],
+     "cls": "cand",
+     "condition": "(State present, Municipality missing)",
+     "sql": "(State IS NOT NULL AND Municipality IS NULL)",
+     "support": 0.37,
+     "rows": 4976,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.568,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Defendant",
+      "CostsTaxes"
+     ],
+     "cls": "cert",
+     "condition": "(ZIPCode missing, Address present)",
+     "sql": "(ZIPCode IS NULL AND Address IS NOT NULL)",
+     "support": 0.235,
+     "rows": 3155,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.567,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Defendant",
+      "CostsTaxes"
+     ],
+     "cls": "cert",
+     "condition": "(City missing, Address present)",
+     "sql": "(City IS NULL AND Address IS NOT NULL)",
+     "support": 0.234,
+     "rows": 3153,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.566,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "CostsTaxes"
+     ],
+     "cls": "cand",
+     "condition": "(Delivered3129 = \"TRUE\" (13%))",
+     "sql": "(Delivered3129 = 'TRUE')",
+     "support": 0.129,
+     "rows": 1733,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.565,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Delivered3129=v3": "TRUE"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "ZIPCode"
+     ],
+     "cls": "cand",
+     "condition": "(Delivered3129 = \"TRUE\" (13%))",
+     "sql": "(Delivered3129 = 'TRUE')",
+     "support": 0.129,
+     "rows": 1733,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.565,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Delivered3129=v3": "TRUE"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "DocketNumber",
+      "CostsTaxes"
+     ],
+     "cls": "cand",
+     "condition": "Delivered3129 in {\"True\", \"TRUE\", \"False\"}",
+     "sql": "(Delivered3129 = 'True') OR (Delivered3129 = 'TRUE') OR (Delivered3129 = 'False')",
+     "support": 0.509,
+     "rows": 6850,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.562,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Delivered3129=v1": "True",
+      "Delivered3129=v3": "TRUE",
+      "Delivered3129=v4": "False"
+     }
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "Address",
+      "Defendant",
+      "CostsTaxes"
+     ],
+     "cls": "cand",
+     "condition": "(Street present, Municipality missing)",
+     "sql": "(Street IS NOT NULL AND Municipality IS NULL)",
+     "support": 0.361,
+     "rows": 4859,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.561,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "latitude"
+     ],
+     "cls": "pos",
+     "condition": "(Municipality missing)",
+     "sql": "(Municipality IS NULL)",
+     "support": 0.408,
+     "rows": 5484,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.365,
+     "score": 0.56,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "longitude"
+     ],
+     "cls": "pos",
+     "condition": "(Municipality missing)",
+     "sql": "(Municipality IS NULL)",
+     "support": 0.408,
+     "rows": 5484,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.365,
+     "score": 0.56,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "CostsTaxes"
+     ],
+     "cls": "pos",
+     "condition": "(Municipality missing)",
+     "sql": "(Municipality IS NULL)",
+     "support": 0.408,
+     "rows": 5484,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.362,
+     "score": 0.56,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33429",
+     "K": [
+      "ID",
+      "Plaintiff"
+     ],
+     "cls": "pos",
+     "condition": "(Municipality missing)",
+     "sql": "(Municipality IS NULL)",
+     "support": 0.408,
+     "rows": 5484,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.362,
+     "score": 0.56,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    }
+   ],
+   "unconditional": {
+    "_id": "cand"
+   }
+  }
+ ]
+}

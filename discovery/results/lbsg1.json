@@ -1,0 +1,7692 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "performance_start_date",
+   "company_name",
+   "performance_end_date",
+   "venue_building_name",
+   "venue_street_name",
+   "venue_block_number",
+   "synopsis",
+   "title"
+  ]
+ },
+ "sample_rows": 1333,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbsg.t1",
+   "rows": 1333,
+   "cols": [
+    "year",
+    "title",
+    "company_name",
+    "language",
+    "event_type",
+    "performance_start_date",
+    "performance_end_date",
+    "venue_block_number",
+    "venue_street_name",
+    "venue_building_name",
+    "synopsis",
+    "rating_decision"
+   ],
+   "n_conditional": 517,
+   "conditional": [
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(venue_building_name present)",
+     "sql": "(venue_building_name IS NOT NULL)",
+     "support": 0.671,
+     "rows": 895,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.294,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(venue_building_name present)",
+     "sql": "(venue_building_name IS NOT NULL)",
+     "support": 0.671,
+     "rows": 895,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.294,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(venue_block_number present)",
+     "sql": "(venue_block_number IS NOT NULL)",
+     "support": 0.908,
+     "rows": 1211,
+     "uncond": "dom",
+     "gain": 3,
+     "nulls_in_scope": 0.0,
+     "score": 1.906,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_street_name",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(venue_block_number present)",
+     "sql": "(venue_block_number IS NOT NULL)",
+     "support": 0.908,
+     "rows": 1211,
+     "uncond": "dom",
+     "gain": 3,
+     "nulls_in_scope": 0.0,
+     "score": 1.906,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_block_number",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "language in {\"ENGLISH\", \"CHINESE\"}",
+     "sql": "(language = 'ENGLISH') OR (language = 'CHINESE')",
+     "support": 0.811,
+     "rows": 1081,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.093,
+     "score": 1.873,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "language=v1": "ENGLISH",
+      "language=v3": "CHINESE"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_block_number",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "language in {\"ENGLISH\", \"CHINESE\"}",
+     "sql": "(language = 'ENGLISH') OR (language = 'CHINESE')",
+     "support": 0.811,
+     "rows": 1081,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.093,
+     "score": 1.873,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "language=v1": "ENGLISH",
+      "language=v3": "CHINESE"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(venue_building_name present)",
+     "sql": "(venue_building_name IS NOT NULL)",
+     "support": 0.671,
+     "rows": 895,
+     "uncond": "dom",
+     "gain": 3,
+     "nulls_in_scope": 0.0,
+     "score": 1.639,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_street_name",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(venue_building_name present)",
+     "sql": "(venue_building_name IS NOT NULL)",
+     "support": 0.671,
+     "rows": 895,
+     "uncond": "dom",
+     "gain": 3,
+     "nulls_in_scope": 0.0,
+     "score": 1.639,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2021\" (27%))",
+     "sql": "(year = '2021')",
+     "support": 0.269,
+     "rows": 358,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.011,
+     "score": 1.617,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_block_number",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2021\" (27%))",
+     "sql": "(year = '2021')",
+     "support": 0.269,
+     "rows": 358,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.053,
+     "score": 1.617,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_block_number",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2021\" (27%))",
+     "sql": "(year = '2021')",
+     "support": 0.269,
+     "rows": 358,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.053,
+     "score": 1.617,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2021\" (27%))",
+     "sql": "(year = '2021')",
+     "support": 0.269,
+     "rows": 358,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.011,
+     "score": 1.617,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_block_number",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2021\" (27%))",
+     "sql": "(year = '2021')",
+     "support": 0.269,
+     "rows": 358,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.053,
+     "score": 1.617,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_block_number",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2021\" (27%))",
+     "sql": "(year = '2021')",
+     "support": 0.269,
+     "rows": 358,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.053,
+     "score": 1.617,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "company_name",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2021\" (27%))",
+     "sql": "(year = '2021')",
+     "support": 0.269,
+     "rows": 358,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.451,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "company_name",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2021\" (27%))",
+     "sql": "(year = '2021')",
+     "support": 0.269,
+     "rows": 358,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.451,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "company_name",
+      "performance_end_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2021\" (27%))",
+     "sql": "(year = '2021')",
+     "support": 0.269,
+     "rows": 358,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.451,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "company_name",
+      "performance_end_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2021\" (27%))",
+     "sql": "(year = '2021')",
+     "support": 0.269,
+     "rows": 358,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.451,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(venue_street_name present, rating_decision = \"General\" (63%))",
+     "sql": "(venue_street_name IS NOT NULL AND rating_decision = 'General')",
+     "support": 0.596,
+     "rows": 795,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.442,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(venue_street_name present, rating_decision = \"General\" (63%))",
+     "sql": "(venue_street_name IS NOT NULL AND rating_decision = 'General')",
+     "support": 0.596,
+     "rows": 795,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.442,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"ENGLISH\" (71%), venue_building_name present)",
+     "sql": "(language = 'ENGLISH' AND venue_building_name IS NOT NULL)",
+     "support": 0.452,
+     "rows": 603,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.412,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "language=v1": "ENGLISH"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"ENGLISH\" (71%), venue_building_name present)",
+     "sql": "(language = 'ENGLISH' AND venue_building_name IS NOT NULL)",
+     "support": 0.452,
+     "rows": 603,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.412,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "language=v1": "ENGLISH"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2019\" (60%), venue_street_name present)",
+     "sql": "(year = '2019' AND venue_street_name IS NOT NULL)",
+     "support": 0.566,
+     "rows": 754,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.404,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "year=v1": "2019"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(venue_block_number present, rating_decision = \"General\" (63%))",
+     "sql": "(venue_block_number IS NOT NULL AND rating_decision = 'General')",
+     "support": 0.563,
+     "rows": 751,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.401,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(venue_block_number present, rating_decision = \"General\" (63%))",
+     "sql": "(venue_block_number IS NOT NULL AND rating_decision = 'General')",
+     "support": 0.563,
+     "rows": 751,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.401,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_block_number",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(language = \"ENGLISH\" (71%), venue_building_name present)",
+     "sql": "(language = 'ENGLISH' AND venue_building_name IS NOT NULL)",
+     "support": 0.452,
+     "rows": 603,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.06,
+     "score": 1.399,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "language=v1": "ENGLISH"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_block_number",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(language = \"ENGLISH\" (71%), venue_building_name present)",
+     "sql": "(language = 'ENGLISH' AND venue_building_name IS NOT NULL)",
+     "support": 0.452,
+     "rows": 603,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.06,
+     "score": 1.399,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "language=v1": "ENGLISH"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2019\" (60%), venue_block_number present)",
+     "sql": "(year = '2019' AND venue_block_number IS NOT NULL)",
+     "support": 0.536,
+     "rows": 714,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.366,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "year=v1": "2019"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2019\" (60%), language = \"ENGLISH\" (71%))",
+     "sql": "(year = '2019' AND language = 'ENGLISH')",
+     "support": 0.419,
+     "rows": 558,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.359,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "year=v1": "2019",
+      "language=v1": "ENGLISH"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2019\" (60%), language = \"ENGLISH\" (71%))",
+     "sql": "(year = '2019' AND language = 'ENGLISH')",
+     "support": 0.419,
+     "rows": 558,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.359,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "year=v1": "2019",
+      "language=v1": "ENGLISH"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"ENGLISH\" (71%), rating_decision = \"General\" (63%))",
+     "sql": "(language = 'ENGLISH' AND rating_decision = 'General')",
+     "support": 0.411,
+     "rows": 548,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.346,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "language=v1": "ENGLISH",
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"ENGLISH\" (71%), rating_decision = \"General\" (63%))",
+     "sql": "(language = 'ENGLISH' AND rating_decision = 'General')",
+     "support": 0.411,
+     "rows": 548,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.346,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "language=v1": "ENGLISH",
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_building_name",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2019\" (60%), venue_street_name present)",
+     "sql": "(year = '2019' AND venue_street_name IS NOT NULL)",
+     "support": 0.566,
+     "rows": 754,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.261,
+     "score": 1.304,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "year=v1": "2019"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_building_name",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2019\" (60%), venue_block_number present)",
+     "sql": "(year = '2019' AND venue_block_number IS NOT NULL)",
+     "support": 0.536,
+     "rows": 714,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.263,
+     "score": 1.269,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "year=v1": "2019"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "venue_building_name",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "(event_type = \"Pop/Rock Concert\" (29%), venue_street_name present)",
+     "sql": "(event_type = 'Pop/Rock Concert' AND venue_street_name IS NOT NULL)",
+     "support": 0.288,
+     "rows": 384,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.148,
+     "score": 1.256,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "event_type=v2": "Pop/Rock Concert"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "performance_end_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"ENGLISH\" (71%), venue_building_name present)",
+     "sql": "(language = 'ENGLISH' AND venue_building_name IS NOT NULL)",
+     "support": 0.452,
+     "rows": 603,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.255,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "language=v1": "ENGLISH"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "language in {\"ENGLISH\", \"CHINESE\"}",
+     "sql": "(language = 'ENGLISH') OR (language = 'CHINESE')",
+     "support": 0.811,
+     "rows": 1081,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.045,
+     "score": 1.249,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "language=v1": "ENGLISH",
+      "language=v3": "CHINESE"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_street_name",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "language in {\"ENGLISH\", \"CHINESE\"}",
+     "sql": "(language = 'ENGLISH') OR (language = 'CHINESE')",
+     "support": 0.811,
+     "rows": 1081,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.045,
+     "score": 1.249,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "language=v1": "ENGLISH",
+      "language=v3": "CHINESE"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "venue_building_name",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "(event_type = \"Pop/Rock Concert\" (29%), venue_block_number present)",
+     "sql": "(event_type = 'Pop/Rock Concert' AND venue_block_number IS NOT NULL)",
+     "support": 0.275,
+     "rows": 366,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.15,
+     "score": 1.226,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "event_type=v2": "Pop/Rock Concert"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "company_name",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "event_type in {\"Play\", \"PLAY READING/POETRY READING/RECITAL\"}",
+     "sql": "(event_type = 'Play') OR (event_type = 'PLAY READING/POETRY READING/RECITAL')",
+     "support": 0.408,
+     "rows": 544,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.192,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "event_type=v1": "Play",
+      "event_type=v5": "PLAY READING/POETRY READING/RECITAL"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "event_type in {\"Play\", \"Exhibition\", \"PLAY READING/POETRY READING/RECITAL\"}",
+     "sql": "(event_type = 'Play') OR (event_type = 'Exhibition') OR (event_type = 'PLAY READING/POETRY READING/RECITAL')",
+     "support": 0.524,
+     "rows": 698,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.034,
+     "score": 1.129,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play",
+      "event_type=v3": "Exhibition",
+      "event_type=v5": "PLAY READING/POETRY READING/RECITAL"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_block_number",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "event_type in {\"Play\", \"Exhibition\", \"PLAY READING/POETRY READING/RECITAL\"}",
+     "sql": "(event_type = 'Play') OR (event_type = 'Exhibition') OR (event_type = 'PLAY READING/POETRY READING/RECITAL')",
+     "support": 0.524,
+     "rows": 698,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.085,
+     "score": 1.129,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play",
+      "event_type=v3": "Exhibition",
+      "event_type=v5": "PLAY READING/POETRY READING/RECITAL"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "venue_street_name",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Pop/Rock Concert\" (29%), venue_street_name present)",
+     "sql": "(event_type = 'Pop/Rock Concert' AND venue_street_name IS NOT NULL)",
+     "support": 0.288,
+     "rows": 384,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.127,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v2": "Pop/Rock Concert"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "venue_street_name",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Pop/Rock Concert\" (29%), venue_block_number present)",
+     "sql": "(event_type = 'Pop/Rock Concert' AND venue_block_number IS NOT NULL)",
+     "support": 0.275,
+     "rows": 366,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.1,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v2": "Pop/Rock Concert"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2021\" (27%))",
+     "sql": "(year = '2021')",
+     "support": 0.269,
+     "rows": 358,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.011,
+     "score": 1.078,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_street_name",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2021\" (27%))",
+     "sql": "(year = '2021')",
+     "support": 0.269,
+     "rows": 358,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.011,
+     "score": 1.078,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_building_name",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "(venue_street_name present, rating_decision = \"General\" (63%))",
+     "sql": "(venue_street_name IS NOT NULL AND rating_decision = 'General')",
+     "support": 0.596,
+     "rows": 795,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.259,
+     "score": 1.071,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_building_name",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "(venue_street_name present, rating_decision = \"General\" (63%))",
+     "sql": "(venue_street_name IS NOT NULL AND rating_decision = 'General')",
+     "support": 0.596,
+     "rows": 795,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.259,
+     "score": 1.071,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_building_name",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2019\" (60%), venue_street_name present)",
+     "sql": "(year = '2019' AND venue_street_name IS NOT NULL)",
+     "support": 0.566,
+     "rows": 754,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.261,
+     "score": 1.043,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v1": "2019"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_building_name",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2019\" (60%), venue_street_name present)",
+     "sql": "(year = '2019' AND venue_street_name IS NOT NULL)",
+     "support": 0.566,
+     "rows": 754,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.261,
+     "score": 1.043,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v1": "2019"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(language = \"ENGLISH\" (71%), event_type = \"Play\" (36%))",
+     "sql": "(language = 'ENGLISH' AND event_type = 'Play')",
+     "support": 0.251,
+     "rows": 334,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.027,
+     "score": 1.041,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v1": "ENGLISH",
+      "event_type=v1": "Play"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_block_number",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(language = \"ENGLISH\" (71%), event_type = \"Play\" (36%))",
+     "sql": "(language = 'ENGLISH' AND event_type = 'Play')",
+     "support": 0.251,
+     "rows": 334,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.066,
+     "score": 1.041,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v1": "ENGLISH",
+      "event_type=v1": "Play"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_building_name",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "(venue_block_number present, rating_decision = \"General\" (63%))",
+     "sql": "(venue_block_number IS NOT NULL AND rating_decision = 'General')",
+     "support": 0.563,
+     "rows": 751,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.265,
+     "score": 1.041,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_building_name",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "(venue_block_number present, rating_decision = \"General\" (63%))",
+     "sql": "(venue_block_number IS NOT NULL AND rating_decision = 'General')",
+     "support": 0.563,
+     "rows": 751,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.265,
+     "score": 1.041,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "venue_building_name",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Pop/Rock Concert\" (29%), venue_building_name present)",
+     "sql": "(event_type = 'Pop/Rock Concert' AND venue_building_name IS NOT NULL)",
+     "support": 0.245,
+     "rows": 327,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.04,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v2": "Pop/Rock Concert"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "venue_street_name",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Pop/Rock Concert\" (29%), venue_building_name present)",
+     "sql": "(event_type = 'Pop/Rock Concert' AND venue_building_name IS NOT NULL)",
+     "support": 0.245,
+     "rows": 327,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.04,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v2": "Pop/Rock Concert"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_building_name",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2019\" (60%), venue_block_number present)",
+     "sql": "(year = '2019' AND venue_block_number IS NOT NULL)",
+     "support": 0.536,
+     "rows": 714,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.263,
+     "score": 1.015,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v1": "2019"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_building_name",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2019\" (60%), venue_block_number present)",
+     "sql": "(year = '2019' AND venue_block_number IS NOT NULL)",
+     "support": 0.536,
+     "rows": 714,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.263,
+     "score": 1.015,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v1": "2019"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "company_name",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "event_type in {\"Play\", \"Dance\", \"PLAY READING/POETRY READING/RECITAL\"}",
+     "sql": "(event_type = 'Play') OR (event_type = 'Dance') OR (event_type = 'PLAY READING/POETRY READING/RECITAL')",
+     "support": 0.522,
+     "rows": 696,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.012,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play",
+      "event_type=v4": "Dance",
+      "event_type=v5": "PLAY READING/POETRY READING/RECITAL"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "company_name",
+      "performance_end_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "event_type in {\"Play\", \"Dance\", \"PLAY READING/POETRY READING/RECITAL\"}",
+     "sql": "(event_type = 'Play') OR (event_type = 'Dance') OR (event_type = 'PLAY READING/POETRY READING/RECITAL')",
+     "support": 0.522,
+     "rows": 696,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.012,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play",
+      "event_type=v4": "Dance",
+      "event_type=v5": "PLAY READING/POETRY READING/RECITAL"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_block_number",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "event_type in {\"Play\", \"Exhibition\", \"Dance\", \"PLAY READING/POETRY READING/RECITAL\"}",
+     "sql": "(event_type = 'Play') OR (event_type = 'Exhibition') OR (event_type = 'Dance') OR (event_type = 'PLAY READING/POETRY READING/RECITAL')",
+     "support": 0.638,
+     "rows": 850,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.1,
+     "score": 0.997,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play",
+      "event_type=v3": "Exhibition",
+      "event_type=v4": "Dance",
+      "event_type=v5": "PLAY READING/POETRY READING/RECITAL"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_block_number",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "event_type in {\"Play\", \"Exhibition\", \"Dance\", \"PLAY READING/POETRY READING/RECITAL\"}",
+     "sql": "(event_type = 'Play') OR (event_type = 'Exhibition') OR (event_type = 'Dance') OR (event_type = 'PLAY READING/POETRY READING/RECITAL')",
+     "support": 0.638,
+     "rows": 850,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.1,
+     "score": 0.997,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play",
+      "event_type=v3": "Exhibition",
+      "event_type=v4": "Dance",
+      "event_type=v5": "PLAY READING/POETRY READING/RECITAL"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"CHINESE\" (10%))",
+     "sql": "(language = 'CHINESE')",
+     "support": 0.098,
+     "rows": 130,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.984,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v3": "CHINESE"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"CHINESE\" (10%))",
+     "sql": "(language = 'CHINESE')",
+     "support": 0.098,
+     "rows": 130,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.984,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v3": "CHINESE"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "company_name",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"CHINESE\" (10%))",
+     "sql": "(language = 'CHINESE')",
+     "support": 0.098,
+     "rows": 130,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.984,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v3": "CHINESE"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "company_name",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"CHINESE\" (10%))",
+     "sql": "(language = 'CHINESE')",
+     "support": 0.098,
+     "rows": 130,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.984,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v3": "CHINESE"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"CHINESE\" (10%))",
+     "sql": "(language = 'CHINESE')",
+     "support": 0.098,
+     "rows": 130,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.984,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v3": "CHINESE"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"CHINESE\" (10%))",
+     "sql": "(language = 'CHINESE')",
+     "support": 0.098,
+     "rows": 130,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.984,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v3": "CHINESE"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Play\" (36%), venue_building_name present)",
+     "sql": "(event_type = 'Play' AND venue_building_name IS NOT NULL)",
+     "support": 0.215,
+     "rows": 287,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.974,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Play\" (36%), venue_building_name present)",
+     "sql": "(event_type = 'Play' AND venue_building_name IS NOT NULL)",
+     "support": 0.215,
+     "rows": 287,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.974,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Play\" (36%), venue_building_name present)",
+     "sql": "(event_type = 'Play' AND venue_building_name IS NOT NULL)",
+     "support": 0.215,
+     "rows": 287,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.974,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Play\" (36%), venue_building_name present)",
+     "sql": "(event_type = 'Play' AND venue_building_name IS NOT NULL)",
+     "support": 0.215,
+     "rows": 287,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.974,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "pos",
+     "condition": "year in {\"2019\", \"2021\"}",
+     "sql": "(year = '2019') OR (year = '2021')",
+     "support": 0.866,
+     "rows": 1154,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.04,
+     "score": 0.968,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v1": "2019",
+      "year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "company_name",
+      "venue_block_number"
+     ],
+     "cls": "cert",
+     "condition": "(event_type = \"Play\" (36%), venue_building_name present)",
+     "sql": "(event_type = 'Play' AND venue_building_name IS NOT NULL)",
+     "support": 0.215,
+     "rows": 287,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.052,
+     "score": 0.965,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"ENGLISH\" (71%), event_type = \"Pop/Rock Concert\" (29%))",
+     "sql": "(language = 'ENGLISH' AND event_type = 'Pop/Rock Concert')",
+     "support": 0.167,
+     "rows": 223,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.954,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v1": "ENGLISH",
+      "event_type=v2": "Pop/Rock Concert"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(venue_block_number missing)",
+     "sql": "(venue_block_number IS NULL)",
+     "support": 0.092,
+     "rows": 122,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.953,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(venue_block_number missing)",
+     "sql": "(venue_block_number IS NULL)",
+     "support": 0.092,
+     "rows": 122,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.953,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "rating_decision in {\"Advisory\", \"R18\"}",
+     "sql": "(rating_decision = 'Advisory') OR (rating_decision = 'R18')",
+     "support": 0.206,
+     "rows": 274,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.011,
+     "score": 0.943,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v3": "Advisory",
+      "rating_decision=v4": "R18"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_block_number",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "rating_decision in {\"Advisory\", \"R18\"}",
+     "sql": "(rating_decision = 'Advisory') OR (rating_decision = 'R18')",
+     "support": 0.206,
+     "rows": 274,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.055,
+     "score": 0.943,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v3": "Advisory",
+      "rating_decision=v4": "R18"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "rating_decision in {\"Advisory 16\", \"Advisory\", \"R18\"}",
+     "sql": "(rating_decision = 'Advisory 16') OR (rating_decision = 'Advisory') OR (rating_decision = 'R18')",
+     "support": 0.365,
+     "rows": 487,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.01,
+     "score": 0.943,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v2": "Advisory 16",
+      "rating_decision=v3": "Advisory",
+      "rating_decision=v4": "R18"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_block_number",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "rating_decision in {\"Advisory 16\", \"Advisory\", \"R18\"}",
+     "sql": "(rating_decision = 'Advisory 16') OR (rating_decision = 'Advisory') OR (rating_decision = 'R18')",
+     "support": 0.365,
+     "rows": 487,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.055,
+     "score": 0.943,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v2": "Advisory 16",
+      "rating_decision=v3": "Advisory",
+      "rating_decision=v4": "R18"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_block_number",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "rating_decision in {\"Advisory 16\", \"Advisory\", \"R18\"}",
+     "sql": "(rating_decision = 'Advisory 16') OR (rating_decision = 'Advisory') OR (rating_decision = 'R18')",
+     "support": 0.365,
+     "rows": 487,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.055,
+     "score": 0.943,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v2": "Advisory 16",
+      "rating_decision=v3": "Advisory",
+      "rating_decision=v4": "R18"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_block_number",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "rating_decision in {\"Advisory 16\", \"Advisory\", \"R18\"}",
+     "sql": "(rating_decision = 'Advisory 16') OR (rating_decision = 'Advisory') OR (rating_decision = 'R18')",
+     "support": 0.365,
+     "rows": 487,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.055,
+     "score": 0.943,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v2": "Advisory 16",
+      "rating_decision=v3": "Advisory",
+      "rating_decision=v4": "R18"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "company_name",
+      "performance_end_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"ENGLISH\" (71%), event_type = \"Play\" (36%))",
+     "sql": "(language = 'ENGLISH' AND event_type = 'Play')",
+     "support": 0.251,
+     "rows": 334,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.934,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v1": "ENGLISH",
+      "event_type=v1": "Play"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "company_name",
+      "venue_building_name",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Pop/Rock Concert\" (29%), venue_building_name present)",
+     "sql": "(event_type = 'Pop/Rock Concert' AND venue_building_name IS NOT NULL)",
+     "support": 0.245,
+     "rows": 327,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.925,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v2": "Pop/Rock Concert"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "company_name",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Pop/Rock Concert\" (29%), venue_building_name present)",
+     "sql": "(event_type = 'Pop/Rock Concert' AND venue_building_name IS NOT NULL)",
+     "support": 0.245,
+     "rows": 327,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.925,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v2": "Pop/Rock Concert"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "venue_building_name",
+      "synopsis"
+     ],
+     "cls": "dom",
+     "condition": "event_type in {\"Pop/Rock Concert\", \"PLAY READING/POETRY READING/RECITAL\"}",
+     "sql": "(event_type = 'Pop/Rock Concert') OR (event_type = 'PLAY READING/POETRY READING/RECITAL')",
+     "support": 0.336,
+     "rows": 448,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.188,
+     "score": 0.904,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v2": "Pop/Rock Concert",
+      "event_type=v5": "PLAY READING/POETRY READING/RECITAL"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2019\" (60%), event_type = \"Play\" (36%))",
+     "sql": "(year = '2019' AND event_type = 'Play')",
+     "support": 0.179,
+     "rows": 238,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.887,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v1": "2019",
+      "event_type=v1": "Play"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2019\" (60%), event_type = \"Play\" (36%))",
+     "sql": "(year = '2019' AND event_type = 'Play')",
+     "support": 0.179,
+     "rows": 238,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.887,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v1": "2019",
+      "event_type=v1": "Play"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2019\" (60%), event_type = \"Play\" (36%))",
+     "sql": "(year = '2019' AND event_type = 'Play')",
+     "support": 0.179,
+     "rows": 238,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.887,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v1": "2019",
+      "event_type=v1": "Play"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "dom",
+     "condition": "year in {\"2021\", \"2020\"}",
+     "sql": "(year = '2021') OR (year = '2020')",
+     "support": 0.403,
+     "rows": 537,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.026,
+     "score": 0.88,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v2": "2021",
+      "year=v3": "2020"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_block_number",
+      "synopsis"
+     ],
+     "cls": "dom",
+     "condition": "year in {\"2021\", \"2020\"}",
+     "sql": "(year = '2021') OR (year = '2020')",
+     "support": 0.403,
+     "rows": 537,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.074,
+     "score": 0.88,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v2": "2021",
+      "year=v3": "2020"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_block_number",
+      "title"
+     ],
+     "cls": "dom",
+     "condition": "year in {\"2021\", \"2020\"}",
+     "sql": "(year = '2021') OR (year = '2020')",
+     "support": 0.403,
+     "rows": 537,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.074,
+     "score": 0.88,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v2": "2021",
+      "year=v3": "2020"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "dom",
+     "condition": "year in {\"2021\", \"2020\"}",
+     "sql": "(year = '2021') OR (year = '2020')",
+     "support": 0.403,
+     "rows": 537,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.026,
+     "score": 0.88,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v2": "2021",
+      "year=v3": "2020"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_block_number",
+      "synopsis"
+     ],
+     "cls": "dom",
+     "condition": "year in {\"2021\", \"2020\"}",
+     "sql": "(year = '2021') OR (year = '2020')",
+     "support": 0.403,
+     "rows": 537,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.074,
+     "score": 0.88,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v2": "2021",
+      "year=v3": "2020"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_block_number",
+      "title"
+     ],
+     "cls": "dom",
+     "condition": "year in {\"2021\", \"2020\"}",
+     "sql": "(year = '2021') OR (year = '2020')",
+     "support": 0.403,
+     "rows": 537,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.074,
+     "score": 0.88,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v2": "2021",
+      "year=v3": "2020"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2021\" (27%), venue_building_name present)",
+     "sql": "(year = '2021' AND venue_building_name IS NOT NULL)",
+     "support": 0.173,
+     "rows": 231,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.874,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2021\" (27%), venue_building_name present)",
+     "sql": "(year = '2021' AND venue_building_name IS NOT NULL)",
+     "support": 0.173,
+     "rows": 231,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.874,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2021\" (27%), venue_building_name present)",
+     "sql": "(year = '2021' AND venue_building_name IS NOT NULL)",
+     "support": 0.173,
+     "rows": 231,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.874,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2021\" (27%), venue_building_name present)",
+     "sql": "(year = '2021' AND venue_building_name IS NOT NULL)",
+     "support": 0.173,
+     "rows": 231,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.874,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "company_name",
+      "performance_end_date"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Play\" (36%), venue_building_name present)",
+     "sql": "(event_type = 'Play' AND venue_building_name IS NOT NULL)",
+     "support": 0.215,
+     "rows": 287,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.866,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "company_name",
+      "venue_building_name"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Play\" (36%), venue_building_name present)",
+     "sql": "(event_type = 'Play' AND venue_building_name IS NOT NULL)",
+     "support": 0.215,
+     "rows": 287,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.866,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "company_name",
+      "venue_street_name"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Play\" (36%), venue_building_name present)",
+     "sql": "(event_type = 'Play' AND venue_building_name IS NOT NULL)",
+     "support": 0.215,
+     "rows": 287,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.866,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "performance_end_date",
+      "venue_street_name"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Play\" (36%), venue_building_name present)",
+     "sql": "(event_type = 'Play' AND venue_building_name IS NOT NULL)",
+     "support": 0.215,
+     "rows": 287,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.866,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "venue_block_number",
+      "synopsis",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2021\" (27%), venue_building_name present)",
+     "sql": "(year = '2021' AND venue_building_name IS NOT NULL)",
+     "support": 0.173,
+     "rows": 231,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.061,
+     "score": 0.866,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "pos",
+     "condition": "rating_decision in {\"General\", \"R18\"}",
+     "sql": "(rating_decision = 'General') OR (rating_decision = 'R18')",
+     "support": 0.687,
+     "rows": 916,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.056,
+     "score": 0.862,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v1": "General",
+      "rating_decision=v4": "R18"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "company_name",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "rating_decision in {\"Advisory 16\", \"R18\"}",
+     "sql": "(rating_decision = 'Advisory 16') OR (rating_decision = 'R18')",
+     "support": 0.212,
+     "rows": 283,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.86,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v2": "Advisory 16",
+      "rating_decision=v4": "R18"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "company_name",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "rating_decision in {\"Advisory 16\", \"R18\"}",
+     "sql": "(rating_decision = 'Advisory 16') OR (rating_decision = 'R18')",
+     "support": 0.212,
+     "rows": 283,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.86,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v2": "Advisory 16",
+      "rating_decision=v4": "R18"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "company_name",
+      "performance_end_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "rating_decision in {\"Advisory 16\", \"R18\"}",
+     "sql": "(rating_decision = 'Advisory 16') OR (rating_decision = 'R18')",
+     "support": 0.212,
+     "rows": 283,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.86,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v2": "Advisory 16",
+      "rating_decision=v4": "R18"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "event_type in {\"Dance\", \"PLAY READING/POETRY READING/RECITAL\"}",
+     "sql": "(event_type = 'Dance') OR (event_type = 'PLAY READING/POETRY READING/RECITAL')",
+     "support": 0.158,
+     "rows": 211,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.835,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v4": "Dance",
+      "event_type=v5": "PLAY READING/POETRY READING/RECITAL"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "event_type in {\"Dance\", \"PLAY READING/POETRY READING/RECITAL\"}",
+     "sql": "(event_type = 'Dance') OR (event_type = 'PLAY READING/POETRY READING/RECITAL')",
+     "support": 0.158,
+     "rows": 211,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.835,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v4": "Dance",
+      "event_type=v5": "PLAY READING/POETRY READING/RECITAL"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "event_type in {\"Exhibition\", \"PLAY READING/POETRY READING/RECITAL\"}",
+     "sql": "(event_type = 'Exhibition') OR (event_type = 'PLAY READING/POETRY READING/RECITAL')",
+     "support": 0.16,
+     "rows": 213,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.056,
+     "score": 0.831,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v3": "Exhibition",
+      "event_type=v5": "PLAY READING/POETRY READING/RECITAL"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_block_number",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "event_type in {\"Exhibition\", \"PLAY READING/POETRY READING/RECITAL\"}",
+     "sql": "(event_type = 'Exhibition') OR (event_type = 'PLAY READING/POETRY READING/RECITAL')",
+     "support": 0.16,
+     "rows": 213,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.117,
+     "score": 0.831,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v3": "Exhibition",
+      "event_type=v5": "PLAY READING/POETRY READING/RECITAL"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2021\" (27%), rating_decision = \"General\" (63%))",
+     "sql": "(year = '2021' AND rating_decision = 'General')",
+     "support": 0.15,
+     "rows": 200,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.813,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v2": "2021",
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2021\" (27%), rating_decision = \"General\" (63%))",
+     "sql": "(year = '2021' AND rating_decision = 'General')",
+     "support": 0.15,
+     "rows": 200,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.813,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v2": "2021",
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2021\" (27%), rating_decision = \"General\" (63%))",
+     "sql": "(year = '2021' AND rating_decision = 'General')",
+     "support": 0.15,
+     "rows": 200,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.813,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v2": "2021",
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2021\" (27%), rating_decision = \"General\" (63%))",
+     "sql": "(year = '2021' AND rating_decision = 'General')",
+     "support": 0.15,
+     "rows": 200,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.813,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v2": "2021",
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Play\" (36%), venue_building_name missing)",
+     "sql": "(event_type = 'Play' AND venue_building_name IS NULL)",
+     "support": 0.149,
+     "rows": 198,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.809,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "venue_building_name",
+      "synopsis",
+      "title"
+     ],
+     "cls": "pos",
+     "condition": "(year = \"2021\" (27%))",
+     "sql": "(year = '2021')",
+     "support": 0.269,
+     "rows": 358,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.355,
+     "score": 0.808,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_building_name",
+      "title"
+     ],
+     "cls": "dom",
+     "condition": "(venue_street_name present, rating_decision = \"General\" (63%))",
+     "sql": "(venue_street_name IS NOT NULL AND rating_decision = 'General')",
+     "support": 0.596,
+     "rows": 795,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.259,
+     "score": 0.803,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_building_name",
+      "title"
+     ],
+     "cls": "dom",
+     "condition": "(venue_street_name present, rating_decision = \"General\" (63%))",
+     "sql": "(venue_street_name IS NOT NULL AND rating_decision = 'General')",
+     "support": 0.596,
+     "rows": 795,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.259,
+     "score": 0.803,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Play\" (36%), rating_decision = \"General\" (63%))",
+     "sql": "(event_type = 'Play' AND rating_decision = 'General')",
+     "support": 0.142,
+     "rows": 189,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.791,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play",
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Play\" (36%), rating_decision = \"General\" (63%))",
+     "sql": "(event_type = 'Play' AND rating_decision = 'General')",
+     "support": 0.142,
+     "rows": 189,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.791,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play",
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Play\" (36%), rating_decision = \"General\" (63%))",
+     "sql": "(event_type = 'Play' AND rating_decision = 'General')",
+     "support": 0.142,
+     "rows": 189,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.791,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play",
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Play\" (36%), rating_decision = \"General\" (63%))",
+     "sql": "(event_type = 'Play' AND rating_decision = 'General')",
+     "support": 0.142,
+     "rows": 189,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.791,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play",
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "company_name",
+      "performance_end_date",
+      "venue_street_name"
+     ],
+     "cls": "cert",
+     "condition": "(event_type = \"Play\" (36%), rating_decision = \"General\" (63%))",
+     "sql": "(event_type = 'Play' AND rating_decision = 'General')",
+     "support": 0.142,
+     "rows": 189,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.048,
+     "score": 0.783,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play",
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "company_name",
+      "performance_end_date",
+      "venue_block_number"
+     ],
+     "cls": "cert",
+     "condition": "(event_type = \"Play\" (36%), rating_decision = \"General\" (63%))",
+     "sql": "(event_type = 'Play' AND rating_decision = 'General')",
+     "support": 0.142,
+     "rows": 189,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.095,
+     "score": 0.783,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play",
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_building_name",
+      "title"
+     ],
+     "cls": "dom",
+     "condition": "(venue_block_number present, rating_decision = \"General\" (63%))",
+     "sql": "(venue_block_number IS NOT NULL AND rating_decision = 'General')",
+     "support": 0.563,
+     "rows": 751,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.265,
+     "score": 0.781,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_building_name",
+      "title"
+     ],
+     "cls": "dom",
+     "condition": "(venue_block_number present, rating_decision = \"General\" (63%))",
+     "sql": "(venue_block_number IS NOT NULL AND rating_decision = 'General')",
+     "support": 0.563,
+     "rows": 751,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.265,
+     "score": 0.781,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_block_number",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(language = \"ENGLISH\" (71%), rating_decision = \"Advisory 16\" (16%))",
+     "sql": "(language = 'ENGLISH' AND rating_decision = 'Advisory 16')",
+     "support": 0.14,
+     "rows": 187,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.037,
+     "score": 0.779,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v1": "ENGLISH",
+      "rating_decision=v2": "Advisory 16"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "venue_building_name",
+      "synopsis",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2021\" (27%), venue_building_name present)",
+     "sql": "(year = '2021' AND venue_building_name IS NOT NULL)",
+     "support": 0.173,
+     "rows": 231,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.777,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "venue_street_name",
+      "synopsis",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2021\" (27%), venue_building_name present)",
+     "sql": "(year = '2021' AND venue_building_name IS NOT NULL)",
+     "support": 0.173,
+     "rows": 231,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.777,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_block_number",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2020\" (13%), venue_street_name present)",
+     "sql": "(year = '2020' AND venue_street_name IS NOT NULL)",
+     "support": 0.127,
+     "rows": 169,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.065,
+     "score": 0.741,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v3": "2020"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_block_number",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2020\" (13%), venue_street_name present)",
+     "sql": "(year = '2020' AND venue_street_name IS NOT NULL)",
+     "support": 0.127,
+     "rows": 169,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.065,
+     "score": 0.741,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v3": "2020"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_block_number",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2020\" (13%), venue_street_name present)",
+     "sql": "(year = '2020' AND venue_street_name IS NOT NULL)",
+     "support": 0.127,
+     "rows": 169,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.065,
+     "score": 0.741,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v3": "2020"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_block_number",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2020\" (13%), venue_street_name present)",
+     "sql": "(year = '2020' AND venue_street_name IS NOT NULL)",
+     "support": 0.127,
+     "rows": 169,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.065,
+     "score": 0.741,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v3": "2020"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"PLAY READING/POETRY READING/RECITAL\" (4%))",
+     "sql": "(event_type = 'PLAY READING/POETRY READING/RECITAL')",
+     "support": 0.044,
+     "rows": 59,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.736,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v5": "PLAY READING/POETRY READING/RECITAL"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "company_name",
+      "venue_building_name"
+     ],
+     "cls": "dom",
+     "condition": "(language = \"OTHERS\" (12%))",
+     "sql": "(language = 'OTHERS')",
+     "support": 0.122,
+     "rows": 163,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.325,
+     "score": 0.727,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v2": "OTHERS"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "company_name",
+      "venue_street_name"
+     ],
+     "cls": "dom",
+     "condition": "(language = \"OTHERS\" (12%))",
+     "sql": "(language = 'OTHERS')",
+     "support": 0.122,
+     "rows": 163,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.018,
+     "score": 0.727,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v2": "OTHERS"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "performance_end_date",
+      "venue_street_name"
+     ],
+     "cls": "dom",
+     "condition": "(language = \"OTHERS\" (12%))",
+     "sql": "(language = 'OTHERS')",
+     "support": 0.122,
+     "rows": 163,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.018,
+     "score": 0.727,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v2": "OTHERS"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_building_name",
+      "venue_block_number"
+     ],
+     "cls": "dom",
+     "condition": "(language = \"OTHERS\" (12%))",
+     "sql": "(language = 'OTHERS')",
+     "support": 0.122,
+     "rows": 163,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.387,
+     "score": 0.727,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v2": "OTHERS"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "venue_block_number"
+     ],
+     "cls": "dom",
+     "condition": "(language = \"OTHERS\" (12%))",
+     "sql": "(language = 'OTHERS')",
+     "support": 0.122,
+     "rows": 163,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.08,
+     "score": 0.727,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v2": "OTHERS"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(rating_decision = \"R18\" (5%))",
+     "sql": "(rating_decision = 'R18')",
+     "support": 0.053,
+     "rows": 70,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.722,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v4": "R18"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(rating_decision = \"R18\" (5%))",
+     "sql": "(rating_decision = 'R18')",
+     "support": 0.053,
+     "rows": 70,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.722,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v4": "R18"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(rating_decision = \"R18\" (5%))",
+     "sql": "(rating_decision = 'R18')",
+     "support": 0.053,
+     "rows": 70,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.722,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v4": "R18"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(rating_decision = \"R18\" (5%))",
+     "sql": "(rating_decision = 'R18')",
+     "support": 0.053,
+     "rows": 70,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.722,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v4": "R18"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "venue_block_number"
+     ],
+     "cls": "cert",
+     "condition": "(language = \"OTHERS\" (12%), venue_street_name present)",
+     "sql": "(language = 'OTHERS' AND venue_street_name IS NOT NULL)",
+     "support": 0.12,
+     "rows": 160,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.062,
+     "score": 0.721,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v2": "OTHERS"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "pos",
+     "condition": "rating_decision in {\"General\", \"Advisory 16\", \"R18\"}",
+     "sql": "(rating_decision = 'General') OR (rating_decision = 'Advisory 16') OR (rating_decision = 'R18')",
+     "support": 0.847,
+     "rows": 1129,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.047,
+     "score": 0.718,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v1": "General",
+      "rating_decision=v2": "Advisory 16",
+      "rating_decision=v4": "R18"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "venue_street_name",
+      "synopsis"
+     ],
+     "cls": "dom",
+     "condition": "event_type in {\"Pop/Rock Concert\", \"PLAY READING/POETRY READING/RECITAL\", \"Music\"}",
+     "sql": "(event_type = 'Pop/Rock Concert') OR (event_type = 'PLAY READING/POETRY READING/RECITAL') OR (event_type = 'Music')",
+     "support": 0.366,
+     "rows": 488,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.018,
+     "score": 0.708,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v2": "Pop/Rock Concert",
+      "event_type=v5": "PLAY READING/POETRY READING/RECITAL",
+      "event_type=v6": "Music"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "company_name",
+      "performance_end_date"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Play\" (36%), rating_decision = \"General\" (63%))",
+     "sql": "(event_type = 'Play' AND rating_decision = 'General')",
+     "support": 0.142,
+     "rows": 189,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.703,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play",
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "company_name",
+      "performance_end_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"ENGLISH\" (71%), rating_decision = \"Advisory 16\" (16%))",
+     "sql": "(language = 'ENGLISH' AND rating_decision = 'Advisory 16')",
+     "support": 0.14,
+     "rows": 187,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.699,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v1": "ENGLISH",
+      "rating_decision=v2": "Advisory 16"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"ENGLISH\" (71%), rating_decision = \"Advisory 16\" (16%))",
+     "sql": "(language = 'ENGLISH' AND rating_decision = 'Advisory 16')",
+     "support": 0.14,
+     "rows": 187,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.699,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v1": "ENGLISH",
+      "rating_decision=v2": "Advisory 16"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_block_number",
+      "title"
+     ],
+     "cls": "pos",
+     "condition": "(year = \"2019\" (60%), language = \"ENGLISH\" (71%))",
+     "sql": "(year = '2019' AND language = 'ENGLISH')",
+     "support": 0.419,
+     "rows": 558,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.116,
+     "score": 0.673,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v1": "2019",
+      "language=v1": "ENGLISH"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "pos",
+     "condition": "(year = \"2019\" (60%), language = \"ENGLISH\" (71%))",
+     "sql": "(year = '2019' AND language = 'ENGLISH')",
+     "support": 0.419,
+     "rows": 558,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.066,
+     "score": 0.673,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v1": "2019",
+      "language=v1": "ENGLISH"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_block_number",
+      "title"
+     ],
+     "cls": "pos",
+     "condition": "(year = \"2019\" (60%), language = \"ENGLISH\" (71%))",
+     "sql": "(year = '2019' AND language = 'ENGLISH')",
+     "support": 0.419,
+     "rows": 558,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.116,
+     "score": 0.673,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v1": "2019",
+      "language=v1": "ENGLISH"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "company_name",
+      "performance_end_date",
+      "venue_building_name"
+     ],
+     "cls": "pos",
+     "condition": "(year = \"2019\" (60%), rating_decision = \"General\" (63%))",
+     "sql": "(year = '2019' AND rating_decision = 'General')",
+     "support": 0.413,
+     "rows": 551,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.294,
+     "score": 0.669,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v1": "2019",
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_block_number",
+      "title"
+     ],
+     "cls": "pos",
+     "condition": "(language = \"ENGLISH\" (71%), rating_decision = \"General\" (63%))",
+     "sql": "(language = 'ENGLISH' AND rating_decision = 'General')",
+     "support": 0.411,
+     "rows": 548,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.133,
+     "score": 0.667,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v1": "ENGLISH",
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_block_number",
+      "title"
+     ],
+     "cls": "pos",
+     "condition": "(language = \"ENGLISH\" (71%), rating_decision = \"General\" (63%))",
+     "sql": "(language = 'ENGLISH' AND rating_decision = 'General')",
+     "support": 0.411,
+     "rows": 548,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.133,
+     "score": 0.667,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v1": "ENGLISH",
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2020\" (13%), venue_street_name present)",
+     "sql": "(year = '2020' AND venue_street_name IS NOT NULL)",
+     "support": 0.127,
+     "rows": 169,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.665,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v3": "2020"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2020\" (13%), venue_street_name present)",
+     "sql": "(year = '2020' AND venue_street_name IS NOT NULL)",
+     "support": 0.127,
+     "rows": 169,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.665,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v3": "2020"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "event_type in {\"Play\", \"Exhibition\", \"Dance\", \"PLAY READING/POETRY READING/RECITAL\"}",
+     "sql": "(event_type = 'Play') OR (event_type = 'Exhibition') OR (event_type = 'Dance') OR (event_type = 'PLAY READING/POETRY READING/RECITAL')",
+     "support": 0.638,
+     "rows": 850,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.051,
+     "score": 0.664,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play",
+      "event_type=v3": "Exhibition",
+      "event_type=v4": "Dance",
+      "event_type=v5": "PLAY READING/POETRY READING/RECITAL"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_street_name",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "event_type in {\"Play\", \"Exhibition\", \"Dance\", \"PLAY READING/POETRY READING/RECITAL\"}",
+     "sql": "(event_type = 'Play') OR (event_type = 'Exhibition') OR (event_type = 'Dance') OR (event_type = 'PLAY READING/POETRY READING/RECITAL')",
+     "support": 0.638,
+     "rows": 850,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.051,
+     "score": 0.664,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play",
+      "event_type=v3": "Exhibition",
+      "event_type=v4": "Dance",
+      "event_type=v5": "PLAY READING/POETRY READING/RECITAL"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "company_name"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Dance\" (11%), venue_street_name present)",
+     "sql": "(event_type = 'Dance' AND venue_street_name IS NOT NULL)",
+     "support": 0.1,
+     "rows": 133,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.663,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v4": "Dance"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Dance\" (11%), venue_street_name present)",
+     "sql": "(event_type = 'Dance' AND venue_street_name IS NOT NULL)",
+     "support": 0.1,
+     "rows": 133,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.663,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v4": "Dance"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Dance\" (11%), venue_street_name present)",
+     "sql": "(event_type = 'Dance' AND venue_street_name IS NOT NULL)",
+     "support": 0.1,
+     "rows": 133,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.663,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v4": "Dance"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"PLAY READING/POETRY READING/RECITAL\" (4%))",
+     "sql": "(event_type = 'PLAY READING/POETRY READING/RECITAL')",
+     "support": 0.044,
+     "rows": 59,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.663,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v5": "PLAY READING/POETRY READING/RECITAL"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"PLAY READING/POETRY READING/RECITAL\" (4%))",
+     "sql": "(event_type = 'PLAY READING/POETRY READING/RECITAL')",
+     "support": 0.044,
+     "rows": 59,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.663,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v5": "PLAY READING/POETRY READING/RECITAL"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(venue_building_name present, rating_decision = \"Advisory 16\" (16%))",
+     "sql": "(venue_building_name IS NOT NULL AND rating_decision = 'Advisory 16')",
+     "support": 0.099,
+     "rows": 132,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.661,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v2": "Advisory 16"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(venue_building_name present, rating_decision = \"Advisory 16\" (16%))",
+     "sql": "(venue_building_name IS NOT NULL AND rating_decision = 'Advisory 16')",
+     "support": 0.099,
+     "rows": 132,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.661,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v2": "Advisory 16"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "company_name",
+      "performance_end_date"
+     ],
+     "cls": "cand",
+     "condition": "(venue_building_name present, rating_decision = \"Advisory 16\" (16%))",
+     "sql": "(venue_building_name IS NOT NULL AND rating_decision = 'Advisory 16')",
+     "support": 0.099,
+     "rows": 132,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.661,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v2": "Advisory 16"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(venue_building_name present, rating_decision = \"Advisory 16\" (16%))",
+     "sql": "(venue_building_name IS NOT NULL AND rating_decision = 'Advisory 16')",
+     "support": 0.099,
+     "rows": 132,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.661,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v2": "Advisory 16"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(venue_building_name present, rating_decision = \"Advisory 16\" (16%))",
+     "sql": "(venue_building_name IS NOT NULL AND rating_decision = 'Advisory 16')",
+     "support": 0.099,
+     "rows": 132,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.661,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v2": "Advisory 16"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_building_name",
+      "title"
+     ],
+     "cls": "dom",
+     "condition": "year in {\"2021\", \"2020\"}",
+     "sql": "(year = '2021') OR (year = '2020')",
+     "support": 0.403,
+     "rows": 537,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.371,
+     "score": 0.66,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v2": "2021",
+      "year=v3": "2020"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_building_name",
+      "title"
+     ],
+     "cls": "dom",
+     "condition": "year in {\"2021\", \"2020\"}",
+     "sql": "(year = '2021') OR (year = '2020')",
+     "support": 0.403,
+     "rows": 537,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.371,
+     "score": 0.66,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v2": "2021",
+      "year=v3": "2020"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(venue_building_name present, rating_decision = \"Advisory\" (15%))",
+     "sql": "(venue_building_name IS NOT NULL AND rating_decision = 'Advisory')",
+     "support": 0.098,
+     "rows": 131,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.658,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v3": "Advisory"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(venue_building_name present, rating_decision = \"Advisory\" (15%))",
+     "sql": "(venue_building_name IS NOT NULL AND rating_decision = 'Advisory')",
+     "support": 0.098,
+     "rows": 131,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.658,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v3": "Advisory"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(venue_building_name present, rating_decision = \"Advisory\" (15%))",
+     "sql": "(venue_building_name IS NOT NULL AND rating_decision = 'Advisory')",
+     "support": 0.098,
+     "rows": 131,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.658,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v3": "Advisory"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(venue_building_name present, rating_decision = \"Advisory\" (15%))",
+     "sql": "(venue_building_name IS NOT NULL AND rating_decision = 'Advisory')",
+     "support": 0.098,
+     "rows": 131,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.658,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v3": "Advisory"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "performance_end_date",
+      "venue_block_number"
+     ],
+     "cls": "cert",
+     "condition": "(event_type = \"Dance\" (11%), venue_street_name present)",
+     "sql": "(event_type = 'Dance' AND venue_street_name IS NOT NULL)",
+     "support": 0.1,
+     "rows": 133,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.053,
+     "score": 0.657,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v4": "Dance"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_building_name",
+      "venue_block_number"
+     ],
+     "cls": "cert",
+     "condition": "(event_type = \"Dance\" (11%), venue_street_name present)",
+     "sql": "(event_type = 'Dance' AND venue_street_name IS NOT NULL)",
+     "support": 0.1,
+     "rows": 133,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.286,
+     "score": 0.657,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v4": "Dance"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "venue_block_number"
+     ],
+     "cls": "cert",
+     "condition": "(event_type = \"Dance\" (11%), venue_street_name present)",
+     "sql": "(event_type = 'Dance' AND venue_street_name IS NOT NULL)",
+     "support": 0.1,
+     "rows": 133,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.053,
+     "score": 0.657,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v4": "Dance"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "performance_end_date",
+      "venue_block_number"
+     ],
+     "cls": "cert",
+     "condition": "(venue_building_name present, rating_decision = \"Advisory 16\" (16%))",
+     "sql": "(venue_building_name IS NOT NULL AND rating_decision = 'Advisory 16')",
+     "support": 0.099,
+     "rows": 132,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.053,
+     "score": 0.655,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v2": "Advisory 16"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "dom",
+     "condition": "(event_type = \"Pop/Rock Concert\" (29%), rating_decision = \"General\" (63%))",
+     "sql": "(event_type = 'Pop/Rock Concert' AND rating_decision = 'General')",
+     "support": 0.222,
+     "rows": 296,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.014,
+     "score": 0.653,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v2": "Pop/Rock Concert",
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "dom",
+     "condition": "(event_type = \"Pop/Rock Concert\" (29%), rating_decision = \"General\" (63%))",
+     "sql": "(event_type = 'Pop/Rock Concert' AND rating_decision = 'General')",
+     "support": 0.222,
+     "rows": 296,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.014,
+     "score": 0.653,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v2": "Pop/Rock Concert",
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "dom",
+     "condition": "language in {\"OTHERS\", \"CHINESE\"}",
+     "sql": "(language = 'OTHERS') OR (language = 'CHINESE')",
+     "support": 0.22,
+     "rows": 293,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.017,
+     "score": 0.65,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v2": "OTHERS",
+      "language=v3": "CHINESE"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2021\" (27%), venue_building_name missing)",
+     "sql": "(year = '2021' AND venue_building_name IS NULL)",
+     "support": 0.095,
+     "rows": 127,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.648,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2021\" (27%), venue_building_name missing)",
+     "sql": "(year = '2021' AND venue_building_name IS NULL)",
+     "support": 0.095,
+     "rows": 127,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.648,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v2": "2021"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "company_name",
+      "venue_street_name"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"OTHERS\" (12%), venue_street_name present)",
+     "sql": "(language = 'OTHERS' AND venue_street_name IS NOT NULL)",
+     "support": 0.12,
+     "rows": 160,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.647,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v2": "OTHERS"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "performance_end_date",
+      "venue_street_name"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"OTHERS\" (12%), venue_street_name present)",
+     "sql": "(language = 'OTHERS' AND venue_street_name IS NOT NULL)",
+     "support": 0.12,
+     "rows": 160,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.647,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v2": "OTHERS"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"OTHERS\" (12%), venue_street_name present)",
+     "sql": "(language = 'OTHERS' AND venue_street_name IS NOT NULL)",
+     "support": 0.12,
+     "rows": 160,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.647,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v2": "OTHERS"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "company_name"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Dance\" (11%), venue_block_number present)",
+     "sql": "(event_type = 'Dance' AND venue_block_number IS NOT NULL)",
+     "support": 0.095,
+     "rows": 126,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.646,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v4": "Dance"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Dance\" (11%), venue_block_number present)",
+     "sql": "(event_type = 'Dance' AND venue_block_number IS NOT NULL)",
+     "support": 0.095,
+     "rows": 126,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.646,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v4": "Dance"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Dance\" (11%), venue_block_number present)",
+     "sql": "(event_type = 'Dance' AND venue_block_number IS NOT NULL)",
+     "support": 0.095,
+     "rows": 126,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.646,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v4": "Dance"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "company_name",
+      "venue_building_name"
+     ],
+     "cls": "dom",
+     "condition": "(year = \"2019\" (60%), event_type = \"Pop/Rock Concert\" (29%))",
+     "sql": "(year = '2019' AND event_type = 'Pop/Rock Concert')",
+     "support": 0.216,
+     "rows": 288,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.156,
+     "score": 0.645,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v1": "2019",
+      "event_type=v2": "Pop/Rock Concert"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "company_name",
+      "venue_street_name"
+     ],
+     "cls": "dom",
+     "condition": "(year = \"2019\" (60%), event_type = \"Pop/Rock Concert\" (29%))",
+     "sql": "(year = '2019' AND event_type = 'Pop/Rock Concert')",
+     "support": 0.216,
+     "rows": 288,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.01,
+     "score": 0.645,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v1": "2019",
+      "event_type=v2": "Pop/Rock Concert"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "dom",
+     "condition": "(year = \"2019\" (60%), event_type = \"Pop/Rock Concert\" (29%))",
+     "sql": "(year = '2019' AND event_type = 'Pop/Rock Concert')",
+     "support": 0.216,
+     "rows": 288,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.01,
+     "score": 0.645,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v1": "2019",
+      "event_type=v2": "Pop/Rock Concert"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "company_name",
+      "performance_end_date",
+      "venue_building_name"
+     ],
+     "cls": "dom",
+     "condition": "(year = \"2019\" (60%), event_type = \"Pop/Rock Concert\" (29%))",
+     "sql": "(year = '2019' AND event_type = 'Pop/Rock Concert')",
+     "support": 0.216,
+     "rows": 288,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.156,
+     "score": 0.645,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v1": "2019",
+      "event_type=v2": "Pop/Rock Concert"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "company_name",
+      "performance_end_date",
+      "venue_street_name"
+     ],
+     "cls": "dom",
+     "condition": "(year = \"2019\" (60%), event_type = \"Pop/Rock Concert\" (29%))",
+     "sql": "(year = '2019' AND event_type = 'Pop/Rock Concert')",
+     "support": 0.216,
+     "rows": 288,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.01,
+     "score": 0.645,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v1": "2019",
+      "event_type=v2": "Pop/Rock Concert"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "company_name",
+      "venue_building_name",
+      "title"
+     ],
+     "cls": "dom",
+     "condition": "(year = \"2019\" (60%), event_type = \"Pop/Rock Concert\" (29%))",
+     "sql": "(year = '2019' AND event_type = 'Pop/Rock Concert')",
+     "support": 0.216,
+     "rows": 288,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.156,
+     "score": 0.645,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v1": "2019",
+      "event_type=v2": "Pop/Rock Concert"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "company_name",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "dom",
+     "condition": "(year = \"2019\" (60%), event_type = \"Pop/Rock Concert\" (29%))",
+     "sql": "(year = '2019' AND event_type = 'Pop/Rock Concert')",
+     "support": 0.216,
+     "rows": 288,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.01,
+     "score": 0.645,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v1": "2019",
+      "event_type=v2": "Pop/Rock Concert"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "dom",
+     "condition": "(year = \"2019\" (60%), event_type = \"Pop/Rock Concert\" (29%))",
+     "sql": "(year = '2019' AND event_type = 'Pop/Rock Concert')",
+     "support": 0.216,
+     "rows": 288,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.01,
+     "score": 0.645,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v1": "2019",
+      "event_type=v2": "Pop/Rock Concert"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2020\" (13%), venue_block_number present)",
+     "sql": "(year = '2020' AND venue_block_number IS NOT NULL)",
+     "support": 0.119,
+     "rows": 158,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.643,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v3": "2020"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_block_number",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2020\" (13%), venue_block_number present)",
+     "sql": "(year = '2020' AND venue_block_number IS NOT NULL)",
+     "support": 0.119,
+     "rows": 158,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.643,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v3": "2020"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_block_number",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2020\" (13%), venue_block_number present)",
+     "sql": "(year = '2020' AND venue_block_number IS NOT NULL)",
+     "support": 0.119,
+     "rows": 158,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.643,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v3": "2020"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2020\" (13%), venue_block_number present)",
+     "sql": "(year = '2020' AND venue_block_number IS NOT NULL)",
+     "support": 0.119,
+     "rows": 158,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.643,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v3": "2020"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_block_number",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2020\" (13%), venue_block_number present)",
+     "sql": "(year = '2020' AND venue_block_number IS NOT NULL)",
+     "support": 0.119,
+     "rows": 158,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.643,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v3": "2020"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_block_number",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2020\" (13%), venue_block_number present)",
+     "sql": "(year = '2020' AND venue_block_number IS NOT NULL)",
+     "support": 0.119,
+     "rows": 158,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.643,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v3": "2020"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_building_name",
+      "venue_block_number"
+     ],
+     "cls": "cert",
+     "condition": "(event_type = \"Dance\" (11%), venue_block_number present)",
+     "sql": "(event_type = 'Dance' AND venue_block_number IS NOT NULL)",
+     "support": 0.095,
+     "rows": 126,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.246,
+     "score": 0.639,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v4": "Dance"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "company_name",
+      "venue_building_name",
+      "synopsis"
+     ],
+     "cls": "dom",
+     "condition": "event_type in {\"Pop/Rock Concert\", \"PLAY READING/POETRY READING/RECITAL\", \"Music\"}",
+     "sql": "(event_type = 'Pop/Rock Concert') OR (event_type = 'PLAY READING/POETRY READING/RECITAL') OR (event_type = 'Music')",
+     "support": 0.366,
+     "rows": 488,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.203,
+     "score": 0.629,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v2": "Pop/Rock Concert",
+      "event_type=v5": "PLAY READING/POETRY READING/RECITAL",
+      "event_type=v6": "Music"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "venue_building_name",
+      "venue_block_number",
+      "synopsis"
+     ],
+     "cls": "dom",
+     "condition": "event_type in {\"Pop/Rock Concert\", \"PLAY READING/POETRY READING/RECITAL\", \"Music\"}",
+     "sql": "(event_type = 'Pop/Rock Concert') OR (event_type = 'PLAY READING/POETRY READING/RECITAL') OR (event_type = 'Music')",
+     "support": 0.366,
+     "rows": 488,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.246,
+     "score": 0.629,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v2": "Pop/Rock Concert",
+      "event_type=v5": "PLAY READING/POETRY READING/RECITAL",
+      "event_type=v6": "Music"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "venue_building_name",
+      "synopsis",
+      "title"
+     ],
+     "cls": "dom",
+     "condition": "event_type in {\"Pop/Rock Concert\", \"PLAY READING/POETRY READING/RECITAL\", \"Music\"}",
+     "sql": "(event_type = 'Pop/Rock Concert') OR (event_type = 'PLAY READING/POETRY READING/RECITAL') OR (event_type = 'Music')",
+     "support": 0.366,
+     "rows": 488,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.203,
+     "score": 0.629,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v2": "Pop/Rock Concert",
+      "event_type=v5": "PLAY READING/POETRY READING/RECITAL",
+      "event_type=v6": "Music"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "rating_decision in {\"Advisory 16\", \"Advisory\", \"R18\"}",
+     "sql": "(rating_decision = 'Advisory 16') OR (rating_decision = 'Advisory') OR (rating_decision = 'R18')",
+     "support": 0.365,
+     "rows": 487,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.01,
+     "score": 0.629,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v2": "Advisory 16",
+      "rating_decision=v3": "Advisory",
+      "rating_decision=v4": "R18"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_street_name",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "rating_decision in {\"Advisory 16\", \"Advisory\", \"R18\"}",
+     "sql": "(rating_decision = 'Advisory 16') OR (rating_decision = 'Advisory') OR (rating_decision = 'R18')",
+     "support": 0.365,
+     "rows": 487,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.01,
+     "score": 0.629,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v2": "Advisory 16",
+      "rating_decision=v3": "Advisory",
+      "rating_decision=v4": "R18"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "company_name",
+      "venue_street_name"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"OTHERS\" (12%), venue_block_number present)",
+     "sql": "(language = 'OTHERS' AND venue_block_number IS NOT NULL)",
+     "support": 0.113,
+     "rows": 150,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.626,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v2": "OTHERS"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "performance_end_date",
+      "venue_street_name"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"OTHERS\" (12%), venue_block_number present)",
+     "sql": "(language = 'OTHERS' AND venue_block_number IS NOT NULL)",
+     "support": 0.113,
+     "rows": 150,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.626,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v2": "OTHERS"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "venue_block_number"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"OTHERS\" (12%), venue_block_number present)",
+     "sql": "(language = 'OTHERS' AND venue_block_number IS NOT NULL)",
+     "support": 0.113,
+     "rows": 150,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.626,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v2": "OTHERS"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"OTHERS\" (12%), venue_block_number present)",
+     "sql": "(language = 'OTHERS' AND venue_block_number IS NOT NULL)",
+     "support": 0.113,
+     "rows": 150,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.626,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v2": "OTHERS"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2019\" (60%), rating_decision = \"Advisory\" (15%))",
+     "sql": "(year = '2019' AND rating_decision = 'Advisory')",
+     "support": 0.089,
+     "rows": 118,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.625,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v1": "2019",
+      "rating_decision=v3": "Advisory"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2019\" (60%), rating_decision = \"Advisory\" (15%))",
+     "sql": "(year = '2019' AND rating_decision = 'Advisory')",
+     "support": 0.089,
+     "rows": 118,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.625,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v1": "2019",
+      "rating_decision=v3": "Advisory"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2019\" (60%), rating_decision = \"Advisory\" (15%))",
+     "sql": "(year = '2019' AND rating_decision = 'Advisory')",
+     "support": 0.089,
+     "rows": 118,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.625,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v1": "2019",
+      "rating_decision=v3": "Advisory"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2019\" (60%), rating_decision = \"Advisory\" (15%))",
+     "sql": "(year = '2019' AND rating_decision = 'Advisory')",
+     "support": 0.089,
+     "rows": 118,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.625,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v1": "2019",
+      "rating_decision=v3": "Advisory"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2020\" (13%), language = \"ENGLISH\" (71%))",
+     "sql": "(year = '2020' AND language = 'ENGLISH')",
+     "support": 0.089,
+     "rows": 119,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.05,
+     "score": 0.621,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v3": "2020",
+      "language=v1": "ENGLISH"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_block_number",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2020\" (13%), language = \"ENGLISH\" (71%))",
+     "sql": "(year = '2020' AND language = 'ENGLISH')",
+     "support": 0.089,
+     "rows": 119,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.109,
+     "score": 0.621,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v3": "2020",
+      "language=v1": "ENGLISH"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2020\" (13%), language = \"ENGLISH\" (71%))",
+     "sql": "(year = '2020' AND language = 'ENGLISH')",
+     "support": 0.089,
+     "rows": 119,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.05,
+     "score": 0.621,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v3": "2020",
+      "language=v1": "ENGLISH"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_block_number",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2020\" (13%), language = \"ENGLISH\" (71%))",
+     "sql": "(year = '2020' AND language = 'ENGLISH')",
+     "support": 0.089,
+     "rows": 119,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.109,
+     "score": 0.621,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v3": "2020",
+      "language=v1": "ENGLISH"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "company_name",
+      "performance_end_date"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Play\" (36%), rating_decision = \"Advisory 16\" (16%))",
+     "sql": "(event_type = 'Play' AND rating_decision = 'Advisory 16')",
+     "support": 0.11,
+     "rows": 147,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.62,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play",
+      "rating_decision=v2": "Advisory 16"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "title"
+     ],
+     "cls": "dom",
+     "condition": "event_type in {\"Play\", \"Exhibition\", \"PLAY READING/POETRY READING/RECITAL\", \"Music\"}",
+     "sql": "(event_type = 'Play') OR (event_type = 'Exhibition') OR (event_type = 'PLAY READING/POETRY READING/RECITAL') OR (event_type = 'Music')",
+     "support": 0.554,
+     "rows": 738,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.038,
+     "score": 0.619,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play",
+      "event_type=v3": "Exhibition",
+      "event_type=v5": "PLAY READING/POETRY READING/RECITAL",
+      "event_type=v6": "Music"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_block_number",
+      "title"
+     ],
+     "cls": "dom",
+     "condition": "event_type in {\"Play\", \"Exhibition\", \"PLAY READING/POETRY READING/RECITAL\", \"Music\"}",
+     "sql": "(event_type = 'Play') OR (event_type = 'Exhibition') OR (event_type = 'PLAY READING/POETRY READING/RECITAL') OR (event_type = 'Music')",
+     "support": 0.554,
+     "rows": 738,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.089,
+     "score": 0.619,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play",
+      "event_type=v3": "Exhibition",
+      "event_type=v5": "PLAY READING/POETRY READING/RECITAL",
+      "event_type=v6": "Music"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "company_name"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"CHINESE\" (10%), rating_decision = \"General\" (63%))",
+     "sql": "(language = 'CHINESE' AND rating_decision = 'General')",
+     "support": 0.086,
+     "rows": 114,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.614,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v3": "CHINESE",
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "company_name",
+      "performance_end_date"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"CHINESE\" (10%), rating_decision = \"General\" (63%))",
+     "sql": "(language = 'CHINESE' AND rating_decision = 'General')",
+     "support": 0.086,
+     "rows": 114,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.614,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v3": "CHINESE",
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"OTHERS\" (12%), venue_building_name present)",
+     "sql": "(language = 'OTHERS' AND venue_building_name IS NOT NULL)",
+     "support": 0.083,
+     "rows": 110,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.603,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v2": "OTHERS"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_building_name",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(language = \"OTHERS\" (12%), venue_street_name present)",
+     "sql": "(language = 'OTHERS' AND venue_street_name IS NOT NULL)",
+     "support": 0.12,
+     "rows": 160,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.312,
+     "score": 0.601,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v2": "OTHERS"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_building_name",
+      "venue_block_number"
+     ],
+     "cls": "cert",
+     "condition": "(language = \"OTHERS\" (12%), venue_building_name present)",
+     "sql": "(language = 'OTHERS' AND venue_building_name IS NOT NULL)",
+     "support": 0.083,
+     "rows": 110,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.091,
+     "score": 0.598,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v2": "OTHERS"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Exhibition\" (12%), rating_decision = \"General\" (63%))",
+     "sql": "(event_type = 'Exhibition' AND rating_decision = 'General')",
+     "support": 0.08,
+     "rows": 107,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.595,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v3": "Exhibition",
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Exhibition\" (12%), rating_decision = \"General\" (63%))",
+     "sql": "(event_type = 'Exhibition' AND rating_decision = 'General')",
+     "support": 0.08,
+     "rows": 107,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.595,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v3": "Exhibition",
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Exhibition\" (12%), rating_decision = \"General\" (63%))",
+     "sql": "(event_type = 'Exhibition' AND rating_decision = 'General')",
+     "support": 0.08,
+     "rows": 107,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.595,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v3": "Exhibition",
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Exhibition\" (12%), rating_decision = \"General\" (63%))",
+     "sql": "(event_type = 'Exhibition' AND rating_decision = 'General')",
+     "support": 0.08,
+     "rows": 107,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.595,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v3": "Exhibition",
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "company_name",
+      "venue_building_name",
+      "title"
+     ],
+     "cls": "pos",
+     "condition": "event_type in {\"Pop/Rock Concert\", \"Music\"}",
+     "sql": "(event_type = 'Pop/Rock Concert') OR (event_type = 'Music')",
+     "support": 0.322,
+     "rows": 429,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.179,
+     "score": 0.59,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v2": "Pop/Rock Concert",
+      "event_type=v6": "Music"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "performance_end_date",
+      "venue_street_name"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Dance\" (11%), venue_street_name present)",
+     "sql": "(event_type = 'Dance' AND venue_street_name IS NOT NULL)",
+     "support": 0.1,
+     "rows": 133,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.59,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v4": "Dance"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_block_number",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2020\" (13%), venue_building_name present)",
+     "sql": "(year = '2020' AND venue_building_name IS NOT NULL)",
+     "support": 0.08,
+     "rows": 107,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.065,
+     "score": 0.589,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v3": "2020"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_block_number",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2020\" (13%), venue_building_name present)",
+     "sql": "(year = '2020' AND venue_building_name IS NOT NULL)",
+     "support": 0.08,
+     "rows": 107,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.065,
+     "score": 0.589,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v3": "2020"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_block_number",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2020\" (13%), venue_building_name present)",
+     "sql": "(year = '2020' AND venue_building_name IS NOT NULL)",
+     "support": 0.08,
+     "rows": 107,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.065,
+     "score": 0.589,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v3": "2020"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_block_number",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2020\" (13%), venue_building_name present)",
+     "sql": "(year = '2020' AND venue_building_name IS NOT NULL)",
+     "support": 0.08,
+     "rows": 107,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.065,
+     "score": 0.589,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v3": "2020"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "performance_end_date",
+      "venue_street_name"
+     ],
+     "cls": "cand",
+     "condition": "(venue_building_name present, rating_decision = \"Advisory 16\" (16%))",
+     "sql": "(venue_building_name IS NOT NULL AND rating_decision = 'Advisory 16')",
+     "support": 0.099,
+     "rows": 132,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.587,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v2": "Advisory 16"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "venue_building_name",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "(language = \"CHINESE\" (10%), event_type = \"Pop/Rock Concert\" (29%))",
+     "sql": "(language = 'CHINESE' AND event_type = 'Pop/Rock Concert')",
+     "support": 0.062,
+     "rows": 83,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.048,
+     "score": 0.584,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v3": "CHINESE",
+      "event_type=v2": "Pop/Rock Concert"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "venue_block_number",
+      "synopsis"
+     ],
+     "cls": "cert",
+     "condition": "(language = \"CHINESE\" (10%), event_type = \"Pop/Rock Concert\" (29%))",
+     "sql": "(language = 'CHINESE' AND event_type = 'Pop/Rock Concert')",
+     "support": 0.062,
+     "rows": 83,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.036,
+     "score": 0.584,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v3": "CHINESE",
+      "event_type=v2": "Pop/Rock Concert"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_building_name",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(language = \"OTHERS\" (12%), venue_block_number present)",
+     "sql": "(language = 'OTHERS' AND venue_block_number IS NOT NULL)",
+     "support": 0.113,
+     "rows": 150,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.333,
+     "score": 0.581,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v2": "OTHERS"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "company_name"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Dance\" (11%), venue_building_name present)",
+     "sql": "(event_type = 'Dance' AND venue_building_name IS NOT NULL)",
+     "support": 0.077,
+     "rows": 102,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.581,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v4": "Dance"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Dance\" (11%), venue_building_name present)",
+     "sql": "(event_type = 'Dance' AND venue_building_name IS NOT NULL)",
+     "support": 0.077,
+     "rows": 102,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.581,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v4": "Dance"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Play\" (36%), rating_decision = \"Advisory\" (15%))",
+     "sql": "(event_type = 'Play' AND rating_decision = 'Advisory')",
+     "support": 0.077,
+     "rows": 102,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.581,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play",
+      "rating_decision=v3": "Advisory"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Play\" (36%), rating_decision = \"Advisory\" (15%))",
+     "sql": "(event_type = 'Play' AND rating_decision = 'Advisory')",
+     "support": 0.077,
+     "rows": 102,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.581,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play",
+      "rating_decision=v3": "Advisory"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Dance\" (11%), venue_building_name present)",
+     "sql": "(event_type = 'Dance' AND venue_building_name IS NOT NULL)",
+     "support": 0.077,
+     "rows": 102,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.581,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v4": "Dance"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "company_name",
+      "performance_end_date"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Dance\" (11%), venue_building_name present)",
+     "sql": "(event_type = 'Dance' AND venue_building_name IS NOT NULL)",
+     "support": 0.077,
+     "rows": 102,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.581,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v4": "Dance"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Play\" (36%), rating_decision = \"Advisory\" (15%))",
+     "sql": "(event_type = 'Play' AND rating_decision = 'Advisory')",
+     "support": 0.077,
+     "rows": 102,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.581,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play",
+      "rating_decision=v3": "Advisory"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Play\" (36%), rating_decision = \"Advisory\" (15%))",
+     "sql": "(event_type = 'Play' AND rating_decision = 'Advisory')",
+     "support": 0.077,
+     "rows": 102,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.581,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play",
+      "rating_decision=v3": "Advisory"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Dance\" (11%), venue_building_name present)",
+     "sql": "(event_type = 'Dance' AND venue_building_name IS NOT NULL)",
+     "support": 0.077,
+     "rows": 102,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.581,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v4": "Dance"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "performance_end_date",
+      "venue_block_number"
+     ],
+     "cls": "cert",
+     "condition": "(event_type = \"Dance\" (11%), venue_building_name present)",
+     "sql": "(event_type = 'Dance' AND venue_building_name IS NOT NULL)",
+     "support": 0.077,
+     "rows": 102,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.069,
+     "score": 0.575,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v4": "Dance"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_building_name",
+      "venue_block_number"
+     ],
+     "cls": "cert",
+     "condition": "(event_type = \"Dance\" (11%), venue_building_name present)",
+     "sql": "(event_type = 'Dance' AND venue_building_name IS NOT NULL)",
+     "support": 0.077,
+     "rows": 102,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.069,
+     "score": 0.575,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v4": "Dance"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "performance_end_date",
+      "venue_street_name"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Dance\" (11%), venue_block_number present)",
+     "sql": "(event_type = 'Dance' AND venue_block_number IS NOT NULL)",
+     "support": 0.095,
+     "rows": 126,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.574,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v4": "Dance"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "performance_end_date",
+      "venue_block_number"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Dance\" (11%), venue_block_number present)",
+     "sql": "(event_type = 'Dance' AND venue_block_number IS NOT NULL)",
+     "support": 0.095,
+     "rows": 126,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.574,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v4": "Dance"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "venue_block_number"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Dance\" (11%), venue_block_number present)",
+     "sql": "(event_type = 'Dance' AND venue_block_number IS NOT NULL)",
+     "support": 0.095,
+     "rows": 126,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.574,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v4": "Dance"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name"
+     ],
+     "cls": "cert",
+     "condition": "(language = \"OTHERS\" (12%), event_type = \"Play\" (36%))",
+     "sql": "(language = 'OTHERS' AND event_type = 'Play')",
+     "support": 0.06,
+     "rows": 80,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.013,
+     "score": 0.573,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v2": "OTHERS",
+      "event_type=v1": "Play"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_block_number",
+      "synopsis"
+     ],
+     "cls": "dom",
+     "condition": "event_type in {\"Play\", \"Exhibition\", \"Dance\", \"PLAY READING/POETRY READING/RECITAL\", \"Music\"}",
+     "sql": "(event_type = 'Play') OR (event_type = 'Exhibition') OR (event_type = 'Dance') OR (event_type = 'PLAY READING/POETRY READING/RECITAL') OR (event_type = 'Music')",
+     "support": 0.668,
+     "rows": 890,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.103,
+     "score": 0.567,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play",
+      "event_type=v3": "Exhibition",
+      "event_type=v4": "Dance",
+      "event_type=v5": "PLAY READING/POETRY READING/RECITAL",
+      "event_type=v6": "Music"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_block_number",
+      "synopsis"
+     ],
+     "cls": "dom",
+     "condition": "event_type in {\"Play\", \"Exhibition\", \"Dance\", \"PLAY READING/POETRY READING/RECITAL\", \"Music\"}",
+     "sql": "(event_type = 'Play') OR (event_type = 'Exhibition') OR (event_type = 'Dance') OR (event_type = 'PLAY READING/POETRY READING/RECITAL') OR (event_type = 'Music')",
+     "support": 0.668,
+     "rows": 890,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.103,
+     "score": 0.567,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play",
+      "event_type=v3": "Exhibition",
+      "event_type=v4": "Dance",
+      "event_type=v5": "PLAY READING/POETRY READING/RECITAL",
+      "event_type=v6": "Music"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "company_name",
+      "venue_building_name"
+     ],
+     "cls": "pos",
+     "condition": "event_type in {\"Play\", \"Dance\", \"Music\"}",
+     "sql": "(event_type = 'Play') OR (event_type = 'Dance') OR (event_type = 'Music')",
+     "support": 0.508,
+     "rows": 677,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.388,
+     "score": 0.556,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play",
+      "event_type=v4": "Dance",
+      "event_type=v6": "Music"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2019\" (60%), rating_decision = \"Advisory 16\" (16%))",
+     "sql": "(year = '2019' AND rating_decision = 'Advisory 16')",
+     "support": 0.07,
+     "rows": 93,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.555,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v1": "2019",
+      "rating_decision=v2": "Advisory 16"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2019\" (60%), rating_decision = \"Advisory 16\" (16%))",
+     "sql": "(year = '2019' AND rating_decision = 'Advisory 16')",
+     "support": 0.07,
+     "rows": 93,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.555,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v1": "2019",
+      "rating_decision=v2": "Advisory 16"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(year = \"2019\" (60%), rating_decision = \"Advisory 16\" (16%))",
+     "sql": "(year = '2019' AND rating_decision = 'Advisory 16')",
+     "support": 0.07,
+     "rows": 93,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.555,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v1": "2019",
+      "rating_decision=v2": "Advisory 16"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "performance_end_date",
+      "venue_block_number"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2019\" (60%), rating_decision = \"Advisory 16\" (16%))",
+     "sql": "(year = '2019' AND rating_decision = 'Advisory 16')",
+     "support": 0.07,
+     "rows": 93,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.032,
+     "score": 0.549,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v1": "2019",
+      "rating_decision=v2": "Advisory 16"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_building_name",
+      "venue_street_name"
+     ],
+     "cls": "pos",
+     "condition": "(language = \"OTHERS\" (12%))",
+     "sql": "(language = 'OTHERS')",
+     "support": 0.122,
+     "rows": 163,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.325,
+     "score": 0.546,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v2": "OTHERS"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name"
+     ],
+     "cls": "cert",
+     "condition": "(year = \"2020\" (13%), event_type = \"Play\" (36%))",
+     "sql": "(year = '2020' AND event_type = 'Play')",
+     "support": 0.053,
+     "rows": 70,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.057,
+     "score": 0.536,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v3": "2020",
+      "event_type=v1": "Play"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "company_name",
+      "venue_building_name"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"OTHERS\" (12%), venue_building_name present)",
+     "sql": "(language = 'OTHERS' AND venue_building_name IS NOT NULL)",
+     "support": 0.083,
+     "rows": 110,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.536,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v2": "OTHERS"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Exhibition\" (12%), venue_building_name present)",
+     "sql": "(event_type = 'Exhibition' AND venue_building_name IS NOT NULL)",
+     "support": 0.065,
+     "rows": 86,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.533,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v3": "Exhibition"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Exhibition\" (12%), venue_building_name present)",
+     "sql": "(event_type = 'Exhibition' AND venue_building_name IS NOT NULL)",
+     "support": 0.065,
+     "rows": 86,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.533,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v3": "Exhibition"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Exhibition\" (12%), venue_building_name present)",
+     "sql": "(event_type = 'Exhibition' AND venue_building_name IS NOT NULL)",
+     "support": 0.065,
+     "rows": 86,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.533,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v3": "Exhibition"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(event_type = \"Exhibition\" (12%), venue_building_name present)",
+     "sql": "(event_type = 'Exhibition' AND venue_building_name IS NOT NULL)",
+     "support": 0.065,
+     "rows": 86,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.533,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v3": "Exhibition"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name"
+     ],
+     "cls": "pos",
+     "condition": "(venue_block_number missing)",
+     "sql": "(venue_block_number IS NULL)",
+     "support": 0.092,
+     "rows": 122,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.459,
+     "score": 0.531,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_street_name"
+     ],
+     "cls": "pos",
+     "condition": "(venue_block_number missing)",
+     "sql": "(venue_block_number IS NULL)",
+     "support": 0.092,
+     "rows": 122,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.459,
+     "score": 0.531,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "venue_building_name",
+      "synopsis"
+     ],
+     "cls": "pos",
+     "condition": "event_type in {\"Pop/Rock Concert\", \"PLAY READING/POETRY READING/RECITAL\", \"Music\"}",
+     "sql": "(event_type = 'Pop/Rock Concert') OR (event_type = 'PLAY READING/POETRY READING/RECITAL') OR (event_type = 'Music')",
+     "support": 0.366,
+     "rows": 488,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.203,
+     "score": 0.531,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v2": "Pop/Rock Concert",
+      "event_type=v5": "PLAY READING/POETRY READING/RECITAL",
+      "event_type=v6": "Music"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "venue_building_name",
+      "synopsis"
+     ],
+     "cls": "pos",
+     "condition": "(year = \"2021\" (27%), language = \"ENGLISH\" (71%))",
+     "sql": "(year = '2021' AND language = 'ENGLISH')",
+     "support": 0.206,
+     "rows": 274,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.365,
+     "score": 0.53,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "year=v2": "2021",
+      "language=v1": "ENGLISH"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "performance_end_date",
+      "venue_street_name"
+     ],
+     "cls": "pos",
+     "condition": "(event_type = \"Dance\" (11%))",
+     "sql": "(event_type = 'Dance')",
+     "support": 0.114,
+     "rows": 152,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.125,
+     "score": 0.527,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v4": "Dance"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "performance_end_date",
+      "venue_block_number"
+     ],
+     "cls": "pos",
+     "condition": "(event_type = \"Dance\" (11%))",
+     "sql": "(event_type = 'Dance')",
+     "support": 0.114,
+     "rows": 152,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.171,
+     "score": 0.527,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v4": "Dance"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name",
+      "venue_block_number"
+     ],
+     "cls": "pos",
+     "condition": "(event_type = \"Dance\" (11%))",
+     "sql": "(event_type = 'Dance')",
+     "support": 0.114,
+     "rows": 152,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.171,
+     "score": 0.527,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v4": "Dance"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "company_name"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"CHINESE\" (10%), event_type = \"Pop/Rock Concert\" (29%))",
+     "sql": "(language = 'CHINESE' AND event_type = 'Pop/Rock Concert')",
+     "support": 0.062,
+     "rows": 83,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.524,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v3": "CHINESE",
+      "event_type=v2": "Pop/Rock Concert"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_street_name"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"CHINESE\" (10%), event_type = \"Pop/Rock Concert\" (29%))",
+     "sql": "(language = 'CHINESE' AND event_type = 'Pop/Rock Concert')",
+     "support": 0.062,
+     "rows": 83,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.524,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v3": "CHINESE",
+      "event_type=v2": "Pop/Rock Concert"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "company_name",
+      "performance_end_date"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"CHINESE\" (10%), event_type = \"Pop/Rock Concert\" (29%))",
+     "sql": "(language = 'CHINESE' AND event_type = 'Pop/Rock Concert')",
+     "support": 0.062,
+     "rows": 83,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.524,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v3": "CHINESE",
+      "event_type=v2": "Pop/Rock Concert"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_street_name"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"CHINESE\" (10%), event_type = \"Pop/Rock Concert\" (29%))",
+     "sql": "(language = 'CHINESE' AND event_type = 'Pop/Rock Concert')",
+     "support": 0.062,
+     "rows": 83,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.524,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v3": "CHINESE",
+      "event_type=v2": "Pop/Rock Concert"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "venue_street_name",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"CHINESE\" (10%), event_type = \"Pop/Rock Concert\" (29%))",
+     "sql": "(language = 'CHINESE' AND event_type = 'Pop/Rock Concert')",
+     "support": 0.062,
+     "rows": 83,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.524,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v3": "CHINESE",
+      "event_type=v2": "Pop/Rock Concert"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "synopsis",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"CHINESE\" (10%), event_type = \"Pop/Rock Concert\" (29%))",
+     "sql": "(language = 'CHINESE' AND event_type = 'Pop/Rock Concert')",
+     "support": 0.062,
+     "rows": 83,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.524,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v3": "CHINESE",
+      "event_type=v2": "Pop/Rock Concert"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "performance_end_date",
+      "venue_street_name"
+     ],
+     "cls": "dom",
+     "condition": "(event_type = \"Play\" (36%), rating_decision = \"General\" (63%))",
+     "sql": "(event_type = 'Play' AND rating_decision = 'General')",
+     "support": 0.142,
+     "rows": 189,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.048,
+     "score": 0.522,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play",
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "performance_end_date",
+      "venue_block_number"
+     ],
+     "cls": "dom",
+     "condition": "(event_type = \"Play\" (36%), rating_decision = \"General\" (63%))",
+     "sql": "(event_type = 'Play' AND rating_decision = 'General')",
+     "support": 0.142,
+     "rows": 189,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.095,
+     "score": 0.522,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "event_type=v1": "Play",
+      "rating_decision=v1": "General"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_building_name",
+      "venue_street_name"
+     ],
+     "cls": "pos",
+     "condition": "(language = \"ENGLISH\" (71%), event_type = \"Play\" (36%))",
+     "sql": "(language = 'ENGLISH' AND event_type = 'Play')",
+     "support": 0.251,
+     "rows": 334,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.413,
+     "score": 0.521,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v1": "ENGLISH",
+      "event_type=v1": "Play"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_building_name",
+      "venue_block_number"
+     ],
+     "cls": "pos",
+     "condition": "(language = \"ENGLISH\" (71%), event_type = \"Play\" (36%))",
+     "sql": "(language = 'ENGLISH' AND event_type = 'Play')",
+     "support": 0.251,
+     "rows": 334,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.443,
+     "score": 0.521,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v1": "ENGLISH",
+      "event_type=v1": "Play"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "venue_building_name",
+      "title"
+     ],
+     "cls": "dom",
+     "condition": "(language = \"ENGLISH\" (71%), event_type = \"Play\" (36%))",
+     "sql": "(language = 'ENGLISH' AND event_type = 'Play')",
+     "support": 0.251,
+     "rows": 334,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.413,
+     "score": 0.521,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v1": "ENGLISH",
+      "event_type=v1": "Play"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "venue_building_name",
+      "venue_block_number"
+     ],
+     "cls": "cert",
+     "condition": "(language = \"CHINESE\" (10%), event_type = \"Pop/Rock Concert\" (29%))",
+     "sql": "(language = 'CHINESE' AND event_type = 'Pop/Rock Concert')",
+     "support": 0.062,
+     "rows": 83,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.072,
+     "score": 0.519,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v3": "CHINESE",
+      "event_type=v2": "Pop/Rock Concert"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(venue_building_name missing, rating_decision = \"Advisory 16\" (16%))",
+     "sql": "(venue_building_name IS NULL AND rating_decision = 'Advisory 16')",
+     "support": 0.061,
+     "rows": 81,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.518,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "rating_decision=v2": "Advisory 16"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"OTHERS\" (12%), event_type = \"Play\" (36%))",
+     "sql": "(language = 'OTHERS' AND event_type = 'Play')",
+     "support": 0.06,
+     "rows": 80,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.514,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v2": "OTHERS",
+      "event_type=v1": "Play"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"OTHERS\" (12%), event_type = \"Play\" (36%))",
+     "sql": "(language = 'OTHERS' AND event_type = 'Play')",
+     "support": 0.06,
+     "rows": 80,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.514,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v2": "OTHERS",
+      "event_type=v1": "Play"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_end_date",
+      "synopsis"
+     ],
+     "cls": "cand",
+     "condition": "(language = \"OTHERS\" (12%), event_type = \"Play\" (36%))",
+     "sql": "(language = 'OTHERS' AND event_type = 'Play')",
+     "support": 0.06,
+     "rows": 80,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.514,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v2": "OTHERS",
+      "event_type=v1": "Play"
+     }
+    },
+    {
+     "table": "lbsg.t1",
+     "K": [
+      "performance_start_date",
+      "company_name",
+      "venue_block_number"
+     ],
+     "cls": "cert",
+     "condition": "(language = \"OTHERS\" (12%), event_type = \"Play\" (36%))",
+     "sql": "(language = 'OTHERS' AND event_type = 'Play')",
+     "support": 0.06,
+     "rows": 80,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.05,
+     "score": 0.51,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v2": "OTHERS",
+      "event_type=v1": "Play"
+     }
+    }
+   ],
+   "unconditional": {
+    "performance_start_date,venue_building_name,synopsis": "dom",
+    "performance_start_date,venue_building_name,title": "pos",
+    "performance_start_date,venue_street_name,synopsis": "dom",
+    "performance_end_date,venue_building_name,synopsis": "dom",
+    "performance_end_date,venue_building_name,title": "pos",
+    "performance_end_date,venue_street_name,synopsis": "dom"
+   }
+  }
+ ]
+}

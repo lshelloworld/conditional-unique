@@ -1,0 +1,1383 @@
+[
+ {
+  "case": "NV1",
+  "list": "QO",
+  "table": "voters",
+  "cls": "cert",
+  "K": [
+   "last_name",
+   "first_name",
+   "middle_name",
+   "birth_age",
+   "res_street_address"
+  ],
+  "P": "\"status_cd\" = 'A' AND \"drivers_lic\" = 'Y'",
+  "template": "DISTINCT",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT DISTINCT \"last_name\", \"first_name\", \"middle_name\", \"birth_age\", \"res_street_address\" FROM \"ncvoter_voters\" WHERE \"status_cd\" = 'A' AND \"drivers_lic\" = 'Y'",
+  "rew_sql": "SELECT \"last_name\", \"first_name\", \"middle_name\", \"birth_age\", \"res_street_address\" FROM \"ncvoter_voters\" WHERE \"status_cd\" = 'A' AND \"drivers_lic\" = 'Y'",
+  "configs": {
+   "none": {
+    "orig_ms": 215.108,
+    "rew_ms": 60.285,
+    "orig_plan_ms": 0.026,
+    "rew_plan_ms": 0.018,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 213.421,
+    "rew_ms": 60.064,
+    "orig_plan_ms": 0.032,
+    "rew_plan_ms": 0.02,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 214.35,
+    "rew_ms": 59.703,
+    "orig_plan_ms": 0.032,
+    "rew_plan_ms": 0.025,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "NV1",
+  "list": "QO",
+  "table": "voters",
+  "cls": "cert",
+  "K": [
+   "last_name",
+   "first_name",
+   "middle_name",
+   "birth_age",
+   "res_street_address"
+  ],
+  "P": "\"status_cd\" = 'A' AND \"drivers_lic\" = 'Y'",
+  "template": "GROUPBY",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT \"last_name\", \"first_name\", \"middle_name\", \"birth_age\", \"res_street_address\", count(*) AS n FROM \"ncvoter_voters\" WHERE \"status_cd\" = 'A' AND \"drivers_lic\" = 'Y' GROUP BY \"last_name\", \"first_name\", \"middle_name\", \"birth_age\", \"res_street_address\"",
+  "rew_sql": "SELECT \"last_name\", \"first_name\", \"middle_name\", \"birth_age\", \"res_street_address\", 1 AS n FROM \"ncvoter_voters\" WHERE \"status_cd\" = 'A' AND \"drivers_lic\" = 'Y'",
+  "configs": {
+   "none": {
+    "orig_ms": 219.034,
+    "rew_ms": 60.697,
+    "orig_plan_ms": 0.028,
+    "rew_plan_ms": 0.015,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 223.756,
+    "rew_ms": 62.287,
+    "orig_plan_ms": 0.034,
+    "rew_plan_ms": 0.022,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 222.476,
+    "rew_ms": 61.05,
+    "orig_plan_ms": 0.035,
+    "rew_plan_ms": 0.03,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "NV1",
+  "list": "QO",
+  "table": "voters",
+  "cls": "cert",
+  "K": [
+   "last_name",
+   "first_name",
+   "middle_name",
+   "birth_age",
+   "res_street_address"
+  ],
+  "P": "\"status_cd\" = 'A' AND \"drivers_lic\" = 'Y'",
+  "template": "LEFTJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"last_name\", a.\"first_name\", a.\"middle_name\", a.\"birth_age\", a.\"res_street_address\", a.\"ncid\" FROM \"ncvoter_voters\" a LEFT JOIN \"ncvoter_voters\" b ON a.\"last_name\" = b.\"last_name\" AND a.\"first_name\" = b.\"first_name\" AND a.\"middle_name\" = b.\"middle_name\" AND a.\"birth_age\" = b.\"birth_age\" AND a.\"res_street_address\" = b.\"res_street_address\" AND b.\"status_cd\" = 'A' AND b.\"drivers_lic\" = 'Y'",
+  "rew_sql": "SELECT a.\"last_name\", a.\"first_name\", a.\"middle_name\", a.\"birth_age\", a.\"res_street_address\", a.\"ncid\" FROM \"ncvoter_voters\" a",
+  "configs": {
+   "none": {
+    "orig_ms": 848.653,
+    "rew_ms": 55.107,
+    "orig_plan_ms": 0.188,
+    "rew_plan_ms": 0.012,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Merge Join",
+     "Sort",
+     "Seq Scan",
+     "Sort",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 498.184,
+    "rew_ms": 52.953,
+    "orig_plan_ms": 0.223,
+    "rew_plan_ms": 0.01,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Merge Join",
+     "Index Scan",
+     "Sort",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 1284.051,
+    "rew_ms": 54.086,
+    "orig_plan_ms": 0.214,
+    "rew_plan_ms": 0.018,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Nested Loop",
+     "Seq Scan",
+     "Memoize",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "NV1",
+  "list": "QO",
+  "table": "voters",
+  "cls": "cert",
+  "K": [
+   "last_name",
+   "first_name",
+   "middle_name",
+   "birth_age",
+   "res_street_address"
+  ],
+  "P": "\"status_cd\" = 'A' AND \"drivers_lic\" = 'Y'",
+  "template": "SEMIJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"last_name\", a.\"first_name\", a.\"middle_name\", a.\"birth_age\", a.\"res_street_address\", a.\"ncid\" FROM \"ncvoter_voters\" a WHERE EXISTS (SELECT 1 FROM \"ncvoter_voters\" b WHERE a.\"last_name\" = b.\"last_name\" AND a.\"first_name\" = b.\"first_name\" AND a.\"middle_name\" = b.\"middle_name\" AND a.\"birth_age\" = b.\"birth_age\" AND a.\"res_street_address\" = b.\"res_street_address\" AND b.\"status_cd\" = 'A' AND b.\"drivers_lic\" = 'Y')",
+  "rew_sql": "SELECT a.\"last_name\", a.\"first_name\", a.\"middle_name\", a.\"birth_age\", a.\"res_street_address\", a.\"ncid\" FROM \"ncvoter_voters\" a JOIN \"ncvoter_voters\" b ON a.\"last_name\" = b.\"last_name\" AND a.\"first_name\" = b.\"first_name\" AND a.\"middle_name\" = b.\"middle_name\" AND a.\"birth_age\" = b.\"birth_age\" AND a.\"res_street_address\" = b.\"res_street_address\" AND b.\"status_cd\" = 'A' AND b.\"drivers_lic\" = 'Y'",
+  "configs": {
+   "none": {
+    "orig_ms": 675.806,
+    "rew_ms": 864.079,
+    "orig_plan_ms": 0.205,
+    "rew_plan_ms": 0.171,
+    "pg_already_removes": true,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 663.895,
+    "rew_ms": 515.103,
+    "orig_plan_ms": 0.248,
+    "rew_plan_ms": 0.218,
+    "pg_already_removes": true,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 646.266,
+    "rew_ms": 1335.873,
+    "orig_plan_ms": 0.224,
+    "rew_plan_ms": 0.192,
+    "pg_already_removes": true,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Aggregate",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "NV2",
+  "list": "QO",
+  "table": "voters",
+  "cls": "cand",
+  "K": [
+   "last_name",
+   "first_name",
+   "birth_age",
+   "res_street_address"
+  ],
+  "P": "\"status_cd\" = 'I' AND \"drivers_lic\" = 'Y'",
+  "template": "DISTINCT",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT DISTINCT \"last_name\", \"first_name\", \"birth_age\", \"res_street_address\" FROM \"ncvoter_voters\" WHERE \"status_cd\" = 'I' AND \"drivers_lic\" = 'Y'",
+  "rew_sql": "SELECT \"last_name\", \"first_name\", \"birth_age\", \"res_street_address\" FROM \"ncvoter_voters\" WHERE \"status_cd\" = 'I' AND \"drivers_lic\" = 'Y'",
+  "configs": {
+   "none": {
+    "orig_ms": 77.188,
+    "rew_ms": 45.27,
+    "orig_plan_ms": 0.032,
+    "rew_plan_ms": 0.019,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 80.543,
+    "rew_ms": 44.784,
+    "orig_plan_ms": 0.026,
+    "rew_plan_ms": 0.025,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 43.991,
+    "rew_ms": 15.726,
+    "orig_plan_ms": 0.037,
+    "rew_plan_ms": 0.03,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Bitmap Heap Scan",
+     "Bitmap Index Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "NV2",
+  "list": "QO",
+  "table": "voters",
+  "cls": "cand",
+  "K": [
+   "last_name",
+   "first_name",
+   "birth_age",
+   "res_street_address"
+  ],
+  "P": "\"status_cd\" = 'I' AND \"drivers_lic\" = 'Y'",
+  "template": "GROUPBY",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT \"last_name\", \"first_name\", \"birth_age\", \"res_street_address\", count(*) AS n FROM \"ncvoter_voters\" WHERE \"status_cd\" = 'I' AND \"drivers_lic\" = 'Y' GROUP BY \"last_name\", \"first_name\", \"birth_age\", \"res_street_address\"",
+  "rew_sql": "SELECT \"last_name\", \"first_name\", \"birth_age\", \"res_street_address\", 1 AS n FROM \"ncvoter_voters\" WHERE \"status_cd\" = 'I' AND \"drivers_lic\" = 'Y'",
+  "configs": {
+   "none": {
+    "orig_ms": 82.589,
+    "rew_ms": 46.467,
+    "orig_plan_ms": 0.023,
+    "rew_plan_ms": 0.023,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 82.17,
+    "rew_ms": 45.567,
+    "orig_plan_ms": 0.035,
+    "rew_plan_ms": 0.024,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 50.242,
+    "rew_ms": 14.03,
+    "orig_plan_ms": 0.04,
+    "rew_plan_ms": 0.026,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Bitmap Heap Scan",
+     "Bitmap Index Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "NV2",
+  "list": "QO",
+  "table": "voters",
+  "cls": "cand",
+  "K": [
+   "last_name",
+   "first_name",
+   "birth_age",
+   "res_street_address"
+  ],
+  "P": "\"status_cd\" = 'I' AND \"drivers_lic\" = 'Y'",
+  "template": "LEFTJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"last_name\", a.\"first_name\", a.\"birth_age\", a.\"res_street_address\", a.\"ncid\" FROM \"ncvoter_voters\" a LEFT JOIN \"ncvoter_voters\" b ON a.\"last_name\" = b.\"last_name\" AND a.\"first_name\" = b.\"first_name\" AND a.\"birth_age\" = b.\"birth_age\" AND a.\"res_street_address\" = b.\"res_street_address\" AND b.\"status_cd\" = 'I' AND b.\"drivers_lic\" = 'Y'",
+  "rew_sql": "SELECT a.\"last_name\", a.\"first_name\", a.\"birth_age\", a.\"res_street_address\", a.\"ncid\" FROM \"ncvoter_voters\" a",
+  "configs": {
+   "none": {
+    "orig_ms": 630.401,
+    "rew_ms": 54.762,
+    "orig_plan_ms": 0.16,
+    "rew_plan_ms": 0.015,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Merge Join",
+     "Sort",
+     "Seq Scan",
+     "Sort",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 269.292,
+    "rew_ms": 56.474,
+    "orig_plan_ms": 0.189,
+    "rew_plan_ms": 0.017,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Merge Join",
+     "Index Scan",
+     "Sort",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 585.255,
+    "rew_ms": 54.518,
+    "orig_plan_ms": 0.18,
+    "rew_plan_ms": 0.012,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Merge Join",
+     "Sort",
+     "Seq Scan",
+     "Sort",
+     "Bitmap Heap Scan",
+     "Bitmap Index Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "NV2",
+  "list": "QO",
+  "table": "voters",
+  "cls": "cand",
+  "K": [
+   "last_name",
+   "first_name",
+   "birth_age",
+   "res_street_address"
+  ],
+  "P": "\"status_cd\" = 'I' AND \"drivers_lic\" = 'Y'",
+  "template": "SEMIJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"last_name\", a.\"first_name\", a.\"birth_age\", a.\"res_street_address\", a.\"ncid\" FROM \"ncvoter_voters\" a WHERE EXISTS (SELECT 1 FROM \"ncvoter_voters\" b WHERE a.\"last_name\" = b.\"last_name\" AND a.\"first_name\" = b.\"first_name\" AND a.\"birth_age\" = b.\"birth_age\" AND a.\"res_street_address\" = b.\"res_street_address\" AND b.\"status_cd\" = 'I' AND b.\"drivers_lic\" = 'Y')",
+  "rew_sql": "SELECT a.\"last_name\", a.\"first_name\", a.\"birth_age\", a.\"res_street_address\", a.\"ncid\" FROM \"ncvoter_voters\" a JOIN \"ncvoter_voters\" b ON a.\"last_name\" = b.\"last_name\" AND a.\"first_name\" = b.\"first_name\" AND a.\"birth_age\" = b.\"birth_age\" AND a.\"res_street_address\" = b.\"res_street_address\" AND b.\"status_cd\" = 'I' AND b.\"drivers_lic\" = 'Y'",
+  "configs": {
+   "none": {
+    "orig_ms": 252.458,
+    "rew_ms": 587.275,
+    "orig_plan_ms": 0.169,
+    "rew_plan_ms": 0.146,
+    "pg_already_removes": true,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 267.997,
+    "rew_ms": 229.819,
+    "orig_plan_ms": 0.211,
+    "rew_plan_ms": 0.177,
+    "pg_already_removes": true,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 216.94,
+    "rew_ms": 559.251,
+    "orig_plan_ms": 0.191,
+    "rew_plan_ms": 0.164,
+    "pg_already_removes": true,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Aggregate",
+     "Bitmap Heap Scan",
+     "Bitmap Index Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "NV3",
+  "list": "QO",
+  "table": "voters",
+  "cls": "dom",
+  "K": [
+   "first_name",
+   "middle_name",
+   "birth_age",
+   "birth_state",
+   "res_street_address"
+  ],
+  "P": "\"status_cd\" = 'A' AND \"drivers_lic\" = 'Y'",
+  "template": "DISTINCT",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT DISTINCT \"first_name\", \"middle_name\", \"birth_age\", \"birth_state\", \"res_street_address\" FROM \"ncvoter_voters\" WHERE \"status_cd\" = 'A' AND \"drivers_lic\" = 'Y'",
+  "rew_sql": "SELECT \"first_name\", \"middle_name\", \"birth_age\", \"birth_state\", \"res_street_address\" FROM \"ncvoter_voters\" WHERE \"status_cd\" = 'A' AND \"drivers_lic\" = 'Y'",
+  "configs": {
+   "none": {
+    "orig_ms": 224.276,
+    "rew_ms": 61.346,
+    "orig_plan_ms": 0.029,
+    "rew_plan_ms": 0.019,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 220.61,
+    "rew_ms": 59.991,
+    "orig_plan_ms": 0.032,
+    "rew_plan_ms": 0.023,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 221.037,
+    "rew_ms": 62.304,
+    "orig_plan_ms": 0.038,
+    "rew_plan_ms": 0.026,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "NV3",
+  "list": "QO",
+  "table": "voters",
+  "cls": "dom",
+  "K": [
+   "first_name",
+   "middle_name",
+   "birth_age",
+   "birth_state",
+   "res_street_address"
+  ],
+  "P": "\"status_cd\" = 'A' AND \"drivers_lic\" = 'Y'",
+  "template": "GROUPBY",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT \"first_name\", \"middle_name\", \"birth_age\", \"birth_state\", \"res_street_address\", count(*) AS n FROM \"ncvoter_voters\" WHERE \"status_cd\" = 'A' AND \"drivers_lic\" = 'Y' GROUP BY \"first_name\", \"middle_name\", \"birth_age\", \"birth_state\", \"res_street_address\"",
+  "rew_sql": "SELECT \"first_name\", \"middle_name\", \"birth_age\", \"birth_state\", \"res_street_address\", 1 AS n FROM \"ncvoter_voters\" WHERE \"status_cd\" = 'A' AND \"drivers_lic\" = 'Y'",
+  "configs": {
+   "none": {
+    "orig_ms": 231.029,
+    "rew_ms": 63.142,
+    "orig_plan_ms": 0.034,
+    "rew_plan_ms": 0.022,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 227.769,
+    "rew_ms": 61.501,
+    "orig_plan_ms": 0.037,
+    "rew_plan_ms": 0.025,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 229.466,
+    "rew_ms": 64.521,
+    "orig_plan_ms": 0.039,
+    "rew_plan_ms": 0.028,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "NV3",
+  "list": "QO",
+  "table": "voters",
+  "cls": "dom",
+  "K": [
+   "first_name",
+   "middle_name",
+   "birth_age",
+   "birth_state",
+   "res_street_address"
+  ],
+  "P": "\"status_cd\" = 'A' AND \"drivers_lic\" = 'Y'",
+  "template": "LEFTJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"first_name\", a.\"middle_name\", a.\"birth_age\", a.\"birth_state\", a.\"res_street_address\", a.\"ncid\" FROM \"ncvoter_voters\" a LEFT JOIN \"ncvoter_voters\" b ON a.\"first_name\" = b.\"first_name\" AND a.\"middle_name\" = b.\"middle_name\" AND a.\"birth_age\" = b.\"birth_age\" AND a.\"birth_state\" = b.\"birth_state\" AND a.\"res_street_address\" = b.\"res_street_address\" AND b.\"status_cd\" = 'A' AND b.\"drivers_lic\" = 'Y'",
+  "rew_sql": "SELECT a.\"first_name\", a.\"middle_name\", a.\"birth_age\", a.\"birth_state\", a.\"res_street_address\", a.\"ncid\" FROM \"ncvoter_voters\" a",
+  "configs": {
+   "none": {
+    "orig_ms": 1184.95,
+    "rew_ms": 54.872,
+    "orig_plan_ms": 0.16,
+    "rew_plan_ms": 0.016,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Merge Join",
+     "Sort",
+     "Seq Scan",
+     "Sort",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 803.007,
+    "rew_ms": 52.458,
+    "orig_plan_ms": 0.201,
+    "rew_plan_ms": 0.021,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Merge Join",
+     "Index Scan",
+     "Sort",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 1645.728,
+    "rew_ms": 52.661,
+    "orig_plan_ms": 0.183,
+    "rew_plan_ms": 0.02,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Nested Loop",
+     "Seq Scan",
+     "Memoize",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "NV3",
+  "list": "QO",
+  "table": "voters",
+  "cls": "dom",
+  "K": [
+   "first_name",
+   "middle_name",
+   "birth_age",
+   "birth_state",
+   "res_street_address"
+  ],
+  "P": "\"status_cd\" = 'A' AND \"drivers_lic\" = 'Y'",
+  "template": "SEMIJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"first_name\", a.\"middle_name\", a.\"birth_age\", a.\"birth_state\", a.\"res_street_address\", a.\"ncid\" FROM \"ncvoter_voters\" a WHERE EXISTS (SELECT 1 FROM \"ncvoter_voters\" b WHERE a.\"first_name\" = b.\"first_name\" AND a.\"middle_name\" = b.\"middle_name\" AND a.\"birth_age\" = b.\"birth_age\" AND a.\"birth_state\" = b.\"birth_state\" AND a.\"res_street_address\" = b.\"res_street_address\" AND b.\"status_cd\" = 'A' AND b.\"drivers_lic\" = 'Y')",
+  "rew_sql": "SELECT a.\"first_name\", a.\"middle_name\", a.\"birth_age\", a.\"birth_state\", a.\"res_street_address\", a.\"ncid\" FROM \"ncvoter_voters\" a JOIN \"ncvoter_voters\" b ON a.\"first_name\" = b.\"first_name\" AND a.\"middle_name\" = b.\"middle_name\" AND a.\"birth_age\" = b.\"birth_age\" AND a.\"birth_state\" = b.\"birth_state\" AND a.\"res_street_address\" = b.\"res_street_address\" AND b.\"status_cd\" = 'A' AND b.\"drivers_lic\" = 'Y'",
+  "configs": {
+   "none": {
+    "orig_ms": 569.56,
+    "rew_ms": 1151.53,
+    "orig_plan_ms": 0.177,
+    "rew_plan_ms": 0.14,
+    "pg_already_removes": true,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 572.994,
+    "rew_ms": 776.863,
+    "orig_plan_ms": 0.22,
+    "rew_plan_ms": 0.19,
+    "pg_already_removes": true,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 598.724,
+    "rew_ms": 1645.999,
+    "orig_plan_ms": 0.187,
+    "rew_plan_ms": 0.155,
+    "pg_already_removes": true,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Aggregate",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "NVT",
+  "list": "GROUP-BY-trap",
+  "table": "voters",
+  "cls": "pos",
+  "K": [
+   "first_name",
+   "middle_name",
+   "birth_age",
+   "res_street_address"
+  ],
+  "P": "\"status_cd\" = 'A' AND \"drivers_lic\" = 'Y'",
+  "template": "DISTINCT",
+  "licensed": false,
+  "rewrite_correct": false,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT DISTINCT \"first_name\", \"middle_name\", \"birth_age\", \"res_street_address\" FROM \"ncvoter_voters\" WHERE \"status_cd\" = 'A' AND \"drivers_lic\" = 'Y'",
+  "rew_sql": "SELECT \"first_name\", \"middle_name\", \"birth_age\", \"res_street_address\" FROM \"ncvoter_voters\" WHERE \"status_cd\" = 'A' AND \"drivers_lic\" = 'Y'",
+  "configs": {
+   "none": {
+    "orig_ms": 210.282,
+    "rew_ms": 60.153,
+    "orig_plan_ms": 0.029,
+    "rew_plan_ms": 0.022,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 209.129,
+    "rew_ms": 60.875,
+    "orig_plan_ms": 0.039,
+    "rew_plan_ms": 0.027,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 213.912,
+    "rew_ms": 60.371,
+    "orig_plan_ms": 0.041,
+    "rew_plan_ms": 0.029,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "NVT",
+  "list": "GROUP-BY-trap",
+  "table": "voters",
+  "cls": "pos",
+  "K": [
+   "first_name",
+   "middle_name",
+   "birth_age",
+   "res_street_address"
+  ],
+  "P": "\"status_cd\" = 'A' AND \"drivers_lic\" = 'Y'",
+  "template": "GROUPBY",
+  "licensed": false,
+  "rewrite_correct": false,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT \"first_name\", \"middle_name\", \"birth_age\", \"res_street_address\", count(*) AS n FROM \"ncvoter_voters\" WHERE \"status_cd\" = 'A' AND \"drivers_lic\" = 'Y' GROUP BY \"first_name\", \"middle_name\", \"birth_age\", \"res_street_address\"",
+  "rew_sql": "SELECT \"first_name\", \"middle_name\", \"birth_age\", \"res_street_address\", 1 AS n FROM \"ncvoter_voters\" WHERE \"status_cd\" = 'A' AND \"drivers_lic\" = 'Y'",
+  "configs": {
+   "none": {
+    "orig_ms": 217.705,
+    "rew_ms": 61.257,
+    "orig_plan_ms": 0.032,
+    "rew_plan_ms": 0.025,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 219.329,
+    "rew_ms": 60.384,
+    "orig_plan_ms": 0.042,
+    "rew_plan_ms": 0.027,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 217.817,
+    "rew_ms": 60.979,
+    "orig_plan_ms": 0.041,
+    "rew_plan_ms": 0.03,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "NVT",
+  "list": "GROUP-BY-trap",
+  "table": "voters",
+  "cls": "pos",
+  "K": [
+   "first_name",
+   "middle_name",
+   "birth_age",
+   "res_street_address"
+  ],
+  "P": "\"status_cd\" = 'A' AND \"drivers_lic\" = 'Y'",
+  "template": "LEFTJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"first_name\", a.\"middle_name\", a.\"birth_age\", a.\"res_street_address\", a.\"ncid\" FROM \"ncvoter_voters\" a LEFT JOIN \"ncvoter_voters\" b ON a.\"first_name\" = b.\"first_name\" AND a.\"middle_name\" = b.\"middle_name\" AND a.\"birth_age\" = b.\"birth_age\" AND a.\"res_street_address\" = b.\"res_street_address\" AND b.\"status_cd\" = 'A' AND b.\"drivers_lic\" = 'Y'",
+  "rew_sql": "SELECT a.\"first_name\", a.\"middle_name\", a.\"birth_age\", a.\"res_street_address\", a.\"ncid\" FROM \"ncvoter_voters\" a",
+  "configs": {
+   "none": {
+    "orig_ms": 1115.465,
+    "rew_ms": 54.226,
+    "orig_plan_ms": 0.145,
+    "rew_plan_ms": 0.016,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Merge Join",
+     "Sort",
+     "Seq Scan",
+     "Sort",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 798.312,
+    "rew_ms": 52.45,
+    "orig_plan_ms": 0.188,
+    "rew_plan_ms": 0.022,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Merge Join",
+     "Index Scan",
+     "Sort",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 1791.916,
+    "rew_ms": 55.546,
+    "orig_plan_ms": 0.171,
+    "rew_plan_ms": 0.018,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Nested Loop",
+     "Seq Scan",
+     "Memoize",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "NVT",
+  "list": "GROUP-BY-trap",
+  "table": "voters",
+  "cls": "pos",
+  "K": [
+   "first_name",
+   "middle_name",
+   "birth_age",
+   "res_street_address"
+  ],
+  "P": "\"status_cd\" = 'A' AND \"drivers_lic\" = 'Y'",
+  "template": "SEMIJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"first_name\", a.\"middle_name\", a.\"birth_age\", a.\"res_street_address\", a.\"ncid\" FROM \"ncvoter_voters\" a WHERE EXISTS (SELECT 1 FROM \"ncvoter_voters\" b WHERE a.\"first_name\" = b.\"first_name\" AND a.\"middle_name\" = b.\"middle_name\" AND a.\"birth_age\" = b.\"birth_age\" AND a.\"res_street_address\" = b.\"res_street_address\" AND b.\"status_cd\" = 'A' AND b.\"drivers_lic\" = 'Y')",
+  "rew_sql": "SELECT a.\"first_name\", a.\"middle_name\", a.\"birth_age\", a.\"res_street_address\", a.\"ncid\" FROM \"ncvoter_voters\" a JOIN \"ncvoter_voters\" b ON a.\"first_name\" = b.\"first_name\" AND a.\"middle_name\" = b.\"middle_name\" AND a.\"birth_age\" = b.\"birth_age\" AND a.\"res_street_address\" = b.\"res_street_address\" AND b.\"status_cd\" = 'A' AND b.\"drivers_lic\" = 'Y'",
+  "configs": {
+   "none": {
+    "orig_ms": 614.293,
+    "rew_ms": 1114.261,
+    "orig_plan_ms": 0.165,
+    "rew_plan_ms": 0.136,
+    "pg_already_removes": true,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 575.879,
+    "rew_ms": 807.626,
+    "orig_plan_ms": 0.197,
+    "rew_plan_ms": 0.167,
+    "pg_already_removes": true,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 552.392,
+    "rew_ms": 1789.363,
+    "orig_plan_ms": 0.178,
+    "rew_plan_ms": 0.156,
+    "pg_already_removes": true,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Aggregate",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "UP1",
+  "list": "QO",
+  "table": "proteins",
+  "cls": "cert",
+  "K": [
+   "cross_reference_geneid",
+   "sequence_checksum"
+  ],
+  "P": "\"cross_reference_oma\" IS NOT NULL",
+  "template": "DISTINCT",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT DISTINCT \"cross_reference_geneid\", \"sequence_checksum\" FROM \"uniprot_proteins\" WHERE \"cross_reference_oma\" IS NOT NULL",
+  "rew_sql": "SELECT \"cross_reference_geneid\", \"sequence_checksum\" FROM \"uniprot_proteins\" WHERE \"cross_reference_oma\" IS NOT NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 2.907,
+    "rew_ms": 1.055,
+    "orig_plan_ms": 0.012,
+    "rew_plan_ms": 0.005,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 2.785,
+    "rew_ms": 1.062,
+    "orig_plan_ms": 0.008,
+    "rew_plan_ms": 0.004,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 2.898,
+    "rew_ms": 1.05,
+    "orig_plan_ms": 0.01,
+    "rew_plan_ms": 0.006,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "UP1",
+  "list": "QO",
+  "table": "proteins",
+  "cls": "cert",
+  "K": [
+   "cross_reference_geneid",
+   "sequence_checksum"
+  ],
+  "P": "\"cross_reference_oma\" IS NOT NULL",
+  "template": "GROUPBY",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT \"cross_reference_geneid\", \"sequence_checksum\", count(*) AS n FROM \"uniprot_proteins\" WHERE \"cross_reference_oma\" IS NOT NULL GROUP BY \"cross_reference_geneid\", \"sequence_checksum\"",
+  "rew_sql": "SELECT \"cross_reference_geneid\", \"sequence_checksum\", 1 AS n FROM \"uniprot_proteins\" WHERE \"cross_reference_oma\" IS NOT NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 2.94,
+    "rew_ms": 1.065,
+    "orig_plan_ms": 0.008,
+    "rew_plan_ms": 0.003,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 2.939,
+    "rew_ms": 1.064,
+    "orig_plan_ms": 0.008,
+    "rew_plan_ms": 0.005,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 2.959,
+    "rew_ms": 1.071,
+    "orig_plan_ms": 0.013,
+    "rew_plan_ms": 0.005,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "UP1",
+  "list": "QO",
+  "table": "proteins",
+  "cls": "cert",
+  "K": [
+   "cross_reference_geneid",
+   "sequence_checksum"
+  ],
+  "P": "\"cross_reference_oma\" IS NOT NULL",
+  "template": "LEFTJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"cross_reference_geneid\", a.\"sequence_checksum\", a.\"accession\" FROM \"uniprot_proteins\" a LEFT JOIN \"uniprot_proteins\" b ON a.\"cross_reference_geneid\" = b.\"cross_reference_geneid\" AND a.\"sequence_checksum\" = b.\"sequence_checksum\" AND b.\"cross_reference_oma\" IS NOT NULL",
+  "rew_sql": "SELECT a.\"cross_reference_geneid\", a.\"sequence_checksum\", a.\"accession\" FROM \"uniprot_proteins\" a",
+  "configs": {
+   "none": {
+    "orig_ms": 4.473,
+    "rew_ms": 1.065,
+    "orig_plan_ms": 0.041,
+    "rew_plan_ms": 0.003,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 4.848,
+    "rew_ms": 1.094,
+    "orig_plan_ms": 0.069,
+    "rew_plan_ms": 0.007,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 4.176,
+    "rew_ms": 1.077,
+    "orig_plan_ms": 0.061,
+    "rew_plan_ms": 0.006,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "UP1",
+  "list": "QO",
+  "table": "proteins",
+  "cls": "cert",
+  "K": [
+   "cross_reference_geneid",
+   "sequence_checksum"
+  ],
+  "P": "\"cross_reference_oma\" IS NOT NULL",
+  "template": "SEMIJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"cross_reference_geneid\", a.\"sequence_checksum\", a.\"accession\" FROM \"uniprot_proteins\" a WHERE EXISTS (SELECT 1 FROM \"uniprot_proteins\" b WHERE a.\"cross_reference_geneid\" = b.\"cross_reference_geneid\" AND a.\"sequence_checksum\" = b.\"sequence_checksum\" AND b.\"cross_reference_oma\" IS NOT NULL)",
+  "rew_sql": "SELECT a.\"cross_reference_geneid\", a.\"sequence_checksum\", a.\"accession\" FROM \"uniprot_proteins\" a JOIN \"uniprot_proteins\" b ON a.\"cross_reference_geneid\" = b.\"cross_reference_geneid\" AND a.\"sequence_checksum\" = b.\"sequence_checksum\" AND b.\"cross_reference_oma\" IS NOT NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 4.125,
+    "rew_ms": 4.149,
+    "orig_plan_ms": 0.052,
+    "rew_plan_ms": 0.036,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 4.127,
+    "rew_ms": 4.196,
+    "orig_plan_ms": 0.074,
+    "rew_plan_ms": 0.061,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 3.727,
+    "rew_ms": 3.732,
+    "orig_plan_ms": 0.051,
+    "rew_plan_ms": 0.037,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "UP2",
+  "list": "QO",
+  "table": "proteins",
+  "cls": "cert",
+  "K": [
+   "sequence_checksum",
+   "feature_chain"
+  ],
+  "P": "\"feature_modified_residue\" IS NULL",
+  "template": "DISTINCT",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT DISTINCT \"sequence_checksum\", \"feature_chain\" FROM \"uniprot_proteins\" WHERE \"feature_modified_residue\" IS NULL",
+  "rew_sql": "SELECT \"sequence_checksum\", \"feature_chain\" FROM \"uniprot_proteins\" WHERE \"feature_modified_residue\" IS NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 3.779,
+    "rew_ms": 1.164,
+    "orig_plan_ms": 0.009,
+    "rew_plan_ms": 0.004,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 3.801,
+    "rew_ms": 1.158,
+    "orig_plan_ms": 0.015,
+    "rew_plan_ms": 0.004,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 3.783,
+    "rew_ms": 1.157,
+    "orig_plan_ms": 0.013,
+    "rew_plan_ms": 0.006,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "UP2",
+  "list": "QO",
+  "table": "proteins",
+  "cls": "cert",
+  "K": [
+   "sequence_checksum",
+   "feature_chain"
+  ],
+  "P": "\"feature_modified_residue\" IS NULL",
+  "template": "GROUPBY",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT \"sequence_checksum\", \"feature_chain\", count(*) AS n FROM \"uniprot_proteins\" WHERE \"feature_modified_residue\" IS NULL GROUP BY \"sequence_checksum\", \"feature_chain\"",
+  "rew_sql": "SELECT \"sequence_checksum\", \"feature_chain\", 1 AS n FROM \"uniprot_proteins\" WHERE \"feature_modified_residue\" IS NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 3.978,
+    "rew_ms": 1.175,
+    "orig_plan_ms": 0.011,
+    "rew_plan_ms": 0.004,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 3.974,
+    "rew_ms": 1.176,
+    "orig_plan_ms": 0.011,
+    "rew_plan_ms": 0.004,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 3.971,
+    "rew_ms": 1.181,
+    "orig_plan_ms": 0.014,
+    "rew_plan_ms": 0.005,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "UP2",
+  "list": "QO",
+  "table": "proteins",
+  "cls": "cert",
+  "K": [
+   "sequence_checksum",
+   "feature_chain"
+  ],
+  "P": "\"feature_modified_residue\" IS NULL",
+  "template": "LEFTJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": true,
+  "orig_sql": "SELECT a.\"sequence_checksum\", a.\"feature_chain\", a.\"accession\" FROM \"uniprot_proteins\" a LEFT JOIN \"uniprot_proteins\" b ON a.\"sequence_checksum\" = b.\"sequence_checksum\" AND a.\"feature_chain\" = b.\"feature_chain\" AND b.\"feature_modified_residue\" IS NULL",
+  "rew_sql": "SELECT a.\"sequence_checksum\", a.\"feature_chain\", a.\"accession\" FROM \"uniprot_proteins\" a",
+  "configs": {
+   "none": {
+    "orig_ms": 5.798,
+    "rew_ms": 1.086,
+    "orig_plan_ms": 0.072,
+    "rew_plan_ms": 0.003,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 6.061,
+    "rew_ms": 1.123,
+    "orig_plan_ms": 0.092,
+    "rew_plan_ms": 0.005,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 5.788,
+    "rew_ms": 1.096,
+    "orig_plan_ms": 0.093,
+    "rew_plan_ms": 0.007,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "UP2",
+  "list": "QO",
+  "table": "proteins",
+  "cls": "cert",
+  "K": [
+   "sequence_checksum",
+   "feature_chain"
+  ],
+  "P": "\"feature_modified_residue\" IS NULL",
+  "template": "SEMIJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": true,
+  "orig_sql": "SELECT a.\"sequence_checksum\", a.\"feature_chain\", a.\"accession\" FROM \"uniprot_proteins\" a WHERE EXISTS (SELECT 1 FROM \"uniprot_proteins\" b WHERE a.\"sequence_checksum\" = b.\"sequence_checksum\" AND a.\"feature_chain\" = b.\"feature_chain\" AND b.\"feature_modified_residue\" IS NULL)",
+  "rew_sql": "SELECT a.\"sequence_checksum\", a.\"feature_chain\", a.\"accession\" FROM \"uniprot_proteins\" a JOIN \"uniprot_proteins\" b ON a.\"sequence_checksum\" = b.\"sequence_checksum\" AND a.\"feature_chain\" = b.\"feature_chain\" AND b.\"feature_modified_residue\" IS NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 5.829,
+    "rew_ms": 5.732,
+    "orig_plan_ms": 0.073,
+    "rew_plan_ms": 0.062,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 5.902,
+    "rew_ms": 5.673,
+    "orig_plan_ms": 0.104,
+    "rew_plan_ms": 0.085,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 5.796,
+    "rew_ms": 5.675,
+    "orig_plan_ms": 0.081,
+    "rew_plan_ms": 0.068,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   }
+  }
+ }
+]

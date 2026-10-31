@@ -1,0 +1,170 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "registration_incorporation_date",
+   "street_name",
+   "secondary_ssic_description",
+   "secondary_ssic_code"
+  ]
+ },
+ "sample_rows": 31963,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbsg.t65",
+   "rows": 31963,
+   "cols": [
+    "entity_type_description",
+    "secondary_ssic_code",
+    "secondary_ssic_description",
+    "street_name",
+    "registration_incorporation_date"
+   ],
+   "n_conditional": 5,
+   "conditional": [
+    {
+     "table": "lbsg.t65",
+     "K": [
+      "registration_incorporation_date",
+      "street_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Business\" (54%))",
+     "sql": "(entity_type_description = 'Business')",
+     "support": 0.544,
+     "rows": 17400,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.512,
+     "score": 1.151,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "entity_type_description=v1": "Business"
+     }
+    },
+    {
+     "table": "lbsg.t65",
+     "K": [
+      "registration_incorporation_date",
+      "street_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Business\" (54%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(entity_type_description = 'Business' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.266,
+     "rows": 8507,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 1.073,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "entity_type_description=v1": "Business"
+     }
+    },
+    {
+     "table": "lbsg.t65",
+     "K": [
+      "registration_incorporation_date",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(secondary_ssic_code IS NULL)",
+     "support": 0.486,
+     "rows": 15533,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.612,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t65",
+     "K": [
+      "registration_incorporation_date",
+      "street_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Business\" (54%))",
+     "sql": "(entity_type_description = 'Business')",
+     "support": 0.544,
+     "rows": 17400,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.512,
+     "score": 0.576,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "entity_type_description=v1": "Business"
+     }
+    },
+    {
+     "table": "lbsg.t65",
+     "K": [
+      "registration_incorporation_date",
+      "street_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Business\" (54%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(entity_type_description = 'Business' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.266,
+     "rows": 8507,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.537,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "entity_type_description=v1": "Business"
+     }
+    }
+   ],
+   "unconditional": {}
+  }
+ ]
+}

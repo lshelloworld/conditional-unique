@@ -1,0 +1,7540 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "\u00ef\u00bb\u00bfPortalID",
+   "LastUpdated",
+   "ApplicantTypeNotes",
+   "ApplicationDeadline",
+   "OpenDate",
+   "ExpAwardDate",
+   "ApplicantType",
+   "Description",
+   "Title",
+   "Purpose",
+   "ChangeNotes",
+   "FundingSourceNotes",
+   "FundingMethodNotes",
+   "GrantURL",
+   "ContactInfo",
+   "AwardStats",
+   "Geography",
+   "AwardPeriod"
+  ]
+ },
+ "sample_rows": 1068,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbusa.t17675",
+   "rows": 1068,
+   "cols": [
+    "\u00ef\u00bb\u00bfPortalID",
+    "Status",
+    "LastUpdated",
+    "ChangeNotes",
+    "AgencyDept",
+    "Title",
+    "Type",
+    "LOI",
+    "Categories",
+    "Purpose",
+    "Description",
+    "ApplicantType",
+    "ApplicantTypeNotes",
+    "Geography",
+    "FundingSource",
+    "FundingSourceNotes",
+    "MatchingFunds",
+    "EstAvailFunds",
+    "EstAwards",
+    "EstAmounts",
+    "FundingMethod",
+    "FundingMethodNotes",
+    "OpenDate",
+    "ApplicationDeadline",
+    "AwardPeriod",
+    "ExpAwardDate",
+    "ElecSubmission",
+    "GrantURL",
+    "AgencyURL",
+    "AgencySubscribeURL",
+    "ContactInfo",
+    "AwardStats"
+   ],
+   "n_conditional": 7009,
+   "conditional": [
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(FundingSourceNotes missing)",
+     "sql": "(FundingSourceNotes IS NULL)",
+     "support": 0.281,
+     "rows": 300,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 1.86,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated"
+     ],
+     "cls": "cand",
+     "condition": "(FundingSourceNotes missing)",
+     "sql": "(FundingSourceNotes IS NULL)",
+     "support": 0.281,
+     "rows": 300,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.855,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate"
+     ],
+     "cls": "cand",
+     "condition": "(Geography missing)",
+     "sql": "(Geography IS NULL)",
+     "support": 0.257,
+     "rows": 274,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.596,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cand",
+     "condition": "(Geography missing)",
+     "sql": "(Geography IS NULL)",
+     "support": 0.257,
+     "rows": 274,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.596,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate"
+     ],
+     "cls": "cert",
+     "condition": "(FundingMethodNotes present, AwardStats present)",
+     "sql": "(FundingMethodNotes IS NOT NULL AND AwardStats IS NOT NULL)",
+     "support": 0.454,
+     "rows": 485,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 1.577,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ExpAwardDate"
+     ],
+     "cls": "cert",
+     "condition": "(EstAvailFunds present, FundingMethodNotes present)",
+     "sql": "(EstAvailFunds IS NOT NULL AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.568,
+     "rows": 607,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.025,
+     "score": 1.568,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description"
+     ],
+     "cls": "cand",
+     "condition": "(FundingMethod = \"Advances & Reimbursement(s)\" (24%))",
+     "sql": "(FundingMethod = 'Advances & Reimbursement(s)')",
+     "support": 0.24,
+     "rows": 256,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.542,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "FundingMethod=v2": "Advances & Reimbursement(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"No\" (80%), AgencySubscribeURL present)",
+     "sql": "(LOI = 'No' AND AgencySubscribeURL IS NOT NULL)",
+     "support": 0.419,
+     "rows": 447,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 1.514,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ContactInfo"
+     ],
+     "cls": "cert",
+     "condition": "(EstAvailFunds present)",
+     "sql": "(EstAvailFunds IS NOT NULL)",
+     "support": 0.934,
+     "rows": 998,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 1.508,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate",
+      "ContactInfo"
+     ],
+     "cls": "cert",
+     "condition": "(EstAvailFunds present)",
+     "sql": "(EstAvailFunds IS NOT NULL)",
+     "support": 0.934,
+     "rows": 998,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 1.508,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ExpAwardDate"
+     ],
+     "cls": "cert",
+     "condition": "(FundingSourceNotes present, FundingMethodNotes present)",
+     "sql": "(FundingSourceNotes IS NOT NULL AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.524,
+     "rows": 560,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.025,
+     "score": 1.506,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(AgencySubscribeURL present, AwardStats present)",
+     "sql": "(AgencySubscribeURL IS NOT NULL AND AwardStats IS NOT NULL)",
+     "support": 0.413,
+     "rows": 441,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 1.504,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate"
+     ],
+     "cls": "cert",
+     "condition": "(FundingSourceNotes present, AgencySubscribeURL present)",
+     "sql": "(FundingSourceNotes IS NOT NULL AND AgencySubscribeURL IS NOT NULL)",
+     "support": 0.412,
+     "rows": 440,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.014,
+     "score": 1.502,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ExpAwardDate"
+     ],
+     "cls": "cert",
+     "condition": "(EstAvailFunds present, AgencySubscribeURL present)",
+     "sql": "(EstAvailFunds IS NOT NULL AND AgencySubscribeURL IS NOT NULL)",
+     "support": 0.513,
+     "rows": 548,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.013,
+     "score": 1.49,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ExpAwardDate"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"No\" (80%), FundingMethodNotes present)",
+     "sql": "(LOI = 'No' AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.51,
+     "rows": 545,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.022,
+     "score": 1.486,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing, EstAvailFunds present)",
+     "sql": "(ChangeNotes IS NULL AND EstAvailFunds IS NOT NULL)",
+     "support": 0.397,
+     "rows": 424,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.014,
+     "score": 1.474,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate"
+     ],
+     "cls": "cert",
+     "condition": "FundingMethod in {\"Advances & Reimbursement(s)\", \"Advance(s)\"}",
+     "sql": "(FundingMethod = 'Advances & Reimbursement(s)') OR (FundingMethod = 'Advance(s)')",
+     "support": 0.372,
+     "rows": 397,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 1.427,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "FundingMethod=v2": "Advances & Reimbursement(s)",
+      "FundingMethod=v3": "Advance(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "FundingMethod in {\"Advances & Reimbursement(s)\", \"Advance(s)\"}",
+     "sql": "(FundingMethod = 'Advances & Reimbursement(s)') OR (FundingMethod = 'Advance(s)')",
+     "support": 0.372,
+     "rows": 397,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 1.427,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "FundingMethod=v2": "Advances & Reimbursement(s)",
+      "FundingMethod=v3": "Advance(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ContactInfo"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"No\" (80%))",
+     "sql": "(LOI = 'No')",
+     "support": 0.803,
+     "rows": 858,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 1.398,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate",
+      "ContactInfo"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"No\" (80%))",
+     "sql": "(LOI = 'No')",
+     "support": 0.803,
+     "rows": 858,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.013,
+     "score": 1.398,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated"
+     ],
+     "cls": "cand",
+     "condition": "(Status = \"active\" (16%))",
+     "sql": "(Status = 'active')",
+     "support": 0.158,
+     "rows": 169,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.392,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Status=v2": "active"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated"
+     ],
+     "cls": "cand",
+     "condition": "(ApplicantTypeNotes missing)",
+     "sql": "(ApplicantTypeNotes IS NULL)",
+     "support": 0.158,
+     "rows": 169,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.392,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "Description"
+     ],
+     "cls": "cand",
+     "condition": "(Status = \"active\" (16%))",
+     "sql": "(Status = 'active')",
+     "support": 0.158,
+     "rows": 169,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.392,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Status=v2": "active"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes present, FundingMethodNotes present)",
+     "sql": "(ChangeNotes IS NOT NULL AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.353,
+     "rows": 377,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 1.39,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ApplicantTypeNotes"
+     ],
+     "cls": "cert",
+     "condition": "(FundingMethodNotes present)",
+     "sql": "(FundingMethodNotes IS NOT NULL)",
+     "support": 0.605,
+     "rows": 646,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.076,
+     "score": 1.365,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(ElecSubmission missing)",
+     "sql": "(ElecSubmission IS NULL)",
+     "support": 0.151,
+     "rows": 161,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 1.363,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing, LOI = \"No\" (80%))",
+     "sql": "(ChangeNotes IS NULL AND LOI = 'No')",
+     "support": 0.338,
+     "rows": 361,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 1.36,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing, LOI = \"No\" (80%))",
+     "sql": "(ChangeNotes IS NULL AND LOI = 'No')",
+     "support": 0.338,
+     "rows": 361,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 1.36,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated"
+     ],
+     "cls": "cand",
+     "condition": "(ElecSubmission missing)",
+     "sql": "(ElecSubmission IS NULL)",
+     "support": 0.151,
+     "rows": 161,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.359,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ContactInfo"
+     ],
+     "cls": "cert",
+     "condition": "(AwardStats present)",
+     "sql": "(AwardStats IS NOT NULL)",
+     "support": 0.748,
+     "rows": 799,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 1.349,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate",
+      "ContactInfo"
+     ],
+     "cls": "cert",
+     "condition": "(AwardStats present)",
+     "sql": "(AwardStats IS NOT NULL)",
+     "support": 0.748,
+     "rows": 799,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.013,
+     "score": 1.349,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ApplicantTypeNotes",
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(AwardStats present)",
+     "sql": "(AwardStats IS NOT NULL)",
+     "support": 0.748,
+     "rows": 799,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.175,
+     "score": 1.349,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description",
+      "ChangeNotes"
+     ],
+     "cls": "cert",
+     "condition": "(AwardStats present)",
+     "sql": "(AwardStats IS NOT NULL)",
+     "support": 0.748,
+     "rows": 799,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.424,
+     "score": 1.349,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(FundingMethodNotes present, AgencySubscribeURL present)",
+     "sql": "(FundingMethodNotes IS NOT NULL AND AgencySubscribeURL IS NOT NULL)",
+     "support": 0.331,
+     "rows": 354,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.014,
+     "score": 1.347,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ExpAwardDate"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"No\" (80%), AgencySubscribeURL present)",
+     "sql": "(LOI = 'No' AND AgencySubscribeURL IS NOT NULL)",
+     "support": 0.419,
+     "rows": 447,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 1.346,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ExpAwardDate"
+     ],
+     "cls": "cert",
+     "condition": "(AgencySubscribeURL present, AwardStats present)",
+     "sql": "(AgencySubscribeURL IS NOT NULL AND AwardStats IS NOT NULL)",
+     "support": 0.413,
+     "rows": 441,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.014,
+     "score": 1.337,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ContactInfo"
+     ],
+     "cls": "cert",
+     "condition": "(FundingSourceNotes present)",
+     "sql": "(FundingSourceNotes IS NOT NULL)",
+     "support": 0.719,
+     "rows": 768,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 1.323,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "Geography"
+     ],
+     "cls": "cert",
+     "condition": "(FundingSourceNotes present)",
+     "sql": "(FundingSourceNotes IS NOT NULL)",
+     "support": 0.719,
+     "rows": 768,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.195,
+     "score": 1.323,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate",
+      "ContactInfo"
+     ],
+     "cls": "cert",
+     "condition": "(FundingSourceNotes present)",
+     "sql": "(FundingSourceNotes IS NOT NULL)",
+     "support": 0.719,
+     "rows": 768,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.014,
+     "score": 1.323,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing, AwardStats present)",
+     "sql": "(ChangeNotes IS NULL AND AwardStats IS NOT NULL)",
+     "support": 0.316,
+     "rows": 338,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.012,
+     "score": 1.316,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing, AwardStats present)",
+     "sql": "(ChangeNotes IS NULL AND AwardStats IS NOT NULL)",
+     "support": 0.316,
+     "rows": 338,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.018,
+     "score": 1.316,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing, AwardStats present)",
+     "sql": "(ChangeNotes IS NULL AND AwardStats IS NOT NULL)",
+     "support": 0.316,
+     "rows": 338,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.012,
+     "score": 1.316,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cand",
+     "condition": "(FundingSource = \"Federal\" (17%))",
+     "sql": "(FundingSource = 'Federal')",
+     "support": 0.171,
+     "rows": 183,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.304,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingSource=v2": "Federal"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes present, AgencySubscribeURL present)",
+     "sql": "(ChangeNotes IS NOT NULL AND AgencySubscribeURL IS NOT NULL)",
+     "support": 0.303,
+     "rows": 324,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 1.289,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated"
+     ],
+     "cls": "cand",
+     "condition": "(FundingMethod = \"Advance(s)\" (13%))",
+     "sql": "(FundingMethod = 'Advance(s)')",
+     "support": 0.132,
+     "rows": 141,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.272,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingMethod=v3": "Advance(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(FundingMethodNotes missing, AwardStats present)",
+     "sql": "(FundingMethodNotes IS NULL AND AwardStats IS NOT NULL)",
+     "support": 0.294,
+     "rows": 314,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 1.269,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(FundingMethodNotes missing, AwardStats present)",
+     "sql": "(FundingMethodNotes IS NULL AND AwardStats IS NOT NULL)",
+     "support": 0.294,
+     "rows": 314,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.01,
+     "score": 1.269,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing, FundingSourceNotes present)",
+     "sql": "(ChangeNotes IS NULL AND FundingSourceNotes IS NOT NULL)",
+     "support": 0.29,
+     "rows": 310,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.016,
+     "score": 1.261,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "Geography"
+     ],
+     "cls": "cert",
+     "condition": "(FundingMethodNotes present)",
+     "sql": "(FundingMethodNotes IS NOT NULL)",
+     "support": 0.605,
+     "rows": 646,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.2,
+     "score": 1.213,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ApplicantTypeNotes",
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(FundingMethodNotes present)",
+     "sql": "(FundingMethodNotes IS NOT NULL)",
+     "support": 0.605,
+     "rows": 646,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.082,
+     "score": 1.213,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description",
+      "ChangeNotes"
+     ],
+     "cls": "cert",
+     "condition": "(FundingMethodNotes present)",
+     "sql": "(FundingMethodNotes IS NOT NULL)",
+     "support": 0.605,
+     "rows": 646,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.418,
+     "score": 1.213,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ContactInfo"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes present)",
+     "sql": "(ChangeNotes IS NOT NULL)",
+     "support": 0.577,
+     "rows": 616,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 1.185,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate",
+      "ContactInfo"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes present)",
+     "sql": "(ChangeNotes IS NOT NULL)",
+     "support": 0.577,
+     "rows": 616,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.01,
+     "score": 1.185,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ApplicantTypeNotes"
+     ],
+     "cls": "cert",
+     "condition": "(AgencySubscribeURL missing)",
+     "sql": "(AgencySubscribeURL IS NULL)",
+     "support": 0.449,
+     "rows": 480,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.2,
+     "score": 1.177,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "FundingSourceNotes"
+     ],
+     "cls": "cert",
+     "condition": "(AgencySubscribeURL missing)",
+     "sql": "(AgencySubscribeURL IS NULL)",
+     "support": 0.449,
+     "rows": 480,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.317,
+     "score": 1.177,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing, FundingMethodNotes present)",
+     "sql": "(ChangeNotes IS NULL AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.252,
+     "rows": 269,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.019,
+     "score": 1.174,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "GrantURL"
+     ],
+     "cls": "cert",
+     "condition": "(AgencySubscribeURL present)",
+     "sql": "(AgencySubscribeURL IS NOT NULL)",
+     "support": 0.551,
+     "rows": 588,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.014,
+     "score": 1.158,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ExpAwardDate"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes present, AgencySubscribeURL present)",
+     "sql": "(ChangeNotes IS NOT NULL AND AgencySubscribeURL IS NOT NULL)",
+     "support": 0.303,
+     "rows": 324,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 1.146,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cand",
+     "condition": "(FundingMethod = \"Advance(s)\" (13%))",
+     "sql": "(FundingMethod = 'Advance(s)')",
+     "support": 0.132,
+     "rows": 141,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.145,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingMethod=v3": "Advance(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ApplicantTypeNotes"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing)",
+     "sql": "(ChangeNotes IS NULL)",
+     "support": 0.423,
+     "rows": 452,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.199,
+     "score": 1.142,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cand",
+     "condition": "(LOI = \"No\" (80%), FundingMethodNotes missing)",
+     "sql": "(LOI = 'No' AND FundingMethodNotes IS NULL)",
+     "support": 0.293,
+     "rows": 313,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.137,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ChangeNotes"
+     ],
+     "cls": "cert",
+     "condition": "(AwardStats present)",
+     "sql": "(AwardStats IS NOT NULL)",
+     "support": 0.748,
+     "rows": 799,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.424,
+     "score": 1.124,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description",
+      "AwardStats"
+     ],
+     "cls": "cert",
+     "condition": "(AwardStats present)",
+     "sql": "(AwardStats IS NOT NULL)",
+     "support": 0.748,
+     "rows": 799,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.006,
+     "score": 1.124,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate",
+      "Geography"
+     ],
+     "cls": "cert",
+     "condition": "(Geography present)",
+     "sql": "(Geography IS NOT NULL)",
+     "support": 0.743,
+     "rows": 794,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.014,
+     "score": 1.121,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "AwardStats"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes present)",
+     "sql": "(ChangeNotes IS NOT NULL)",
+     "support": 0.577,
+     "rows": 616,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.252,
+     "score": 1.111,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate"
+     ],
+     "cls": "cert",
+     "condition": "(FundingMethodNotes missing, AgencySubscribeURL present)",
+     "sql": "(FundingMethodNotes IS NULL AND AgencySubscribeURL IS NOT NULL)",
+     "support": 0.219,
+     "rows": 234,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 1.095,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(Status = \"closed\" (83%), Geography missing)",
+     "sql": "(Status = 'closed' AND Geography IS NULL)",
+     "support": 0.219,
+     "rows": 234,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 1.095,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Status=v1": "closed"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ExpAwardDate"
+     ],
+     "cls": "cert",
+     "condition": "(FundingMethodNotes present, AgencySubscribeURL missing)",
+     "sql": "(FundingMethodNotes IS NOT NULL AND AgencySubscribeURL IS NULL)",
+     "support": 0.273,
+     "rows": 292,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.031,
+     "score": 1.088,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ContactInfo"
+     ],
+     "cls": "cert",
+     "condition": "(AgencySubscribeURL missing)",
+     "sql": "(AgencySubscribeURL IS NULL)",
+     "support": 0.449,
+     "rows": 480,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 1.046,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "Geography"
+     ],
+     "cls": "cert",
+     "condition": "(AgencySubscribeURL missing)",
+     "sql": "(AgencySubscribeURL IS NULL)",
+     "support": 0.449,
+     "rows": 480,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.296,
+     "score": 1.046,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate",
+      "ContactInfo"
+     ],
+     "cls": "cert",
+     "condition": "(AgencySubscribeURL missing)",
+     "sql": "(AgencySubscribeURL IS NULL)",
+     "support": 0.449,
+     "rows": 480,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.021,
+     "score": 1.046,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "GrantURL"
+     ],
+     "cls": "cand",
+     "condition": "(ChangeNotes missing)",
+     "sql": "(ChangeNotes IS NULL)",
+     "support": 0.423,
+     "rows": 452,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.025,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "Geography"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing)",
+     "sql": "(ChangeNotes IS NULL)",
+     "support": 0.423,
+     "rows": 452,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.294,
+     "score": 1.015,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description",
+      "Title"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing)",
+     "sql": "(ChangeNotes IS NULL)",
+     "support": 0.423,
+     "rows": 452,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.013,
+     "score": 1.015,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description",
+      "AwardStats"
+     ],
+     "cls": "cert",
+     "condition": "(FundingMethodNotes present)",
+     "sql": "(FundingMethodNotes IS NOT NULL)",
+     "support": 0.605,
+     "rows": 646,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.255,
+     "score": 1.011,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate",
+      "FundingSourceNotes"
+     ],
+     "cls": "cert",
+     "condition": "(EstAvailFunds present)",
+     "sql": "(EstAvailFunds IS NOT NULL)",
+     "support": 0.934,
+     "rows": 998,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.29,
+     "score": 1.005,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated"
+     ],
+     "cls": "cand",
+     "condition": "(Geography missing, FundingSource = \"State\" (74%))",
+     "sql": "(Geography IS NULL AND FundingSource = 'State')",
+     "support": 0.185,
+     "rows": 198,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.005,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingSource=v1": "State"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ApplicantTypeNotes"
+     ],
+     "cls": "cert",
+     "condition": "FundingMethod in {\"Reimbursement(s)\", \"Advance(s)\"}",
+     "sql": "(FundingMethod = 'Reimbursement(s)') OR (FundingMethod = 'Advance(s)')",
+     "support": 0.727,
+     "rows": 776,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.134,
+     "score": 0.997,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingMethod=v1": "Reimbursement(s)",
+      "FundingMethod=v3": "Advance(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"Yes\" (20%), EstAvailFunds present)",
+     "sql": "(LOI = 'Yes' AND EstAvailFunds IS NOT NULL)",
+     "support": 0.181,
+     "rows": 193,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.021,
+     "score": 0.995,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v2": "Yes"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cand",
+     "condition": "(ChangeNotes present, FundingMethodNotes missing)",
+     "sql": "(ChangeNotes IS NOT NULL AND FundingMethodNotes IS NULL)",
+     "support": 0.224,
+     "rows": 239,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.993,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(Geography missing, AwardStats present)",
+     "sql": "(Geography IS NULL AND AwardStats IS NOT NULL)",
+     "support": 0.18,
+     "rows": 192,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.005,
+     "score": 0.992,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ChangeNotes"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes present)",
+     "sql": "(ChangeNotes IS NOT NULL)",
+     "support": 0.577,
+     "rows": 616,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.002,
+     "score": 0.987,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate",
+      "ChangeNotes"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes present)",
+     "sql": "(ChangeNotes IS NOT NULL)",
+     "support": 0.577,
+     "rows": 616,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.01,
+     "score": 0.987,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing, AgencySubscribeURL missing)",
+     "sql": "(ChangeNotes IS NULL AND AgencySubscribeURL IS NULL)",
+     "support": 0.176,
+     "rows": 188,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.005,
+     "score": 0.982,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing, AgencySubscribeURL missing)",
+     "sql": "(ChangeNotes IS NULL AND AgencySubscribeURL IS NULL)",
+     "support": 0.176,
+     "rows": 188,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.005,
+     "score": 0.982,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(FundingMethodNotes missing, AgencySubscribeURL missing)",
+     "sql": "(FundingMethodNotes IS NULL AND AgencySubscribeURL IS NULL)",
+     "support": 0.176,
+     "rows": 188,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.011,
+     "score": 0.982,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ContactInfo"
+     ],
+     "cls": "cert",
+     "condition": "(FundingMethodNotes missing)",
+     "sql": "(FundingMethodNotes IS NULL)",
+     "support": 0.395,
+     "rows": 422,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.981,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "Geography"
+     ],
+     "cls": "cert",
+     "condition": "(FundingMethodNotes missing)",
+     "sql": "(FundingMethodNotes IS NULL)",
+     "support": 0.395,
+     "rows": 422,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.36,
+     "score": 0.981,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate",
+      "ContactInfo"
+     ],
+     "cls": "cert",
+     "condition": "(FundingMethodNotes missing)",
+     "sql": "(FundingMethodNotes IS NULL)",
+     "support": 0.395,
+     "rows": 422,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 0.981,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing, FundingMethodNotes missing)",
+     "sql": "(ChangeNotes IS NULL AND FundingMethodNotes IS NULL)",
+     "support": 0.171,
+     "rows": 183,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.005,
+     "score": 0.969,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing, FundingMethodNotes missing)",
+     "sql": "(ChangeNotes IS NULL AND FundingMethodNotes IS NULL)",
+     "support": 0.171,
+     "rows": 183,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.005,
+     "score": 0.969,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ExpAwardDate"
+     ],
+     "cls": "cert",
+     "condition": "(EstAvailFunds present, AwardStats missing)",
+     "sql": "(EstAvailFunds IS NOT NULL AND AwardStats IS NULL)",
+     "support": 0.216,
+     "rows": 231,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.017,
+     "score": 0.967,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ExpAwardDate"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"No\" (80%), AwardStats missing)",
+     "sql": "(LOI = 'No' AND AwardStats IS NULL)",
+     "support": 0.211,
+     "rows": 225,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.018,
+     "score": 0.955,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate",
+      "FundingSourceNotes"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"No\" (80%))",
+     "sql": "(LOI = 'No')",
+     "support": 0.803,
+     "rows": 858,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.295,
+     "score": 0.932,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "ExpAwardDate",
+      "Title"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"No\" (80%))",
+     "sql": "(LOI = 'No')",
+     "support": 0.803,
+     "rows": 858,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.016,
+     "score": 0.932,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"Yes\" (20%), AwardStats present)",
+     "sql": "(LOI = 'Yes' AND AwardStats IS NOT NULL)",
+     "support": 0.154,
+     "rows": 165,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.024,
+     "score": 0.92,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v2": "Yes"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"Yes\" (20%), AwardStats present)",
+     "sql": "(LOI = 'Yes' AND AwardStats IS NOT NULL)",
+     "support": 0.154,
+     "rows": 165,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.024,
+     "score": 0.92,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v2": "Yes"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "FundingSourceNotes"
+     ],
+     "cls": "dom",
+     "condition": "(FundingMethodNotes present)",
+     "sql": "(FundingMethodNotes IS NOT NULL)",
+     "support": 0.605,
+     "rows": 646,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.133,
+     "score": 0.91,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "Geography"
+     ],
+     "cls": "dom",
+     "condition": "(FundingMethodNotes present)",
+     "sql": "(FundingMethodNotes IS NOT NULL)",
+     "support": 0.605,
+     "rows": 646,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.19,
+     "score": 0.91,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(FundingMethodNotes present, AwardStats missing)",
+     "sql": "(FundingMethodNotes IS NOT NULL AND AwardStats IS NULL)",
+     "support": 0.151,
+     "rows": 161,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.012,
+     "score": 0.909,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "Description"
+     ],
+     "cls": "cand",
+     "condition": "(FundingMethod = \"Advances & Reimbursement(s)\" (24%), AgencySubscribeURL present)",
+     "sql": "(FundingMethod = 'Advances & Reimbursement(s)' AND AgencySubscribeURL IS NOT NULL)",
+     "support": 0.151,
+     "rows": 161,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.906,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingMethod=v2": "Advances & Reimbursement(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate",
+      "FundingSourceNotes"
+     ],
+     "cls": "cert",
+     "condition": "(AwardStats present)",
+     "sql": "(AwardStats IS NOT NULL)",
+     "support": 0.748,
+     "rows": 799,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.29,
+     "score": 0.9,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(EstAvailFunds missing)",
+     "sql": "(EstAvailFunds IS NULL)",
+     "support": 0.066,
+     "rows": 70,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.043,
+     "score": 0.899,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated"
+     ],
+     "cls": "cand",
+     "condition": "(EstAvailFunds missing)",
+     "sql": "(EstAvailFunds IS NULL)",
+     "support": 0.066,
+     "rows": 70,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.896,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate"
+     ],
+     "cls": "cand",
+     "condition": "(LOI = \"Yes\" (20%), EstAvailFunds present)",
+     "sql": "(LOI = 'Yes' AND EstAvailFunds IS NOT NULL)",
+     "support": 0.181,
+     "rows": 193,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.893,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v2": "Yes"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "FundingSource in {\"Federal\", \"Other\", \"Federal and State\"}",
+     "sql": "(FundingSource = 'Federal') OR (FundingSource = 'Other') OR (FundingSource = 'Federal and State')",
+     "support": 0.258,
+     "rows": 276,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 0.892,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingSource=v2": "Federal",
+      "FundingSource=v3": "Other",
+      "FundingSource=v4": "Federal and State"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ApplicantTypeNotes"
+     ],
+     "cls": "cert",
+     "condition": "(Geography missing)",
+     "sql": "(Geography IS NULL)",
+     "support": 0.257,
+     "rows": 274,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.296,
+     "score": 0.889,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "FundingSourceNotes"
+     ],
+     "cls": "cert",
+     "condition": "(Geography missing)",
+     "sql": "(Geography IS NULL)",
+     "support": 0.257,
+     "rows": 274,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.474,
+     "score": 0.889,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated"
+     ],
+     "cls": "cand",
+     "condition": "(ChangeNotes present, AwardStats missing)",
+     "sql": "(ChangeNotes IS NOT NULL AND AwardStats IS NULL)",
+     "support": 0.145,
+     "rows": 155,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.889,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "FundingSourceNotes"
+     ],
+     "cls": "dom",
+     "condition": "(ChangeNotes present)",
+     "sql": "(ChangeNotes IS NOT NULL)",
+     "support": 0.577,
+     "rows": 616,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.256,
+     "score": 0.889,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Title"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes present)",
+     "sql": "(ChangeNotes IS NOT NULL)",
+     "support": 0.577,
+     "rows": 616,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.002,
+     "score": 0.889,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "Geography"
+     ],
+     "cls": "cert",
+     "condition": "FundingMethod in {\"Reimbursement(s)\", \"Advance(s)\"}",
+     "sql": "(FundingMethod = 'Reimbursement(s)') OR (FundingMethod = 'Advance(s)')",
+     "support": 0.727,
+     "rows": 776,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.254,
+     "score": 0.886,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingMethod=v1": "Reimbursement(s)",
+      "FundingMethod=v3": "Advance(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"Yes\" (20%), FundingSourceNotes present)",
+     "sql": "(LOI = 'Yes' AND FundingSourceNotes IS NOT NULL)",
+     "support": 0.142,
+     "rows": 152,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.026,
+     "score": 0.883,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v2": "Yes"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ApplicationDeadline"
+     ],
+     "cls": "cert",
+     "condition": "(EstAvailFunds present, FundingMethodNotes present)",
+     "sql": "(EstAvailFunds IS NOT NULL AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.568,
+     "rows": 607,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.882,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "FundingSourceNotes"
+     ],
+     "cls": "cert",
+     "condition": "(EstAvailFunds present, FundingMethodNotes present)",
+     "sql": "(EstAvailFunds IS NOT NULL AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.568,
+     "rows": 607,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.127,
+     "score": 0.882,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "AwardPeriod"
+     ],
+     "cls": "cert",
+     "condition": "(EstAvailFunds present, FundingMethodNotes present)",
+     "sql": "(EstAvailFunds IS NOT NULL AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.568,
+     "rows": 607,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.012,
+     "score": 0.882,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ExpAwardDate"
+     ],
+     "cls": "cert",
+     "condition": "(FundingSourceNotes present, AwardStats missing)",
+     "sql": "(FundingSourceNotes IS NOT NULL AND AwardStats IS NULL)",
+     "support": 0.18,
+     "rows": 192,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.021,
+     "score": 0.882,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "FundingSourceNotes"
+     ],
+     "cls": "cert",
+     "condition": "(FundingSourceNotes present)",
+     "sql": "(FundingSourceNotes IS NOT NULL)",
+     "support": 0.719,
+     "rows": 768,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.008,
+     "score": 0.882,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate",
+      "FundingSourceNotes"
+     ],
+     "cls": "cert",
+     "condition": "(FundingSourceNotes present)",
+     "sql": "(FundingSourceNotes IS NOT NULL)",
+     "support": 0.719,
+     "rows": 768,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.014,
+     "score": 0.882,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cand",
+     "condition": "(FundingMethodNotes missing, AgencySubscribeURL missing)",
+     "sql": "(FundingMethodNotes IS NULL AND AgencySubscribeURL IS NULL)",
+     "support": 0.176,
+     "rows": 188,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.881,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "FundingSourceNotes"
+     ],
+     "cls": "cert",
+     "condition": "(EstAvailFunds present, FundingMethod = \"Reimbursement(s)\" (59%))",
+     "sql": "(EstAvailFunds IS NOT NULL AND FundingMethod = 'Reimbursement(s)')",
+     "support": 0.566,
+     "rows": 604,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.248,
+     "score": 0.88,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingMethod=v1": "Reimbursement(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ApplicantTypeNotes",
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"No\" (80%), ApplicantTypeNotes present)",
+     "sql": "(LOI = 'No' AND ApplicantTypeNotes IS NOT NULL)",
+     "support": 0.694,
+     "rows": 741,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.866,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description",
+      "ChangeNotes"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"No\" (80%), ApplicantTypeNotes present)",
+     "sql": "(LOI = 'No' AND ApplicantTypeNotes IS NOT NULL)",
+     "support": 0.694,
+     "rows": 741,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.402,
+     "score": 0.866,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated"
+     ],
+     "cls": "cand",
+     "condition": "(ChangeNotes present, Geography missing)",
+     "sql": "(ChangeNotes IS NOT NULL AND Geography IS NULL)",
+     "support": 0.138,
+     "rows": 147,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.866,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(Geography missing, AgencySubscribeURL missing)",
+     "sql": "(Geography IS NULL AND AgencySubscribeURL IS NULL)",
+     "support": 0.132,
+     "rows": 141,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 0.85,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated"
+     ],
+     "cls": "cand",
+     "condition": "(Geography missing, AgencySubscribeURL missing)",
+     "sql": "(Geography IS NULL AND AgencySubscribeURL IS NULL)",
+     "support": 0.132,
+     "rows": 141,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.848,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ApplicationDeadline"
+     ],
+     "cls": "cert",
+     "condition": "(FundingSourceNotes present, FundingMethodNotes present)",
+     "sql": "(FundingSourceNotes IS NOT NULL AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.524,
+     "rows": 560,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.847,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "AwardPeriod"
+     ],
+     "cls": "cert",
+     "condition": "(FundingSourceNotes present, FundingMethodNotes present)",
+     "sql": "(FundingSourceNotes IS NOT NULL AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.524,
+     "rows": 560,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.013,
+     "score": 0.847,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "FundingMethodNotes"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing)",
+     "sql": "(ChangeNotes IS NULL)",
+     "support": 0.423,
+     "rows": 452,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.416,
+     "score": 0.846,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate",
+      "FundingMethodNotes"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing)",
+     "sql": "(ChangeNotes IS NULL)",
+     "support": 0.423,
+     "rows": 452,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.416,
+     "score": 0.846,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate",
+      "Geography"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing)",
+     "sql": "(ChangeNotes IS NULL)",
+     "support": 0.423,
+     "rows": 452,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.294,
+     "score": 0.846,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(ApplicantTypeNotes missing, AwardStats present)",
+     "sql": "(ApplicantTypeNotes IS NULL AND AwardStats IS NOT NULL)",
+     "support": 0.129,
+     "rows": 138,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.022,
+     "score": 0.841,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(ApplicantTypeNotes missing, AwardStats present)",
+     "sql": "(ApplicantTypeNotes IS NULL AND AwardStats IS NOT NULL)",
+     "support": 0.129,
+     "rows": 138,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 0.841,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ApplicationDeadline"
+     ],
+     "cls": "cert",
+     "condition": "(EstAvailFunds present, AgencySubscribeURL present)",
+     "sql": "(EstAvailFunds IS NOT NULL AND AgencySubscribeURL IS NOT NULL)",
+     "support": 0.513,
+     "rows": 548,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.015,
+     "score": 0.838,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ApplicationDeadline"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"No\" (80%), FundingMethodNotes present)",
+     "sql": "(LOI = 'No' AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.51,
+     "rows": 545,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 0.836,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "FundingSourceNotes"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"No\" (80%), FundingMethodNotes present)",
+     "sql": "(LOI = 'No' AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.51,
+     "rows": 545,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.136,
+     "score": 0.836,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "Geography"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"No\" (80%), FundingMethodNotes present)",
+     "sql": "(LOI = 'No' AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.51,
+     "rows": 545,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.194,
+     "score": 0.836,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "AwardPeriod"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"No\" (80%), FundingMethodNotes present)",
+     "sql": "(LOI = 'No' AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.51,
+     "rows": 545,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.013,
+     "score": 0.836,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated"
+     ],
+     "cls": "cand",
+     "condition": "(FundingMethod = \"Advances & Reimbursement(s)\" (24%), FundingMethodNotes present)",
+     "sql": "(FundingMethod = 'Advances & Reimbursement(s)' AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.125,
+     "rows": 134,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.827,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingMethod=v2": "Advances & Reimbursement(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate"
+     ],
+     "cls": "cand",
+     "condition": "(LOI = \"Yes\" (20%), AwardStats present)",
+     "sql": "(LOI = 'Yes' AND AwardStats IS NOT NULL)",
+     "support": 0.154,
+     "rows": 165,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.825,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v2": "Yes"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description"
+     ],
+     "cls": "cand",
+     "condition": "(LOI = \"Yes\" (20%), AwardStats present)",
+     "sql": "(LOI = 'Yes' AND AwardStats IS NOT NULL)",
+     "support": 0.154,
+     "rows": 165,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.825,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v2": "Yes"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(Type = \"Loan\" (5%))",
+     "sql": "(Type = 'Loan')",
+     "support": 0.054,
+     "rows": 58,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.017,
+     "score": 0.818,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Type=v2": "Loan"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ChangeNotes"
+     ],
+     "cls": "cert",
+     "condition": "(FundingMethodNotes missing)",
+     "sql": "(FundingMethodNotes IS NULL)",
+     "support": 0.395,
+     "rows": 422,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.434,
+     "score": 0.817,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated"
+     ],
+     "cls": "cand",
+     "condition": "(Type = \"Loan\" (5%))",
+     "sql": "(Type = 'Loan')",
+     "support": 0.054,
+     "rows": 58,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.816,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Type=v2": "Loan"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description",
+      "Title"
+     ],
+     "cls": "cert",
+     "condition": "(Status = \"closed\" (83%), FundingSource = \"State\" (74%))",
+     "sql": "(Status = 'closed' AND FundingSource = 'State')",
+     "support": 0.61,
+     "rows": 652,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.011,
+     "score": 0.813,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Status=v1": "closed",
+      "FundingSource=v1": "State"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "AwardStats"
+     ],
+     "cls": "cert",
+     "condition": "(FundingSource = \"State\" (74%), EstAvailFunds present)",
+     "sql": "(FundingSource = 'State' AND EstAvailFunds IS NOT NULL)",
+     "support": 0.692,
+     "rows": 739,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.242,
+     "score": 0.811,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingSource=v1": "State"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate"
+     ],
+     "cls": "cert",
+     "condition": "(Geography present, FundingSource = \"Federal\" (17%))",
+     "sql": "(Geography IS NOT NULL AND FundingSource = 'Federal')",
+     "support": 0.119,
+     "rows": 127,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.807,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingSource=v2": "Federal"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cand",
+     "condition": "(EstAvailFunds missing)",
+     "sql": "(EstAvailFunds IS NULL)",
+     "support": 0.066,
+     "rows": 70,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.806,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "FundingSourceNotes"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"No\" (80%), FundingMethod = \"Reimbursement(s)\" (59%))",
+     "sql": "(LOI = 'No' AND FundingMethod = 'Reimbursement(s)')",
+     "support": 0.473,
+     "rows": 505,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.246,
+     "score": 0.805,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v1": "No",
+      "FundingMethod=v1": "Reimbursement(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ContactInfo"
+     ],
+     "cls": "cand",
+     "condition": "(Geography missing)",
+     "sql": "(Geography IS NULL)",
+     "support": 0.257,
+     "rows": 274,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.798,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "AwardPeriod"
+     ],
+     "cls": "cand",
+     "condition": "(Geography missing)",
+     "sql": "(Geography IS NULL)",
+     "support": 0.257,
+     "rows": 274,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.798,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ExpAwardDate"
+     ],
+     "cls": "cert",
+     "condition": "FundingSource in {\"Federal\", \"Other\", \"Federal and State\"}",
+     "sql": "(FundingSource = 'Federal') OR (FundingSource = 'Other') OR (FundingSource = 'Federal and State')",
+     "support": 0.258,
+     "rows": 276,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.014,
+     "score": 0.793,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingSource=v2": "Federal",
+      "FundingSource=v3": "Other",
+      "FundingSource=v4": "Federal and State"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate"
+     ],
+     "cls": "cand",
+     "condition": "(LOI = \"Yes\" (20%), FundingSourceNotes present)",
+     "sql": "(LOI = 'Yes' AND FundingSourceNotes IS NOT NULL)",
+     "support": 0.142,
+     "rows": 152,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.792,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v2": "Yes"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated"
+     ],
+     "cls": "cand",
+     "condition": "(Geography missing, FundingMethodNotes present)",
+     "sql": "(Geography IS NULL AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.115,
+     "rows": 123,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.792,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ContactInfo"
+     ],
+     "cls": "cand",
+     "condition": "(EstAvailFunds present, FundingMethodNotes present)",
+     "sql": "(EstAvailFunds IS NOT NULL AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.568,
+     "rows": 607,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.792,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate",
+      "FundingSourceNotes"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes present)",
+     "sql": "(ChangeNotes IS NOT NULL)",
+     "support": 0.577,
+     "rows": 616,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.265,
+     "score": 0.79,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ContactInfo"
+     ],
+     "cls": "cand",
+     "condition": "(EstAvailFunds present, FundingMethod = \"Reimbursement(s)\" (59%))",
+     "sql": "(EstAvailFunds IS NOT NULL AND FundingMethod = 'Reimbursement(s)')",
+     "support": 0.566,
+     "rows": 604,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.79,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingMethod=v1": "Reimbursement(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "FundingSourceNotes"
+     ],
+     "cls": "cert",
+     "condition": "(FundingMethodNotes present, AwardStats present)",
+     "sql": "(FundingMethodNotes IS NOT NULL AND AwardStats IS NOT NULL)",
+     "support": 0.454,
+     "rows": 485,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.132,
+     "score": 0.788,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "AwardPeriod"
+     ],
+     "cls": "cert",
+     "condition": "(FundingMethodNotes present, AwardStats present)",
+     "sql": "(FundingMethodNotes IS NOT NULL AND AwardStats IS NOT NULL)",
+     "support": 0.454,
+     "rows": 485,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.014,
+     "score": 0.788,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "FundingSourceNotes"
+     ],
+     "cls": "cert",
+     "condition": "(FundingMethod = \"Reimbursement(s)\" (59%), AwardStats present)",
+     "sql": "(FundingMethod = 'Reimbursement(s)' AND AwardStats IS NOT NULL)",
+     "support": 0.451,
+     "rows": 482,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.266,
+     "score": 0.786,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingMethod=v1": "Reimbursement(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(ApplicantTypeNotes missing, FundingMethodNotes missing)",
+     "sql": "(ApplicantTypeNotes IS NULL AND FundingMethodNotes IS NULL)",
+     "support": 0.112,
+     "rows": 120,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.784,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(ApplicantTypeNotes missing, FundingMethodNotes missing)",
+     "sql": "(ApplicantTypeNotes IS NULL AND FundingMethodNotes IS NULL)",
+     "support": 0.112,
+     "rows": 120,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.784,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ApplicantType"
+     ],
+     "cls": "cert",
+     "condition": "(EstAvailFunds present, FundingMethodNotes present)",
+     "sql": "(EstAvailFunds IS NOT NULL AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.568,
+     "rows": 607,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.012,
+     "score": 0.784,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate",
+      "ApplicantType"
+     ],
+     "cls": "cert",
+     "condition": "(EstAvailFunds present, FundingMethodNotes present)",
+     "sql": "(EstAvailFunds IS NOT NULL AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.568,
+     "rows": 607,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.018,
+     "score": 0.784,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "Geography"
+     ],
+     "cls": "cert",
+     "condition": "(FundingSource = \"State\" (74%), FundingMethodNotes present)",
+     "sql": "(FundingSource = 'State' AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.449,
+     "rows": 479,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.192,
+     "score": 0.784,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingSource=v1": "State"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate",
+      "GrantURL"
+     ],
+     "cls": "cert",
+     "condition": "(AwardStats missing)",
+     "sql": "(AwardStats IS NULL)",
+     "support": 0.252,
+     "rows": 269,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.015,
+     "score": 0.783,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes present, LOI = \"Yes\" (20%))",
+     "sql": "(ChangeNotes IS NOT NULL AND LOI = 'Yes')",
+     "support": 0.111,
+     "rows": 119,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.781,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v2": "Yes"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes present, LOI = \"Yes\" (20%))",
+     "sql": "(ChangeNotes IS NOT NULL AND LOI = 'Yes')",
+     "support": 0.111,
+     "rows": 119,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.781,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v2": "Yes"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ApplicantTypeNotes"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"Yes\" (20%))",
+     "sql": "(LOI = 'Yes')",
+     "support": 0.196,
+     "rows": 209,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.249,
+     "score": 0.776,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v2": "Yes"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "GrantURL"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"Yes\" (20%))",
+     "sql": "(LOI = 'Yes')",
+     "support": 0.196,
+     "rows": 209,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.01,
+     "score": 0.776,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v2": "Yes"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description",
+      "Title"
+     ],
+     "cls": "cert",
+     "condition": "(Geography present, FundingSource = \"State\" (74%))",
+     "sql": "(Geography IS NOT NULL AND FundingSource = 'State')",
+     "support": 0.552,
+     "rows": 590,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.015,
+     "score": 0.773,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingSource=v1": "State"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description",
+      "Geography"
+     ],
+     "cls": "dom",
+     "condition": "(AgencySubscribeURL present)",
+     "sql": "(AgencySubscribeURL IS NOT NULL)",
+     "support": 0.551,
+     "rows": 588,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.236,
+     "score": 0.772,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description",
+      "Title"
+     ],
+     "cls": "cert",
+     "condition": "(FundingSource = \"State\" (74%), AwardStats present)",
+     "sql": "(FundingSource = 'State' AND AwardStats IS NOT NULL)",
+     "support": 0.544,
+     "rows": 581,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.014,
+     "score": 0.767,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingSource=v1": "State"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description",
+      "AwardStats"
+     ],
+     "cls": "cert",
+     "condition": "(FundingSource = \"State\" (74%), AwardStats present)",
+     "sql": "(FundingSource = 'State' AND AwardStats IS NOT NULL)",
+     "support": 0.544,
+     "rows": 581,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.014,
+     "score": 0.767,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingSource=v1": "State"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate",
+      "Geography"
+     ],
+     "cls": "cert",
+     "condition": "FundingSource in {\"State\", \"Other\"}",
+     "sql": "(FundingSource = 'State') OR (FundingSource = 'Other')",
+     "support": 0.783,
+     "rows": 836,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.256,
+     "score": 0.767,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingSource=v1": "State",
+      "FundingSource=v3": "Other"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "Geography"
+     ],
+     "cls": "cert",
+     "condition": "(FundingSource = \"State\" (74%), FundingMethod = \"Reimbursement(s)\" (59%))",
+     "sql": "(FundingSource = 'State' AND FundingMethod = 'Reimbursement(s)')",
+     "support": 0.429,
+     "rows": 458,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.249,
+     "score": 0.766,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingSource=v1": "State",
+      "FundingMethod=v1": "Reimbursement(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description"
+     ],
+     "cls": "cand",
+     "condition": "(ChangeNotes missing, FundingSourceNotes missing)",
+     "sql": "(ChangeNotes IS NULL AND FundingSourceNotes IS NULL)",
+     "support": 0.133,
+     "rows": 142,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.766,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Title"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing)",
+     "sql": "(ChangeNotes IS NULL)",
+     "support": 0.423,
+     "rows": 452,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.013,
+     "score": 0.761,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "FundingSourceNotes"
+     ],
+     "cls": "cand",
+     "condition": "(FundingSourceNotes present, FundingMethodNotes present)",
+     "sql": "(FundingSourceNotes IS NOT NULL AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.524,
+     "rows": 560,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.76,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ApplicationDeadline"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"No\" (80%), AgencySubscribeURL present)",
+     "sql": "(LOI = 'No' AND AgencySubscribeURL IS NOT NULL)",
+     "support": 0.419,
+     "rows": 447,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.016,
+     "score": 0.757,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ApplicationDeadline",
+      "ContactInfo"
+     ],
+     "cls": "cert",
+     "condition": "(EstAvailFunds present)",
+     "sql": "(EstAvailFunds IS NOT NULL)",
+     "support": 0.934,
+     "rows": 998,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.754,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ChangeNotes"
+     ],
+     "cls": "dom",
+     "condition": "(EstAvailFunds present)",
+     "sql": "(EstAvailFunds IS NOT NULL)",
+     "support": 0.934,
+     "rows": 998,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.426,
+     "score": 0.754,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ApplicantType"
+     ],
+     "cls": "cert",
+     "condition": "(FundingSourceNotes present, FundingMethodNotes present)",
+     "sql": "(FundingSourceNotes IS NOT NULL AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.524,
+     "rows": 560,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.011,
+     "score": 0.753,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate",
+      "ApplicantType"
+     ],
+     "cls": "cert",
+     "condition": "(FundingSourceNotes present, FundingMethodNotes present)",
+     "sql": "(FundingSourceNotes IS NOT NULL AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.524,
+     "rows": 560,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.02,
+     "score": 0.753,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ApplicationDeadline"
+     ],
+     "cls": "cert",
+     "condition": "(FundingSourceNotes present, AgencySubscribeURL present)",
+     "sql": "(FundingSourceNotes IS NOT NULL AND AgencySubscribeURL IS NOT NULL)",
+     "support": 0.412,
+     "rows": 440,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.016,
+     "score": 0.751,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ApplicantType"
+     ],
+     "cls": "cert",
+     "condition": "(EstAvailFunds present, AgencySubscribeURL present)",
+     "sql": "(EstAvailFunds IS NOT NULL AND AgencySubscribeURL IS NOT NULL)",
+     "support": 0.513,
+     "rows": 548,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.011,
+     "score": 0.745,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "AwardPeriod"
+     ],
+     "cls": "cert",
+     "condition": "(EstAvailFunds present, AgencySubscribeURL present)",
+     "sql": "(EstAvailFunds IS NOT NULL AND AgencySubscribeURL IS NOT NULL)",
+     "support": 0.513,
+     "rows": 548,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.036,
+     "score": 0.745,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ApplicantType"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"No\" (80%), FundingMethodNotes present)",
+     "sql": "(LOI = 'No' AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.51,
+     "rows": 545,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 0.743,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate",
+      "ApplicantType"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"No\" (80%), FundingMethodNotes present)",
+     "sql": "(LOI = 'No' AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.51,
+     "rows": 545,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.017,
+     "score": 0.743,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate",
+      "GrantURL"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"No\" (80%), FundingMethodNotes present)",
+     "sql": "(LOI = 'No' AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.51,
+     "rows": 545,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.017,
+     "score": 0.743,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated"
+     ],
+     "cls": "cand",
+     "condition": "(FundingSource = \"Other\" (4%))",
+     "sql": "(FundingSource = 'Other')",
+     "support": 0.045,
+     "rows": 48,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.742,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingSource=v3": "Other"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated"
+     ],
+     "cls": "cand",
+     "condition": "(LOI = \"Yes\" (20%), FundingMethodNotes missing)",
+     "sql": "(LOI = 'Yes' AND FundingMethodNotes IS NULL)",
+     "support": 0.101,
+     "rows": 108,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.742,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v2": "Yes"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "AwardStats"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"No\" (80%), FundingSource = \"State\" (74%))",
+     "sql": "(LOI = 'No' AND FundingSource = 'State')",
+     "support": 0.579,
+     "rows": 618,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.272,
+     "score": 0.742,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v1": "No",
+      "FundingSource=v1": "State"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate"
+     ],
+     "cls": "cand",
+     "condition": "(FundingSource = \"Federal\" (17%), AwardStats present)",
+     "sql": "(FundingSource = 'Federal' AND AwardStats IS NOT NULL)",
+     "support": 0.125,
+     "rows": 133,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.741,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingSource=v2": "Federal"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ApplicationDeadline"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing, EstAvailFunds present)",
+     "sql": "(ChangeNotes IS NULL AND EstAvailFunds IS NOT NULL)",
+     "support": 0.397,
+     "rows": 424,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 0.737,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ApplicantType"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing, EstAvailFunds present)",
+     "sql": "(ChangeNotes IS NULL AND EstAvailFunds IS NOT NULL)",
+     "support": 0.397,
+     "rows": 424,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.737,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "FundingSourceNotes"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing, EstAvailFunds present)",
+     "sql": "(ChangeNotes IS NULL AND EstAvailFunds IS NOT NULL)",
+     "support": 0.397,
+     "rows": 424,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.307,
+     "score": 0.737,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "Geography"
+     ],
+     "cls": "cand",
+     "condition": "(Geography present, FundingMethodNotes present)",
+     "sql": "(Geography IS NOT NULL AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.49,
+     "rows": 523,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.735,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cand",
+     "condition": "(Type = \"Loan\" (5%))",
+     "sql": "(Type = 'Loan')",
+     "support": 0.054,
+     "rows": 58,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.734,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Type=v2": "Loan"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "AwardStats"
+     ],
+     "cls": "cert",
+     "condition": "(EstAvailFunds present, FundingMethod = \"Reimbursement(s)\" (59%))",
+     "sql": "(EstAvailFunds IS NOT NULL AND FundingMethod = 'Reimbursement(s)')",
+     "support": 0.566,
+     "rows": 604,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.224,
+     "score": 0.733,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingMethod=v1": "Reimbursement(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated"
+     ],
+     "cls": "cand",
+     "condition": "(ChangeNotes present, FundingSource = \"Federal\" (17%))",
+     "sql": "(ChangeNotes IS NOT NULL AND FundingSource = 'Federal')",
+     "support": 0.098,
+     "rows": 105,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.732,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingSource=v2": "Federal"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(FundingSource = \"State\" (74%), FundingMethod = \"Advance(s)\" (13%))",
+     "sql": "(FundingSource = 'State' AND FundingMethod = 'Advance(s)')",
+     "support": 0.097,
+     "rows": 104,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.01,
+     "score": 0.73,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingSource=v1": "State",
+      "FundingMethod=v3": "Advance(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate",
+      "GrantURL"
+     ],
+     "cls": "cert",
+     "condition": "(Geography present, FundingMethodNotes present)",
+     "sql": "(Geography IS NOT NULL AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.49,
+     "rows": 523,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.017,
+     "score": 0.728,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate"
+     ],
+     "cls": "cand",
+     "condition": "(FundingSource = \"Federal\" (17%), FundingMethod = \"Reimbursement(s)\" (59%))",
+     "sql": "(FundingSource = 'Federal' AND FundingMethod = 'Reimbursement(s)')",
+     "support": 0.119,
+     "rows": 127,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.724,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingSource=v2": "Federal",
+      "FundingMethod=v1": "Reimbursement(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description"
+     ],
+     "cls": "cand",
+     "condition": "(ChangeNotes missing, Geography missing)",
+     "sql": "(ChangeNotes IS NULL AND Geography IS NULL)",
+     "support": 0.119,
+     "rows": 127,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.724,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate"
+     ],
+     "cls": "cert",
+     "condition": "(FundingSource = \"Federal\" (17%), FundingMethodNotes present)",
+     "sql": "(FundingSource = 'Federal' AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.096,
+     "rows": 102,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.01,
+     "score": 0.723,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingSource=v2": "Federal"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ContactInfo"
+     ],
+     "cls": "cand",
+     "condition": "(LOI = \"No\" (80%), FundingMethod = \"Reimbursement(s)\" (59%))",
+     "sql": "(LOI = 'No' AND FundingMethod = 'Reimbursement(s)')",
+     "support": 0.473,
+     "rows": 505,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.722,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v1": "No",
+      "FundingMethod=v1": "Reimbursement(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description",
+      "AwardStats"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"No\" (80%), ApplicantTypeNotes present)",
+     "sql": "(LOI = 'No' AND ApplicantTypeNotes IS NOT NULL)",
+     "support": 0.694,
+     "rows": 741,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.271,
+     "score": 0.722,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated"
+     ],
+     "cls": "cand",
+     "condition": "(ChangeNotes missing, FundingMethod = \"Advances & Reimbursement(s)\" (24%))",
+     "sql": "(ChangeNotes IS NULL AND FundingMethod = 'Advances & Reimbursement(s)')",
+     "support": 0.096,
+     "rows": 102,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.721,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingMethod=v2": "Advances & Reimbursement(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "Description"
+     ],
+     "cls": "cand",
+     "condition": "(ChangeNotes missing, FundingMethod = \"Advances & Reimbursement(s)\" (24%))",
+     "sql": "(ChangeNotes IS NULL AND FundingMethod = 'Advances & Reimbursement(s)')",
+     "support": 0.096,
+     "rows": 102,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.721,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingMethod=v2": "Advances & Reimbursement(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ChangeNotes"
+     ],
+     "cls": "cert",
+     "condition": "(FundingSource = \"State\" (74%), EstAvailFunds present)",
+     "sql": "(FundingSource = 'State' AND EstAvailFunds IS NOT NULL)",
+     "support": 0.692,
+     "rows": 739,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.442,
+     "score": 0.721,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingSource=v1": "State"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"Yes\" (20%), FundingMethodNotes present)",
+     "sql": "(LOI = 'Yes' AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.095,
+     "rows": 101,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.03,
+     "score": 0.72,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v2": "Yes"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description",
+      "ChangeNotes"
+     ],
+     "cls": "pos",
+     "condition": "(ApplicantTypeNotes present)",
+     "sql": "(ApplicantTypeNotes IS NOT NULL)",
+     "support": 0.842,
+     "rows": 899,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.403,
+     "score": 0.716,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ApplicationDeadline"
+     ],
+     "cls": "cert",
+     "condition": "FundingMethod in {\"Advances & Reimbursement(s)\", \"Advance(s)\"}",
+     "sql": "(FundingMethod = 'Advances & Reimbursement(s)') OR (FundingMethod = 'Advance(s)')",
+     "support": 0.372,
+     "rows": 397,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.01,
+     "score": 0.713,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingMethod=v2": "Advances & Reimbursement(s)",
+      "FundingMethod=v3": "Advance(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ApplicationDeadline",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "FundingMethod in {\"Advances & Reimbursement(s)\", \"Advance(s)\"}",
+     "sql": "(FundingMethod = 'Advances & Reimbursement(s)') OR (FundingMethod = 'Advance(s)')",
+     "support": 0.372,
+     "rows": 397,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.01,
+     "score": 0.713,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingMethod=v2": "Advances & Reimbursement(s)",
+      "FundingMethod=v3": "Advance(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description"
+     ],
+     "cls": "cand",
+     "condition": "(Geography missing, FundingMethodNotes present)",
+     "sql": "(Geography IS NULL AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.115,
+     "rows": 123,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.713,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "AwardStats"
+     ],
+     "cls": "cert",
+     "condition": "(FundingSource = \"State\" (74%), FundingSourceNotes present)",
+     "sql": "(FundingSource = 'State' AND FundingSourceNotes IS NOT NULL)",
+     "support": 0.527,
+     "rows": 563,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.259,
+     "score": 0.708,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingSource=v1": "State"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ApplicationDeadline"
+     ],
+     "cls": "cand",
+     "condition": "(FundingMethodNotes present, AwardStats present)",
+     "sql": "(FundingMethodNotes IS NOT NULL AND AwardStats IS NOT NULL)",
+     "support": 0.454,
+     "rows": 485,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.708,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ContactInfo"
+     ],
+     "cls": "cand",
+     "condition": "(FundingMethod = \"Reimbursement(s)\" (59%), AwardStats present)",
+     "sql": "(FundingMethod = 'Reimbursement(s)' AND AwardStats IS NOT NULL)",
+     "support": 0.451,
+     "rows": 482,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.705,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingMethod=v1": "Reimbursement(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "GrantURL"
+     ],
+     "cls": "cand",
+     "condition": "(FundingSource = \"State\" (74%), FundingMethodNotes present)",
+     "sql": "(FundingSource = 'State' AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.449,
+     "rows": 479,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.703,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingSource=v1": "State"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ExpAwardDate"
+     ],
+     "cls": "cert",
+     "condition": "(AgencySubscribeURL missing, AwardStats missing)",
+     "sql": "(AgencySubscribeURL IS NULL AND AwardStats IS NULL)",
+     "support": 0.114,
+     "rows": 122,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.016,
+     "score": 0.703,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate"
+     ],
+     "cls": "cand",
+     "condition": "(ChangeNotes present, LOI = \"Yes\" (20%))",
+     "sql": "(ChangeNotes IS NOT NULL AND LOI = 'Yes')",
+     "support": 0.111,
+     "rows": 119,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.701,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v2": "Yes"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description"
+     ],
+     "cls": "cand",
+     "condition": "(ChangeNotes present, LOI = \"Yes\" (20%))",
+     "sql": "(ChangeNotes IS NOT NULL AND LOI = 'Yes')",
+     "support": 0.111,
+     "rows": 119,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.701,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v2": "Yes"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate",
+      "ApplicantType"
+     ],
+     "cls": "cert",
+     "condition": "(FundingMethodNotes present, AwardStats present)",
+     "sql": "(FundingMethodNotes IS NOT NULL AND AwardStats IS NOT NULL)",
+     "support": 0.454,
+     "rows": 485,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.019,
+     "score": 0.701,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "FundingSourceNotes"
+     ],
+     "cls": "cand",
+     "condition": "(FundingSourceNotes present, FundingMethod = \"Reimbursement(s)\" (59%))",
+     "sql": "(FundingSourceNotes IS NOT NULL AND FundingMethod = 'Reimbursement(s)')",
+     "support": 0.445,
+     "rows": 475,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.7,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingMethod=v1": "Reimbursement(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ContactInfo"
+     ],
+     "cls": "cand",
+     "condition": "(FundingSourceNotes present, FundingMethod = \"Reimbursement(s)\" (59%))",
+     "sql": "(FundingSourceNotes IS NOT NULL AND FundingMethod = 'Reimbursement(s)')",
+     "support": 0.445,
+     "rows": 475,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.7,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingMethod=v1": "Reimbursement(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ApplicationDeadline",
+      "ContactInfo"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"No\" (80%))",
+     "sql": "(LOI = 'No')",
+     "support": 0.803,
+     "rows": 858,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.699,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ChangeNotes"
+     ],
+     "cls": "dom",
+     "condition": "(LOI = \"No\" (80%))",
+     "sql": "(LOI = 'No')",
+     "support": 0.803,
+     "rows": 858,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.421,
+     "score": 0.699,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ApplicantTypeNotes",
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "pos",
+     "condition": "(LOI = \"No\" (80%))",
+     "sql": "(LOI = 'No')",
+     "support": 0.803,
+     "rows": 858,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.14,
+     "score": 0.699,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description",
+      "AwardStats"
+     ],
+     "cls": "cert",
+     "condition": "(FundingMethod = \"Reimbursement(s)\" (59%), AwardStats present)",
+     "sql": "(FundingMethod = 'Reimbursement(s)' AND AwardStats IS NOT NULL)",
+     "support": 0.451,
+     "rows": 482,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.017,
+     "score": 0.699,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingMethod=v1": "Reimbursement(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "AwardStats"
+     ],
+     "cls": "cert",
+     "condition": "(EstAvailFunds present, AgencySubscribeURL present)",
+     "sql": "(EstAvailFunds IS NOT NULL AND AgencySubscribeURL IS NOT NULL)",
+     "support": 0.513,
+     "rows": 548,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.23,
+     "score": 0.698,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "Geography"
+     ],
+     "cls": "cand",
+     "condition": "(Geography present, FundingMethod = \"Reimbursement(s)\" (59%))",
+     "sql": "(Geography IS NOT NULL AND FundingMethod = 'Reimbursement(s)')",
+     "support": 0.442,
+     "rows": 472,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.698,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingMethod=v1": "Reimbursement(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(ApplicantTypeNotes missing, FundingSourceNotes missing)",
+     "sql": "(ApplicantTypeNotes IS NULL AND FundingSourceNotes IS NULL)",
+     "support": 0.089,
+     "rows": 95,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.011,
+     "score": 0.698,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "ExpAwardDate",
+      "Title"
+     ],
+     "cls": "cert",
+     "condition": "(AgencySubscribeURL missing)",
+     "sql": "(AgencySubscribeURL IS NULL)",
+     "support": 0.449,
+     "rows": 480,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.023,
+     "score": 0.697,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description",
+      "Title"
+     ],
+     "cls": "cert",
+     "condition": "(FundingSource = \"State\" (74%), FundingMethodNotes present)",
+     "sql": "(FundingSource = 'State' AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.449,
+     "rows": 479,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.017,
+     "score": 0.696,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingSource=v1": "State"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "Title"
+     ],
+     "cls": "cand",
+     "condition": "(Status = \"active\" (16%))",
+     "sql": "(Status = 'active')",
+     "support": 0.158,
+     "rows": 169,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.696,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Status=v2": "active"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated"
+     ],
+     "cls": "cand",
+     "condition": "(FundingMethod = \"Advances & Reimbursement(s)\" (24%), AgencySubscribeURL missing)",
+     "sql": "(FundingMethod = 'Advances & Reimbursement(s)' AND AgencySubscribeURL IS NULL)",
+     "support": 0.089,
+     "rows": 95,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.696,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingMethod=v2": "Advances & Reimbursement(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ApplicationDeadline"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes present, FundingMethodNotes present)",
+     "sql": "(ChangeNotes IS NOT NULL AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.353,
+     "rows": 377,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.695,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "FundingSourceNotes"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes present, FundingMethodNotes present)",
+     "sql": "(ChangeNotes IS NOT NULL AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.353,
+     "rows": 377,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.119,
+     "score": 0.695,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "AwardPeriod"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes present, FundingMethodNotes present)",
+     "sql": "(ChangeNotes IS NOT NULL AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.353,
+     "rows": 377,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.016,
+     "score": 0.695,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "Geography"
+     ],
+     "cls": "cert",
+     "condition": "(FundingMethod = \"Reimbursement(s)\" (59%), FundingMethodNotes present)",
+     "sql": "(FundingMethod = 'Reimbursement(s)' AND FundingMethodNotes IS NOT NULL)",
+     "support": 0.351,
+     "rows": 375,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.211,
+     "score": 0.693,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingMethod=v1": "Reimbursement(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate"
+     ],
+     "cls": "cert",
+     "condition": "FundingSource in {\"Other\", \"Federal and State\"}",
+     "sql": "(FundingSource = 'Other') OR (FundingSource = 'Federal and State')",
+     "support": 0.087,
+     "rows": 93,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.022,
+     "score": 0.691,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingSource=v3": "Other",
+      "FundingSource=v4": "Federal and State"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate"
+     ],
+     "cls": "cert",
+     "condition": "FundingSource in {\"Other\", \"Federal and State\"}",
+     "sql": "(FundingSource = 'Other') OR (FundingSource = 'Federal and State')",
+     "support": 0.087,
+     "rows": 93,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.011,
+     "score": 0.691,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingSource=v3": "Other",
+      "FundingSource=v4": "Federal and State"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "Geography"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"Yes\" (20%))",
+     "sql": "(LOI = 'Yes')",
+     "support": 0.196,
+     "rows": 209,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.239,
+     "score": 0.69,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v2": "Yes"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "FundingSourceNotes"
+     ],
+     "cls": "cand",
+     "condition": "(ChangeNotes present, FundingSourceNotes present)",
+     "sql": "(ChangeNotes IS NOT NULL AND FundingSourceNotes IS NOT NULL)",
+     "support": 0.429,
+     "rows": 458,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.688,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate",
+      "ContactInfo"
+     ],
+     "cls": "cand",
+     "condition": "(FundingMethod = \"Advances & Reimbursement(s)\" (24%))",
+     "sql": "(FundingMethod = 'Advances & Reimbursement(s)')",
+     "support": 0.24,
+     "rows": 256,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.685,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingMethod=v2": "Advances & Reimbursement(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description",
+      "Title"
+     ],
+     "cls": "cert",
+     "condition": "(Status = \"closed\" (83%), AgencySubscribeURL present)",
+     "sql": "(Status = 'closed' AND AgencySubscribeURL IS NOT NULL)",
+     "support": 0.433,
+     "rows": 462,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.684,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Status=v1": "closed"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ChangeNotes"
+     ],
+     "cls": "pos",
+     "condition": "(FundingMethodNotes present)",
+     "sql": "(FundingMethodNotes IS NOT NULL)",
+     "support": 0.605,
+     "rows": 646,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.416,
+     "score": 0.682,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ContactInfo"
+     ],
+     "cls": "cand",
+     "condition": "(EstAvailFunds present, AgencySubscribeURL missing)",
+     "sql": "(EstAvailFunds IS NOT NULL AND AgencySubscribeURL IS NULL)",
+     "support": 0.421,
+     "rows": 450,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.682,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ApplicationDeadline",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(ElecSubmission missing)",
+     "sql": "(ElecSubmission IS NULL)",
+     "support": 0.151,
+     "rows": 161,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.037,
+     "score": 0.681,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Title"
+     ],
+     "cls": "cert",
+     "condition": "(ElecSubmission missing)",
+     "sql": "(ElecSubmission IS NULL)",
+     "support": 0.151,
+     "rows": 161,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.037,
+     "score": 0.681,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "FundingSourceNotes"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes present, FundingMethod = \"Reimbursement(s)\" (59%))",
+     "sql": "(ChangeNotes IS NOT NULL AND FundingMethod = 'Reimbursement(s)')",
+     "support": 0.339,
+     "rows": 362,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.235,
+     "score": 0.681,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingMethod=v1": "Reimbursement(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "Geography"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes present, FundingMethod = \"Reimbursement(s)\" (59%))",
+     "sql": "(ChangeNotes IS NOT NULL AND FundingMethod = 'Reimbursement(s)')",
+     "support": 0.339,
+     "rows": 362,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.227,
+     "score": 0.681,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingMethod=v1": "Reimbursement(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ApplicationDeadline"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing, LOI = \"No\" (80%))",
+     "sql": "(ChangeNotes IS NULL AND LOI = 'No')",
+     "support": 0.338,
+     "rows": 361,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 0.68,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "FundingSourceNotes"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing, LOI = \"No\" (80%))",
+     "sql": "(ChangeNotes IS NULL AND LOI = 'No')",
+     "support": 0.338,
+     "rows": 361,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.332,
+     "score": 0.68,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ApplicationDeadline",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing, LOI = \"No\" (80%))",
+     "sql": "(ChangeNotes IS NULL AND LOI = 'No')",
+     "support": 0.338,
+     "rows": 361,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 0.68,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing, ApplicantTypeNotes missing)",
+     "sql": "(ChangeNotes IS NULL AND ApplicantTypeNotes IS NULL)",
+     "support": 0.084,
+     "rows": 90,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.022,
+     "score": 0.679,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description",
+      "Purpose"
+     ],
+     "cls": "cert",
+     "condition": "(Geography present, AgencySubscribeURL present)",
+     "sql": "(Geography IS NOT NULL AND AgencySubscribeURL IS NOT NULL)",
+     "support": 0.426,
+     "rows": 455,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.013,
+     "score": 0.679,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description",
+      "FundingSourceNotes"
+     ],
+     "cls": "cert",
+     "condition": "(Geography present, AgencySubscribeURL present)",
+     "sql": "(Geography IS NOT NULL AND AgencySubscribeURL IS NOT NULL)",
+     "support": 0.426,
+     "rows": 455,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.226,
+     "score": 0.679,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description",
+      "Geography"
+     ],
+     "cls": "cert",
+     "condition": "(Geography present, AgencySubscribeURL present)",
+     "sql": "(Geography IS NOT NULL AND AgencySubscribeURL IS NOT NULL)",
+     "support": 0.426,
+     "rows": 455,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.013,
+     "score": 0.679,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description",
+      "Title"
+     ],
+     "cls": "cert",
+     "condition": "(Geography present, AgencySubscribeURL present)",
+     "sql": "(Geography IS NOT NULL AND AgencySubscribeURL IS NOT NULL)",
+     "support": 0.426,
+     "rows": 455,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.679,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description",
+      "Geography"
+     ],
+     "cls": "cert",
+     "condition": "(Geography present, AgencySubscribeURL present)",
+     "sql": "(Geography IS NOT NULL AND AgencySubscribeURL IS NOT NULL)",
+     "support": 0.426,
+     "rows": 455,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.679,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "Geography"
+     ],
+     "cls": "pos",
+     "condition": "(FundingMethod = \"Reimbursement(s)\" (59%))",
+     "sql": "(FundingMethod = 'Reimbursement(s)')",
+     "support": 0.595,
+     "rows": 635,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.257,
+     "score": 0.677,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingMethod=v1": "Reimbursement(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description",
+      "Geography"
+     ],
+     "cls": "dom",
+     "condition": "(ChangeNotes missing)",
+     "sql": "(ChangeNotes IS NULL)",
+     "support": 0.423,
+     "rows": 452,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.294,
+     "score": 0.677,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ApplicationDeadline"
+     ],
+     "cls": "cand",
+     "condition": "(AgencySubscribeURL present, AwardStats present)",
+     "sql": "(AgencySubscribeURL IS NOT NULL AND AwardStats IS NOT NULL)",
+     "support": 0.413,
+     "rows": 441,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.675,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ApplicationDeadline",
+      "Description"
+     ],
+     "cls": "cand",
+     "condition": "(AgencySubscribeURL present, AwardStats present)",
+     "sql": "(AgencySubscribeURL IS NOT NULL AND AwardStats IS NOT NULL)",
+     "support": 0.413,
+     "rows": 441,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.675,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "Description",
+      "AwardStats"
+     ],
+     "cls": "cand",
+     "condition": "(AgencySubscribeURL present, AwardStats present)",
+     "sql": "(AgencySubscribeURL IS NOT NULL AND AwardStats IS NOT NULL)",
+     "support": 0.413,
+     "rows": 441,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.675,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate",
+      "ChangeNotes"
+     ],
+     "cls": "dom",
+     "condition": "(AwardStats present)",
+     "sql": "(AwardStats IS NOT NULL)",
+     "support": 0.748,
+     "rows": 799,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.428,
+     "score": 0.675,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ApplicantTypeNotes",
+      "ApplicationDeadline",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(AwardStats present)",
+     "sql": "(AwardStats IS NOT NULL)",
+     "support": 0.748,
+     "rows": 799,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.173,
+     "score": 0.675,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ApplicationDeadline",
+      "Description",
+      "ChangeNotes"
+     ],
+     "cls": "cert",
+     "condition": "(AwardStats present)",
+     "sql": "(AwardStats IS NOT NULL)",
+     "support": 0.748,
+     "rows": 799,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.423,
+     "score": 0.675,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "Geography"
+     ],
+     "cls": "cert",
+     "condition": "(FundingMethodNotes present, AgencySubscribeURL present)",
+     "sql": "(FundingMethodNotes IS NOT NULL AND AgencySubscribeURL IS NOT NULL)",
+     "support": 0.331,
+     "rows": 354,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.175,
+     "score": 0.674,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ApplicationDeadline",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(FundingMethodNotes present, AgencySubscribeURL present)",
+     "sql": "(FundingMethodNotes IS NOT NULL AND AgencySubscribeURL IS NOT NULL)",
+     "support": 0.331,
+     "rows": 354,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.011,
+     "score": 0.674,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ApplicantType"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"No\" (80%), AgencySubscribeURL present)",
+     "sql": "(LOI = 'No' AND AgencySubscribeURL IS NOT NULL)",
+     "support": 0.419,
+     "rows": 447,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.673,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "AwardPeriod"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"No\" (80%), AgencySubscribeURL present)",
+     "sql": "(LOI = 'No' AND AgencySubscribeURL IS NOT NULL)",
+     "support": 0.419,
+     "rows": 447,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.036,
+     "score": 0.673,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v1": "No"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "AwardStats"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"No\" (80%), FundingMethod = \"Reimbursement(s)\" (59%))",
+     "sql": "(LOI = 'No' AND FundingMethod = 'Reimbursement(s)')",
+     "support": 0.473,
+     "rows": 505,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.242,
+     "score": 0.67,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v1": "No",
+      "FundingMethod=v1": "Reimbursement(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ApplicantType"
+     ],
+     "cls": "cert",
+     "condition": "(AgencySubscribeURL present, AwardStats present)",
+     "sql": "(AgencySubscribeURL IS NOT NULL AND AwardStats IS NOT NULL)",
+     "support": 0.413,
+     "rows": 441,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.668,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "AwardPeriod"
+     ],
+     "cls": "cert",
+     "condition": "(AgencySubscribeURL present, AwardStats present)",
+     "sql": "(AgencySubscribeURL IS NOT NULL AND AwardStats IS NOT NULL)",
+     "support": 0.413,
+     "rows": 441,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.034,
+     "score": 0.668,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "ApplicantType",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(AgencySubscribeURL present, AwardStats present)",
+     "sql": "(AgencySubscribeURL IS NOT NULL AND AwardStats IS NOT NULL)",
+     "support": 0.413,
+     "rows": 441,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.668,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description",
+      "Title"
+     ],
+     "cls": "cert",
+     "condition": "(AgencySubscribeURL present, AwardStats present)",
+     "sql": "(AgencySubscribeURL IS NOT NULL AND AwardStats IS NOT NULL)",
+     "support": 0.413,
+     "rows": 441,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.005,
+     "score": 0.668,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description",
+      "Geography"
+     ],
+     "cls": "cert",
+     "condition": "(AgencySubscribeURL present, AwardStats present)",
+     "sql": "(AgencySubscribeURL IS NOT NULL AND AwardStats IS NOT NULL)",
+     "support": 0.413,
+     "rows": 441,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.211,
+     "score": 0.668,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "FundingSourceNotes"
+     ],
+     "cls": "dom",
+     "condition": "FundingMethod in {\"Reimbursement(s)\", \"Advance(s)\"}",
+     "sql": "(FundingMethod = 'Reimbursement(s)') OR (FundingMethod = 'Advance(s)')",
+     "support": 0.727,
+     "rows": 776,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.268,
+     "score": 0.665,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingMethod=v1": "Reimbursement(s)",
+      "FundingMethod=v3": "Advance(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ExpAwardDate",
+      "Description"
+     ],
+     "cls": "cert",
+     "condition": "(FundingSource = \"Federal\" (17%), AgencySubscribeURL present)",
+     "sql": "(FundingSource = 'Federal' AND AgencySubscribeURL IS NOT NULL)",
+     "support": 0.081,
+     "rows": 86,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.012,
+     "score": 0.664,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingSource=v2": "Federal"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "Geography"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing, FundingSource = \"State\" (74%))",
+     "sql": "(ChangeNotes IS NULL AND FundingSource = 'State')",
+     "support": 0.321,
+     "rows": 343,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.286,
+     "score": 0.663,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingSource=v1": "State"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ApplicantTypeNotes",
+      "OpenDate",
+      "Description"
+     ],
+     "cls": "cand",
+     "condition": "(ChangeNotes present, ApplicantTypeNotes present)",
+     "sql": "(ChangeNotes IS NOT NULL AND ApplicantTypeNotes IS NOT NULL)",
+     "support": 0.503,
+     "rows": 537,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.662,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description",
+      "ChangeNotes"
+     ],
+     "cls": "cand",
+     "condition": "(ChangeNotes present, ApplicantTypeNotes present)",
+     "sql": "(ChangeNotes IS NOT NULL AND ApplicantTypeNotes IS NOT NULL)",
+     "support": 0.503,
+     "rows": 537,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.662,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ContactInfo"
+     ],
+     "cls": "cand",
+     "condition": "(ChangeNotes missing, EstAvailFunds present)",
+     "sql": "(ChangeNotes IS NULL AND EstAvailFunds IS NOT NULL)",
+     "support": 0.397,
+     "rows": 424,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.662,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ApplicationDeadline",
+      "ContactInfo"
+     ],
+     "cls": "cert",
+     "condition": "(FundingSourceNotes present)",
+     "sql": "(FundingSourceNotes IS NOT NULL)",
+     "support": 0.719,
+     "rows": 768,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.01,
+     "score": 0.661,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ChangeNotes"
+     ],
+     "cls": "dom",
+     "condition": "(FundingSourceNotes present)",
+     "sql": "(FundingSourceNotes IS NOT NULL)",
+     "support": 0.719,
+     "rows": 768,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.405,
+     "score": 0.661,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "ApplicationDeadline",
+      "Title",
+      "AwardPeriod"
+     ],
+     "cls": "cert",
+     "condition": "(FundingSourceNotes present)",
+     "sql": "(FundingSourceNotes IS NOT NULL)",
+     "support": 0.719,
+     "rows": 768,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.033,
+     "score": 0.661,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ChangeNotes"
+     ],
+     "cls": "cert",
+     "condition": "(LOI = \"No\" (80%), FundingSource = \"State\" (74%))",
+     "sql": "(LOI = 'No' AND FundingSource = 'State')",
+     "support": 0.579,
+     "rows": 618,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.434,
+     "score": 0.659,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "LOI=v1": "No",
+      "FundingSource=v1": "State"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ApplicantType"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing, AwardStats present)",
+     "sql": "(ChangeNotes IS NULL AND AwardStats IS NOT NULL)",
+     "support": 0.316,
+     "rows": 338,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.012,
+     "score": 0.658,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "FundingSourceNotes"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing, AwardStats present)",
+     "sql": "(ChangeNotes IS NULL AND AwardStats IS NOT NULL)",
+     "support": 0.316,
+     "rows": 338,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.317,
+     "score": 0.658,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate",
+      "AwardPeriod"
+     ],
+     "cls": "cert",
+     "condition": "(ChangeNotes missing, EstAvailFunds present)",
+     "sql": "(ChangeNotes IS NULL AND EstAvailFunds IS NOT NULL)",
+     "support": 0.397,
+     "rows": 424,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.024,
+     "score": 0.655,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "FundingSourceNotes"
+     ],
+     "cls": "cert",
+     "condition": "(FundingMethodNotes missing)",
+     "sql": "(FundingMethodNotes IS NULL)",
+     "support": 0.395,
+     "rows": 422,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.509,
+     "score": 0.654,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "ExpAwardDate",
+      "FundingSourceNotes"
+     ],
+     "cls": "cert",
+     "condition": "(FundingMethodNotes missing)",
+     "sql": "(FundingMethodNotes IS NULL)",
+     "support": 0.395,
+     "rows": 422,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.512,
+     "score": 0.654,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "OpenDate",
+      "Description",
+      "Geography"
+     ],
+     "cls": "dom",
+     "condition": "(FundingMethodNotes missing)",
+     "sql": "(FundingMethodNotes IS NULL)",
+     "support": 0.395,
+     "rows": 422,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.36,
+     "score": 0.654,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "AwardPeriod"
+     ],
+     "cls": "cand",
+     "condition": "(FundingSource = \"Federal\" (17%))",
+     "sql": "(FundingSource = 'Federal')",
+     "support": 0.171,
+     "rows": 183,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.652,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingSource=v2": "Federal"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "OpenDate",
+      "ChangeNotes"
+     ],
+     "cls": "cert",
+     "condition": "(EstAvailFunds present, FundingMethod = \"Reimbursement(s)\" (59%))",
+     "sql": "(EstAvailFunds IS NOT NULL AND FundingMethod = 'Reimbursement(s)')",
+     "support": 0.566,
+     "rows": 604,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.437,
+     "score": 0.652,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingMethod=v1": "Reimbursement(s)"
+     }
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "Description",
+      "AwardStats"
+     ],
+     "cls": "pos",
+     "condition": "(AgencySubscribeURL present)",
+     "sql": "(AgencySubscribeURL IS NOT NULL)",
+     "support": 0.551,
+     "rows": 588,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.25,
+     "score": 0.651,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t17675",
+     "K": [
+      "LastUpdated",
+      "AwardStats"
+     ],
+     "cls": "cert",
+     "condition": "(FundingSourceNotes present, FundingMethod = \"Reimbursement(s)\" (59%))",
+     "sql": "(FundingSourceNotes IS NOT NULL AND FundingMethod = 'Reimbursement(s)')",
+     "support": 0.445,
+     "rows": 475,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.255,
+     "score": 0.65,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "FundingMethod=v1": "Reimbursement(s)"
+     }
+    }
+   ],
+   "unconditional": {
+    "\u00ef\u00bb\u00bfPortalID": "cand",
+    "LastUpdated,Description": "cand",
+    "LastUpdated,Title": "cand",
+    "LastUpdated,Purpose": "cert",
+    "LastUpdated,FundingMethodNotes": "pos",
+    "LastUpdated,AwardStats": "pos",
+    "OpenDate,Title": "dom",
+    "LastUpdated,ApplicantTypeNotes,ApplicationDeadline": "cert",
+    "LastUpdated,ApplicantTypeNotes,OpenDate": "cert",
+    "LastUpdated,ApplicantTypeNotes,ExpAwardDate": "cert",
+    "LastUpdated,ApplicantTypeNotes,Purpose": "cert",
+    "LastUpdated,ApplicantTypeNotes,ChangeNotes": "dom",
+    "LastUpdated,ApplicantTypeNotes,FundingMethodNotes": "pos",
+    "LastUpdated,ApplicantTypeNotes,AwardStats": "cert",
+    "LastUpdated,ApplicantTypeNotes,AwardPeriod": "pos",
+    "LastUpdated,ApplicationDeadline,Purpose": "cert",
+    "LastUpdated,ApplicationDeadline,ChangeNotes": "pos",
+    "LastUpdated,ApplicationDeadline,FundingSourceNotes": "dom",
+    "LastUpdated,ApplicationDeadline,FundingMethodNotes": "pos",
+    "LastUpdated,ApplicationDeadline,AwardStats": "pos",
+    "LastUpdated,ApplicationDeadline,Geography": "cert",
+    "LastUpdated,OpenDate,Purpose": "cert",
+    "LastUpdated,OpenDate,ChangeNotes": "pos",
+    "LastUpdated,OpenDate,FundingSourceNotes": "dom",
+    "LastUpdated,OpenDate,FundingMethodNotes": "pos",
+    "LastUpdated,OpenDate,AwardStats": "pos",
+    "LastUpdated,ExpAwardDate,Purpose": "cert",
+    "LastUpdated,ExpAwardDate,ChangeNotes": "pos",
+    "LastUpdated,ExpAwardDate,FundingSourceNotes": "dom",
+    "LastUpdated,ExpAwardDate,FundingMethodNotes": "pos",
+    "LastUpdated,ExpAwardDate,AwardStats": "pos",
+    "LastUpdated,ExpAwardDate,Geography": "pos",
+    "LastUpdated,ApplicantType,Purpose": "cert",
+    "LastUpdated,ApplicantType,FundingMethodNotes": "pos",
+    "LastUpdated,ApplicantType,AwardStats": "pos",
+    "LastUpdated,Purpose,ChangeNotes": "cert",
+    "LastUpdated,Purpose,FundingSourceNotes": "cert",
+    "LastUpdated,Purpose,FundingMethodNotes": "cert",
+    "LastUpdated,Purpose,GrantURL": "cert",
+    "LastUpdated,Purpose,ContactInfo": "cert",
+    "LastUpdated,Purpose,AwardStats": "cert",
+    "LastUpdated,Purpose,Geography": "cert",
+    "LastUpdated,Purpose,AwardPeriod": "cert",
+    "LastUpdated,ChangeNotes,FundingSourceNotes": "dom",
+    "LastUpdated,ChangeNotes,FundingMethodNotes": "pos",
+    "LastUpdated,ChangeNotes,AwardStats": "pos",
+    "LastUpdated,ChangeNotes,Geography": "dom",
+    "LastUpdated,ChangeNotes,AwardPeriod": "pos",
+    "LastUpdated,FundingSourceNotes,FundingMethodNotes": "pos",
+    "LastUpdated,FundingSourceNotes,ContactInfo": "dom",
+    "LastUpdated,FundingSourceNotes,AwardStats": "dom",
+    "LastUpdated,FundingSourceNotes,AwardPeriod": "pos",
+    "LastUpdated,FundingMethodNotes,GrantURL": "pos",
+    "LastUpdated,FundingMethodNotes,ContactInfo": "pos",
+    "LastUpdated,FundingMethodNotes,AwardStats": "cert",
+    "LastUpdated,FundingMethodNotes,Geography": "pos",
+    "LastUpdated,FundingMethodNotes,AwardPeriod": "pos",
+    "LastUpdated,GrantURL,AwardStats": "pos",
+    "LastUpdated,ContactInfo,AwardStats": "pos",
+    "LastUpdated,AwardStats,Geography": "cert",
+    "LastUpdated,AwardStats,AwardPeriod": "pos",
+    "LastUpdated,Geography,AwardPeriod": "pos",
+    "ApplicantTypeNotes,OpenDate,Title": "dom",
+    "ApplicationDeadline,OpenDate,Title": "cert",
+    "ApplicationDeadline,Description,Title": "cert",
+    "ApplicationDeadline,Description,AwardStats": "pos",
+    "ApplicationDeadline,Title,Purpose": "dom",
+    "ApplicationDeadline,Title,ChangeNotes": "pos",
+    "ApplicationDeadline,Title,FundingSourceNotes": "pos",
+    "ApplicationDeadline,Title,FundingMethodNotes": "pos",
+    "ApplicationDeadline,Title,ContactInfo": "dom",
+    "ApplicationDeadline,Title,AwardStats": "dom",
+    "ApplicationDeadline,Purpose,AwardStats": "pos",
+    "ApplicationDeadline,ChangeNotes,AwardStats": "pos",
+    "OpenDate,ExpAwardDate,Title": "dom",
+    "OpenDate,ApplicantType,Title": "dom",
+    "OpenDate,Description,Title": "cert",
+    "OpenDate,Description,AwardStats": "pos",
+    "OpenDate,Title,Purpose": "dom",
+    "OpenDate,Title,ChangeNotes": "dom",
+    "OpenDate,Title,FundingSourceNotes": "dom",
+    "OpenDate,Title,FundingMethodNotes": "cert",
+    "OpenDate,Title,GrantURL": "dom",
+    "OpenDate,Title,ContactInfo": "cert",
+    "OpenDate,Title,AwardStats": "dom",
+    "OpenDate,Title,Geography": "dom",
+    "OpenDate,Title,AwardPeriod": "dom",
+    "OpenDate,Purpose,AwardStats": "pos",
+    "OpenDate,ChangeNotes,AwardStats": "pos"
+   }
+  }
+ ]
+}

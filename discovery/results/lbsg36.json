@@ -1,0 +1,7412 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "entity_name",
+   "registration_incorporation_date",
+   "account_due_date",
+   "building_name",
+   "paid_up_capital1_ordinary",
+   "uen_issue_date",
+   "street_name",
+   "paid_up_capital1_preference",
+   "uen",
+   "postal_code",
+   "block",
+   "unit_no",
+   "secondary_ssic_description",
+   "secondary_ssic_code",
+   "primary_ssic_description",
+   "primary_ssic_code"
+  ]
+ },
+ "sample_rows": 54425,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbsg.t36",
+   "rows": 54425,
+   "cols": [
+    "issuance_agency_id",
+    "uen",
+    "entity_name",
+    "entity_type_description",
+    "company_type_description",
+    "entity_status_description",
+    "registration_incorporation_date",
+    "uen_issue_date",
+    "address_type",
+    "block",
+    "street_name",
+    "level_no",
+    "unit_no",
+    "building_name",
+    "postal_code",
+    "account_due_date",
+    "no_of_charges",
+    "primary_ssic_code",
+    "primary_ssic_description",
+    "secondary_ssic_code",
+    "secondary_ssic_description",
+    "no_of_officers",
+    "paid_up_capital1_currency",
+    "paid_up_capital1_ordinary",
+    "paid_up_capital1_preference",
+    "paid_up_capital1_others"
+   ],
+   "n_conditional": 1045,
+   "conditional": [
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "uen_issue_date"
+     ],
+     "cls": "cand",
+     "condition": "(company_type_description present)",
+     "sql": "(company_type_description IS NOT NULL)",
+     "support": 0.527,
+     "rows": 28659,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.286,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "uen_issue_date"
+     ],
+     "cls": "cand",
+     "condition": "(entity_type_description = \"Local Company\" (52%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.519,
+     "rows": 28269,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.27,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present)",
+     "sql": "(company_type_description IS NOT NULL)",
+     "support": 0.527,
+     "rows": 28659,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.441,
+     "score": 2.264,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present)",
+     "sql": "(company_type_description IS NOT NULL)",
+     "support": 0.527,
+     "rows": 28659,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.441,
+     "score": 2.264,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present)",
+     "sql": "(company_type_description IS NOT NULL)",
+     "support": 0.527,
+     "rows": 28659,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 2.264,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "uen_issue_date"
+     ],
+     "cls": "cand",
+     "condition": "(paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.516,
+     "rows": 28101,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.263,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "uen_issue_date"
+     ],
+     "cls": "cand",
+     "condition": "(account_due_date present)",
+     "sql": "(account_due_date IS NOT NULL)",
+     "support": 0.513,
+     "rows": 27901,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.255,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (52%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.519,
+     "rows": 28269,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.437,
+     "score": 2.249,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (52%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.519,
+     "rows": 28269,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.437,
+     "score": 2.249,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (52%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.519,
+     "rows": 28269,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 2.249,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.516,
+     "rows": 28101,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.435,
+     "score": 2.242,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.516,
+     "rows": 28101,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.435,
+     "score": 2.242,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.516,
+     "rows": 28101,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 2.242,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(account_due_date present)",
+     "sql": "(account_due_date IS NOT NULL)",
+     "support": 0.513,
+     "rows": 27901,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.435,
+     "score": 2.234,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(account_due_date present)",
+     "sql": "(account_due_date IS NOT NULL)",
+     "support": 0.513,
+     "rows": 27901,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.435,
+     "score": 2.234,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(account_due_date present)",
+     "sql": "(account_due_date IS NOT NULL)",
+     "support": 0.513,
+     "rows": 27901,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 2.234,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description = \"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\" (39%))",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES')",
+     "support": 0.394,
+     "rows": 21467,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 2.204,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description = \"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\" (39%))",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES')",
+     "support": 0.394,
+     "rows": 21467,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 2.204,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "account_due_date"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (52%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.519,
+     "rows": 28269,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.013,
+     "score": 2.108,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "account_due_date",
+      "building_name"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present)",
+     "sql": "(company_type_description IS NOT NULL)",
+     "support": 0.527,
+     "rows": 28659,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.262,
+     "score": 1.887,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "account_due_date",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present)",
+     "sql": "(company_type_description IS NOT NULL)",
+     "support": 0.527,
+     "rows": 28659,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.027,
+     "score": 1.887,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "account_due_date",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present)",
+     "sql": "(company_type_description IS NOT NULL)",
+     "support": 0.527,
+     "rows": 28659,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.027,
+     "score": 1.887,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "account_due_date",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present)",
+     "sql": "(company_type_description IS NOT NULL)",
+     "support": 0.527,
+     "rows": 28659,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.026,
+     "score": 1.887,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "account_due_date",
+      "building_name"
+     ],
+     "cls": "cert",
+     "condition": "(paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.516,
+     "rows": 28101,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.256,
+     "score": 1.868,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "account_due_date",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.516,
+     "rows": 28101,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.018,
+     "score": 1.868,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "account_due_date",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.516,
+     "rows": 28101,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.018,
+     "score": 1.868,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "account_due_date",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.516,
+     "rows": 28101,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.018,
+     "score": 1.868,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(company_type_description present)",
+     "sql": "(company_type_description IS NOT NULL)",
+     "support": 0.527,
+     "rows": 28659,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.516,
+     "score": 1.509,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "uen_issue_date"
+     ],
+     "cls": "cand",
+     "condition": "company_type_description in {\"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\", \"PRIVATE COMPANY LIMITED BY SHARES\"}",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES') OR (company_type_description = 'PRIVATE COMPANY LIMITED BY SHARES')",
+     "support": 0.513,
+     "rows": 27902,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.504,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES",
+      "company_type_description=v2": "PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(entity_type_description = \"Local Company\" (52%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.519,
+     "rows": 28269,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.513,
+     "score": 1.499,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.516,
+     "rows": 28101,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.512,
+     "score": 1.495,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "company_type_description in {\"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\", \"PRIVATE COMPANY LIMITED BY SHARES\"}",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES') OR (company_type_description = 'PRIVATE COMPANY LIMITED BY SHARES')",
+     "support": 0.513,
+     "rows": 27902,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.436,
+     "score": 1.489,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES",
+      "company_type_description=v2": "PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "company_type_description in {\"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\", \"PRIVATE COMPANY LIMITED BY SHARES\"}",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES') OR (company_type_description = 'PRIVATE COMPANY LIMITED BY SHARES')",
+     "support": 0.513,
+     "rows": 27902,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.436,
+     "score": 1.489,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES",
+      "company_type_description=v2": "PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "company_type_description in {\"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\", \"PRIVATE COMPANY LIMITED BY SHARES\"}",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES') OR (company_type_description = 'PRIVATE COMPANY LIMITED BY SHARES')",
+     "support": 0.513,
+     "rows": 27902,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 1.489,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES",
+      "company_type_description=v2": "PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(account_due_date present)",
+     "sql": "(account_due_date IS NOT NULL)",
+     "support": 0.513,
+     "rows": 27901,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.51,
+     "score": 1.489,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "account_due_date"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present, entity_status_description present)",
+     "sql": "(company_type_description IS NOT NULL AND entity_status_description IS NOT NULL)",
+     "support": 0.519,
+     "rows": 28269,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.013,
+     "score": 1.405,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present, unit_no present)",
+     "sql": "(company_type_description IS NOT NULL AND unit_no IS NOT NULL)",
+     "support": 0.456,
+     "rows": 24844,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.442,
+     "score": 1.405,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (52%), unit_no present)",
+     "sql": "(entity_type_description = 'Local Company' AND unit_no IS NOT NULL)",
+     "support": 0.451,
+     "rows": 24558,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.439,
+     "score": 1.397,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "account_due_date"
+     ],
+     "cls": "cert",
+     "condition": "company_type_description in {\"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\", \"PRIVATE COMPANY LIMITED BY SHARES\"}",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES') OR (company_type_description = 'PRIVATE COMPANY LIMITED BY SHARES')",
+     "support": 0.513,
+     "rows": 27902,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.013,
+     "score": 1.396,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES",
+      "company_type_description=v2": "PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(unit_no present, paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(unit_no IS NOT NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.45,
+     "rows": 24480,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.439,
+     "score": 1.395,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "account_due_date"
+     ],
+     "cls": "cert",
+     "condition": "(entity_status_description present, paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(entity_status_description IS NOT NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.511,
+     "rows": 27801,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.007,
+     "score": 1.394,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(unit_no present, account_due_date present)",
+     "sql": "(unit_no IS NOT NULL AND account_due_date IS NOT NULL)",
+     "support": 0.448,
+     "rows": 24392,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.44,
+     "score": 1.392,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name"
+     ],
+     "cls": "cand",
+     "condition": "(company_type_description present, building_name present)",
+     "sql": "(company_type_description IS NOT NULL AND building_name IS NOT NULL)",
+     "support": 0.399,
+     "rows": 21695,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.326,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "account_due_date"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present, level_no present)",
+     "sql": "(company_type_description IS NOT NULL AND level_no IS NOT NULL)",
+     "support": 0.459,
+     "rows": 24962,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.019,
+     "score": 1.321,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "account_due_date"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present, unit_no present)",
+     "sql": "(company_type_description IS NOT NULL AND unit_no IS NOT NULL)",
+     "support": 0.456,
+     "rows": 24844,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.018,
+     "score": 1.317,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name"
+     ],
+     "cls": "cand",
+     "condition": "(entity_type_description = \"Local Company\" (52%), building_name present)",
+     "sql": "(entity_type_description = 'Local Company' AND building_name IS NOT NULL)",
+     "support": 0.393,
+     "rows": 21386,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.316,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name"
+     ],
+     "cls": "cand",
+     "condition": "(building_name present, paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(building_name IS NOT NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.391,
+     "rows": 21292,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.313,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "account_due_date"
+     ],
+     "cls": "cert",
+     "condition": "(level_no present, paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(level_no IS NOT NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.452,
+     "rows": 24583,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.015,
+     "score": 1.311,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name"
+     ],
+     "cls": "cand",
+     "condition": "(building_name present, account_due_date present)",
+     "sql": "(building_name IS NOT NULL AND account_due_date IS NOT NULL)",
+     "support": 0.389,
+     "rows": 21156,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.309,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "account_due_date"
+     ],
+     "cls": "cert",
+     "condition": "(unit_no present, paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(unit_no IS NOT NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.45,
+     "rows": 24480,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.015,
+     "score": 1.308,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "primary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(company_type_description = \"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\" (39%))",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES')",
+     "support": 0.394,
+     "rows": 21467,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.137,
+     "score": 1.306,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name"
+     ],
+     "cls": "pos",
+     "condition": "(company_type_description present)",
+     "sql": "(company_type_description IS NOT NULL)",
+     "support": 0.527,
+     "rows": 28659,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.243,
+     "score": 1.274,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(company_type_description present)",
+     "sql": "(company_type_description IS NOT NULL)",
+     "support": 0.527,
+     "rows": 28659,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.441,
+     "score": 1.274,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Local Company\" (52%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.519,
+     "rows": 28269,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.243,
+     "score": 1.265,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Local Company\" (52%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.519,
+     "rows": 28269,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.437,
+     "score": 1.265,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "primary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(company_type_description present, level_no present)",
+     "sql": "(company_type_description IS NOT NULL AND level_no IS NOT NULL)",
+     "support": 0.459,
+     "rows": 24962,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.264,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "primary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(company_type_description present, unit_no present)",
+     "sql": "(company_type_description IS NOT NULL AND unit_no IS NOT NULL)",
+     "support": 0.456,
+     "rows": 24844,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.261,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name"
+     ],
+     "cls": "pos",
+     "condition": "(paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.516,
+     "rows": 28101,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.242,
+     "score": 1.261,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.516,
+     "rows": 28101,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.435,
+     "score": 1.261,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "primary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(entity_type_description = \"Local Company\" (52%), level_no present)",
+     "sql": "(entity_type_description = 'Local Company' AND level_no IS NOT NULL)",
+     "support": 0.453,
+     "rows": 24675,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.257,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name"
+     ],
+     "cls": "pos",
+     "condition": "(account_due_date present)",
+     "sql": "(account_due_date IS NOT NULL)",
+     "support": 0.513,
+     "rows": 27901,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.242,
+     "score": 1.257,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(account_due_date present)",
+     "sql": "(account_due_date IS NOT NULL)",
+     "support": 0.513,
+     "rows": 27901,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.435,
+     "score": 1.257,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "primary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(level_no present, paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(level_no IS NOT NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.452,
+     "rows": 24583,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.255,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "primary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(entity_type_description = \"Local Company\" (52%), unit_no present)",
+     "sql": "(entity_type_description = 'Local Company' AND unit_no IS NOT NULL)",
+     "support": 0.451,
+     "rows": 24558,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.254,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "primary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(level_no present, account_due_date present)",
+     "sql": "(level_no IS NOT NULL AND account_due_date IS NOT NULL)",
+     "support": 0.45,
+     "rows": 24491,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.252,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "primary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(unit_no present, paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(unit_no IS NOT NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.45,
+     "rows": 24480,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.252,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "primary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(unit_no present, account_due_date present)",
+     "sql": "(unit_no IS NOT NULL AND account_due_date IS NOT NULL)",
+     "support": 0.448,
+     "rows": 24392,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.25,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no"
+     ],
+     "cls": "cand",
+     "condition": "(company_type_description = \"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\" (39%), unit_no present)",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES' AND unit_no IS NOT NULL)",
+     "support": 0.341,
+     "rows": 18536,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.226,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description = \"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\" (39%), level_no present)",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES' AND level_no IS NOT NULL)",
+     "support": 0.342,
+     "rows": 18627,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.194,
+     "score": 1.217,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description = \"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\" (39%), level_no present)",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES' AND level_no IS NOT NULL)",
+     "support": 0.342,
+     "rows": 18627,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 1.217,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description = \"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\" (39%), unit_no present)",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES' AND unit_no IS NOT NULL)",
+     "support": 0.341,
+     "rows": 18536,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.193,
+     "score": 1.214,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(company_type_description present, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(company_type_description IS NOT NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.294,
+     "rows": 16026,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.14,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name"
+     ],
+     "cls": "cand",
+     "condition": "(company_type_description = \"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\" (39%), building_name present)",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES' AND building_name IS NOT NULL)",
+     "support": 0.294,
+     "rows": 15984,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.138,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(entity_type_description = \"Local Company\" (52%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(entity_type_description = 'Local Company' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.292,
+     "rows": 15913,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.136,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(secondary_ssic_code present [same rows: secondary_ssic_description present], paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(secondary_ssic_code IS NOT NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.292,
+     "rows": 15875,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.134,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "account_due_date",
+      "unit_no"
+     ],
+     "cls": "dom",
+     "condition": "(company_type_description present)",
+     "sql": "(company_type_description IS NOT NULL)",
+     "support": 0.527,
+     "rows": 28659,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.149,
+     "score": 1.132,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present)",
+     "sql": "(company_type_description IS NOT NULL)",
+     "support": 0.527,
+     "rows": 28659,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.441,
+     "score": 1.132,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present)",
+     "sql": "(company_type_description IS NOT NULL)",
+     "support": 0.527,
+     "rows": 28659,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.441,
+     "score": 1.132,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "primary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present)",
+     "sql": "(company_type_description IS NOT NULL)",
+     "support": 0.527,
+     "rows": 28659,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 1.132,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(account_due_date present, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(account_due_date IS NOT NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.29,
+     "rows": 15765,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.13,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present, secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(company_type_description IS NOT NULL AND secondary_ssic_code IS NULL)",
+     "support": 0.232,
+     "rows": 12633,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 1.127,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present, secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(company_type_description IS NOT NULL AND secondary_ssic_code IS NULL)",
+     "support": 0.232,
+     "rows": 12633,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 1.127,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (52%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.519,
+     "rows": 28269,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.437,
+     "score": 1.124,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (52%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.519,
+     "rows": 28269,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.437,
+     "score": 1.124,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "primary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (52%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.519,
+     "rows": 28269,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 1.124,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "account_due_date",
+      "unit_no"
+     ],
+     "cls": "dom",
+     "condition": "(paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.516,
+     "rows": 28101,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.142,
+     "score": 1.121,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.516,
+     "rows": 28101,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.435,
+     "score": 1.121,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.516,
+     "rows": 28101,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.435,
+     "score": 1.121,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "primary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.516,
+     "rows": 28101,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 1.121,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(account_due_date present)",
+     "sql": "(account_due_date IS NOT NULL)",
+     "support": 0.513,
+     "rows": 27901,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.435,
+     "score": 1.117,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(account_due_date present)",
+     "sql": "(account_due_date IS NOT NULL)",
+     "support": 0.513,
+     "rows": 27901,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.435,
+     "score": 1.117,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "primary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(account_due_date present)",
+     "sql": "(account_due_date IS NOT NULL)",
+     "support": 0.513,
+     "rows": 27901,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 1.117,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (52%), secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(entity_type_description = 'Local Company' AND secondary_ssic_code IS NULL)",
+     "support": 0.227,
+     "rows": 12356,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 1.115,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (52%), secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(entity_type_description = 'Local Company' AND secondary_ssic_code IS NULL)",
+     "support": 0.227,
+     "rows": 12356,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 1.115,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(secondary_ssic_code missing [same rows: secondary_ssic_description missing], paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(secondary_ssic_code IS NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.225,
+     "rows": 12226,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 1.109,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(secondary_ssic_code missing [same rows: secondary_ssic_description missing], paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(secondary_ssic_code IS NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.225,
+     "rows": 12226,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 1.109,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(account_due_date present, secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(account_due_date IS NOT NULL AND secondary_ssic_code IS NULL)",
+     "support": 0.223,
+     "rows": 12136,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 1.105,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(account_due_date present, secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(account_due_date IS NOT NULL AND secondary_ssic_code IS NULL)",
+     "support": 0.223,
+     "rows": 12136,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 1.105,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(company_type_description = \"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\" (39%))",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES')",
+     "support": 0.394,
+     "rows": 21467,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.137,
+     "score": 1.102,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "account_due_date",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(paid_up_capital1_currency missing [same rows: paid_up_capital1_ordinary missing, paid_up_capital1_preference missing, paid_up_capital1_others missing])",
+     "sql": "(paid_up_capital1_currency IS NULL)",
+     "support": 0.484,
+     "rows": 26324,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.995,
+     "score": 1.085,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "primary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(company_type_description = \"PRIVATE COMPANY LIMITED BY SHARES\" (12%))",
+     "sql": "(company_type_description = 'PRIVATE COMPANY LIMITED BY SHARES')",
+     "support": 0.118,
+     "rows": 6435,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.083,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v2": "PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "account_due_date",
+      "building_name"
+     ],
+     "cls": "pos",
+     "condition": "(company_type_description missing)",
+     "sql": "(company_type_description IS NULL)",
+     "support": 0.473,
+     "rows": 25766,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 1.073,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "account_due_date",
+      "street_name"
+     ],
+     "cls": "pos",
+     "condition": "(company_type_description missing)",
+     "sql": "(company_type_description IS NULL)",
+     "support": 0.473,
+     "rows": 25766,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 1.073,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "account_due_date",
+      "postal_code"
+     ],
+     "cls": "pos",
+     "condition": "(company_type_description missing)",
+     "sql": "(company_type_description IS NULL)",
+     "support": 0.473,
+     "rows": 25766,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 1.073,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "account_due_date",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(company_type_description missing)",
+     "sql": "(company_type_description IS NULL)",
+     "support": 0.473,
+     "rows": 25766,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 1.073,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "account_due_date",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(company_type_description missing)",
+     "sql": "(company_type_description IS NULL)",
+     "support": 0.473,
+     "rows": 25766,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 1.073,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "account_due_date",
+      "primary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(company_type_description missing)",
+     "sql": "(company_type_description IS NULL)",
+     "support": 0.473,
+     "rows": 25766,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 1.073,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "account_due_date",
+      "uen_issue_date",
+      "postal_code"
+     ],
+     "cls": "pos",
+     "condition": "(company_type_description missing)",
+     "sql": "(company_type_description IS NULL)",
+     "support": 0.473,
+     "rows": 25766,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 1.073,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "account_due_date",
+      "street_name",
+      "primary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(company_type_description missing)",
+     "sql": "(company_type_description IS NULL)",
+     "support": 0.473,
+     "rows": 25766,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 1.073,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "account_due_date",
+      "postal_code",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(company_type_description missing)",
+     "sql": "(company_type_description IS NULL)",
+     "support": 0.473,
+     "rows": 25766,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 1.073,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description = \"PRIVATE COMPANY LIMITED BY SHARES\" (12%))",
+     "sql": "(company_type_description = 'PRIVATE COMPANY LIMITED BY SHARES')",
+     "support": 0.118,
+     "rows": 6435,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.647,
+     "score": 1.073,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v2": "PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description = \"PRIVATE COMPANY LIMITED BY SHARES\" (12%))",
+     "sql": "(company_type_description = 'PRIVATE COMPANY LIMITED BY SHARES')",
+     "support": 0.118,
+     "rows": 6435,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.608,
+     "score": 1.073,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v2": "PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "account_due_date"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(company_type_description IS NOT NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.294,
+     "rows": 16026,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.016,
+     "score": 1.058,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "account_due_date"
+     ],
+     "cls": "cert",
+     "condition": "(secondary_ssic_code present [same rows: secondary_ssic_description present], paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(secondary_ssic_code IS NOT NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.292,
+     "rows": 15875,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.015,
+     "score": 1.053,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "account_due_date",
+      "building_name"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Business\" (45%))",
+     "sql": "(entity_type_description = 'Business')",
+     "support": 0.451,
+     "rows": 24538,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 1.047,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Business"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "account_due_date",
+      "street_name"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Business\" (45%))",
+     "sql": "(entity_type_description = 'Business')",
+     "support": 0.451,
+     "rows": 24538,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 1.047,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Business"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "account_due_date",
+      "postal_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Business\" (45%))",
+     "sql": "(entity_type_description = 'Business')",
+     "support": 0.451,
+     "rows": 24538,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 1.047,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Business"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "account_due_date",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Business\" (45%))",
+     "sql": "(entity_type_description = 'Business')",
+     "support": 0.451,
+     "rows": 24538,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 1.047,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Business"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "account_due_date",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Business\" (45%))",
+     "sql": "(entity_type_description = 'Business')",
+     "support": 0.451,
+     "rows": 24538,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 1.047,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Business"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "account_due_date",
+      "primary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Business\" (45%))",
+     "sql": "(entity_type_description = 'Business')",
+     "support": 0.451,
+     "rows": 24538,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 1.047,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Business"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "account_due_date",
+      "uen_issue_date",
+      "postal_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Business\" (45%))",
+     "sql": "(entity_type_description = 'Business')",
+     "support": 0.451,
+     "rows": 24538,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 1.047,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Business"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "account_due_date",
+      "street_name",
+      "primary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Business\" (45%))",
+     "sql": "(entity_type_description = 'Business')",
+     "support": 0.451,
+     "rows": 24538,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 1.047,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Business"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "account_due_date",
+      "postal_code",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Business\" (45%))",
+     "sql": "(entity_type_description = 'Business')",
+     "support": 0.451,
+     "rows": 24538,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 1.047,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Business"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(company_type_description = \"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\" (39%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.236,
+     "rows": 12838,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.02,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present, secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(company_type_description IS NOT NULL AND secondary_ssic_code IS NULL)",
+     "support": 0.232,
+     "rows": 12633,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.238,
+     "score": 1.002,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present, secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(company_type_description IS NOT NULL AND secondary_ssic_code IS NULL)",
+     "support": 0.232,
+     "rows": 12633,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.131,
+     "score": 1.002,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "company_type_description in {\"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\", \"PRIVATE COMPANY LIMITED BY SHARES\"}",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES') OR (company_type_description = 'PRIVATE COMPANY LIMITED BY SHARES')",
+     "support": 0.513,
+     "rows": 27902,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.511,
+     "score": 0.993,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES",
+      "company_type_description=v2": "PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (52%), secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(entity_type_description = 'Local Company' AND secondary_ssic_code IS NULL)",
+     "support": 0.227,
+     "rows": 12356,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.238,
+     "score": 0.991,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (52%), secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(entity_type_description = 'Local Company' AND secondary_ssic_code IS NULL)",
+     "support": 0.227,
+     "rows": 12356,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.127,
+     "score": 0.991,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(secondary_ssic_code missing [same rows: secondary_ssic_description missing], paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(secondary_ssic_code IS NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.225,
+     "rows": 12226,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.235,
+     "score": 0.986,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(secondary_ssic_code missing [same rows: secondary_ssic_description missing], paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(secondary_ssic_code IS NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.225,
+     "rows": 12226,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.12,
+     "score": 0.986,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no"
+     ],
+     "cls": "dom",
+     "condition": "(company_type_description present, building_name present)",
+     "sql": "(company_type_description IS NOT NULL AND building_name IS NOT NULL)",
+     "support": 0.399,
+     "rows": 21695,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.061,
+     "score": 0.985,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(account_due_date present, secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(account_due_date IS NOT NULL AND secondary_ssic_code IS NULL)",
+     "support": 0.223,
+     "rows": 12136,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.234,
+     "score": 0.982,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(account_due_date present, secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(account_due_date IS NOT NULL AND secondary_ssic_code IS NULL)",
+     "support": 0.223,
+     "rows": 12136,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.116,
+     "score": 0.982,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "block"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description = \"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\" (39%))",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES')",
+     "support": 0.394,
+     "rows": 21467,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.257,
+     "score": 0.98,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "block",
+      "unit_no"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description = \"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\" (39%))",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES')",
+     "support": 0.394,
+     "rows": 21467,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.137,
+     "score": 0.98,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no"
+     ],
+     "cls": "dom",
+     "condition": "(entity_type_description = \"Local Company\" (52%), building_name present)",
+     "sql": "(entity_type_description = 'Local Company' AND building_name IS NOT NULL)",
+     "support": 0.393,
+     "rows": 21386,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.06,
+     "score": 0.978,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no"
+     ],
+     "cls": "dom",
+     "condition": "(building_name present, paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(building_name IS NOT NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.391,
+     "rows": 21292,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.059,
+     "score": 0.976,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no"
+     ],
+     "cls": "dom",
+     "condition": "(building_name present, account_due_date present)",
+     "sql": "(building_name IS NOT NULL AND account_due_date IS NOT NULL)",
+     "support": 0.389,
+     "rows": 21156,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.057,
+     "score": 0.973,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "account_due_date",
+      "block"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present)",
+     "sql": "(company_type_description IS NOT NULL)",
+     "support": 0.527,
+     "rows": 28659,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.027,
+     "score": 0.943,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "account_due_date",
+      "primary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present)",
+     "sql": "(company_type_description IS NOT NULL)",
+     "support": 0.527,
+     "rows": 28659,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.026,
+     "score": 0.943,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "paid_up_capital1_ordinary",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present)",
+     "sql": "(company_type_description IS NOT NULL)",
+     "support": 0.527,
+     "rows": 28659,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.02,
+     "score": 0.943,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "paid_up_capital1_ordinary",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present)",
+     "sql": "(company_type_description IS NOT NULL)",
+     "support": 0.527,
+     "rows": 28659,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.02,
+     "score": 0.943,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_code"
+     ],
+     "cls": "part",
+     "condition": "(company_type_description = \"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\" (39%), building_name present)",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES' AND building_name IS NOT NULL)",
+     "support": 0.294,
+     "rows": 15984,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.438,
+     "score": 0.939,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(company_type_description present, level_no present)",
+     "sql": "(company_type_description IS NOT NULL AND level_no IS NOT NULL)",
+     "support": 0.459,
+     "rows": 24962,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.544,
+     "score": 0.939,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "primary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(company_type_description present, level_no present)",
+     "sql": "(company_type_description IS NOT NULL AND level_no IS NOT NULL)",
+     "support": 0.459,
+     "rows": 24962,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.181,
+     "score": 0.939,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "paid_up_capital1_ordinary",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (52%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.519,
+     "rows": 28269,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.017,
+     "score": 0.937,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "paid_up_capital1_ordinary",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (52%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.519,
+     "rows": 28269,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.017,
+     "score": 0.937,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "paid_up_capital1_ordinary",
+      "unit_no"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (52%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.519,
+     "rows": 28269,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.142,
+     "score": 0.937,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(company_type_description present, unit_no present)",
+     "sql": "(company_type_description IS NOT NULL AND unit_no IS NOT NULL)",
+     "support": 0.456,
+     "rows": 24844,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.544,
+     "score": 0.937,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "primary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(company_type_description present, unit_no present)",
+     "sql": "(company_type_description IS NOT NULL AND unit_no IS NOT NULL)",
+     "support": 0.456,
+     "rows": 24844,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.18,
+     "score": 0.937,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "account_due_date",
+      "block"
+     ],
+     "cls": "cert",
+     "condition": "(paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.516,
+     "rows": 28101,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.019,
+     "score": 0.934,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "account_due_date",
+      "primary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.516,
+     "rows": 28101,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.018,
+     "score": 0.934,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "paid_up_capital1_ordinary",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.516,
+     "rows": 28101,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.001,
+     "score": 0.934,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "paid_up_capital1_ordinary",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.516,
+     "rows": 28101,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.0,
+     "score": 0.934,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(entity_type_description = \"Local Company\" (52%), level_no present)",
+     "sql": "(entity_type_description = 'Local Company' AND level_no IS NOT NULL)",
+     "support": 0.453,
+     "rows": 24675,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.542,
+     "score": 0.934,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "primary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(entity_type_description = \"Local Company\" (52%), level_no present)",
+     "sql": "(entity_type_description = 'Local Company' AND level_no IS NOT NULL)",
+     "support": 0.453,
+     "rows": 24675,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.182,
+     "score": 0.934,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(level_no present, paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(level_no IS NOT NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.452,
+     "rows": 24583,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.542,
+     "score": 0.932,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "primary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(level_no present, paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(level_no IS NOT NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.452,
+     "rows": 24583,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.182,
+     "score": 0.932,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(entity_type_description = \"Local Company\" (52%), unit_no present)",
+     "sql": "(entity_type_description = 'Local Company' AND unit_no IS NOT NULL)",
+     "support": 0.451,
+     "rows": 24558,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.542,
+     "score": 0.931,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "primary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(entity_type_description = \"Local Company\" (52%), unit_no present)",
+     "sql": "(entity_type_description = 'Local Company' AND unit_no IS NOT NULL)",
+     "support": 0.451,
+     "rows": 24558,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.181,
+     "score": 0.931,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "paid_up_capital1_ordinary",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(account_due_date present)",
+     "sql": "(account_due_date IS NOT NULL)",
+     "support": 0.513,
+     "rows": 27901,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.011,
+     "score": 0.931,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "paid_up_capital1_ordinary",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(account_due_date present)",
+     "sql": "(account_due_date IS NOT NULL)",
+     "support": 0.513,
+     "rows": 27901,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.011,
+     "score": 0.931,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "paid_up_capital1_ordinary",
+      "unit_no"
+     ],
+     "cls": "cert",
+     "condition": "(account_due_date present)",
+     "sql": "(account_due_date IS NOT NULL)",
+     "support": 0.513,
+     "rows": 27901,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.136,
+     "score": 0.931,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(level_no present, account_due_date present)",
+     "sql": "(level_no IS NOT NULL AND account_due_date IS NOT NULL)",
+     "support": 0.45,
+     "rows": 24491,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.543,
+     "score": 0.93,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "primary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(level_no present, account_due_date present)",
+     "sql": "(level_no IS NOT NULL AND account_due_date IS NOT NULL)",
+     "support": 0.45,
+     "rows": 24491,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.183,
+     "score": 0.93,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(unit_no present, paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(unit_no IS NOT NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.45,
+     "rows": 24480,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.542,
+     "score": 0.93,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "primary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(unit_no present, paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(unit_no IS NOT NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.45,
+     "rows": 24480,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.181,
+     "score": 0.93,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(unit_no present, account_due_date present)",
+     "sql": "(unit_no IS NOT NULL AND account_due_date IS NOT NULL)",
+     "support": 0.448,
+     "rows": 24392,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.543,
+     "score": 0.928,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "primary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(unit_no present, account_due_date present)",
+     "sql": "(unit_no IS NOT NULL AND account_due_date IS NOT NULL)",
+     "support": 0.448,
+     "rows": 24392,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.182,
+     "score": 0.928,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "account_due_date",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(building_name missing)",
+     "sql": "(building_name IS NULL)",
+     "support": 0.353,
+     "rows": 19196,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.797,
+     "score": 0.926,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no"
+     ],
+     "cls": "dom",
+     "condition": "(company_type_description = \"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\" (39%), level_no present)",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES' AND level_no IS NOT NULL)",
+     "support": 0.342,
+     "rows": 18627,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.006,
+     "score": 0.913,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no"
+     ],
+     "cls": "dom",
+     "condition": "(company_type_description = \"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\" (39%), building_name present)",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES' AND building_name IS NOT NULL)",
+     "support": 0.294,
+     "rows": 15984,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.065,
+     "score": 0.845,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name"
+     ],
+     "cls": "pos",
+     "condition": "company_type_description in {\"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\", \"PRIVATE COMPANY LIMITED BY SHARES\"}",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES') OR (company_type_description = 'PRIVATE COMPANY LIMITED BY SHARES')",
+     "support": 0.513,
+     "rows": 27902,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.244,
+     "score": 0.838,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES",
+      "company_type_description=v2": "PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "company_type_description in {\"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\", \"PRIVATE COMPANY LIMITED BY SHARES\"}",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES') OR (company_type_description = 'PRIVATE COMPANY LIMITED BY SHARES')",
+     "support": 0.513,
+     "rows": 27902,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.435,
+     "score": 0.838,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES",
+      "company_type_description=v2": "PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description = \"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\" (39%), secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES' AND secondary_ssic_code IS NULL)",
+     "support": 0.159,
+     "rows": 8629,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.257,
+     "score": 0.828,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description = \"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\" (39%), secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES' AND secondary_ssic_code IS NULL)",
+     "support": 0.159,
+     "rows": 8629,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.14,
+     "score": 0.828,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(company_type_description = \"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\" (39%), level_no present)",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES' AND level_no IS NOT NULL)",
+     "support": 0.342,
+     "rows": 18627,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.516,
+     "score": 0.811,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(company_type_description = \"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\" (39%), unit_no present)",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES' AND unit_no IS NOT NULL)",
+     "support": 0.341,
+     "rows": 18536,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.515,
+     "score": 0.809,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(company_type_description = \"PRIVATE COMPANY LIMITED BY SHARES\" (12%))",
+     "sql": "(company_type_description = 'PRIVATE COMPANY LIMITED BY SHARES')",
+     "support": 0.118,
+     "rows": 6435,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.546,
+     "score": 0.805,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v2": "PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_description"
+     ],
+     "cls": "dom",
+     "condition": "(company_type_description present)",
+     "sql": "(company_type_description IS NOT NULL)",
+     "support": 0.527,
+     "rows": 28659,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.516,
+     "score": 0.755,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no"
+     ],
+     "cls": "dom",
+     "condition": "(company_type_description present, secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(company_type_description IS NOT NULL AND secondary_ssic_code IS NULL)",
+     "support": 0.232,
+     "rows": 12633,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.131,
+     "score": 0.752,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_description"
+     ],
+     "cls": "dom",
+     "condition": "(entity_type_description = \"Local Company\" (52%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.519,
+     "rows": 28269,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.513,
+     "score": 0.75,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_description"
+     ],
+     "cls": "dom",
+     "condition": "(paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.516,
+     "rows": 28101,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.512,
+     "score": 0.747,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "company_type_description in {\"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\", \"PRIVATE COMPANY LIMITED BY SHARES\"}",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES') OR (company_type_description = 'PRIVATE COMPANY LIMITED BY SHARES')",
+     "support": 0.513,
+     "rows": 27902,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.436,
+     "score": 0.745,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES",
+      "company_type_description=v2": "PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "company_type_description in {\"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\", \"PRIVATE COMPANY LIMITED BY SHARES\"}",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES') OR (company_type_description = 'PRIVATE COMPANY LIMITED BY SHARES')",
+     "support": 0.513,
+     "rows": 27902,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.436,
+     "score": 0.745,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES",
+      "company_type_description=v2": "PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "primary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "company_type_description in {\"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\", \"PRIVATE COMPANY LIMITED BY SHARES\"}",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES') OR (company_type_description = 'PRIVATE COMPANY LIMITED BY SHARES')",
+     "support": 0.513,
+     "rows": 27902,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.745,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES",
+      "company_type_description=v2": "PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_description"
+     ],
+     "cls": "dom",
+     "condition": "(account_due_date present)",
+     "sql": "(account_due_date IS NOT NULL)",
+     "support": 0.513,
+     "rows": 27901,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.51,
+     "score": 0.745,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present, building_name missing)",
+     "sql": "(company_type_description IS NOT NULL AND building_name IS NULL)",
+     "support": 0.128,
+     "rows": 6964,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.744,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present, building_name missing)",
+     "sql": "(company_type_description IS NOT NULL AND building_name IS NULL)",
+     "support": 0.128,
+     "rows": 6964,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.431,
+     "score": 0.744,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no"
+     ],
+     "cls": "dom",
+     "condition": "(entity_type_description = \"Local Company\" (52%), secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(entity_type_description = 'Local Company' AND secondary_ssic_code IS NULL)",
+     "support": 0.227,
+     "rows": 12356,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.127,
+     "score": 0.743,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (52%), building_name missing)",
+     "sql": "(entity_type_description = 'Local Company' AND building_name IS NULL)",
+     "support": 0.126,
+     "rows": 6883,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.74,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (52%), building_name missing)",
+     "sql": "(entity_type_description = 'Local Company' AND building_name IS NULL)",
+     "support": 0.126,
+     "rows": 6883,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.428,
+     "score": 0.74,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no"
+     ],
+     "cls": "dom",
+     "condition": "(secondary_ssic_code missing [same rows: secondary_ssic_description missing], paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(secondary_ssic_code IS NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.225,
+     "rows": 12226,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.12,
+     "score": 0.739,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no"
+     ],
+     "cls": "dom",
+     "condition": "(account_due_date present, secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(account_due_date IS NOT NULL AND secondary_ssic_code IS NULL)",
+     "support": 0.223,
+     "rows": 12136,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.116,
+     "score": 0.737,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(building_name missing, paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(building_name IS NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.125,
+     "rows": 6809,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.736,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(building_name missing, paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(building_name IS NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.125,
+     "rows": 6809,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.421,
+     "score": 0.736,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(building_name missing, account_due_date present)",
+     "sql": "(building_name IS NULL AND account_due_date IS NOT NULL)",
+     "support": 0.124,
+     "rows": 6745,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.732,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(building_name missing, account_due_date present)",
+     "sql": "(building_name IS NULL AND account_due_date IS NOT NULL)",
+     "support": 0.124,
+     "rows": 6745,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.422,
+     "score": 0.732,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description = \"PRIVATE COMPANY LIMITED BY SHARES\" (12%), building_name present)",
+     "sql": "(company_type_description = 'PRIVATE COMPANY LIMITED BY SHARES' AND building_name IS NOT NULL)",
+     "support": 0.094,
+     "rows": 5110,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.048,
+     "score": 0.717,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v2": "PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present, unit_no present)",
+     "sql": "(company_type_description IS NOT NULL AND unit_no IS NOT NULL)",
+     "support": 0.456,
+     "rows": 24844,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.442,
+     "score": 0.703,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.16,
+     "rows": 8695,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.995,
+     "score": 0.701,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.16,
+     "rows": 8695,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.995,
+     "score": 0.701,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (52%), unit_no present)",
+     "sql": "(entity_type_description = 'Local Company' AND unit_no IS NOT NULL)",
+     "support": 0.451,
+     "rows": 24558,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.439,
+     "score": 0.699,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "account_due_date"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present, building_name missing)",
+     "sql": "(company_type_description IS NOT NULL AND building_name IS NULL)",
+     "support": 0.128,
+     "rows": 6964,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.031,
+     "score": 0.698,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(unit_no present, paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(unit_no IS NOT NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.45,
+     "rows": 24480,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.439,
+     "score": 0.697,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(unit_no present, account_due_date present)",
+     "sql": "(unit_no IS NOT NULL AND account_due_date IS NOT NULL)",
+     "support": 0.448,
+     "rows": 24392,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.44,
+     "score": 0.696,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "account_due_date"
+     ],
+     "cls": "cert",
+     "condition": "(building_name missing, paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(building_name IS NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.125,
+     "rows": 6809,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.017,
+     "score": 0.69,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code",
+      "primary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description = \"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\" (39%), building_name missing)",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES' AND building_name IS NULL)",
+     "support": 0.101,
+     "rows": 5483,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.405,
+     "score": 0.66,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "primary_ssic_description"
+     ],
+     "cls": "dom",
+     "condition": "(company_type_description = \"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\" (39%))",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES')",
+     "support": 0.394,
+     "rows": 21467,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.137,
+     "score": 0.653,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name"
+     ],
+     "cls": "cand",
+     "condition": "(company_type_description = \"PRIVATE COMPANY LIMITED BY SHARES\" (12%), building_name present)",
+     "sql": "(company_type_description = 'PRIVATE COMPANY LIMITED BY SHARES' AND building_name IS NOT NULL)",
+     "support": 0.094,
+     "rows": 5110,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.643,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v2": "PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name"
+     ],
+     "cls": "cand",
+     "condition": "(company_type_description = \"PRIVATE COMPANY LIMITED BY SHARES\" (12%), building_name present)",
+     "sql": "(company_type_description = 'PRIVATE COMPANY LIMITED BY SHARES' AND building_name IS NOT NULL)",
+     "support": 0.094,
+     "rows": 5110,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.643,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v2": "PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code"
+     ],
+     "cls": "cand",
+     "condition": "(company_type_description = \"PRIVATE COMPANY LIMITED BY SHARES\" (12%), building_name present)",
+     "sql": "(company_type_description = 'PRIVATE COMPANY LIMITED BY SHARES' AND building_name IS NOT NULL)",
+     "support": 0.094,
+     "rows": 5110,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.643,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v2": "PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(company_type_description present)",
+     "sql": "(company_type_description IS NOT NULL)",
+     "support": 0.527,
+     "rows": 28659,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.441,
+     "score": 0.637,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Local Company\" (52%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.519,
+     "rows": 28269,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.437,
+     "score": 0.632,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "primary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(company_type_description present, level_no present)",
+     "sql": "(company_type_description IS NOT NULL AND level_no IS NOT NULL)",
+     "support": 0.459,
+     "rows": 24962,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.632,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "primary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(company_type_description present, unit_no present)",
+     "sql": "(company_type_description IS NOT NULL AND unit_no IS NOT NULL)",
+     "support": 0.456,
+     "rows": 24844,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.631,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.516,
+     "rows": 28101,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.435,
+     "score": 0.631,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "uen_issue_date"
+     ],
+     "cls": "pos",
+     "condition": "(unit_no missing)",
+     "sql": "(unit_no IS NULL)",
+     "support": 0.163,
+     "rows": 8863,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.708,
+     "score": 0.63,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(unit_no missing)",
+     "sql": "(unit_no IS NULL)",
+     "support": 0.163,
+     "rows": 8863,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.452,
+     "score": 0.63,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "account_due_date",
+      "building_name"
+     ],
+     "cls": "pos",
+     "condition": "(unit_no missing)",
+     "sql": "(unit_no IS NULL)",
+     "support": 0.163,
+     "rows": 8863,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.865,
+     "score": 0.63,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "account_due_date",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(unit_no missing)",
+     "sql": "(unit_no IS NULL)",
+     "support": 0.163,
+     "rows": 8863,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.764,
+     "score": 0.63,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "primary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(entity_type_description = \"Local Company\" (52%), level_no present)",
+     "sql": "(entity_type_description = 'Local Company' AND level_no IS NOT NULL)",
+     "support": 0.453,
+     "rows": 24675,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.628,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(account_due_date present)",
+     "sql": "(account_due_date IS NOT NULL)",
+     "support": 0.513,
+     "rows": 27901,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.435,
+     "score": 0.628,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "paid_up_capital1_preference",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(building_name present)",
+     "sql": "(building_name IS NOT NULL)",
+     "support": 0.647,
+     "rows": 35229,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.431,
+     "score": 0.628,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "primary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(level_no present, paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(level_no IS NOT NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.452,
+     "rows": 24583,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.627,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "primary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(entity_type_description = \"Local Company\" (52%), unit_no present)",
+     "sql": "(entity_type_description = 'Local Company' AND unit_no IS NOT NULL)",
+     "support": 0.451,
+     "rows": 24558,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.627,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "primary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(level_no present, account_due_date present)",
+     "sql": "(level_no IS NOT NULL AND account_due_date IS NOT NULL)",
+     "support": 0.45,
+     "rows": 24491,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.626,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "primary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(unit_no present, paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(unit_no IS NOT NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.45,
+     "rows": 24480,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.626,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name",
+      "primary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(unit_no present, account_due_date present)",
+     "sql": "(unit_no IS NOT NULL AND account_due_date IS NOT NULL)",
+     "support": 0.448,
+     "rows": 24392,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.625,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "paid_up_capital1_ordinary",
+      "unit_no"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present, entity_status_description present)",
+     "sql": "(company_type_description IS NOT NULL AND entity_status_description IS NOT NULL)",
+     "support": 0.519,
+     "rows": 28269,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.142,
+     "score": 0.625,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "uen_issue_date"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.16,
+     "rows": 8695,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.715,
+     "score": 0.624,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.16,
+     "rows": 8695,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.453,
+     "score": 0.624,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "account_due_date",
+      "building_name"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.16,
+     "rows": 8695,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.869,
+     "score": 0.624,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "account_due_date",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.16,
+     "rows": 8695,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.766,
+     "score": 0.624,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "account_due_date",
+      "postal_code",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.16,
+     "rows": 8695,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.624,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "uen_issue_date",
+      "street_name",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.16,
+     "rows": 8695,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.995,
+     "score": 0.624,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "uen_issue_date",
+      "postal_code",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.16,
+     "rows": 8695,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.995,
+     "score": 0.624,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "postal_code",
+      "unit_no",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.16,
+     "rows": 8695,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.998,
+     "score": 0.624,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no"
+     ],
+     "cls": "dom",
+     "condition": "(company_type_description = \"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\" (39%), secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES' AND secondary_ssic_code IS NULL)",
+     "support": 0.159,
+     "rows": 8629,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.14,
+     "score": 0.621,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "paid_up_capital1_ordinary",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "company_type_description in {\"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\", \"PRIVATE COMPANY LIMITED BY SHARES\"}",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES') OR (company_type_description = 'PRIVATE COMPANY LIMITED BY SHARES')",
+     "support": 0.513,
+     "rows": 27902,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.007,
+     "score": 0.621,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES",
+      "company_type_description=v2": "PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "paid_up_capital1_ordinary",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "company_type_description in {\"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\", \"PRIVATE COMPANY LIMITED BY SHARES\"}",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES') OR (company_type_description = 'PRIVATE COMPANY LIMITED BY SHARES')",
+     "support": 0.513,
+     "rows": 27902,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.007,
+     "score": 0.621,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES",
+      "company_type_description=v2": "PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "paid_up_capital1_ordinary",
+      "unit_no"
+     ],
+     "cls": "cert",
+     "condition": "company_type_description in {\"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\", \"PRIVATE COMPANY LIMITED BY SHARES\"}",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES') OR (company_type_description = 'PRIVATE COMPANY LIMITED BY SHARES')",
+     "support": 0.513,
+     "rows": 27902,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.134,
+     "score": 0.621,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES",
+      "company_type_description=v2": "PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present, unit_no missing)",
+     "sql": "(company_type_description IS NOT NULL AND unit_no IS NULL)",
+     "support": 0.07,
+     "rows": 3815,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.62,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present, unit_no missing)",
+     "sql": "(company_type_description IS NOT NULL AND unit_no IS NULL)",
+     "support": 0.07,
+     "rows": 3815,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.62,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "paid_up_capital1_ordinary",
+      "unit_no"
+     ],
+     "cls": "cert",
+     "condition": "(entity_status_description present, paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(entity_status_description IS NOT NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.511,
+     "rows": 27801,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.128,
+     "score": 0.619,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (52%), unit_no missing)",
+     "sql": "(entity_type_description = 'Local Company' AND unit_no IS NULL)",
+     "support": 0.068,
+     "rows": 3711,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.611,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (52%), unit_no missing)",
+     "sql": "(entity_type_description = 'Local Company' AND unit_no IS NULL)",
+     "support": 0.068,
+     "rows": 3711,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 0.611,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "paid_up_capital1_ordinary"
+     ],
+     "cls": "pos",
+     "condition": "(paid_up_capital1_currency missing [same rows: paid_up_capital1_ordinary missing, paid_up_capital1_preference missing, paid_up_capital1_others missing])",
+     "sql": "(paid_up_capital1_currency IS NULL)",
+     "support": 0.484,
+     "rows": 26324,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.61,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "paid_up_capital1_preference"
+     ],
+     "cls": "pos",
+     "condition": "(paid_up_capital1_currency missing [same rows: paid_up_capital1_ordinary missing, paid_up_capital1_preference missing, paid_up_capital1_others missing])",
+     "sql": "(paid_up_capital1_currency IS NULL)",
+     "support": 0.484,
+     "rows": 26324,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.61,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "paid_up_capital1_ordinary"
+     ],
+     "cls": "pos",
+     "condition": "(paid_up_capital1_currency missing [same rows: paid_up_capital1_ordinary missing, paid_up_capital1_preference missing, paid_up_capital1_others missing])",
+     "sql": "(paid_up_capital1_currency IS NULL)",
+     "support": 0.484,
+     "rows": 26324,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.61,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present, level_no missing)",
+     "sql": "(company_type_description IS NOT NULL AND level_no IS NULL)",
+     "support": 0.068,
+     "rows": 3697,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.61,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present, level_no missing)",
+     "sql": "(company_type_description IS NOT NULL AND level_no IS NULL)",
+     "support": 0.068,
+     "rows": 3697,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.61,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "primary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description = \"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\" (39%), level_no present)",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES' AND level_no IS NOT NULL)",
+     "support": 0.342,
+     "rows": 18627,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.194,
+     "score": 0.608,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "primary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description = \"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\" (39%), level_no present)",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES' AND level_no IS NOT NULL)",
+     "support": 0.342,
+     "rows": 18627,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 0.608,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "primary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description = \"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\" (39%), unit_no present)",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES' AND unit_no IS NOT NULL)",
+     "support": 0.341,
+     "rows": 18536,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.193,
+     "score": 0.607,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "uen_issue_date"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing)",
+     "sql": "(entity_status_description IS NULL)",
+     "support": 0.15,
+     "rows": 8168,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.491,
+     "score": 0.604,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing)",
+     "sql": "(entity_status_description IS NULL)",
+     "support": 0.15,
+     "rows": 8168,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.439,
+     "score": 0.604,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "account_due_date",
+      "building_name"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing)",
+     "sql": "(entity_status_description IS NULL)",
+     "support": 0.15,
+     "rows": 8168,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.604,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "account_due_date",
+      "street_name"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing)",
+     "sql": "(entity_status_description IS NULL)",
+     "support": 0.15,
+     "rows": 8168,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.604,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "account_due_date",
+      "postal_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing)",
+     "sql": "(entity_status_description IS NULL)",
+     "support": 0.15,
+     "rows": 8168,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.604,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "account_due_date",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing)",
+     "sql": "(entity_status_description IS NULL)",
+     "support": 0.15,
+     "rows": 8168,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.604,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "account_due_date",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing)",
+     "sql": "(entity_status_description IS NULL)",
+     "support": 0.15,
+     "rows": 8168,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.604,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "account_due_date",
+      "primary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing)",
+     "sql": "(entity_status_description IS NULL)",
+     "support": 0.15,
+     "rows": 8168,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.604,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "account_due_date",
+      "uen_issue_date",
+      "postal_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing)",
+     "sql": "(entity_status_description IS NULL)",
+     "support": 0.15,
+     "rows": 8168,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.604,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "account_due_date",
+      "street_name",
+      "primary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing)",
+     "sql": "(entity_status_description IS NULL)",
+     "support": 0.15,
+     "rows": 8168,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.604,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "account_due_date",
+      "postal_code",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing)",
+     "sql": "(entity_status_description IS NULL)",
+     "support": 0.15,
+     "rows": 8168,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.604,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "paid_up_capital1_ordinary"
+     ],
+     "cls": "pos",
+     "condition": "(company_type_description missing)",
+     "sql": "(company_type_description IS NULL)",
+     "support": 0.473,
+     "rows": 25766,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.604,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "paid_up_capital1_preference"
+     ],
+     "cls": "pos",
+     "condition": "(company_type_description missing)",
+     "sql": "(company_type_description IS NULL)",
+     "support": 0.473,
+     "rows": 25766,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.604,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "paid_up_capital1_ordinary"
+     ],
+     "cls": "pos",
+     "condition": "(company_type_description missing)",
+     "sql": "(company_type_description IS NULL)",
+     "support": 0.473,
+     "rows": 25766,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.604,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(unit_no missing, paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(unit_no IS NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.067,
+     "rows": 3621,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.604,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(unit_no missing, paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(unit_no IS NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.067,
+     "rows": 3621,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.604,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(entity_status_description missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(entity_status_description IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.084,
+     "rows": 4582,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.604,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(entity_status_description missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(entity_status_description IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.084,
+     "rows": 4582,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.604,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "paid_up_capital1_ordinary"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description = \"PRIVATE COMPANY LIMITED BY SHARES\" (12%))",
+     "sql": "(company_type_description = 'PRIVATE COMPANY LIMITED BY SHARES')",
+     "support": 0.118,
+     "rows": 6435,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.603,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v2": "PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (52%), level_no missing)",
+     "sql": "(entity_type_description = 'Local Company' AND level_no IS NULL)",
+     "support": 0.066,
+     "rows": 3594,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.601,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (52%), level_no missing)",
+     "sql": "(entity_type_description = 'Local Company' AND level_no IS NULL)",
+     "support": 0.066,
+     "rows": 3594,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 0.601,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(level_no missing, paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(level_no IS NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.065,
+     "rows": 3518,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.005,
+     "score": 0.595,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(level_no missing, paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(level_no IS NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.065,
+     "rows": 3518,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.595,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(unit_no missing, account_due_date present)",
+     "sql": "(unit_no IS NULL AND account_due_date IS NOT NULL)",
+     "support": 0.064,
+     "rows": 3509,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 0.594,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(unit_no missing, account_due_date present)",
+     "sql": "(unit_no IS NULL AND account_due_date IS NOT NULL)",
+     "support": 0.064,
+     "rows": 3509,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.594,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name"
+     ],
+     "cls": "cand",
+     "condition": "(company_type_description = \"PRIVATE COMPANY LIMITED BY SHARES\" (12%), secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(company_type_description = 'PRIVATE COMPANY LIMITED BY SHARES' AND secondary_ssic_code IS NULL)",
+     "support": 0.065,
+     "rows": 3514,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.593,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v2": "PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(secondary_ssic_code IS NULL)",
+     "support": 0.452,
+     "rows": 24600,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.59,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(secondary_ssic_code IS NULL)",
+     "support": 0.452,
+     "rows": 24600,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.59,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "paid_up_capital1_ordinary"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Business\" (45%))",
+     "sql": "(entity_type_description = 'Business')",
+     "support": 0.451,
+     "rows": 24538,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.589,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Business"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "paid_up_capital1_preference"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Business\" (45%))",
+     "sql": "(entity_type_description = 'Business')",
+     "support": 0.451,
+     "rows": 24538,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.589,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Business"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "registration_incorporation_date",
+      "paid_up_capital1_ordinary"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Business\" (45%))",
+     "sql": "(entity_type_description = 'Business')",
+     "support": 0.451,
+     "rows": 24538,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.589,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Business"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "paid_up_capital1_ordinary",
+      "unit_no"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present, level_no present)",
+     "sql": "(company_type_description IS NOT NULL AND level_no IS NOT NULL)",
+     "support": 0.459,
+     "rows": 24962,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.02,
+     "score": 0.587,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(level_no missing, account_due_date present)",
+     "sql": "(level_no IS NULL AND account_due_date IS NOT NULL)",
+     "support": 0.063,
+     "rows": 3410,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 0.586,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(level_no missing, account_due_date present)",
+     "sql": "(level_no IS NULL AND account_due_date IS NOT NULL)",
+     "support": 0.063,
+     "rows": 3410,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.586,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "paid_up_capital1_ordinary",
+      "unit_no"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description present, unit_no present)",
+     "sql": "(company_type_description IS NOT NULL AND unit_no IS NOT NULL)",
+     "support": 0.456,
+     "rows": 24844,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.015,
+     "score": 0.586,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "paid_up_capital1_ordinary",
+      "unit_no"
+     ],
+     "cls": "cert",
+     "condition": "(level_no present, paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(level_no IS NOT NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.452,
+     "rows": 24583,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.005,
+     "score": 0.582,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(entity_status_description missing, building_name present)",
+     "sql": "(entity_status_description IS NULL AND building_name IS NOT NULL)",
+     "support": 0.076,
+     "rows": 4154,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.575,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "unit_no"
+     ],
+     "cls": "cert",
+     "condition": "(entity_status_description missing, building_name present)",
+     "sql": "(entity_status_description IS NULL AND building_name IS NOT NULL)",
+     "support": 0.076,
+     "rows": 4154,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.096,
+     "score": 0.575,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(company_type_description present, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(company_type_description IS NOT NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.294,
+     "rows": 16026,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.57,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "block"
+     ],
+     "cls": "cert",
+     "condition": "(company_type_description = \"EXEMPT PRIVATE COMPANY LIMITED BY SHARES\" (39%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(company_type_description = 'EXEMPT PRIVATE COMPANY LIMITED BY SHARES' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.236,
+     "rows": 12838,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.568,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "company_type_description=v1": "EXEMPT PRIVATE COMPANY LIMITED BY SHARES"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(entity_type_description = \"Local Company\" (52%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(entity_type_description = 'Local Company' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.292,
+     "rows": 15913,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.568,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(secondary_ssic_code present [same rows: secondary_ssic_description present], paid_up_capital1_currency present [same rows: paid_up_capital1_ordinary present, paid_up_capital1_preference present, paid_up_capital1_others present])",
+     "sql": "(secondary_ssic_code IS NOT NULL AND paid_up_capital1_currency IS NOT NULL)",
+     "support": 0.292,
+     "rows": 15875,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.567,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "building_name",
+      "paid_up_capital1_ordinary"
+     ],
+     "cls": "dom",
+     "condition": "(company_type_description present)",
+     "sql": "(company_type_description IS NOT NULL)",
+     "support": 0.527,
+     "rows": 28659,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.257,
+     "score": 0.566,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t36",
+     "K": [
+      "entity_name",
+      "paid_up_capital1_ordinary",
+      "unit_no"
+     ],
+     "cls": "dom",
+     "condition": "(company_type_description present)",
+     "sql": "(company_type_description IS NOT NULL)",
+     "support": 0.527,
+     "rows": 28659,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.146,
+     "score": 0.566,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    }
+   ],
+   "unconditional": {
+    "uen": "cand",
+    "entity_name,registration_incorporation_date": "cand",
+    "entity_name,account_due_date": "pos",
+    "entity_name,account_due_date,building_name": "pos",
+    "entity_name,account_due_date,paid_up_capital1_ordinary": "pos",
+    "entity_name,account_due_date,uen_issue_date": "pos",
+    "entity_name,account_due_date,street_name": "pos",
+    "entity_name,account_due_date,paid_up_capital1_preference": "pos",
+    "entity_name,account_due_date,postal_code": "pos",
+    "entity_name,account_due_date,block": "pos",
+    "entity_name,account_due_date,unit_no": "pos",
+    "entity_name,account_due_date,secondary_ssic_description": "pos",
+    "entity_name,account_due_date,secondary_ssic_code": "pos",
+    "entity_name,account_due_date,primary_ssic_description": "pos",
+    "entity_name,account_due_date,primary_ssic_code": "pos",
+    "entity_name,building_name,paid_up_capital1_ordinary": "pos",
+    "entity_name,building_name,paid_up_capital1_preference": "pos",
+    "entity_name,paid_up_capital1_ordinary,uen_issue_date": "pos",
+    "entity_name,paid_up_capital1_ordinary,street_name": "pos",
+    "entity_name,paid_up_capital1_ordinary,postal_code": "pos",
+    "entity_name,paid_up_capital1_ordinary,block": "pos",
+    "entity_name,paid_up_capital1_ordinary,unit_no": "pos",
+    "entity_name,paid_up_capital1_ordinary,secondary_ssic_description": "pos",
+    "entity_name,paid_up_capital1_ordinary,secondary_ssic_code": "pos",
+    "entity_name,uen_issue_date,paid_up_capital1_preference": "pos",
+    "entity_name,paid_up_capital1_preference,secondary_ssic_description": "pos",
+    "entity_name,paid_up_capital1_preference,secondary_ssic_code": "pos"
+   }
+  }
+ ]
+}

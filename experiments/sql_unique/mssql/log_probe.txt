@@ -1,0 +1,42 @@
+Microsoft SQL Server 2025 (RTM-CU10) (KB5125471) - 17.0.5035.5 (X64) 
+--- SELECT a.id FROM a LEFT JOIN (SELECT * FROM bu WHERE d IS NULL) b ON b.k = a.bk
+  |--Clustered Index Scan(OBJECT:([p].[dbo].[a].[PK__a__3213E83F2926892C]))
+--- SELECT a.id FROM a LEFT JOIN bu b ON b.k = a.bk AND b.d IS NULL
+  |--Clustered Index Scan(OBJECT:([p].[dbo].[a].[PK__a__3213E83F2926892C]))
+--- SELECT a.id FROM a WHERE a.bk IN (SELECT k FROM bu WHERE d IS NULL)
+  |--Hash Match(Inner Join, HASH:([p].[dbo].[bu].[k])=([p].[dbo].[a].[bk]), RESIDUAL:([p].[dbo].[a].[bk]=[p].[dbo].[bu].[k]))
+       |--Clustered Index Scan(OBJECT:([p].[dbo].[bu].[PK__bu__3213E83FB845A55B]), WHERE:([p].[dbo].[bu].[d] IS NULL))
+       |--Clustered Index Scan(OBJECT:([p].[dbo].[a].[PK__a__3213E83F2926892C]))
+--- SELECT DISTINCT k FROM bu WHERE d IS NULL
+  |--Clustered Index Scan(OBJECT:([p].[dbo].[bu].[PK__bu__3213E83FB845A55B]), WHERE:([p].[dbo].[bu].[d] IS NULL))
+--- SELECT k, x FROM bu WHERE d IS NULL GROUP BY k, x
+  |--Clustered Index Scan(OBJECT:([p].[dbo].[bu].[PK__bu__3213E83FB845A55B]), WHERE:([p].[dbo].[bu].[d] IS NULL))
+--- SELECT a.id FROM a LEFT JOIN (SELECT * FROM bf WHERE d IS NULL) b ON b.k = a.bk
+  |--Hash Match(Right Outer Join, HASH:([p].[dbo].[bf].[k])=([p].[dbo].[a].[bk]), RESIDUAL:([p].[dbo].[bf].[k]=[p].[dbo].[a].[bk]))
+       |--Clustered Index Scan(OBJECT:([p].[dbo].[bf].[PK__bf__3213E83F6BC015FD]), WHERE:([p].[dbo].[bf].[d] IS NULL))
+       |--Clustered Index Scan(OBJECT:([p].[dbo].[a].[PK__a__3213E83F2926892C]))
+--- SELECT a.id FROM a LEFT JOIN bf b ON b.k = a.bk AND b.d IS NULL
+  |--Hash Match(Right Outer Join, HASH:([b].[k])=([p].[dbo].[a].[bk]), RESIDUAL:([p].[dbo].[bf].[k] as [b].[k]=[p].[dbo].[a].[bk]))
+       |--Clustered Index Scan(OBJECT:([p].[dbo].[bf].[PK__bf__3213E83F6BC015FD] AS [b]), WHERE:([p].[dbo].[bf].[d] as [b].[d] IS NULL))
+       |--Clustered Index Scan(OBJECT:([p].[dbo].[a].[PK__a__3213E83F2926892C]))
+--- SELECT a.id FROM a WHERE a.bk IN (SELECT k FROM bf WHERE d IS NULL)
+  |--Hash Match(Right Semi Join, HASH:([p].[dbo].[bf].[k])=([p].[dbo].[a].[bk]), RESIDUAL:([p].[dbo].[a].[bk]=[p].[dbo].[bf].[k]))
+       |--Clustered Index Scan(OBJECT:([p].[dbo].[bf].[PK__bf__3213E83F6BC015FD]), WHERE:([p].[dbo].[bf].[d] IS NULL))
+       |--Clustered Index Scan(OBJECT:([p].[dbo].[a].[PK__a__3213E83F2926892C]))
+--- SELECT DISTINCT k FROM bf WHERE d IS NULL
+  |--Sort(DISTINCT ORDER BY:([p].[dbo].[bf].[k] ASC))
+       |--Clustered Index Scan(OBJECT:([p].[dbo].[bf].[PK__bf__3213E83F6BC015FD]), WHERE:([p].[dbo].[bf].[d] IS NULL))
+--- SELECT k, x FROM bf WHERE d IS NULL GROUP BY k, x
+  |--Sort(DISTINCT ORDER BY:([p].[dbo].[bf].[k] ASC, [p].[dbo].[bf].[x] ASC))
+       |--Clustered Index Scan(OBJECT:([p].[dbo].[bf].[PK__bf__3213E83F6BC015FD]), WHERE:([p].[dbo].[bf].[d] IS NULL))
+--- SELECT a.id FROM a LEFT JOIN bn b ON b.k = a.bk
+  |--Hash Match(Right Outer Join, HASH:([b].[k])=([p].[dbo].[a].[bk]), RESIDUAL:([p].[dbo].[bn].[k] as [b].[k]=[p].[dbo].[a].[bk]))
+       |--Clustered Index Scan(OBJECT:([p].[dbo].[bn].[PK__bn__3213E83FAB3AD627] AS [b]))
+       |--Clustered Index Scan(OBJECT:([p].[dbo].[a].[PK__a__3213E83F2926892C]))
+--- SELECT DISTINCT k FROM bn WHERE k IS NOT NULL
+  |--Stream Aggregate(GROUP BY:([p].[dbo].[bn].[k]))
+       |--Index Scan(OBJECT:([p].[dbo].[bn].[bn_k]), ORDERED FORWARD)
+--- SELECT a.id FROM a LEFT JOIN bfs b ON b.k = a.bk AND b.st = 0
+  |--Hash Match(Right Outer Join, HASH:([b].[k])=([p].[dbo].[a].[bk]), RESIDUAL:([p].[dbo].[bfs].[k] as [b].[k]=[p].[dbo].[a].[bk]))
+       |--Clustered Index Scan(OBJECT:([p].[dbo].[bfs].[PK__bfs__3213E83F9A27A3E7] AS [b]), WHERE:([p].[dbo].[bfs].[st] as [b].[st]=(0)))
+       |--Clustered Index Scan(OBJECT:([p].[dbo].[a].[PK__a__3213E83F2926892C]))

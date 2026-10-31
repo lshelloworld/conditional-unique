@@ -1,0 +1,7788 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "NAME",
+   "STREET",
+   "NUMBER",
+   "INV_DATE",
+   "DATE",
+   "REFNO",
+   "EXPLAIN",
+   "Latitude",
+   "Longitude",
+   "BIN",
+   "BBL",
+   "AMNT",
+   "Census Tract",
+   "Postcode",
+   "CITY"
+  ]
+ },
+ "sample_rows": 58528,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbusa.t37025",
+   "rows": 58528,
+   "cols": [
+    "ELECTION",
+    "OFFICECD",
+    "CANDID",
+    "CANCLASS",
+    "CANDLAST",
+    "CANDFIRST",
+    "CANDMI",
+    "COMMITTEE",
+    "FILING",
+    "SCHEDULE",
+    "REFNO",
+    "INV_DATE",
+    "DATE",
+    "NAME",
+    "C_CODE",
+    "ORG_IND",
+    "NUMBER",
+    "STREET",
+    "CITY",
+    "STATE",
+    "Postcode",
+    "Latitude",
+    "Longitude",
+    "Community Board",
+    "Community Council",
+    "Census Tract",
+    "BIN",
+    "BBL",
+    "NTA",
+    "Borough",
+    "PAY_METHOD",
+    "AMNT",
+    "PURPOSECD",
+    "PURPOSE",
+    "EXPLAIN",
+    "RR_IND",
+    "SEG_IND"
+   ],
+   "n_conditional": 3027,
+   "conditional": [
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%))",
+     "sql": "(OFFICECD = '1')",
+     "support": 0.268,
+     "rows": 15675,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.054,
+     "score": 0.404,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present)",
+     "sql": "(CANDMI IS NOT NULL)",
+     "support": 0.55,
+     "rows": 32189,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.002,
+     "score": 0.386,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, CITY present)",
+     "sql": "(CANDMI IS NOT NULL AND CITY IS NOT NULL)",
+     "support": 0.525,
+     "rows": 30730,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.377,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, STATE present)",
+     "sql": "(CANDMI IS NOT NULL AND STATE IS NOT NULL)",
+     "support": 0.525,
+     "rows": 30722,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.377,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, SCHEDULE = \"F\" (96%) [same rows: PAY_METHOD present])",
+     "sql": "(CANDMI IS NOT NULL AND SCHEDULE = 'F')",
+     "support": 0.524,
+     "rows": 30697,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.377,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "SCHEDULE=v1": "F"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, STREET present)",
+     "sql": "(CANDMI IS NOT NULL AND STREET IS NOT NULL)",
+     "support": 0.519,
+     "rows": 30394,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.375,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Postcode present)",
+     "sql": "(CANDMI IS NOT NULL AND Postcode IS NOT NULL)",
+     "support": 0.511,
+     "rows": 29913,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.372,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, NUMBER present)",
+     "sql": "(CANDMI IS NOT NULL AND NUMBER IS NOT NULL)",
+     "support": 0.479,
+     "rows": 28025,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.36,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NUMBER",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, NUMBER present)",
+     "sql": "(CANDMI IS NOT NULL AND NUMBER IS NOT NULL)",
+     "support": 0.479,
+     "rows": 28025,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.36,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, PAY_METHOD = \"Final\" (88%))",
+     "sql": "(CANDMI IS NOT NULL AND PAY_METHOD = 'Final')",
+     "support": 0.477,
+     "rows": 27891,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.359,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PAY_METHOD=v1": "Final"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, PAY_METHOD = \"Final\" (88%))",
+     "sql": "(CANDMI IS NOT NULL AND PAY_METHOD = 'Final')",
+     "support": 0.477,
+     "rows": 27891,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.359,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PAY_METHOD=v1": "Final"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "cert",
+     "condition": "(CANCLASS = \"P\" (88%), CANDMI present)",
+     "sql": "(CANCLASS = 'P' AND CANDMI IS NOT NULL)",
+     "support": 0.439,
+     "rows": 25704,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.345,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "CANCLASS=v1": "P"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "cand",
+     "condition": "(CANDMI present, SCHEDULE = \"F\" (96%) [same rows: PAY_METHOD present])",
+     "sql": "(CANDMI IS NOT NULL AND SCHEDULE = 'F')",
+     "support": 0.524,
+     "rows": 30697,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.338,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "SCHEDULE=v1": "F"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "cand",
+     "condition": "(CANDMI present, INV_DATE present)",
+     "sql": "(CANDMI IS NOT NULL AND INV_DATE IS NOT NULL)",
+     "support": 0.494,
+     "rows": 28899,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.328,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "cand",
+     "condition": "(CANDMI present, PAY_METHOD = \"Final\" (88%))",
+     "sql": "(CANDMI IS NOT NULL AND PAY_METHOD = 'Final')",
+     "support": 0.477,
+     "rows": 27891,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.322,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "PAY_METHOD=v1": "Final"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Borough present)",
+     "sql": "(CANDMI IS NOT NULL AND Borough IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22322,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.321,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NUMBER",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Borough present)",
+     "sql": "(CANDMI IS NOT NULL AND Borough IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22322,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.321,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "Latitude"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Borough present)",
+     "sql": "(CANDMI IS NOT NULL AND Borough IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22322,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 0.321,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "Longitude"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Borough present)",
+     "sql": "(CANDMI IS NOT NULL AND Borough IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22322,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 0.321,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Borough present)",
+     "sql": "(CANDMI IS NOT NULL AND Borough IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22322,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.321,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "Census Tract"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Borough present)",
+     "sql": "(CANDMI IS NOT NULL AND Borough IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22322,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 0.321,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Latitude present [same rows: Longitude present, Community Board present, Community Council present ...])",
+     "sql": "(CANDMI IS NOT NULL AND Latitude IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22312,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.321,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NUMBER",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Latitude present [same rows: Longitude present, Community Board present, Community Council present ...])",
+     "sql": "(CANDMI IS NOT NULL AND Latitude IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22312,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.321,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "Latitude"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Latitude present [same rows: Longitude present, Community Board present, Community Council present ...])",
+     "sql": "(CANDMI IS NOT NULL AND Latitude IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22312,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.321,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "Longitude"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Latitude present [same rows: Longitude present, Community Board present, Community Council present ...])",
+     "sql": "(CANDMI IS NOT NULL AND Latitude IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22312,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.321,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Latitude present [same rows: Longitude present, Community Board present, Community Council present ...])",
+     "sql": "(CANDMI IS NOT NULL AND Latitude IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22312,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.321,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "Census Tract"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Latitude present [same rows: Longitude present, Community Board present, Community Council present ...])",
+     "sql": "(CANDMI IS NOT NULL AND Latitude IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22312,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.321,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, BIN present [same rows: BBL present])",
+     "sql": "(CANDMI IS NOT NULL AND BIN IS NOT NULL)",
+     "support": 0.375,
+     "rows": 21971,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.319,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NUMBER",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, BIN present [same rows: BBL present])",
+     "sql": "(CANDMI IS NOT NULL AND BIN IS NOT NULL)",
+     "support": 0.375,
+     "rows": 21971,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.319,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "Latitude"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, BIN present [same rows: BBL present])",
+     "sql": "(CANDMI IS NOT NULL AND BIN IS NOT NULL)",
+     "support": 0.375,
+     "rows": 21971,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 0.319,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "Longitude"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, BIN present [same rows: BBL present])",
+     "sql": "(CANDMI IS NOT NULL AND BIN IS NOT NULL)",
+     "support": 0.375,
+     "rows": 21971,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 0.319,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "BIN"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, BIN present [same rows: BBL present])",
+     "sql": "(CANDMI IS NOT NULL AND BIN IS NOT NULL)",
+     "support": 0.375,
+     "rows": 21971,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.319,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "BBL"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, BIN present [same rows: BBL present])",
+     "sql": "(CANDMI IS NOT NULL AND BIN IS NOT NULL)",
+     "support": 0.375,
+     "rows": 21971,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.319,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, BIN present [same rows: BBL present])",
+     "sql": "(CANDMI IS NOT NULL AND BIN IS NOT NULL)",
+     "support": 0.375,
+     "rows": 21971,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.319,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "Census Tract"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, BIN present [same rows: BBL present])",
+     "sql": "(CANDMI IS NOT NULL AND BIN IS NOT NULL)",
+     "support": 0.375,
+     "rows": 21971,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 0.319,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, ORG_IND = \"Y\" (59%))",
+     "sql": "(CANDMI IS NOT NULL AND ORG_IND = 'Y')",
+     "support": 0.35,
+     "rows": 20464,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.307,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "ORG_IND=v1": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "INV_DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "OFFICECD in {\"1\", \"2\"}",
+     "sql": "(OFFICECD = '1') OR (OFFICECD = '2')",
+     "support": 0.33,
+     "rows": 19341,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.058,
+     "score": 0.299,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "OFFICECD=v2": "1",
+      "OFFICECD=v4": "2"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "OFFICECD in {\"1\", \"2\"}",
+     "sql": "(OFFICECD = '1') OR (OFFICECD = '2')",
+     "support": 0.33,
+     "rows": 19341,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.299,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "OFFICECD=v2": "1",
+      "OFFICECD=v4": "2"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "cert",
+     "condition": "OFFICECD in {\"1\", \"2\"}",
+     "sql": "(OFFICECD = '1') OR (OFFICECD = '2')",
+     "support": 0.33,
+     "rows": 19341,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.299,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "OFFICECD=v2": "1",
+      "OFFICECD=v4": "2"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "cert",
+     "condition": "OFFICECD in {\"1\", \"2\"}",
+     "sql": "(OFFICECD = '1') OR (OFFICECD = '2')",
+     "support": 0.33,
+     "rows": 19341,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.299,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "OFFICECD=v2": "1",
+      "OFFICECD=v4": "2"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "EXPLAIN",
+      "AMNT"
+     ],
+     "cls": "cert",
+     "condition": "OFFICECD in {\"1\", \"2\"}",
+     "sql": "(OFFICECD = '1') OR (OFFICECD = '2')",
+     "support": 0.33,
+     "rows": 19341,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.299,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1",
+      "OFFICECD=v4": "2"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "STREET",
+      "INV_DATE",
+      "REFNO"
+     ],
+     "cls": "pos",
+     "condition": "(CANDMI present)",
+     "sql": "(CANDMI IS NOT NULL)",
+     "support": 0.55,
+     "rows": 32189,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.156,
+     "score": 0.289,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NUMBER",
+      "INV_DATE",
+      "REFNO"
+     ],
+     "cls": "pos",
+     "condition": "(CANDMI present)",
+     "sql": "(CANDMI IS NOT NULL)",
+     "support": 0.55,
+     "rows": 32189,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.227,
+     "score": 0.289,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NUMBER",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "pos",
+     "condition": "(CANDMI present)",
+     "sql": "(CANDMI IS NOT NULL)",
+     "support": 0.55,
+     "rows": 32189,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.131,
+     "score": 0.289,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "pos",
+     "condition": "(CANDMI present)",
+     "sql": "(CANDMI IS NOT NULL)",
+     "support": 0.55,
+     "rows": 32189,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.107,
+     "score": 0.289,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "Latitude"
+     ],
+     "cls": "pos",
+     "condition": "(CANDMI present)",
+     "sql": "(CANDMI IS NOT NULL)",
+     "support": 0.55,
+     "rows": 32189,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.392,
+     "score": 0.289,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "Longitude"
+     ],
+     "cls": "pos",
+     "condition": "(CANDMI present)",
+     "sql": "(CANDMI IS NOT NULL)",
+     "support": 0.55,
+     "rows": 32189,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.392,
+     "score": 0.289,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "BIN"
+     ],
+     "cls": "pos",
+     "condition": "(CANDMI present)",
+     "sql": "(CANDMI IS NOT NULL)",
+     "support": 0.55,
+     "rows": 32189,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.402,
+     "score": 0.289,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "BBL"
+     ],
+     "cls": "pos",
+     "condition": "(CANDMI present)",
+     "sql": "(CANDMI IS NOT NULL)",
+     "support": 0.55,
+     "rows": 32189,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.402,
+     "score": 0.289,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "pos",
+     "condition": "(CANDMI present)",
+     "sql": "(CANDMI IS NOT NULL)",
+     "support": 0.55,
+     "rows": 32189,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.008,
+     "score": 0.289,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "Latitude"
+     ],
+     "cls": "pos",
+     "condition": "(CANDMI present)",
+     "sql": "(CANDMI IS NOT NULL)",
+     "support": 0.55,
+     "rows": 32189,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.308,
+     "score": 0.289,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "Longitude"
+     ],
+     "cls": "pos",
+     "condition": "(CANDMI present)",
+     "sql": "(CANDMI IS NOT NULL)",
+     "support": 0.55,
+     "rows": 32189,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.308,
+     "score": 0.289,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "BIN"
+     ],
+     "cls": "pos",
+     "condition": "(CANDMI present)",
+     "sql": "(CANDMI IS NOT NULL)",
+     "support": 0.55,
+     "rows": 32189,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.319,
+     "score": 0.289,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "BBL"
+     ],
+     "cls": "pos",
+     "condition": "(CANDMI present)",
+     "sql": "(CANDMI IS NOT NULL)",
+     "support": 0.55,
+     "rows": 32189,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.319,
+     "score": 0.289,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "Census Tract"
+     ],
+     "cls": "pos",
+     "condition": "(CANDMI present)",
+     "sql": "(CANDMI IS NOT NULL)",
+     "support": 0.55,
+     "rows": 32189,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.308,
+     "score": 0.289,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, COMMITTEE = \"H\" (48%))",
+     "sql": "(CANDMI IS NOT NULL AND COMMITTEE = 'H')",
+     "support": 0.287,
+     "rows": 16816,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 0.279,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "COMMITTEE=v1": "H"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, COMMITTEE = \"H\" (48%))",
+     "sql": "(CANDMI IS NOT NULL AND COMMITTEE = 'H')",
+     "support": 0.287,
+     "rows": 16816,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 0.279,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "COMMITTEE=v1": "H"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "STREET",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "dom",
+     "condition": "(OFFICECD = \"1\" (27%))",
+     "sql": "(OFFICECD = '1')",
+     "support": 0.268,
+     "rows": 15675,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.049,
+     "score": 0.269,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "CITY"
+     ],
+     "cls": "dom",
+     "condition": "(OFFICECD = \"1\" (27%))",
+     "sql": "(OFFICECD = '1')",
+     "support": 0.268,
+     "rows": 15675,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.061,
+     "score": 0.269,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "cand",
+     "condition": "OFFICECD in {\"1\", \"2\"}",
+     "sql": "(OFFICECD = '1') OR (OFFICECD = '2')",
+     "support": 0.33,
+     "rows": 19341,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.268,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1",
+      "OFFICECD=v4": "2"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "STREET",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), SCHEDULE = \"F\" (96%) [same rows: PAY_METHOD present])",
+     "sql": "(OFFICECD = '1' AND SCHEDULE = 'F')",
+     "support": 0.262,
+     "rows": 15342,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.048,
+     "score": 0.266,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1",
+      "SCHEDULE=v1": "F"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NUMBER",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), SCHEDULE = \"F\" (96%) [same rows: PAY_METHOD present])",
+     "sql": "(OFFICECD = '1' AND SCHEDULE = 'F')",
+     "support": 0.262,
+     "rows": 15342,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.145,
+     "score": 0.266,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1",
+      "SCHEDULE=v1": "F"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "STREET",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), STREET present)",
+     "sql": "(OFFICECD = '1' AND STREET IS NOT NULL)",
+     "support": 0.255,
+     "rows": 14914,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.262,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "STREET",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), STREET present)",
+     "sql": "(OFFICECD = '1' AND STREET IS NOT NULL)",
+     "support": 0.255,
+     "rows": 14914,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.262,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NUMBER",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), STREET present)",
+     "sql": "(OFFICECD = '1' AND STREET IS NOT NULL)",
+     "support": 0.255,
+     "rows": 14914,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.104,
+     "score": 0.262,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), INV_DATE present)",
+     "sql": "(OFFICECD = '1' AND INV_DATE IS NOT NULL)",
+     "support": 0.253,
+     "rows": 14822,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.262,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "STREET",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), PAY_METHOD = \"Final\" (88%))",
+     "sql": "(OFFICECD = '1' AND PAY_METHOD = 'Final')",
+     "support": 0.246,
+     "rows": 14371,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.048,
+     "score": 0.258,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1",
+      "PAY_METHOD=v1": "Final"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NUMBER",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), PAY_METHOD = \"Final\" (88%))",
+     "sql": "(OFFICECD = '1' AND PAY_METHOD = 'Final')",
+     "support": 0.246,
+     "rows": 14371,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.149,
+     "score": 0.258,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1",
+      "PAY_METHOD=v1": "Final"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "EXPLAIN",
+      "Postcode"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), PAY_METHOD = \"Final\" (88%))",
+     "sql": "(OFFICECD = '1' AND PAY_METHOD = 'Final')",
+     "support": 0.246,
+     "rows": 14371,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.142,
+     "score": 0.258,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1",
+      "PAY_METHOD=v1": "Final"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "INV_DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(Postcode missing)",
+     "sql": "(Postcode IS NULL)",
+     "support": 0.107,
+     "rows": 6234,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.032,
+     "score": 0.255,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(Postcode missing)",
+     "sql": "(Postcode IS NULL)",
+     "support": 0.107,
+     "rows": 6234,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.255,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "cert",
+     "condition": "(Postcode missing)",
+     "sql": "(Postcode IS NULL)",
+     "support": 0.107,
+     "rows": 6234,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.255,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), COMMITTEE = \"H\" (48%))",
+     "sql": "(OFFICECD = '1' AND COMMITTEE = 'H')",
+     "support": 0.189,
+     "rows": 11042,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.254,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1",
+      "COMMITTEE=v1": "H"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "INV_DATE",
+      "REFNO"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, CITY present)",
+     "sql": "(CANDMI IS NOT NULL AND CITY IS NOT NULL)",
+     "support": 0.525,
+     "rows": 30730,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.106,
+     "score": 0.251,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "STREET",
+      "INV_DATE",
+      "REFNO"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, CITY present)",
+     "sql": "(CANDMI IS NOT NULL AND CITY IS NOT NULL)",
+     "support": 0.525,
+     "rows": 30730,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.119,
+     "score": 0.251,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "INV_DATE",
+      "REFNO"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, STATE present)",
+     "sql": "(CANDMI IS NOT NULL AND STATE IS NOT NULL)",
+     "support": 0.525,
+     "rows": 30722,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.105,
+     "score": 0.251,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "STREET",
+      "INV_DATE",
+      "REFNO"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, STATE present)",
+     "sql": "(CANDMI IS NOT NULL AND STATE IS NOT NULL)",
+     "support": 0.525,
+     "rows": 30722,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.119,
+     "score": 0.251,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "cand",
+     "condition": "(CANDMI present, COMMITTEE = \"H\" (48%))",
+     "sql": "(CANDMI IS NOT NULL AND COMMITTEE = 'H')",
+     "support": 0.287,
+     "rows": 16816,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.25,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "COMMITTEE=v1": "H"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "STREET",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), Postcode present)",
+     "sql": "(OFFICECD = '1' AND Postcode IS NOT NULL)",
+     "support": 0.231,
+     "rows": 13535,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.25,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NUMBER",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), Postcode present)",
+     "sql": "(OFFICECD = '1' AND Postcode IS NOT NULL)",
+     "support": 0.231,
+     "rows": 13535,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.094,
+     "score": 0.25,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "Postcode"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), Postcode present)",
+     "sql": "(OFFICECD = '1' AND Postcode IS NOT NULL)",
+     "support": 0.231,
+     "rows": 13535,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.25,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "INV_DATE",
+      "REFNO"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, STREET present)",
+     "sql": "(CANDMI IS NOT NULL AND STREET IS NOT NULL)",
+     "support": 0.519,
+     "rows": 30394,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.106,
+     "score": 0.25,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "STREET",
+      "INV_DATE",
+      "REFNO"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, STREET present)",
+     "sql": "(CANDMI IS NOT NULL AND STREET IS NOT NULL)",
+     "support": 0.519,
+     "rows": 30394,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.106,
+     "score": 0.25,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NUMBER",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, STREET present)",
+     "sql": "(CANDMI IS NOT NULL AND STREET IS NOT NULL)",
+     "support": 0.519,
+     "rows": 30394,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.08,
+     "score": 0.25,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "cert",
+     "condition": "(COMMITTEE = \"K\" (10%))",
+     "sql": "(COMMITTEE = 'K')",
+     "support": 0.102,
+     "rows": 5951,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 0.249,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "COMMITTEE=v4": "K"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "cert",
+     "condition": "(COMMITTEE = \"K\" (10%))",
+     "sql": "(COMMITTEE = 'K')",
+     "support": 0.102,
+     "rows": 5951,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.249,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "COMMITTEE=v4": "K"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "Latitude"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), NUMBER present)",
+     "sql": "(OFFICECD = '1' AND NUMBER IS NOT NULL)",
+     "support": 0.228,
+     "rows": 13360,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.293,
+     "score": 0.248,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "Longitude"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), NUMBER present)",
+     "sql": "(OFFICECD = '1' AND NUMBER IS NOT NULL)",
+     "support": 0.228,
+     "rows": 13360,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.293,
+     "score": 0.248,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "BIN"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), NUMBER present)",
+     "sql": "(OFFICECD = '1' AND NUMBER IS NOT NULL)",
+     "support": 0.228,
+     "rows": 13360,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.308,
+     "score": 0.248,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "BBL"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), NUMBER present)",
+     "sql": "(OFFICECD = '1' AND NUMBER IS NOT NULL)",
+     "support": 0.228,
+     "rows": 13360,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.308,
+     "score": 0.248,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "Census Tract"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), NUMBER present)",
+     "sql": "(OFFICECD = '1' AND NUMBER IS NOT NULL)",
+     "support": 0.228,
+     "rows": 13360,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.293,
+     "score": 0.248,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "Postcode"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), NUMBER present)",
+     "sql": "(OFFICECD = '1' AND NUMBER IS NOT NULL)",
+     "support": 0.228,
+     "rows": 13360,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.082,
+     "score": 0.248,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "STREET",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), NUMBER present)",
+     "sql": "(OFFICECD = '1' AND NUMBER IS NOT NULL)",
+     "support": 0.228,
+     "rows": 13360,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.248,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "STREET",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), NUMBER present)",
+     "sql": "(OFFICECD = '1' AND NUMBER IS NOT NULL)",
+     "support": 0.228,
+     "rows": 13360,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 0.248,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NUMBER",
+      "INV_DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), NUMBER present)",
+     "sql": "(OFFICECD = '1' AND NUMBER IS NOT NULL)",
+     "support": 0.228,
+     "rows": 13360,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.061,
+     "score": 0.248,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NUMBER",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), NUMBER present)",
+     "sql": "(OFFICECD = '1' AND NUMBER IS NOT NULL)",
+     "support": 0.228,
+     "rows": 13360,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.248,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NUMBER",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), NUMBER present)",
+     "sql": "(OFFICECD = '1' AND NUMBER IS NOT NULL)",
+     "support": 0.228,
+     "rows": 13360,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 0.248,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "CITY"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), NUMBER present)",
+     "sql": "(OFFICECD = '1' AND NUMBER IS NOT NULL)",
+     "support": 0.228,
+     "rows": 13360,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.248,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "EXPLAIN",
+      "AMNT"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, C_CODE = \"CORP\" (39%))",
+     "sql": "(CANDMI IS NOT NULL AND C_CODE = 'CORP')",
+     "support": 0.228,
+     "rows": 13343,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.248,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "C_CODE=v2": "CORP"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "INV_DATE",
+      "REFNO"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, Postcode present)",
+     "sql": "(CANDMI IS NOT NULL AND Postcode IS NOT NULL)",
+     "support": 0.511,
+     "rows": 29913,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.107,
+     "score": 0.248,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "STREET",
+      "INV_DATE",
+      "REFNO"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, Postcode present)",
+     "sql": "(CANDMI IS NOT NULL AND Postcode IS NOT NULL)",
+     "support": 0.511,
+     "rows": 29913,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.112,
+     "score": 0.248,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NUMBER",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, Postcode present)",
+     "sql": "(CANDMI IS NOT NULL AND Postcode IS NOT NULL)",
+     "support": 0.511,
+     "rows": 29913,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.083,
+     "score": 0.248,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, INV_DATE present)",
+     "sql": "(CANDMI IS NOT NULL AND INV_DATE IS NOT NULL)",
+     "support": 0.494,
+     "rows": 28899,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.006,
+     "score": 0.244,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, INV_DATE present)",
+     "sql": "(CANDMI IS NOT NULL AND INV_DATE IS NOT NULL)",
+     "support": 0.494,
+     "rows": 28899,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.006,
+     "score": 0.244,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "INV_DATE",
+      "REFNO"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, NUMBER present)",
+     "sql": "(CANDMI IS NOT NULL AND NUMBER IS NOT NULL)",
+     "support": 0.479,
+     "rows": 28025,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.112,
+     "score": 0.24,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "STREET",
+      "INV_DATE",
+      "REFNO"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, NUMBER present)",
+     "sql": "(CANDMI IS NOT NULL AND NUMBER IS NOT NULL)",
+     "support": 0.479,
+     "rows": 28025,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.113,
+     "score": 0.24,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "STREET",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, NUMBER present)",
+     "sql": "(CANDMI IS NOT NULL AND NUMBER IS NOT NULL)",
+     "support": 0.479,
+     "rows": 28025,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.006,
+     "score": 0.24,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "STREET",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "cand",
+     "condition": "(OFFICECD = \"1\" (27%), STREET present)",
+     "sql": "(OFFICECD = '1' AND STREET IS NOT NULL)",
+     "support": 0.255,
+     "rows": 14914,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.236,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "INV_DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Borough = \"MANHATTAN\" (33%))",
+     "sql": "(CANDMI IS NOT NULL AND Borough = 'MANHATTAN')",
+     "support": 0.203,
+     "rows": 11873,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.098,
+     "score": 0.234,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Borough=v1": "MANHATTAN"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Borough = \"MANHATTAN\" (33%))",
+     "sql": "(CANDMI IS NOT NULL AND Borough = 'MANHATTAN')",
+     "support": 0.203,
+     "rows": 11873,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.234,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Borough=v1": "MANHATTAN"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Borough = \"MANHATTAN\" (33%))",
+     "sql": "(CANDMI IS NOT NULL AND Borough = 'MANHATTAN')",
+     "support": 0.203,
+     "rows": 11873,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 0.234,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Borough=v1": "MANHATTAN"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NUMBER",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Borough = \"MANHATTAN\" (33%))",
+     "sql": "(CANDMI IS NOT NULL AND Borough = 'MANHATTAN')",
+     "support": 0.203,
+     "rows": 11873,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.005,
+     "score": 0.234,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Borough=v1": "MANHATTAN"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "Latitude"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Borough = \"MANHATTAN\" (33%))",
+     "sql": "(CANDMI IS NOT NULL AND Borough = 'MANHATTAN')",
+     "support": 0.203,
+     "rows": 11873,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 0.234,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Borough=v1": "MANHATTAN"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "Longitude"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Borough = \"MANHATTAN\" (33%))",
+     "sql": "(CANDMI IS NOT NULL AND Borough = 'MANHATTAN')",
+     "support": 0.203,
+     "rows": 11873,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 0.234,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Borough=v1": "MANHATTAN"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "BIN"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Borough = \"MANHATTAN\" (33%))",
+     "sql": "(CANDMI IS NOT NULL AND Borough = 'MANHATTAN')",
+     "support": 0.203,
+     "rows": 11873,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 0.234,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Borough=v1": "MANHATTAN"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "BBL"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Borough = \"MANHATTAN\" (33%))",
+     "sql": "(CANDMI IS NOT NULL AND Borough = 'MANHATTAN')",
+     "support": 0.203,
+     "rows": 11873,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 0.234,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Borough=v1": "MANHATTAN"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Borough = \"MANHATTAN\" (33%))",
+     "sql": "(CANDMI IS NOT NULL AND Borough = 'MANHATTAN')",
+     "support": 0.203,
+     "rows": 11873,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.234,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Borough=v1": "MANHATTAN"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "Census Tract"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Borough = \"MANHATTAN\" (33%))",
+     "sql": "(CANDMI IS NOT NULL AND Borough = 'MANHATTAN')",
+     "support": 0.203,
+     "rows": 11873,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 0.234,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Borough=v1": "MANHATTAN"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "EXPLAIN",
+      "Latitude"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Borough = \"MANHATTAN\" (33%))",
+     "sql": "(CANDMI IS NOT NULL AND Borough = 'MANHATTAN')",
+     "support": 0.203,
+     "rows": 11873,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 0.234,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Borough=v1": "MANHATTAN"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "EXPLAIN",
+      "Longitude"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Borough = \"MANHATTAN\" (33%))",
+     "sql": "(CANDMI IS NOT NULL AND Borough = 'MANHATTAN')",
+     "support": 0.203,
+     "rows": 11873,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 0.234,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Borough=v1": "MANHATTAN"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "EXPLAIN",
+      "Census Tract"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Borough = \"MANHATTAN\" (33%))",
+     "sql": "(CANDMI IS NOT NULL AND Borough = 'MANHATTAN')",
+     "support": 0.203,
+     "rows": 11873,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 0.234,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Borough=v1": "MANHATTAN"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO"
+     ],
+     "cls": "cand",
+     "condition": "(COMMITTEE = \"H\" (48%), C_CODE = \"IND\" (40%))",
+     "sql": "(COMMITTEE = 'H' AND C_CODE = 'IND')",
+     "support": 0.198,
+     "rows": 11565,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.233,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "COMMITTEE=v1": "H",
+      "C_CODE=v1": "IND"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO"
+     ],
+     "cls": "cand",
+     "condition": "(CANDMI present, C_CODE = \"IND\" (40%))",
+     "sql": "(CANDMI IS NOT NULL AND C_CODE = 'IND')",
+     "support": 0.194,
+     "rows": 11382,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.232,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "C_CODE=v1": "IND"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "cand",
+     "condition": "(OFFICECD = \"1\" (27%), PAY_METHOD = \"Final\" (88%))",
+     "sql": "(OFFICECD = '1' AND PAY_METHOD = 'Final')",
+     "support": 0.246,
+     "rows": 14371,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.231,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1",
+      "PAY_METHOD=v1": "Final"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "EXPLAIN",
+      "AMNT"
+     ],
+     "cls": "cert",
+     "condition": "(COMMITTEE = \"H\" (48%), C_CODE = \"IND\" (40%))",
+     "sql": "(COMMITTEE = 'H' AND C_CODE = 'IND')",
+     "support": 0.198,
+     "rows": 11565,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.231,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "COMMITTEE=v1": "H",
+      "C_CODE=v1": "IND"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "EXPLAIN",
+      "AMNT"
+     ],
+     "cls": "cert",
+     "condition": "(COMMITTEE = \"H\" (48%), C_CODE = \"CORP\" (39%))",
+     "sql": "(COMMITTEE = 'H' AND C_CODE = 'CORP')",
+     "support": 0.196,
+     "rows": 11486,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.23,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "COMMITTEE=v1": "H",
+      "C_CODE=v2": "CORP"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, C_CODE = \"IND\" (40%))",
+     "sql": "(CANDMI IS NOT NULL AND C_CODE = 'IND')",
+     "support": 0.194,
+     "rows": 11382,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 0.229,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "C_CODE=v1": "IND"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, C_CODE = \"IND\" (40%))",
+     "sql": "(CANDMI IS NOT NULL AND C_CODE = 'IND')",
+     "support": 0.194,
+     "rows": 11382,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.229,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "C_CODE=v1": "IND"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "EXPLAIN",
+      "AMNT"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, C_CODE = \"IND\" (40%))",
+     "sql": "(CANDMI IS NOT NULL AND C_CODE = 'IND')",
+     "support": 0.194,
+     "rows": 11382,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.229,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "C_CODE=v1": "IND"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "Latitude"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.341,
+     "rows": 19973,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.975,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "Longitude"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.341,
+     "rows": 19973,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.975,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "BBL"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.341,
+     "rows": 19973,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "Census Tract"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.341,
+     "rows": 19973,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.975,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "Latitude"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.341,
+     "rows": 19973,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.976,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "Longitude"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.341,
+     "rows": 19973,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.976,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "BBL"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.341,
+     "rows": 19973,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "Census Tract"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.341,
+     "rows": 19973,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.976,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "BBL",
+      "AMNT"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.341,
+     "rows": 19973,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "Latitude"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.341,
+     "rows": 19973,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.975,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "Longitude"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.341,
+     "rows": 19973,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.975,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "BBL"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.341,
+     "rows": 19973,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "Census Tract"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.341,
+     "rows": 19973,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.975,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "EXPLAIN",
+      "BBL"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.341,
+     "rows": 19973,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "BBL",
+      "AMNT"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.341,
+     "rows": 19973,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "EXPLAIN",
+      "Latitude"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.341,
+     "rows": 19973,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.976,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "EXPLAIN",
+      "Longitude"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.341,
+     "rows": 19973,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.976,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "EXPLAIN",
+      "BBL"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.341,
+     "rows": 19973,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "EXPLAIN",
+      "Census Tract"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.341,
+     "rows": 19973,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.976,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "Latitude",
+      "AMNT"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.341,
+     "rows": 19973,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.975,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "Longitude",
+      "AMNT"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.341,
+     "rows": 19973,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.975,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "BBL",
+      "AMNT"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.341,
+     "rows": 19973,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "AMNT",
+      "Census Tract"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.341,
+     "rows": 19973,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.975,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "EXPLAIN",
+      "BBL",
+      "AMNT"
+     ],
+     "cls": "pos",
+     "condition": "(BIN missing [same rows: BBL missing])",
+     "sql": "(BIN IS NULL)",
+     "support": 0.341,
+     "rows": 19973,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.228,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "STREET",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), COMMITTEE = \"H\" (48%))",
+     "sql": "(OFFICECD = '1' AND COMMITTEE = 'H')",
+     "support": 0.189,
+     "rows": 11042,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.044,
+     "score": 0.226,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1",
+      "COMMITTEE=v1": "H"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "NUMBER",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), COMMITTEE = \"H\" (48%))",
+     "sql": "(OFFICECD = '1' AND COMMITTEE = 'H')",
+     "support": 0.189,
+     "rows": 11042,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.111,
+     "score": 0.226,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1",
+      "COMMITTEE=v1": "H"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), COMMITTEE = \"H\" (48%))",
+     "sql": "(OFFICECD = '1' AND COMMITTEE = 'H')",
+     "support": 0.189,
+     "rows": 11042,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 0.226,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1",
+      "COMMITTEE=v1": "H"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "Latitude"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), COMMITTEE = \"H\" (48%))",
+     "sql": "(OFFICECD = '1' AND COMMITTEE = 'H')",
+     "support": 0.189,
+     "rows": 11042,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.407,
+     "score": 0.226,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1",
+      "COMMITTEE=v1": "H"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "Longitude"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), COMMITTEE = \"H\" (48%))",
+     "sql": "(OFFICECD = '1' AND COMMITTEE = 'H')",
+     "support": 0.189,
+     "rows": 11042,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.407,
+     "score": 0.226,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1",
+      "COMMITTEE=v1": "H"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "BIN"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), COMMITTEE = \"H\" (48%))",
+     "sql": "(OFFICECD = '1' AND COMMITTEE = 'H')",
+     "support": 0.189,
+     "rows": 11042,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.424,
+     "score": 0.226,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1",
+      "COMMITTEE=v1": "H"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "BBL"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), COMMITTEE = \"H\" (48%))",
+     "sql": "(OFFICECD = '1' AND COMMITTEE = 'H')",
+     "support": 0.189,
+     "rows": 11042,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.424,
+     "score": 0.226,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1",
+      "COMMITTEE=v1": "H"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "Census Tract"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), COMMITTEE = \"H\" (48%))",
+     "sql": "(OFFICECD = '1' AND COMMITTEE = 'H')",
+     "support": 0.189,
+     "rows": 11042,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.407,
+     "score": 0.226,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1",
+      "COMMITTEE=v1": "H"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "Postcode"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), COMMITTEE = \"H\" (48%))",
+     "sql": "(OFFICECD = '1' AND COMMITTEE = 'H')",
+     "support": 0.189,
+     "rows": 11042,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.166,
+     "score": 0.226,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1",
+      "COMMITTEE=v1": "H"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "Longitude"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.334,
+     "rows": 19535,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "BIN"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.334,
+     "rows": 19535,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.997,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "BBL"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.334,
+     "rows": 19535,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.997,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "Census Tract"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.334,
+     "rows": 19535,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "Longitude"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.334,
+     "rows": 19535,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "BIN"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.334,
+     "rows": 19535,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.997,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "BBL"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.334,
+     "rows": 19535,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.997,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "Census Tract"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.334,
+     "rows": 19535,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "Longitude",
+      "AMNT"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.334,
+     "rows": 19535,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "AMNT",
+      "Census Tract"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.334,
+     "rows": 19535,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "Longitude"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.334,
+     "rows": 19535,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "BIN"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.334,
+     "rows": 19535,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.997,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "BBL"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.334,
+     "rows": 19535,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.997,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "Census Tract"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.334,
+     "rows": 19535,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "EXPLAIN",
+      "Longitude"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.334,
+     "rows": 19535,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "Longitude",
+      "AMNT"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.334,
+     "rows": 19535,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "AMNT",
+      "Census Tract"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.334,
+     "rows": 19535,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "EXPLAIN",
+      "Longitude"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.334,
+     "rows": 19535,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "EXPLAIN",
+      "BIN"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.334,
+     "rows": 19535,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.997,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "EXPLAIN",
+      "BBL"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.334,
+     "rows": 19535,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.997,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "EXPLAIN",
+      "Census Tract"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.334,
+     "rows": 19535,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "Longitude",
+      "AMNT"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.334,
+     "rows": 19535,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "BIN",
+      "AMNT"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.334,
+     "rows": 19535,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.997,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "BBL",
+      "AMNT"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.334,
+     "rows": 19535,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.997,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "AMNT",
+      "Census Tract"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.334,
+     "rows": 19535,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "EXPLAIN",
+      "Longitude",
+      "AMNT"
+     ],
+     "cls": "pos",
+     "condition": "(Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(Latitude IS NULL)",
+     "support": 0.334,
+     "rows": 19535,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "Latitude"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "Longitude"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "BIN"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "BBL"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "Census Tract"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "Latitude"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "Longitude"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "BIN"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "BBL"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "Census Tract"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "Latitude",
+      "AMNT"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "Longitude",
+      "AMNT"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "BIN",
+      "AMNT"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "BBL",
+      "AMNT"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "AMNT",
+      "Census Tract"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "Latitude"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "Longitude"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "BIN"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "BBL"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "Census Tract"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "EXPLAIN",
+      "Latitude"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "EXPLAIN",
+      "Longitude"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "EXPLAIN",
+      "BIN"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "EXPLAIN",
+      "BBL"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "Latitude",
+      "AMNT"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "Longitude",
+      "AMNT"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "BIN",
+      "AMNT"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "BBL",
+      "AMNT"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "AMNT",
+      "Census Tract"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "EXPLAIN",
+      "Latitude"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "EXPLAIN",
+      "Longitude"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "EXPLAIN",
+      "BIN"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "EXPLAIN",
+      "BBL"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "EXPLAIN",
+      "Census Tract"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "Latitude",
+      "AMNT"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "Longitude",
+      "AMNT"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "BIN",
+      "AMNT"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "BBL",
+      "AMNT"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "AMNT",
+      "Census Tract"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "EXPLAIN",
+      "Latitude",
+      "AMNT"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "EXPLAIN",
+      "Longitude",
+      "AMNT"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "EXPLAIN",
+      "BIN",
+      "AMNT"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "EXPLAIN",
+      "BBL",
+      "AMNT"
+     ],
+     "cls": "pos",
+     "condition": "(Borough missing)",
+     "sql": "(Borough IS NULL)",
+     "support": 0.333,
+     "rows": 19482,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "AMNT",
+      "Postcode"
+     ],
+     "cls": "cand",
+     "condition": "(OFFICECD = \"1\" (27%), Postcode present)",
+     "sql": "(OFFICECD = '1' AND Postcode IS NOT NULL)",
+     "support": 0.231,
+     "rows": 13535,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.224,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "STREET",
+      "REFNO"
+     ],
+     "cls": "cand",
+     "condition": "(OFFICECD = \"1\" (27%), NUMBER present)",
+     "sql": "(OFFICECD = '1' AND NUMBER IS NOT NULL)",
+     "support": 0.228,
+     "rows": 13360,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.223,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "NUMBER",
+      "REFNO"
+     ],
+     "cls": "cand",
+     "condition": "(OFFICECD = \"1\" (27%), NUMBER present)",
+     "sql": "(OFFICECD = '1' AND NUMBER IS NOT NULL)",
+     "support": 0.228,
+     "rows": 13360,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.223,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "STREET",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "cand",
+     "condition": "(OFFICECD = \"1\" (27%), NUMBER present)",
+     "sql": "(OFFICECD = '1' AND NUMBER IS NOT NULL)",
+     "support": 0.228,
+     "rows": 13360,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.223,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NUMBER",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "cand",
+     "condition": "(OFFICECD = \"1\" (27%), NUMBER present)",
+     "sql": "(OFFICECD = '1' AND NUMBER IS NOT NULL)",
+     "support": 0.228,
+     "rows": 13360,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.223,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "cand",
+     "condition": "(CANDMI present, C_CODE = \"CORP\" (39%))",
+     "sql": "(CANDMI IS NOT NULL AND C_CODE = 'CORP')",
+     "support": 0.228,
+     "rows": 13343,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.223,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "C_CODE=v2": "CORP"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "cand",
+     "condition": "(CANDMI present, C_CODE = \"CORP\" (39%))",
+     "sql": "(CANDMI IS NOT NULL AND C_CODE = 'CORP')",
+     "support": 0.228,
+     "rows": 13343,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.223,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "C_CODE=v2": "CORP"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "cand",
+     "condition": "(CANDMI present, C_CODE = \"CORP\" (39%))",
+     "sql": "(CANDMI IS NOT NULL AND C_CODE = 'CORP')",
+     "support": 0.228,
+     "rows": 13343,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.223,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "C_CODE=v2": "CORP"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(COMMITTEE = \"H\" (48%), Borough = \"MANHATTAN\" (33%))",
+     "sql": "(COMMITTEE = 'H' AND Borough = 'MANHATTAN')",
+     "support": 0.181,
+     "rows": 10616,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.221,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "COMMITTEE=v1": "H",
+      "Borough=v1": "MANHATTAN"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NUMBER",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(COMMITTEE = \"H\" (48%), Borough = \"MANHATTAN\" (33%))",
+     "sql": "(COMMITTEE = 'H' AND Borough = 'MANHATTAN')",
+     "support": 0.181,
+     "rows": 10616,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.005,
+     "score": 0.221,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "COMMITTEE=v1": "H",
+      "Borough=v1": "MANHATTAN"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NUMBER",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "cert",
+     "condition": "(COMMITTEE = \"H\" (48%), Borough = \"MANHATTAN\" (33%))",
+     "sql": "(COMMITTEE = 'H' AND Borough = 'MANHATTAN')",
+     "support": 0.181,
+     "rows": 10616,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.221,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "COMMITTEE=v1": "H",
+      "Borough=v1": "MANHATTAN"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "EXPLAIN",
+      "Latitude"
+     ],
+     "cls": "cert",
+     "condition": "(COMMITTEE = \"H\" (48%), Borough = \"MANHATTAN\" (33%))",
+     "sql": "(COMMITTEE = 'H' AND Borough = 'MANHATTAN')",
+     "support": 0.181,
+     "rows": 10616,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.221,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "COMMITTEE=v1": "H",
+      "Borough=v1": "MANHATTAN"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "EXPLAIN",
+      "Longitude"
+     ],
+     "cls": "cert",
+     "condition": "(COMMITTEE = \"H\" (48%), Borough = \"MANHATTAN\" (33%))",
+     "sql": "(COMMITTEE = 'H' AND Borough = 'MANHATTAN')",
+     "support": 0.181,
+     "rows": 10616,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.221,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "COMMITTEE=v1": "H",
+      "Borough=v1": "MANHATTAN"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "EXPLAIN",
+      "BIN"
+     ],
+     "cls": "cert",
+     "condition": "(COMMITTEE = \"H\" (48%), Borough = \"MANHATTAN\" (33%))",
+     "sql": "(COMMITTEE = 'H' AND Borough = 'MANHATTAN')",
+     "support": 0.181,
+     "rows": 10616,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.011,
+     "score": 0.221,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "COMMITTEE=v1": "H",
+      "Borough=v1": "MANHATTAN"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "EXPLAIN",
+      "BBL"
+     ],
+     "cls": "cert",
+     "condition": "(COMMITTEE = \"H\" (48%), Borough = \"MANHATTAN\" (33%))",
+     "sql": "(COMMITTEE = 'H' AND Borough = 'MANHATTAN')",
+     "support": 0.181,
+     "rows": 10616,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.011,
+     "score": 0.221,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "COMMITTEE=v1": "H",
+      "Borough=v1": "MANHATTAN"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "REFNO",
+      "EXPLAIN",
+      "Census Tract"
+     ],
+     "cls": "cert",
+     "condition": "(COMMITTEE = \"H\" (48%), Borough = \"MANHATTAN\" (33%))",
+     "sql": "(COMMITTEE = 'H' AND Borough = 'MANHATTAN')",
+     "support": 0.181,
+     "rows": 10616,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.221,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "COMMITTEE=v1": "H",
+      "Borough=v1": "MANHATTAN"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "STREET",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "part",
+     "condition": "(OFFICECD = \"1\" (27%), STATE present)",
+     "sql": "(OFFICECD = '1' AND STATE IS NOT NULL)",
+     "support": 0.253,
+     "rows": 14829,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.015,
+     "score": 0.218,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "STREET",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "part",
+     "condition": "(OFFICECD = \"1\" (27%), CITY present)",
+     "sql": "(OFFICECD = '1' AND CITY IS NOT NULL)",
+     "support": 0.252,
+     "rows": 14730,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.012,
+     "score": 0.217,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, BIN missing [same rows: BBL missing])",
+     "sql": "(CANDMI IS NOT NULL AND BIN IS NULL)",
+     "support": 0.175,
+     "rows": 10218,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.217,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, BIN missing [same rows: BBL missing])",
+     "sql": "(CANDMI IS NOT NULL AND BIN IS NULL)",
+     "support": 0.175,
+     "rows": 10218,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.217,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "INV_DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(COMMITTEE = \"H\" (48%), BIN missing [same rows: BBL missing])",
+     "sql": "(COMMITTEE = 'H' AND BIN IS NULL)",
+     "support": 0.172,
+     "rows": 10053,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.043,
+     "score": 0.216,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "COMMITTEE=v1": "H"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(COMMITTEE = \"H\" (48%), BIN missing [same rows: BBL missing])",
+     "sql": "(COMMITTEE = 'H' AND BIN IS NULL)",
+     "support": 0.172,
+     "rows": 10053,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.216,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "COMMITTEE=v1": "H"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "cert",
+     "condition": "(COMMITTEE = \"H\" (48%), BIN missing [same rows: BBL missing])",
+     "sql": "(COMMITTEE = 'H' AND BIN IS NULL)",
+     "support": 0.172,
+     "rows": 10053,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 0.216,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "COMMITTEE=v1": "H"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "INV_DATE",
+      "REFNO"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, Borough present)",
+     "sql": "(CANDMI IS NOT NULL AND Borough IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22322,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.123,
+     "score": 0.214,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "STREET",
+      "INV_DATE",
+      "REFNO"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, Borough present)",
+     "sql": "(CANDMI IS NOT NULL AND Borough IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22322,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.123,
+     "score": 0.214,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "STREET",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, Borough present)",
+     "sql": "(CANDMI IS NOT NULL AND Borough IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22322,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.005,
+     "score": 0.214,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "Latitude"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, Borough present)",
+     "sql": "(CANDMI IS NOT NULL AND Borough IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22322,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.123,
+     "score": 0.214,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "Longitude"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, Borough present)",
+     "sql": "(CANDMI IS NOT NULL AND Borough IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22322,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.123,
+     "score": 0.214,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "BIN"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, Borough present)",
+     "sql": "(CANDMI IS NOT NULL AND Borough IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22322,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.138,
+     "score": 0.214,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "BBL"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, Borough present)",
+     "sql": "(CANDMI IS NOT NULL AND Borough IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22322,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.138,
+     "score": 0.214,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "BIN"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, Borough present)",
+     "sql": "(CANDMI IS NOT NULL AND Borough IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22322,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.018,
+     "score": 0.214,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "BBL"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, Borough present)",
+     "sql": "(CANDMI IS NOT NULL AND Borough IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22322,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.018,
+     "score": 0.214,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "INV_DATE",
+      "REFNO"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, Latitude present [same rows: Longitude present, Community Board present, Community Council present ...])",
+     "sql": "(CANDMI IS NOT NULL AND Latitude IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22312,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.123,
+     "score": 0.214,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "STREET",
+      "INV_DATE",
+      "REFNO"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, Latitude present [same rows: Longitude present, Community Board present, Community Council present ...])",
+     "sql": "(CANDMI IS NOT NULL AND Latitude IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22312,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.123,
+     "score": 0.214,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "STREET",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, Latitude present [same rows: Longitude present, Community Board present, Community Council present ...])",
+     "sql": "(CANDMI IS NOT NULL AND Latitude IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22312,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.005,
+     "score": 0.214,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "Latitude"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, Latitude present [same rows: Longitude present, Community Board present, Community Council present ...])",
+     "sql": "(CANDMI IS NOT NULL AND Latitude IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22312,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.123,
+     "score": 0.214,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "Longitude"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, Latitude present [same rows: Longitude present, Community Board present, Community Council present ...])",
+     "sql": "(CANDMI IS NOT NULL AND Latitude IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22312,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.123,
+     "score": 0.214,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "BIN"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, Latitude present [same rows: Longitude present, Community Board present, Community Council present ...])",
+     "sql": "(CANDMI IS NOT NULL AND Latitude IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22312,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.138,
+     "score": 0.214,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "BBL"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, Latitude present [same rows: Longitude present, Community Board present, Community Council present ...])",
+     "sql": "(CANDMI IS NOT NULL AND Latitude IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22312,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.138,
+     "score": 0.214,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "BIN"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, Latitude present [same rows: Longitude present, Community Board present, Community Council present ...])",
+     "sql": "(CANDMI IS NOT NULL AND Latitude IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22312,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.018,
+     "score": 0.214,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "BBL"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, Latitude present [same rows: Longitude present, Community Board present, Community Council present ...])",
+     "sql": "(CANDMI IS NOT NULL AND Latitude IS NOT NULL)",
+     "support": 0.381,
+     "rows": 22312,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.018,
+     "score": 0.214,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(CANDMI IS NOT NULL AND Latitude IS NULL)",
+     "support": 0.169,
+     "rows": 9877,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.214,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(CANDMI IS NOT NULL AND Latitude IS NULL)",
+     "support": 0.169,
+     "rows": 9877,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.214,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Borough missing)",
+     "sql": "(CANDMI IS NOT NULL AND Borough IS NULL)",
+     "support": 0.169,
+     "rows": 9867,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.214,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "cert",
+     "condition": "(CANDMI present, Borough missing)",
+     "sql": "(CANDMI IS NOT NULL AND Borough IS NULL)",
+     "support": 0.169,
+     "rows": 9867,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.214,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "INV_DATE",
+      "REFNO"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, BIN present [same rows: BBL present])",
+     "sql": "(CANDMI IS NOT NULL AND BIN IS NOT NULL)",
+     "support": 0.375,
+     "rows": 21971,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.124,
+     "score": 0.212,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "STREET",
+      "INV_DATE",
+      "REFNO"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, BIN present [same rows: BBL present])",
+     "sql": "(CANDMI IS NOT NULL AND BIN IS NOT NULL)",
+     "support": 0.375,
+     "rows": 21971,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.124,
+     "score": 0.212,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "STREET",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, BIN present [same rows: BBL present])",
+     "sql": "(CANDMI IS NOT NULL AND BIN IS NOT NULL)",
+     "support": 0.375,
+     "rows": 21971,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.005,
+     "score": 0.212,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "Latitude"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, BIN present [same rows: BBL present])",
+     "sql": "(CANDMI IS NOT NULL AND BIN IS NOT NULL)",
+     "support": 0.375,
+     "rows": 21971,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.125,
+     "score": 0.212,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "Longitude"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, BIN present [same rows: BBL present])",
+     "sql": "(CANDMI IS NOT NULL AND BIN IS NOT NULL)",
+     "support": 0.375,
+     "rows": 21971,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.125,
+     "score": 0.212,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "BIN"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, BIN present [same rows: BBL present])",
+     "sql": "(CANDMI IS NOT NULL AND BIN IS NOT NULL)",
+     "support": 0.375,
+     "rows": 21971,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.124,
+     "score": 0.212,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "BBL"
+     ],
+     "cls": "dom",
+     "condition": "(CANDMI present, BIN present [same rows: BBL present])",
+     "sql": "(CANDMI IS NOT NULL AND BIN IS NOT NULL)",
+     "support": 0.375,
+     "rows": 21971,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.124,
+     "score": 0.212,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "INV_DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(COMMITTEE = \"H\" (48%), Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(COMMITTEE = 'H' AND Latitude IS NULL)",
+     "support": 0.167,
+     "rows": 9761,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.044,
+     "score": 0.212,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "COMMITTEE=v1": "H"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(COMMITTEE = \"H\" (48%), Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(COMMITTEE = 'H' AND Latitude IS NULL)",
+     "support": 0.167,
+     "rows": 9761,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.212,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "COMMITTEE=v1": "H"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "cert",
+     "condition": "(COMMITTEE = \"H\" (48%), Latitude missing [same rows: Longitude missing, Community Board missing, Community Council missing ...])",
+     "sql": "(COMMITTEE = 'H' AND Latitude IS NULL)",
+     "support": 0.167,
+     "rows": 9761,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 0.212,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "COMMITTEE=v1": "H"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "INV_DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(COMMITTEE = \"H\" (48%), Borough missing)",
+     "sql": "(COMMITTEE = 'H' AND Borough IS NULL)",
+     "support": 0.166,
+     "rows": 9723,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.044,
+     "score": 0.212,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "COMMITTEE=v1": "H"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(COMMITTEE = \"H\" (48%), Borough missing)",
+     "sql": "(COMMITTEE = 'H' AND Borough IS NULL)",
+     "support": 0.166,
+     "rows": 9723,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.212,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "COMMITTEE=v1": "H"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "cert",
+     "condition": "(COMMITTEE = \"H\" (48%), Borough missing)",
+     "sql": "(COMMITTEE = 'H' AND Borough IS NULL)",
+     "support": 0.166,
+     "rows": 9723,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 0.212,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "COMMITTEE=v1": "H"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "DATE",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), ORG_IND = \"Y\" (59%))",
+     "sql": "(OFFICECD = '1' AND ORG_IND = 'Y')",
+     "support": 0.164,
+     "rows": 9599,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.013,
+     "score": 0.211,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1",
+      "ORG_IND=v1": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "INV_DATE",
+      "REFNO",
+      "EXPLAIN"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), ORG_IND = \"Y\" (59%))",
+     "sql": "(OFFICECD = '1' AND ORG_IND = 'Y')",
+     "support": 0.164,
+     "rows": 9599,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.027,
+     "score": 0.211,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1",
+      "ORG_IND=v1": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "Postcode"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), ORG_IND = \"Y\" (59%))",
+     "sql": "(OFFICECD = '1' AND ORG_IND = 'Y')",
+     "support": 0.164,
+     "rows": 9599,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.097,
+     "score": 0.211,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1",
+      "ORG_IND=v1": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "DATE",
+      "REFNO",
+      "CITY"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), ORG_IND = \"Y\" (59%))",
+     "sql": "(OFFICECD = '1' AND ORG_IND = 'Y')",
+     "support": 0.164,
+     "rows": 9599,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.084,
+     "score": 0.211,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1",
+      "ORG_IND=v1": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "AMNT"
+     ],
+     "cls": "cand",
+     "condition": "(CANDMI present, Borough = \"MANHATTAN\" (33%))",
+     "sql": "(CANDMI IS NOT NULL AND Borough = 'MANHATTAN')",
+     "support": 0.203,
+     "rows": 11873,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.21,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Borough=v1": "MANHATTAN"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "NUMBER",
+      "REFNO"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), Borough present)",
+     "sql": "(OFFICECD = '1' AND Borough IS NOT NULL)",
+     "support": 0.161,
+     "rows": 9447,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.209,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "Latitude"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), Borough present)",
+     "sql": "(OFFICECD = '1' AND Borough IS NOT NULL)",
+     "support": 0.161,
+     "rows": 9447,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.209,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "Longitude"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), Borough present)",
+     "sql": "(OFFICECD = '1' AND Borough IS NOT NULL)",
+     "support": 0.161,
+     "rows": 9447,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.209,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "BIN"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), Borough present)",
+     "sql": "(OFFICECD = '1' AND Borough IS NOT NULL)",
+     "support": 0.161,
+     "rows": 9447,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.021,
+     "score": 0.209,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "BBL"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), Borough present)",
+     "sql": "(OFFICECD = '1' AND Borough IS NOT NULL)",
+     "support": 0.161,
+     "rows": 9447,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.021,
+     "score": 0.209,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    },
+    {
+     "table": "lbusa.t37025",
+     "K": [
+      "NAME",
+      "REFNO",
+      "Census Tract"
+     ],
+     "cls": "cert",
+     "condition": "(OFFICECD = \"1\" (27%), Borough present)",
+     "sql": "(OFFICECD = '1' AND Borough IS NOT NULL)",
+     "support": 0.161,
+     "rows": 9447,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.209,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "OFFICECD=v2": "1"
+     }
+    }
+   ],
+   "unconditional": {}
+  }
+ ]
+}

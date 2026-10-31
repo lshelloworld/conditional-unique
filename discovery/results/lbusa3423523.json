@@ -1,0 +1,596 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "Property Address",
+   "PIN",
+   "Latitude",
+   "Prior Tax Year Market Value Estimate (Building)",
+   "Square root of lot size"
+  ]
+ },
+ "sample_rows": 210552,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbusa.t3423523",
+   "rows": 210552,
+   "cols": [
+    "Modeling Group",
+    "Census Tract",
+    "PIN",
+    "Total Units",
+    "Attic Type",
+    "Roof Material",
+    "Multi Property Indicator",
+    "Latitude",
+    "Porch",
+    "Floodplain",
+    "Garage 2 Attachment",
+    "Site Desireability",
+    "Other Improvements",
+    "Number of Commercial Units",
+    "Basement Finish",
+    "Property Address",
+    "Square root of lot size",
+    "Garage 1 Size",
+    "Garage 2 Size",
+    "Age Squared",
+    "Garage 2 Area",
+    "Repair Condition",
+    "Bedrooms",
+    "Prior Tax Year Market Value Estimate (Building)",
+    "Town and Neighborhood",
+    "Large Lot",
+    "Age Decade Squared",
+    "Property Class"
+   ],
+   "n_conditional": 23,
+   "conditional": [
+    {
+     "table": "lbusa.t3423523",
+     "K": [
+      "PIN"
+     ],
+     "cls": "cand",
+     "condition": "(Garage 2 Attachment missing [same rows: Other Improvements missing, Number of Commercial Units missing, Garage 2 Size missing ...], Large Lot present)",
+     "sql": "(Garage 2 Attachment IS NULL AND Large Lot IS NOT NULL)",
+     "support": 0.241,
+     "rows": 50709,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.145,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t3423523",
+     "K": [
+      "PIN"
+     ],
+     "cls": "cand",
+     "condition": "(Garage 1 Size missing, Large Lot present)",
+     "sql": "(Garage 1 Size IS NULL AND Large Lot IS NOT NULL)",
+     "support": 0.241,
+     "rows": 50709,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.145,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t3423523",
+     "K": [
+      "PIN"
+     ],
+     "cls": "cand",
+     "condition": "(Modeling Group = \"NCHARS\" (28%), Large Lot present)",
+     "sql": "(Modeling Group = 'NCHARS' AND Large Lot IS NOT NULL)",
+     "support": 0.232,
+     "rows": 48879,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.124,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Modeling Group=v2": "NCHARS"
+     }
+    },
+    {
+     "table": "lbusa.t3423523",
+     "K": [
+      "PIN"
+     ],
+     "cls": "cand",
+     "condition": "(Garage 2 Attachment missing [same rows: Other Improvements missing, Number of Commercial Units missing, Garage 2 Size missing ...], Large Lot = \"1.0\" (18%))",
+     "sql": "(Garage 2 Attachment IS NULL AND Large Lot = '1.0')",
+     "support": 0.168,
+     "rows": 35336,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.956,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Large Lot=v2": "1.0"
+     }
+    },
+    {
+     "table": "lbusa.t3423523",
+     "K": [
+      "PIN"
+     ],
+     "cls": "cand",
+     "condition": "(Garage 1 Size missing, Large Lot = \"1.0\" (18%))",
+     "sql": "(Garage 1 Size IS NULL AND Large Lot = '1.0')",
+     "support": 0.168,
+     "rows": 35336,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.956,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Large Lot=v2": "1.0"
+     }
+    },
+    {
+     "table": "lbusa.t3423523",
+     "K": [
+      "Property Address",
+      "PIN"
+     ],
+     "cls": "cert",
+     "condition": "(Garage 2 Attachment missing [same rows: Other Improvements missing, Number of Commercial Units missing, Garage 2 Size missing ...])",
+     "sql": "(Garage 2 Attachment IS NULL)",
+     "support": 0.295,
+     "rows": 62151,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.954,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t3423523",
+     "K": [
+      "Property Address",
+      "PIN"
+     ],
+     "cls": "cert",
+     "condition": "(Garage 1 Size missing)",
+     "sql": "(Garage 1 Size IS NULL)",
+     "support": 0.295,
+     "rows": 62150,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.953,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t3423523",
+     "K": [
+      "PIN"
+     ],
+     "cls": "cand",
+     "condition": "(Modeling Group = \"NCHARS\" (28%), Large Lot = \"1.0\" (18%))",
+     "sql": "(Modeling Group = 'NCHARS' AND Large Lot = '1.0')",
+     "support": 0.163,
+     "rows": 34325,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.942,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Modeling Group=v2": "NCHARS",
+      "Large Lot=v2": "1.0"
+     }
+    },
+    {
+     "table": "lbusa.t3423523",
+     "K": [
+      "Property Address",
+      "PIN"
+     ],
+     "cls": "cand",
+     "condition": "(Modeling Group = \"NCHARS\" (28%))",
+     "sql": "(Modeling Group = 'NCHARS')",
+     "support": 0.284,
+     "rows": 59820,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.84,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Modeling Group=v2": "NCHARS"
+     }
+    },
+    {
+     "table": "lbusa.t3423523",
+     "K": [
+      "PIN"
+     ],
+     "cls": "cand",
+     "condition": "(Attic Type missing [same rows: Roof Material missing, Site Desireability missing, Basement Finish missing ...], Large Lot = \"0.0\" (67%))",
+     "sql": "(Attic Type IS NULL AND Large Lot = '0.0')",
+     "support": 0.073,
+     "rows": 15373,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.63,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Large Lot=v1": "0.0"
+     }
+    },
+    {
+     "table": "lbusa.t3423523",
+     "K": [
+      "PIN"
+     ],
+     "cls": "cand",
+     "condition": "(Garage 2 Attachment missing [same rows: Other Improvements missing, Number of Commercial Units missing, Garage 2 Size missing ...], Large Lot = \"0.0\" (67%))",
+     "sql": "(Garage 2 Attachment IS NULL AND Large Lot = '0.0')",
+     "support": 0.073,
+     "rows": 15373,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.63,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Large Lot=v1": "0.0"
+     }
+    },
+    {
+     "table": "lbusa.t3423523",
+     "K": [
+      "PIN"
+     ],
+     "cls": "cand",
+     "condition": "(Garage 1 Size missing, Large Lot = \"0.0\" (67%))",
+     "sql": "(Garage 1 Size IS NULL AND Large Lot = '0.0')",
+     "support": 0.073,
+     "rows": 15373,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.63,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Large Lot=v1": "0.0"
+     }
+    },
+    {
+     "table": "lbusa.t3423523",
+     "K": [
+      "PIN"
+     ],
+     "cls": "cand",
+     "condition": "(Repair Condition missing, Large Lot = \"0.0\" (67%))",
+     "sql": "(Repair Condition IS NULL AND Large Lot = '0.0')",
+     "support": 0.073,
+     "rows": 15373,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.63,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Large Lot=v1": "0.0"
+     }
+    },
+    {
+     "table": "lbusa.t3423523",
+     "K": [
+      "PIN"
+     ],
+     "cls": "cand",
+     "condition": "(Modeling Group = \"NCHARS\" (28%), Large Lot = \"0.0\" (67%))",
+     "sql": "(Modeling Group = 'NCHARS' AND Large Lot = '0.0')",
+     "support": 0.069,
+     "rows": 14554,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.613,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Modeling Group=v2": "NCHARS",
+      "Large Lot=v1": "0.0"
+     }
+    },
+    {
+     "table": "lbusa.t3423523",
+     "K": [
+      "PIN"
+     ],
+     "cls": "cand",
+     "condition": "(Garage 2 Attachment missing [same rows: Other Improvements missing, Number of Commercial Units missing, Garage 2 Size missing ...], Large Lot missing)",
+     "sql": "(Garage 2 Attachment IS NULL AND Large Lot IS NULL)",
+     "support": 0.054,
+     "rows": 11442,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.544,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t3423523",
+     "K": [
+      "PIN"
+     ],
+     "cls": "cand",
+     "condition": "(Repair Condition missing, Large Lot missing)",
+     "sql": "(Repair Condition IS NULL AND Large Lot IS NULL)",
+     "support": 0.054,
+     "rows": 11442,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.544,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t3423523",
+     "K": [
+      "PIN"
+     ],
+     "cls": "cand",
+     "condition": "(Attic Type missing [same rows: Roof Material missing, Site Desireability missing, Basement Finish missing ...], Large Lot missing)",
+     "sql": "(Attic Type IS NULL AND Large Lot IS NULL)",
+     "support": 0.054,
+     "rows": 11441,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.544,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t3423523",
+     "K": [
+      "PIN"
+     ],
+     "cls": "cand",
+     "condition": "(Garage 1 Size missing, Large Lot missing)",
+     "sql": "(Garage 1 Size IS NULL AND Large Lot IS NULL)",
+     "support": 0.054,
+     "rows": 11441,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.544,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t3423523",
+     "K": [
+      "PIN"
+     ],
+     "cls": "cand",
+     "condition": "(Modeling Group = \"NCHARS\" (28%), Large Lot missing)",
+     "sql": "(Modeling Group = 'NCHARS' AND Large Lot IS NULL)",
+     "support": 0.052,
+     "rows": 10941,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.532,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Modeling Group=v2": "NCHARS"
+     }
+    },
+    {
+     "table": "lbusa.t3423523",
+     "K": [
+      "Property Address",
+      "PIN"
+     ],
+     "cls": "cand",
+     "condition": "(Attic Type missing [same rows: Roof Material missing, Site Desireability missing, Basement Finish missing ...], Floodplain = \"1.0\" (8%))",
+     "sql": "(Attic Type IS NULL AND Floodplain = '1.0')",
+     "support": 0.056,
+     "rows": 11717,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.248,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Floodplain=v2": "1.0"
+     }
+    },
+    {
+     "table": "lbusa.t3423523",
+     "K": [
+      "Property Address",
+      "PIN"
+     ],
+     "cls": "cand",
+     "condition": "(Floodplain = \"1.0\" (8%), Repair Condition missing)",
+     "sql": "(Floodplain = '1.0' AND Repair Condition IS NULL)",
+     "support": 0.056,
+     "rows": 11717,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.248,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Floodplain=v2": "1.0"
+     }
+    },
+    {
+     "table": "lbusa.t3423523",
+     "K": [
+      "Property Address",
+      "PIN"
+     ],
+     "cls": "cand",
+     "condition": "(Attic Type = \"2.0\" (10%), Basement Finish = \"1.0\" (24%))",
+     "sql": "(Attic Type = '2.0' AND Basement Finish = '1.0')",
+     "support": 0.039,
+     "rows": 8180,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.207,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Attic Type=v2": "2.0",
+      "Basement Finish=v2": "1.0"
+     }
+    },
+    {
+     "table": "lbusa.t3423523",
+     "K": [
+      "Property Address",
+      "Latitude",
+      "Prior Tax Year Market Value Estimate (Building)"
+     ],
+     "cls": "dom",
+     "condition": "(Attic Type = \"2.0\" (10%), Basement Finish = \"1.0\" (24%))",
+     "sql": "(Attic Type = '2.0' AND Basement Finish = '1.0')",
+     "support": 0.039,
+     "rows": 8180,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.0,
+     "score": 0.068,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Attic Type=v2": "2.0",
+      "Basement Finish=v2": "1.0"
+     }
+    }
+   ],
+   "unconditional": {}
+  }
+ ]
+}

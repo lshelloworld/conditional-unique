@@ -1,0 +1,225 @@
+SELECT version();
+                                                      version                                                      
+-------------------------------------------------------------------------------------------------------------------
+ PostgreSQL 18.6 on aarch64-apple-darwin24.6.0, compiled by Apple clang version 17.0.0 (clang-1700.0.13.5), 64-bit
+(1 row)
+
+DROP SCHEMA IF EXISTS pgb CASCADE;
+psql:pg_baseline.sql:6: NOTICE:  schema "pgb" does not exist, skipping
+DROP SCHEMA
+CREATE SCHEMA pgb;
+CREATE SCHEMA
+SET search_path = pgb;
+SET
+SET max_parallel_workers_per_gather = 0;
+SET
+CREATE TABLE u_t (id int PRIMARY KEY, k int NOT NULL, d date, x int);
+CREATE TABLE
+CREATE TABLE p_t (id int PRIMARY KEY, k int NOT NULL, d date, x int);
+CREATE TABLE
+INSERT INTO u_t SELECT i, i, NULL, i % 10 FROM generate_series(1, 20000) i;
+INSERT 0 20000
+INSERT INTO p_t SELECT i, (i - 1) % 10000 + 1, CASE WHEN i > 10000 THEN NULL ELSE date '2020-01-01' END, i % 10
+  FROM generate_series(1, 20000) i;
+INSERT 0 20000
+CREATE UNIQUE INDEX ON u_t (k);
+CREATE INDEX
+CREATE UNIQUE INDEX ON p_t (k) WHERE d IS NULL;
+CREATE INDEX
+CREATE TABLE s (k int, y int);
+CREATE TABLE
+INSERT INTO s SELECT i % 12000, i FROM generate_series(1, 50000) i;
+INSERT 0 50000
+ANALYZE;
+ANALYZE
+EXPLAIN (COSTS OFF) SELECT s.* FROM s LEFT JOIN u_t b ON s.k = b.k AND b.d IS NULL;
+  QUERY PLAN   
+---------------
+ Seq Scan on s
+(1 row)
+
+EXPLAIN (COSTS OFF) SELECT s.* FROM s LEFT JOIN (SELECT * FROM p_t WHERE d IS NULL) b ON s.k = b.k;
+            QUERY PLAN             
+-----------------------------------
+ Hash Left Join
+   Hash Cond: (s.k = p_t.k)
+   ->  Seq Scan on s
+   ->  Hash
+         ->  Seq Scan on p_t
+               Filter: (d IS NULL)
+(6 rows)
+
+EXPLAIN (COSTS OFF) SELECT s.* FROM s LEFT JOIN p_t b ON s.k = b.k AND b.d IS NULL;
+            QUERY PLAN             
+-----------------------------------
+ Hash Left Join
+   Hash Cond: (s.k = b.k)
+   ->  Seq Scan on s
+   ->  Hash
+         ->  Seq Scan on p_t b
+               Filter: (d IS NULL)
+(6 rows)
+
+EXPLAIN (COSTS OFF, VERBOSE) SELECT s.y FROM s WHERE s.k IN (SELECT k FROM u_t WHERE d IS NULL);
+              QUERY PLAN               
+---------------------------------------
+ Hash Join
+   Output: s.y
+   Inner Unique: true
+   Hash Cond: (s.k = u_t.k)
+   ->  Seq Scan on pgb.s
+         Output: s.k, s.y
+   ->  Hash
+         Output: u_t.k
+         ->  Seq Scan on pgb.u_t
+               Output: u_t.k
+               Filter: (u_t.d IS NULL)
+(11 rows)
+
+EXPLAIN (COSTS OFF, VERBOSE) SELECT s.y FROM s WHERE s.k IN (SELECT k FROM p_t WHERE d IS NULL);
+              QUERY PLAN               
+---------------------------------------
+ Hash Semi Join
+   Output: s.y
+   Hash Cond: (s.k = p_t.k)
+   ->  Seq Scan on pgb.s
+         Output: s.k, s.y
+   ->  Hash
+         Output: p_t.k
+         ->  Seq Scan on pgb.p_t
+               Output: p_t.k
+               Filter: (p_t.d IS NULL)
+(10 rows)
+
+EXPLAIN (COSTS OFF, VERBOSE) SELECT s.y, b.x FROM s JOIN u_t b ON s.k = b.k WHERE b.d IS NULL;
+             QUERY PLAN              
+-------------------------------------
+ Hash Join
+   Output: s.y, b.x
+   Inner Unique: true
+   Hash Cond: (s.k = b.k)
+   ->  Seq Scan on pgb.s
+         Output: s.k, s.y
+   ->  Hash
+         Output: b.x, b.k
+         ->  Seq Scan on pgb.u_t b
+               Output: b.x, b.k
+               Filter: (b.d IS NULL)
+(11 rows)
+
+EXPLAIN (COSTS OFF, VERBOSE) SELECT s.y, b.x FROM s JOIN p_t b ON s.k = b.k WHERE b.d IS NULL;
+             QUERY PLAN              
+-------------------------------------
+ Hash Join
+   Output: s.y, b.x
+   Hash Cond: (s.k = b.k)
+   ->  Seq Scan on pgb.s
+         Output: s.k, s.y
+   ->  Hash
+         Output: b.x, b.k
+         ->  Seq Scan on pgb.p_t b
+               Output: b.x, b.k
+               Filter: (b.d IS NULL)
+(10 rows)
+
+EXPLAIN (COSTS OFF, VERBOSE) SELECT k, x, count(*) FROM u_t WHERE d IS NULL GROUP BY k, x;
+           QUERY PLAN            
+---------------------------------
+ HashAggregate
+   Output: k, x, count(*)
+   Group Key: u_t.k
+   ->  Seq Scan on pgb.u_t
+         Output: id, k, d, x
+         Filter: (u_t.d IS NULL)
+(6 rows)
+
+EXPLAIN (COSTS OFF, VERBOSE) SELECT k, x, count(*) FROM p_t WHERE d IS NULL GROUP BY k, x;
+           QUERY PLAN            
+---------------------------------
+ HashAggregate
+   Output: k, x, count(*)
+   Group Key: p_t.k, p_t.x
+   ->  Seq Scan on pgb.p_t
+         Output: id, k, d, x
+         Filter: (p_t.d IS NULL)
+(6 rows)
+
+EXPLAIN (COSTS OFF) SELECT DISTINCT k FROM u_t WHERE d IS NULL;
+         QUERY PLAN          
+-----------------------------
+ HashAggregate
+   Group Key: k
+   ->  Seq Scan on u_t
+         Filter: (d IS NULL)
+(4 rows)
+
+EXPLAIN (COSTS OFF) SELECT DISTINCT k FROM p_t WHERE d IS NULL;
+         QUERY PLAN          
+-----------------------------
+ HashAggregate
+   Group Key: k
+   ->  Seq Scan on p_t
+         Filter: (d IS NULL)
+(4 rows)
+
+EXPLAIN (COSTS OFF) SELECT s.y FROM s WHERE s.k IN (SELECT DISTINCT k FROM p_t WHERE d IS NULL);
+               QUERY PLAN                
+-----------------------------------------
+ Hash Join
+   Hash Cond: (s.k = p_t.k)
+   ->  Seq Scan on s
+   ->  Hash
+         ->  HashAggregate
+               Group Key: p_t.k
+               ->  Seq Scan on p_t
+                     Filter: (d IS NULL)
+(8 rows)
+
+SHOW enable_self_join_elimination;
+ enable_self_join_elimination 
+------------------------------
+ on
+(1 row)
+
+EXPLAIN (COSTS OFF) SELECT a.x, b.id FROM u_t a JOIN u_t b ON a.k = b.k;
+    QUERY PLAN     
+-------------------
+ Seq Scan on u_t b
+(1 row)
+
+EXPLAIN (COSTS OFF) SELECT a.x, b.id FROM p_t a JOIN p_t b ON a.k = b.k WHERE a.d IS NULL AND b.d IS NULL;
+            QUERY PLAN             
+-----------------------------------
+ Hash Join
+   Hash Cond: (a.k = b.k)
+   ->  Seq Scan on p_t a
+         Filter: (d IS NULL)
+   ->  Hash
+         ->  Seq Scan on p_t b
+               Filter: (d IS NULL)
+(7 rows)
+
+EXPLAIN SELECT k, count(*) FROM u_t WHERE d IS NULL GROUP BY k;
+                          QUERY PLAN                           
+---------------------------------------------------------------
+ HashAggregate  (cost=409.00..609.00 rows=20000 width=12)
+   Group Key: k
+   ->  Seq Scan on u_t  (cost=0.00..309.00 rows=20000 width=4)
+         Filter: (d IS NULL)
+(4 rows)
+
+EXPLAIN SELECT k, count(*) FROM p_t WHERE d IS NULL GROUP BY k;
+                          QUERY PLAN                           
+---------------------------------------------------------------
+ HashAggregate  (cost=359.00..459.00 rows=10000 width=12)
+   Group Key: k
+   ->  Seq Scan on p_t  (cost=0.00..309.00 rows=10000 width=4)
+         Filter: (d IS NULL)
+(4 rows)
+
+DROP SCHEMA pgb CASCADE;
+psql:pg_baseline.sql:51: NOTICE:  drop cascades to 3 other objects
+DETAIL:  drop cascades to table u_t
+drop cascades to table p_t
+drop cascades to table s
+DROP SCHEMA

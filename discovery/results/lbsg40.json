@@ -1,0 +1,7475 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "entity_name",
+   "registration_incorporation_date",
+   "building_name",
+   "uen_issue_date",
+   "street_name",
+   "uen",
+   "postal_code",
+   "block",
+   "unit_no",
+   "secondary_ssic_description",
+   "secondary_ssic_code",
+   "primary_ssic_description",
+   "primary_ssic_code"
+  ]
+ },
+ "sample_rows": 76809,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbsg.t40",
+   "rows": 76809,
+   "cols": [
+    "issuance_agency_id",
+    "uen",
+    "entity_name",
+    "entity_type_description",
+    "business_constitution_description",
+    "entity_status_description",
+    "registration_incorporation_date",
+    "uen_issue_date",
+    "address_type",
+    "block",
+    "street_name",
+    "level_no",
+    "unit_no",
+    "building_name",
+    "postal_code",
+    "no_of_charges",
+    "primary_ssic_code",
+    "primary_ssic_description",
+    "secondary_ssic_code",
+    "secondary_ssic_description",
+    "no_of_officers"
+   ],
+   "n_conditional": 302,
+   "conditional": [
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date"
+     ],
+     "cls": "cand",
+     "condition": "(entity_status_description present)",
+     "sql": "(entity_status_description IS NOT NULL)",
+     "support": 0.822,
+     "rows": 63134,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.856,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date"
+     ],
+     "cls": "cand",
+     "condition": "(building_name present)",
+     "sql": "(building_name IS NOT NULL)",
+     "support": 0.615,
+     "rows": 47233,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.47,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date",
+      "unit_no"
+     ],
+     "cls": "cert",
+     "condition": "(level_no present)",
+     "sql": "(level_no IS NOT NULL)",
+     "support": 0.823,
+     "rows": 63179,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.004,
+     "score": 2.358,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date"
+     ],
+     "cls": "cand",
+     "condition": "(business_constitution_description missing)",
+     "sql": "(business_constitution_description IS NULL)",
+     "support": 0.499,
+     "rows": 38306,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.225,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date"
+     ],
+     "cls": "cand",
+     "condition": "(business_constitution_description missing)",
+     "sql": "(business_constitution_description IS NULL)",
+     "support": 0.499,
+     "rows": 38306,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.225,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date"
+     ],
+     "cls": "cand",
+     "condition": "(entity_type_description = \"Local Company\" (47%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.469,
+     "rows": 36039,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.158,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date"
+     ],
+     "cls": "cand",
+     "condition": "(entity_type_description = \"Local Company\" (47%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.469,
+     "rows": 36039,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.158,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date",
+      "primary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(secondary_ssic_code IS NOT NULL)",
+     "support": 0.541,
+     "rows": 41575,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.06,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date",
+      "unit_no"
+     ],
+     "cls": "cert",
+     "condition": "(secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(secondary_ssic_code IS NULL)",
+     "support": 0.459,
+     "rows": 35234,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.181,
+     "score": 1.761,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date",
+      "primary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(building_name missing)",
+     "sql": "(building_name IS NULL)",
+     "support": 0.385,
+     "rows": 29576,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.737,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date",
+      "unit_no"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description = \"Sole Proprietor\" (41%))",
+     "sql": "(business_constitution_description = 'Sole Proprietor')",
+     "support": 0.408,
+     "rows": 31305,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.201,
+     "score": 1.66,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "business_constitution_description=v1": "Sole Proprietor"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(building_name missing)",
+     "sql": "(building_name IS NULL)",
+     "support": 0.385,
+     "rows": 29576,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.475,
+     "score": 1.613,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date",
+      "building_name"
+     ],
+     "cls": "dom",
+     "condition": "(level_no present)",
+     "sql": "(level_no IS NOT NULL)",
+     "support": 0.823,
+     "rows": 63179,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.308,
+     "score": 1.415,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date",
+      "building_name"
+     ],
+     "cls": "dom",
+     "condition": "(unit_no present)",
+     "sql": "(unit_no IS NOT NULL)",
+     "support": 0.821,
+     "rows": 63025,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.308,
+     "score": 1.413,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date"
+     ],
+     "cls": "cand",
+     "condition": "(level_no present, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(level_no IS NOT NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.446,
+     "rows": 34251,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.402,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date"
+     ],
+     "cls": "cand",
+     "condition": "(unit_no present, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(unit_no IS NOT NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.445,
+     "rows": 34167,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.401,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date"
+     ],
+     "cls": "cand",
+     "condition": "(entity_status_description missing)",
+     "sql": "(entity_status_description IS NULL)",
+     "support": 0.178,
+     "rows": 13675,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.329,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date",
+      "primary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(unit_no missing)",
+     "sql": "(unit_no IS NULL)",
+     "support": 0.179,
+     "rows": 13784,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.186,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date",
+      "primary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.177,
+     "rows": 13630,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.18,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description missing)",
+     "sql": "(business_constitution_description IS NULL)",
+     "support": 0.499,
+     "rows": 38306,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.584,
+     "score": 1.102,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "street_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description missing)",
+     "sql": "(business_constitution_description IS NULL)",
+     "support": 0.499,
+     "rows": 38306,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.44,
+     "score": 1.102,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description missing)",
+     "sql": "(business_constitution_description IS NULL)",
+     "support": 0.499,
+     "rows": 38306,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.44,
+     "score": 1.102,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description missing)",
+     "sql": "(business_constitution_description IS NULL)",
+     "support": 0.499,
+     "rows": 38306,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.517,
+     "score": 1.102,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code",
+      "primary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description missing)",
+     "sql": "(business_constitution_description IS NULL)",
+     "support": 0.499,
+     "rows": 38306,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.439,
+     "score": 1.102,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(unit_no missing)",
+     "sql": "(unit_no IS NULL)",
+     "support": 0.179,
+     "rows": 13784,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.463,
+     "score": 1.101,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "street_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(business_constitution_description IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.28,
+     "rows": 21474,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 1.1,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(business_constitution_description IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.28,
+     "rows": 21474,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 1.1,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(business_constitution_description IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.28,
+     "rows": 21474,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.139,
+     "score": 1.1,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.177,
+     "rows": 13630,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.463,
+     "score": 1.095,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "street_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (47%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(entity_type_description = 'Local Company' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.267,
+     "rows": 20485,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 1.074,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (47%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(entity_type_description = 'Local Company' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.267,
+     "rows": 20485,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 1.074,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (47%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(entity_type_description = 'Local Company' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.267,
+     "rows": 20485,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.138,
+     "score": 1.074,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Local Company\" (47%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.469,
+     "rows": 36039,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.577,
+     "score": 1.069,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "street_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Local Company\" (47%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.469,
+     "rows": 36039,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.432,
+     "score": 1.069,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Local Company\" (47%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.469,
+     "rows": 36039,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.432,
+     "score": 1.069,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Local Company\" (47%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.469,
+     "rows": 36039,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.51,
+     "score": 1.069,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code",
+      "primary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Local Company\" (47%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.469,
+     "rows": 36039,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.432,
+     "score": 1.069,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date"
+     ],
+     "cls": "cand",
+     "condition": "(level_no present, building_name missing)",
+     "sql": "(level_no IS NOT NULL AND building_name IS NULL)",
+     "support": 0.254,
+     "rows": 19475,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.057,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date",
+      "building_name"
+     ],
+     "cls": "dom",
+     "condition": "(secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(secondary_ssic_code IS NULL)",
+     "support": 0.459,
+     "rows": 35234,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.399,
+     "score": 1.057,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date"
+     ],
+     "cls": "cand",
+     "condition": "(unit_no present, building_name missing)",
+     "sql": "(unit_no IS NOT NULL AND building_name IS NULL)",
+     "support": 0.253,
+     "rows": 19425,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.056,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date",
+      "primary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(secondary_ssic_code IS NOT NULL)",
+     "support": 0.541,
+     "rows": 41575,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.03,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date",
+      "building_name"
+     ],
+     "cls": "dom",
+     "condition": "(business_constitution_description = \"Sole Proprietor\" (41%))",
+     "sql": "(business_constitution_description = 'Sole Proprietor')",
+     "support": 0.408,
+     "rows": 31305,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.5,
+     "score": 0.996,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v1": "Sole Proprietor"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code",
+      "primary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(business_constitution_description missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(business_constitution_description IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.28,
+     "rows": 21474,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.987,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date"
+     ],
+     "cls": "cand",
+     "condition": "(business_constitution_description = \"Partnership\" (9%))",
+     "sql": "(business_constitution_description = 'Partnership')",
+     "support": 0.094,
+     "rows": 7198,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.964,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code",
+      "primary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(entity_type_description = \"Local Company\" (47%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(entity_type_description = 'Local Company' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.267,
+     "rows": 20485,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.964,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date"
+     ],
+     "cls": "cand",
+     "condition": "(business_constitution_description = \"Sole Proprietor\" (41%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(business_constitution_description = 'Sole Proprietor' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.209,
+     "rows": 16045,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.96,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v1": "Sole Proprietor"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date"
+     ],
+     "cls": "cand",
+     "condition": "(business_constitution_description = \"Sole Proprietor\" (41%), building_name missing)",
+     "sql": "(business_constitution_description = 'Sole Proprietor' AND building_name IS NULL)",
+     "support": 0.204,
+     "rows": 15655,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.948,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v1": "Sole Proprietor"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date"
+     ],
+     "cls": "cand",
+     "condition": "(building_name missing, secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(building_name IS NULL AND secondary_ssic_code IS NULL)",
+     "support": 0.183,
+     "rows": 14059,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.898,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date",
+      "secondary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(secondary_ssic_code IS NOT NULL)",
+     "support": 0.541,
+     "rows": 41575,
+     "uncond": "pos",
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.883,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date",
+      "primary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(building_name missing)",
+     "sql": "(building_name IS NULL)",
+     "support": 0.385,
+     "rows": 29576,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.869,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(building_name missing)",
+     "sql": "(building_name IS NULL)",
+     "support": 0.385,
+     "rows": 29576,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.475,
+     "score": 0.807,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "primary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(business_constitution_description missing, building_name missing)",
+     "sql": "(business_constitution_description IS NULL AND building_name IS NULL)",
+     "support": 0.131,
+     "rows": 10093,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.761,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "street_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description missing, building_name missing)",
+     "sql": "(business_constitution_description IS NULL AND building_name IS NULL)",
+     "support": 0.131,
+     "rows": 10093,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.451,
+     "score": 0.754,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description missing, building_name missing)",
+     "sql": "(business_constitution_description IS NULL AND building_name IS NULL)",
+     "support": 0.131,
+     "rows": 10093,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.451,
+     "score": 0.754,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.177,
+     "rows": 13630,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.994,
+     "score": 0.739,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(business_constitution_description missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(business_constitution_description IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.28,
+     "rows": 21474,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.258,
+     "score": 0.733,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "primary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(entity_type_description = \"Local Company\" (47%), building_name missing)",
+     "sql": "(entity_type_description = 'Local Company' AND building_name IS NULL)",
+     "support": 0.12,
+     "rows": 9221,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.728,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "street_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (47%), building_name missing)",
+     "sql": "(entity_type_description = 'Local Company' AND building_name IS NULL)",
+     "support": 0.12,
+     "rows": 9221,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.434,
+     "score": 0.721,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (47%), building_name missing)",
+     "sql": "(entity_type_description = 'Local Company' AND building_name IS NULL)",
+     "support": 0.12,
+     "rows": 9221,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.434,
+     "score": 0.721,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(entity_type_description = \"Local Company\" (47%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(entity_type_description = 'Local Company' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.267,
+     "rows": 20485,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.255,
+     "score": 0.716,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description missing, building_name present)",
+     "sql": "(business_constitution_description IS NULL AND building_name IS NOT NULL)",
+     "support": 0.367,
+     "rows": 28213,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.436,
+     "score": 0.709,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Local Company\" (47%), building_name present)",
+     "sql": "(entity_type_description = 'Local Company' AND building_name IS NOT NULL)",
+     "support": 0.349,
+     "rows": 26818,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.431,
+     "score": 0.691,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(unit_no missing)",
+     "sql": "(unit_no IS NULL)",
+     "support": 0.179,
+     "rows": 13784,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.863,
+     "score": 0.661,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(unit_no missing)",
+     "sql": "(unit_no IS NULL)",
+     "support": 0.179,
+     "rows": 13784,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.463,
+     "score": 0.661,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.177,
+     "rows": 13630,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.865,
+     "score": 0.657,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.177,
+     "rows": 13630,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.463,
+     "score": 0.657,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "building_name",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.177,
+     "rows": 13630,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.996,
+     "score": 0.657,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "street_name",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.177,
+     "rows": 13630,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.994,
+     "score": 0.657,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "postal_code",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.177,
+     "rows": 13630,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.994,
+     "score": 0.657,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "unit_no",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.177,
+     "rows": 13630,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.997,
+     "score": 0.657,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "unit_no",
+      "primary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.177,
+     "rows": 13630,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.994,
+     "score": 0.657,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "street_name",
+      "unit_no",
+      "primary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.177,
+     "rows": 13630,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.994,
+     "score": 0.657,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "postal_code",
+      "unit_no",
+      "primary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.177,
+     "rows": 13630,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.994,
+     "score": 0.657,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(unit_no missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(unit_no IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.096,
+     "rows": 7408,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.646,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(unit_no missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(unit_no IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.096,
+     "rows": 7408,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.646,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(level_no missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(level_no IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.095,
+     "rows": 7324,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.003,
+     "score": 0.642,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(level_no missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(level_no IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.095,
+     "rows": 7324,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.642,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description missing, unit_no missing)",
+     "sql": "(business_constitution_description IS NULL AND unit_no IS NULL)",
+     "support": 0.071,
+     "rows": 5443,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.027,
+     "score": 0.623,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description missing, unit_no missing)",
+     "sql": "(business_constitution_description IS NULL AND unit_no IS NULL)",
+     "support": 0.071,
+     "rows": 5443,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.026,
+     "score": 0.623,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description missing, level_no missing)",
+     "sql": "(business_constitution_description IS NULL AND level_no IS NULL)",
+     "support": 0.069,
+     "rows": 5336,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.027,
+     "score": 0.617,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description missing, level_no missing)",
+     "sql": "(business_constitution_description IS NULL AND level_no IS NULL)",
+     "support": 0.069,
+     "rows": 5336,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.027,
+     "score": 0.617,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date"
+     ],
+     "cls": "cand",
+     "condition": "(unit_no missing, secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(unit_no IS NULL AND secondary_ssic_code IS NULL)",
+     "support": 0.083,
+     "rows": 6376,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.605,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date"
+     ],
+     "cls": "cand",
+     "condition": "(level_no missing, secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(level_no IS NULL AND secondary_ssic_code IS NULL)",
+     "support": 0.082,
+     "rows": 6306,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.602,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date"
+     ],
+     "cls": "cand",
+     "condition": "(business_constitution_description = \"Sole Proprietor\" (41%), unit_no missing)",
+     "sql": "(business_constitution_description = 'Sole Proprietor' AND unit_no IS NULL)",
+     "support": 0.082,
+     "rows": 6292,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.601,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v1": "Sole Proprietor"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date"
+     ],
+     "cls": "cand",
+     "condition": "(business_constitution_description = \"Sole Proprietor\" (41%), level_no missing)",
+     "sql": "(business_constitution_description = 'Sole Proprietor' AND level_no IS NULL)",
+     "support": 0.081,
+     "rows": 6254,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.599,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v1": "Sole Proprietor"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (47%), unit_no missing)",
+     "sql": "(entity_type_description = 'Local Company' AND unit_no IS NULL)",
+     "support": 0.065,
+     "rows": 4965,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.595,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (47%), unit_no missing)",
+     "sql": "(entity_type_description = 'Local Company' AND unit_no IS NULL)",
+     "support": 0.065,
+     "rows": 4965,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.595,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(secondary_ssic_code IS NULL)",
+     "support": 0.459,
+     "rows": 35234,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.594,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date",
+      "primary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(unit_no missing)",
+     "sql": "(unit_no IS NULL)",
+     "support": 0.179,
+     "rows": 13784,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.593,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date",
+      "primary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.177,
+     "rows": 13630,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.59,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (47%), level_no missing)",
+     "sql": "(entity_type_description = 'Local Company' AND level_no IS NULL)",
+     "support": 0.063,
+     "rows": 4867,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.589,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (47%), level_no missing)",
+     "sql": "(entity_type_description = 'Local Company' AND level_no IS NULL)",
+     "support": 0.063,
+     "rows": 4867,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.589,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "secondary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(unit_no missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(unit_no IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.096,
+     "rows": 7408,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.58,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "primary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(unit_no missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(unit_no IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.096,
+     "rows": 7408,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.58,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "secondary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(level_no missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(level_no IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.095,
+     "rows": 7324,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.576,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "primary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(level_no missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(level_no IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.095,
+     "rows": 7324,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.576,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(business_constitution_description missing, building_name missing)",
+     "sql": "(business_constitution_description IS NULL AND building_name IS NULL)",
+     "support": 0.131,
+     "rows": 10093,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.45,
+     "score": 0.565,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "primary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(business_constitution_description missing, unit_no missing)",
+     "sql": "(business_constitution_description IS NULL AND unit_no IS NULL)",
+     "support": 0.071,
+     "rows": 5443,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.559,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description present, building_name missing)",
+     "sql": "(entity_status_description IS NOT NULL AND building_name IS NULL)",
+     "support": 0.289,
+     "rows": 22178,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.479,
+     "score": 0.559,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "primary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(business_constitution_description missing, level_no missing)",
+     "sql": "(business_constitution_description IS NULL AND level_no IS NULL)",
+     "support": 0.069,
+     "rows": 5336,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.554,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description missing)",
+     "sql": "(business_constitution_description IS NULL)",
+     "support": 0.499,
+     "rows": 38306,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.584,
+     "score": 0.551,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "street_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description missing)",
+     "sql": "(business_constitution_description IS NULL)",
+     "support": 0.499,
+     "rows": 38306,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.44,
+     "score": 0.551,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description missing)",
+     "sql": "(business_constitution_description IS NULL)",
+     "support": 0.499,
+     "rows": 38306,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.44,
+     "score": 0.551,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "block",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description missing)",
+     "sql": "(business_constitution_description IS NULL)",
+     "support": 0.499,
+     "rows": 38306,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.44,
+     "score": 0.551,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description missing)",
+     "sql": "(business_constitution_description IS NULL)",
+     "support": 0.499,
+     "rows": 38306,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.517,
+     "score": 0.551,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description",
+      "primary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description missing)",
+     "sql": "(business_constitution_description IS NULL)",
+     "support": 0.499,
+     "rows": 38306,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.439,
+     "score": 0.551,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code",
+      "primary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description missing)",
+     "sql": "(business_constitution_description IS NULL)",
+     "support": 0.499,
+     "rows": 38306,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.439,
+     "score": 0.551,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(unit_no missing)",
+     "sql": "(unit_no IS NULL)",
+     "support": 0.179,
+     "rows": 13784,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.463,
+     "score": 0.551,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "street_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(business_constitution_description IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.28,
+     "rows": 21474,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.55,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(business_constitution_description IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.28,
+     "rows": 21474,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.55,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "block",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(business_constitution_description IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.28,
+     "rows": 21474,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.55,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(business_constitution_description IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.28,
+     "rows": 21474,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.139,
+     "score": 0.55,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "registration_incorporation_date",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.177,
+     "rows": 13630,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.463,
+     "score": 0.548,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(entity_type_description = \"Local Company\" (47%), building_name missing)",
+     "sql": "(entity_type_description = 'Local Company' AND building_name IS NULL)",
+     "support": 0.12,
+     "rows": 9221,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.433,
+     "score": 0.541,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "street_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (47%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(entity_type_description = 'Local Company' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.267,
+     "rows": 20485,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.537,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (47%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(entity_type_description = 'Local Company' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.267,
+     "rows": 20485,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.537,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "block",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (47%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(entity_type_description = 'Local Company' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.267,
+     "rows": 20485,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.537,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (47%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(entity_type_description = 'Local Company' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.267,
+     "rows": 20485,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.138,
+     "score": 0.537,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Local Company\" (47%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.469,
+     "rows": 36039,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.577,
+     "score": 0.534,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "street_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Local Company\" (47%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.469,
+     "rows": 36039,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.432,
+     "score": 0.534,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Local Company\" (47%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.469,
+     "rows": 36039,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.432,
+     "score": 0.534,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "block",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Local Company\" (47%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.469,
+     "rows": 36039,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.432,
+     "score": 0.534,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Local Company\" (47%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.469,
+     "rows": 36039,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.51,
+     "score": 0.534,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description",
+      "primary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Local Company\" (47%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.469,
+     "rows": 36039,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.432,
+     "score": 0.534,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code",
+      "primary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Local Company\" (47%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.469,
+     "rows": 36039,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.432,
+     "score": 0.534,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "primary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(entity_type_description = \"Local Company\" (47%), unit_no missing)",
+     "sql": "(entity_type_description = 'Local Company' AND unit_no IS NULL)",
+     "support": 0.065,
+     "rows": 4965,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.534,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "primary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(entity_type_description = \"Local Company\" (47%), level_no missing)",
+     "sql": "(entity_type_description = 'Local Company' AND level_no IS NULL)",
+     "support": 0.063,
+     "rows": 4867,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.529,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "street_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(secondary_ssic_code IS NULL)",
+     "support": 0.459,
+     "rows": 35234,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.528,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "postal_code",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(secondary_ssic_code IS NULL)",
+     "support": 0.459,
+     "rows": 35234,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.528,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "unit_no",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(secondary_ssic_code IS NULL)",
+     "support": 0.459,
+     "rows": 35234,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.528,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "secondary_ssic_description",
+      "primary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(secondary_ssic_code IS NULL)",
+     "support": 0.459,
+     "rows": 35234,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.528,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "uen_issue_date",
+      "postal_code",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(secondary_ssic_code IS NULL)",
+     "support": 0.459,
+     "rows": 35234,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.528,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "postal_code",
+      "secondary_ssic_description",
+      "primary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(secondary_ssic_code IS NULL)",
+     "support": 0.459,
+     "rows": 35234,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.528,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description",
+      "primary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(business_constitution_description missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(business_constitution_description IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.28,
+     "rows": 21474,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.494,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code",
+      "primary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(business_constitution_description missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(business_constitution_description IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.28,
+     "rows": 21474,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.494,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description",
+      "primary_ssic_code"
+     ],
+     "cls": "cand",
+     "condition": "(entity_type_description = \"Local Company\" (47%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(entity_type_description = 'Local Company' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.267,
+     "rows": 20485,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.482,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code",
+      "primary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(entity_type_description = \"Local Company\" (47%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(entity_type_description = 'Local Company' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.267,
+     "rows": 20485,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.482,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(business_constitution_description = 'Partnership' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.053,
+     "rows": 4056,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.478,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(business_constitution_description = 'Partnership' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.053,
+     "rows": 4056,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.478,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "street_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(business_constitution_description = 'Partnership' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.053,
+     "rows": 4056,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.478,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "postal_code",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(business_constitution_description = 'Partnership' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.053,
+     "rows": 4056,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.478,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name",
+      "uen_issue_date"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%))",
+     "sql": "(business_constitution_description = 'Partnership')",
+     "support": 0.094,
+     "rows": 7198,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.532,
+     "score": 0.478,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "street_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%))",
+     "sql": "(business_constitution_description = 'Partnership')",
+     "support": 0.094,
+     "rows": 7198,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.437,
+     "score": 0.478,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "postal_code",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%))",
+     "sql": "(business_constitution_description = 'Partnership')",
+     "support": 0.094,
+     "rows": 7198,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.437,
+     "score": 0.478,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "unit_no",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%))",
+     "sql": "(business_constitution_description = 'Partnership')",
+     "support": 0.094,
+     "rows": 7198,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.597,
+     "score": 0.478,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Sole Proprietor\" (41%), building_name missing)",
+     "sql": "(business_constitution_description = 'Sole Proprietor' AND building_name IS NULL)",
+     "support": 0.204,
+     "rows": 15655,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.498,
+     "score": 0.47,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v1": "Sole Proprietor"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name",
+      "uen_issue_date"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), entity_status_description missing)",
+     "sql": "(business_constitution_description = 'Partnership' AND entity_status_description IS NULL)",
+     "support": 0.05,
+     "rows": 3865,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.56,
+     "score": 0.467,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), entity_status_description missing)",
+     "sql": "(business_constitution_description = 'Partnership' AND entity_status_description IS NULL)",
+     "support": 0.05,
+     "rows": 3865,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 0.467,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "postal_code"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), entity_status_description missing)",
+     "sql": "(business_constitution_description = 'Partnership' AND entity_status_description IS NULL)",
+     "support": 0.05,
+     "rows": 3865,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.467,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "street_name",
+      "primary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(entity_status_description missing, building_name missing)",
+     "sql": "(entity_status_description IS NULL AND building_name IS NULL)",
+     "support": 0.096,
+     "rows": 7398,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.02,
+     "score": 0.43,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "primary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(entity_status_description missing, building_name missing)",
+     "sql": "(entity_status_description IS NULL AND building_name IS NULL)",
+     "support": 0.096,
+     "rows": 7398,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.017,
+     "score": 0.43,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(business_constitution_description missing, unit_no missing)",
+     "sql": "(business_constitution_description IS NULL AND unit_no IS NULL)",
+     "support": 0.071,
+     "rows": 5443,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.453,
+     "score": 0.415,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(business_constitution_description missing, level_no missing)",
+     "sql": "(business_constitution_description IS NULL AND level_no IS NULL)",
+     "support": 0.069,
+     "rows": 5336,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.453,
+     "score": 0.411,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(entity_type_description = \"Local Company\" (47%), unit_no missing)",
+     "sql": "(entity_type_description = 'Local Company' AND unit_no IS NULL)",
+     "support": 0.065,
+     "rows": 4965,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.429,
+     "score": 0.397,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(entity_type_description = \"Local Company\" (47%), level_no missing)",
+     "sql": "(entity_type_description = 'Local Company' AND level_no IS NULL)",
+     "support": 0.063,
+     "rows": 4867,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.429,
+     "score": 0.393,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name",
+      "uen_issue_date"
+     ],
+     "cls": "cand",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), building_name present)",
+     "sql": "(business_constitution_description = 'Partnership' AND building_name IS NOT NULL)",
+     "support": 0.044,
+     "rows": 3370,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.391,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "street_name"
+     ],
+     "cls": "cand",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), building_name present)",
+     "sql": "(business_constitution_description = 'Partnership' AND building_name IS NOT NULL)",
+     "support": 0.044,
+     "rows": 3370,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.391,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "postal_code"
+     ],
+     "cls": "cand",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), building_name present)",
+     "sql": "(business_constitution_description = 'Partnership' AND building_name IS NOT NULL)",
+     "support": 0.044,
+     "rows": 3370,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.391,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "primary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(business_constitution_description missing, building_name missing)",
+     "sql": "(business_constitution_description IS NULL AND building_name IS NULL)",
+     "support": 0.131,
+     "rows": 10093,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.381,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "street_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description missing, building_name missing)",
+     "sql": "(business_constitution_description IS NULL AND building_name IS NULL)",
+     "support": 0.131,
+     "rows": 10093,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.451,
+     "score": 0.377,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description missing, building_name missing)",
+     "sql": "(business_constitution_description IS NULL AND building_name IS NULL)",
+     "support": 0.131,
+     "rows": 10093,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.451,
+     "score": 0.377,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "block",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description missing, building_name missing)",
+     "sql": "(business_constitution_description IS NULL AND building_name IS NULL)",
+     "support": 0.131,
+     "rows": 10093,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.452,
+     "score": 0.377,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "dom",
+     "condition": "(business_constitution_description missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(business_constitution_description IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.28,
+     "rows": 21474,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.258,
+     "score": 0.367,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "primary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(entity_type_description = \"Local Company\" (47%), building_name missing)",
+     "sql": "(entity_type_description = 'Local Company' AND building_name IS NULL)",
+     "support": 0.12,
+     "rows": 9221,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.364,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "uen_issue_date",
+      "postal_code",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description present, level_no missing)",
+     "sql": "(entity_status_description IS NOT NULL AND level_no IS NULL)",
+     "support": 0.122,
+     "rows": 9396,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.995,
+     "score": 0.364,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing, building_name missing)",
+     "sql": "(entity_status_description IS NULL AND building_name IS NULL)",
+     "support": 0.096,
+     "rows": 7398,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.482,
+     "score": 0.363,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "street_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (47%), building_name missing)",
+     "sql": "(entity_type_description = 'Local Company' AND building_name IS NULL)",
+     "support": 0.12,
+     "rows": 9221,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.434,
+     "score": 0.36,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (47%), building_name missing)",
+     "sql": "(entity_type_description = 'Local Company' AND building_name IS NULL)",
+     "support": 0.12,
+     "rows": 9221,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.434,
+     "score": 0.36,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "block",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (47%), building_name missing)",
+     "sql": "(entity_type_description = 'Local Company' AND building_name IS NULL)",
+     "support": 0.12,
+     "rows": 9221,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.435,
+     "score": 0.36,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "dom",
+     "condition": "(entity_type_description = \"Local Company\" (47%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(entity_type_description = 'Local Company' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.267,
+     "rows": 20485,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.255,
+     "score": 0.358,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description missing, building_name present)",
+     "sql": "(business_constitution_description IS NULL AND building_name IS NOT NULL)",
+     "support": 0.367,
+     "rows": 28213,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.436,
+     "score": 0.355,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Local Company\" (47%), building_name present)",
+     "sql": "(entity_type_description = 'Local Company' AND building_name IS NOT NULL)",
+     "support": 0.349,
+     "rows": 26818,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.431,
+     "score": 0.346,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "uen_issue_date",
+      "postal_code",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Business\" (50%), level_no missing)",
+     "sql": "(entity_type_description = 'Business' AND level_no IS NULL)",
+     "support": 0.11,
+     "rows": 8448,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.995,
+     "score": 0.345,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v1": "Business"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "uen_issue_date",
+      "postal_code",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description present, level_no missing)",
+     "sql": "(business_constitution_description IS NOT NULL AND level_no IS NULL)",
+     "support": 0.108,
+     "rows": 8294,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.995,
+     "score": 0.342,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(unit_no missing)",
+     "sql": "(unit_no IS NULL)",
+     "support": 0.179,
+     "rows": 13784,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.863,
+     "score": 0.33,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(unit_no missing)",
+     "sql": "(unit_no IS NULL)",
+     "support": 0.179,
+     "rows": 13784,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.463,
+     "score": 0.33,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.177,
+     "rows": 13630,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.865,
+     "score": 0.329,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.177,
+     "rows": 13630,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.463,
+     "score": 0.329,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "block",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.177,
+     "rows": 13630,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.996,
+     "score": 0.329,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "unit_no",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.177,
+     "rows": 13630,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.997,
+     "score": 0.329,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "unit_no",
+      "primary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.177,
+     "rows": 13630,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.994,
+     "score": 0.329,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "street_name",
+      "unit_no",
+      "primary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.177,
+     "rows": 13630,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.994,
+     "score": 0.329,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "postal_code",
+      "unit_no",
+      "primary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.177,
+     "rows": 13630,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.994,
+     "score": 0.329,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "block",
+      "unit_no",
+      "primary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.177,
+     "rows": 13630,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.996,
+     "score": 0.329,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name",
+      "uen_issue_date"
+     ],
+     "cls": "pos",
+     "condition": "(unit_no missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(unit_no IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.096,
+     "rows": 7408,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.744,
+     "score": 0.323,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name",
+      "primary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(unit_no missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(unit_no IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.096,
+     "rows": 7408,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.744,
+     "score": 0.323,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "block"
+     ],
+     "cls": "cert",
+     "condition": "(unit_no missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(unit_no IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.096,
+     "rows": 7408,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.323,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing, building_name missing)",
+     "sql": "(entity_status_description IS NULL AND building_name IS NULL)",
+     "support": 0.096,
+     "rows": 7398,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.464,
+     "score": 0.323,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "street_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing, building_name missing)",
+     "sql": "(entity_status_description IS NULL AND building_name IS NULL)",
+     "support": 0.096,
+     "rows": 7398,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.467,
+     "score": 0.323,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing, building_name missing)",
+     "sql": "(entity_status_description IS NULL AND building_name IS NULL)",
+     "support": 0.096,
+     "rows": 7398,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.464,
+     "score": 0.323,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "unit_no",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing, building_name missing)",
+     "sql": "(entity_status_description IS NULL AND building_name IS NULL)",
+     "support": 0.096,
+     "rows": 7398,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.723,
+     "score": 0.323,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name",
+      "uen_issue_date"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(level_no IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.095,
+     "rows": 7324,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.749,
+     "score": 0.321,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name",
+      "primary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(level_no IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.095,
+     "rows": 7324,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.749,
+     "score": 0.321,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "block"
+     ],
+     "cls": "cert",
+     "condition": "(level_no missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(level_no IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.095,
+     "rows": 7324,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.005,
+     "score": 0.321,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "uen_issue_date",
+      "postal_code",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(level_no IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.095,
+     "rows": 7324,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.995,
+     "score": 0.321,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description missing, unit_no missing)",
+     "sql": "(business_constitution_description IS NULL AND unit_no IS NULL)",
+     "support": 0.071,
+     "rows": 5443,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.67,
+     "score": 0.311,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "block"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description missing, unit_no missing)",
+     "sql": "(business_constitution_description IS NULL AND unit_no IS NULL)",
+     "support": 0.071,
+     "rows": 5443,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.033,
+     "score": 0.311,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description missing, level_no missing)",
+     "sql": "(business_constitution_description IS NULL AND level_no IS NULL)",
+     "support": 0.069,
+     "rows": 5336,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.678,
+     "score": 0.308,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "block"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description missing, level_no missing)",
+     "sql": "(business_constitution_description IS NULL AND level_no IS NULL)",
+     "support": 0.069,
+     "rows": 5336,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.034,
+     "score": 0.308,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "uen_issue_date",
+      "postal_code",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing, secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(level_no IS NULL AND secondary_ssic_code IS NULL)",
+     "support": 0.082,
+     "rows": 6306,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.993,
+     "score": 0.298,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Local Company\" (47%), unit_no missing)",
+     "sql": "(entity_type_description = 'Local Company' AND unit_no IS NULL)",
+     "support": 0.065,
+     "rows": 4965,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.668,
+     "score": 0.297,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "block"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (47%), unit_no missing)",
+     "sql": "(entity_type_description = 'Local Company' AND unit_no IS NULL)",
+     "support": 0.065,
+     "rows": 4965,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.013,
+     "score": 0.297,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "uen_issue_date",
+      "postal_code",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Sole Proprietor\" (41%), level_no missing)",
+     "sql": "(business_constitution_description = 'Sole Proprietor' AND level_no IS NULL)",
+     "support": 0.081,
+     "rows": 6254,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.996,
+     "score": 0.297,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v1": "Sole Proprietor"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Local Company\" (47%), level_no missing)",
+     "sql": "(entity_type_description = 'Local Company' AND level_no IS NULL)",
+     "support": 0.063,
+     "rows": 4867,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.677,
+     "score": 0.295,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "block"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (47%), level_no missing)",
+     "sql": "(entity_type_description = 'Local Company' AND level_no IS NULL)",
+     "support": 0.063,
+     "rows": 4867,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.014,
+     "score": 0.295,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "secondary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(unit_no missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(unit_no IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.096,
+     "rows": 7408,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.29,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "primary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(unit_no missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(unit_no IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.096,
+     "rows": 7408,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.29,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "secondary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(level_no missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(level_no IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.095,
+     "rows": 7324,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.288,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "primary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(level_no missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(level_no IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.095,
+     "rows": 7324,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.288,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "dom",
+     "condition": "(business_constitution_description missing, building_name missing)",
+     "sql": "(business_constitution_description IS NULL AND building_name IS NULL)",
+     "support": 0.131,
+     "rows": 10093,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.45,
+     "score": 0.283,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "primary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(business_constitution_description missing, unit_no missing)",
+     "sql": "(business_constitution_description IS NULL AND unit_no IS NULL)",
+     "support": 0.071,
+     "rows": 5443,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.28,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description present, building_name missing)",
+     "sql": "(entity_status_description IS NOT NULL AND building_name IS NULL)",
+     "support": 0.289,
+     "rows": 22178,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.479,
+     "score": 0.279,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "primary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(business_constitution_description missing, level_no missing)",
+     "sql": "(business_constitution_description IS NULL AND level_no IS NULL)",
+     "support": 0.069,
+     "rows": 5336,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.277,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "block",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description missing)",
+     "sql": "(business_constitution_description IS NULL)",
+     "support": 0.499,
+     "rows": 38306,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.44,
+     "score": 0.275,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description",
+      "primary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description missing)",
+     "sql": "(business_constitution_description IS NULL)",
+     "support": 0.499,
+     "rows": 38306,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.439,
+     "score": 0.275,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "block",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(business_constitution_description IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.28,
+     "rows": 21474,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.275,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing, unit_no missing)",
+     "sql": "(entity_status_description IS NULL AND unit_no IS NULL)",
+     "support": 0.055,
+     "rows": 4236,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.471,
+     "score": 0.275,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing, level_no missing)",
+     "sql": "(entity_status_description IS NULL AND level_no IS NULL)",
+     "support": 0.055,
+     "rows": 4234,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.47,
+     "score": 0.275,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "uen_issue_date",
+      "postal_code",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description missing, level_no missing)",
+     "sql": "(business_constitution_description IS NULL AND level_no IS NULL)",
+     "support": 0.069,
+     "rows": 5336,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.993,
+     "score": 0.274,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "dom",
+     "condition": "(entity_type_description = \"Local Company\" (47%), building_name missing)",
+     "sql": "(entity_type_description = 'Local Company' AND building_name IS NULL)",
+     "support": 0.12,
+     "rows": 9221,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.433,
+     "score": 0.27,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "block",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (47%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(entity_type_description = 'Local Company' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.267,
+     "rows": 20485,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.269,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "block",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Local Company\" (47%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.469,
+     "rows": 36039,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.432,
+     "score": 0.267,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description",
+      "primary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Local Company\" (47%))",
+     "sql": "(entity_type_description = 'Local Company')",
+     "support": 0.469,
+     "rows": 36039,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.432,
+     "score": 0.267,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "primary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(entity_type_description = \"Local Company\" (47%), unit_no missing)",
+     "sql": "(entity_type_description = 'Local Company' AND unit_no IS NULL)",
+     "support": 0.065,
+     "rows": 4965,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.267,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "primary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(entity_type_description = \"Local Company\" (47%), level_no missing)",
+     "sql": "(entity_type_description = 'Local Company' AND level_no IS NULL)",
+     "support": 0.063,
+     "rows": 4867,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.264,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "block",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(secondary_ssic_code IS NULL)",
+     "support": 0.459,
+     "rows": 35234,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.264,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "secondary_ssic_description",
+      "primary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(secondary_ssic_code IS NULL)",
+     "support": 0.459,
+     "rows": 35234,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.264,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "postal_code",
+      "secondary_ssic_description",
+      "primary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(secondary_ssic_code IS NULL)",
+     "support": 0.459,
+     "rows": 35234,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.264,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "uen_issue_date",
+      "postal_code",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(entity_type_description = \"Local Company\" (47%), level_no missing)",
+     "sql": "(entity_type_description = 'Local Company' AND level_no IS NULL)",
+     "support": 0.063,
+     "rows": 4867,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.993,
+     "score": 0.262,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(unit_no missing, building_name present)",
+     "sql": "(unit_no IS NULL AND building_name IS NOT NULL)",
+     "support": 0.047,
+     "rows": 3633,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.479,
+     "score": 0.254,
+     "tags": [
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing, building_name present)",
+     "sql": "(level_no IS NULL AND building_name IS NOT NULL)",
+     "support": 0.046,
+     "rows": 3529,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.48,
+     "score": 0.251,
+     "tags": [
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description",
+      "primary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(business_constitution_description missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(business_constitution_description IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.28,
+     "rows": 21474,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.247,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name",
+      "uen_issue_date"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing, unit_no missing)",
+     "sql": "(entity_status_description IS NULL AND unit_no IS NULL)",
+     "support": 0.055,
+     "rows": 4236,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.842,
+     "score": 0.244,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name",
+      "uen_issue_date"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing, level_no missing)",
+     "sql": "(entity_status_description IS NULL AND level_no IS NULL)",
+     "support": 0.055,
+     "rows": 4234,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.842,
+     "score": 0.244,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "uen_issue_date",
+      "postal_code",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing, level_no missing)",
+     "sql": "(entity_status_description IS NULL AND level_no IS NULL)",
+     "support": 0.055,
+     "rows": 4234,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.992,
+     "score": 0.244,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description",
+      "primary_ssic_description"
+     ],
+     "cls": "cand",
+     "condition": "(entity_type_description = \"Local Company\" (47%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(entity_type_description = 'Local Company' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.267,
+     "rows": 20485,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.241,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "block"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(business_constitution_description = 'Partnership' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.053,
+     "rows": 4056,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.239,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "building_name",
+      "primary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(business_constitution_description = 'Partnership' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.053,
+     "rows": 4056,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.519,
+     "score": 0.239,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "street_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(business_constitution_description = 'Partnership' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.053,
+     "rows": 4056,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.239,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "postal_code",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(business_constitution_description = 'Partnership' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.053,
+     "rows": 4056,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.239,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "block",
+      "secondary_ssic_code"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(business_constitution_description = 'Partnership' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.053,
+     "rows": 4056,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.239,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "unit_no",
+      "primary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(business_constitution_description = 'Partnership' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.053,
+     "rows": 4056,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.285,
+     "score": 0.239,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "street_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%))",
+     "sql": "(business_constitution_description = 'Partnership')",
+     "support": 0.094,
+     "rows": 7198,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.437,
+     "score": 0.239,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "postal_code",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%))",
+     "sql": "(business_constitution_description = 'Partnership')",
+     "support": 0.094,
+     "rows": 7198,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.437,
+     "score": 0.239,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "block",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%))",
+     "sql": "(business_constitution_description = 'Partnership')",
+     "support": 0.094,
+     "rows": 7198,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.439,
+     "score": 0.239,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "unit_no",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%))",
+     "sql": "(business_constitution_description = 'Partnership')",
+     "support": 0.094,
+     "rows": 7198,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.597,
+     "score": 0.239,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), secondary_ssic_code missing [same rows: secondary_ssic_description missing])",
+     "sql": "(business_constitution_description = 'Partnership' AND secondary_ssic_code IS NULL)",
+     "support": 0.041,
+     "rows": 3142,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.549,
+     "score": 0.237,
+     "tags": [
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Sole Proprietor\" (41%), building_name missing)",
+     "sql": "(business_constitution_description = 'Sole Proprietor' AND building_name IS NULL)",
+     "support": 0.204,
+     "rows": 15655,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.498,
+     "score": 0.235,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v1": "Sole Proprietor"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "block"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), entity_status_description missing)",
+     "sql": "(business_constitution_description = 'Partnership' AND entity_status_description IS NULL)",
+     "support": 0.05,
+     "rows": 3865,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.007,
+     "score": 0.233,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "secondary_ssic_code",
+      "primary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), entity_status_description missing)",
+     "sql": "(business_constitution_description = 'Partnership' AND entity_status_description IS NULL)",
+     "support": 0.05,
+     "rows": 3865,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.422,
+     "score": 0.233,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), building_name missing)",
+     "sql": "(business_constitution_description = 'Partnership' AND building_name IS NULL)",
+     "support": 0.05,
+     "rows": 3828,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.45,
+     "score": 0.232,
+     "tags": [
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "secondary_ssic_code",
+      "primary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), building_name missing)",
+     "sql": "(business_constitution_description = 'Partnership' AND building_name IS NULL)",
+     "support": 0.05,
+     "rows": 3828,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.45,
+     "score": 0.232,
+     "tags": [
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "uen_issue_date",
+      "postal_code",
+      "unit_no"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing, building_name present)",
+     "sql": "(level_no IS NULL AND building_name IS NOT NULL)",
+     "support": 0.046,
+     "rows": 3529,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.984,
+     "score": 0.223,
+     "tags": [
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "block"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), building_name present)",
+     "sql": "(business_constitution_description = 'Partnership' AND building_name IS NOT NULL)",
+     "support": 0.044,
+     "rows": 3370,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.218,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "secondary_ssic_code",
+      "primary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), building_name present)",
+     "sql": "(business_constitution_description = 'Partnership' AND building_name IS NOT NULL)",
+     "support": 0.044,
+     "rows": 3370,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.421,
+     "score": 0.218,
+     "tags": [
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), entity_status_description present)",
+     "sql": "(business_constitution_description = 'Partnership' AND entity_status_description IS NOT NULL)",
+     "support": 0.043,
+     "rows": 3333,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.711,
+     "score": 0.217,
+     "tags": [
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "street_name",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), entity_status_description present)",
+     "sql": "(business_constitution_description = 'Partnership' AND entity_status_description IS NOT NULL)",
+     "support": 0.043,
+     "rows": 3333,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.454,
+     "score": 0.217,
+     "tags": [
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), entity_status_description present)",
+     "sql": "(business_constitution_description = 'Partnership' AND entity_status_description IS NOT NULL)",
+     "support": 0.043,
+     "rows": 3333,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.453,
+     "score": 0.217,
+     "tags": [
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), entity_status_description present)",
+     "sql": "(business_constitution_description = 'Partnership' AND entity_status_description IS NOT NULL)",
+     "support": 0.043,
+     "rows": 3333,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.566,
+     "score": 0.217,
+     "tags": [
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "street_name",
+      "primary_ssic_description"
+     ],
+     "cls": "dom",
+     "condition": "(entity_status_description missing, building_name missing)",
+     "sql": "(entity_status_description IS NULL AND building_name IS NULL)",
+     "support": 0.096,
+     "rows": 7398,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.02,
+     "score": 0.215,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "primary_ssic_description"
+     ],
+     "cls": "dom",
+     "condition": "(entity_status_description missing, building_name missing)",
+     "sql": "(entity_status_description IS NULL AND building_name IS NULL)",
+     "support": 0.096,
+     "rows": 7398,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.017,
+     "score": 0.215,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "block",
+      "primary_ssic_code"
+     ],
+     "cls": "dom",
+     "condition": "(entity_status_description missing, building_name missing)",
+     "sql": "(entity_status_description IS NULL AND building_name IS NULL)",
+     "support": 0.096,
+     "rows": 7398,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.019,
+     "score": 0.215,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "dom",
+     "condition": "(business_constitution_description missing, unit_no missing)",
+     "sql": "(business_constitution_description IS NULL AND unit_no IS NULL)",
+     "support": 0.071,
+     "rows": 5443,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.453,
+     "score": 0.208,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "dom",
+     "condition": "(business_constitution_description missing, level_no missing)",
+     "sql": "(business_constitution_description IS NULL AND level_no IS NULL)",
+     "support": 0.069,
+     "rows": 5336,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.453,
+     "score": 0.206,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "dom",
+     "condition": "(entity_type_description = \"Local Company\" (47%), unit_no missing)",
+     "sql": "(entity_type_description = 'Local Company' AND unit_no IS NULL)",
+     "support": 0.065,
+     "rows": 4965,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.429,
+     "score": 0.198,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "dom",
+     "condition": "(entity_type_description = \"Local Company\" (47%), level_no missing)",
+     "sql": "(entity_type_description = 'Local Company' AND level_no IS NULL)",
+     "support": 0.063,
+     "rows": 4867,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.429,
+     "score": 0.196,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "block",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description missing, building_name missing)",
+     "sql": "(business_constitution_description IS NULL AND building_name IS NULL)",
+     "support": 0.131,
+     "rows": 10093,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.452,
+     "score": 0.188,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "block",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(entity_type_description = \"Local Company\" (47%), building_name missing)",
+     "sql": "(entity_type_description = 'Local Company' AND building_name IS NULL)",
+     "support": 0.12,
+     "rows": 9221,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.435,
+     "score": 0.18,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "entity_type_description=v2": "Local Company"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "block",
+      "unit_no",
+      "primary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing)",
+     "sql": "(level_no IS NULL)",
+     "support": 0.177,
+     "rows": 13630,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.996,
+     "score": 0.164,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name",
+      "primary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(unit_no missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(unit_no IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.096,
+     "rows": 7408,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.744,
+     "score": 0.161,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing, building_name missing)",
+     "sql": "(entity_status_description IS NULL AND building_name IS NULL)",
+     "support": 0.096,
+     "rows": 7398,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.464,
+     "score": 0.161,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "street_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing, building_name missing)",
+     "sql": "(entity_status_description IS NULL AND building_name IS NULL)",
+     "support": 0.096,
+     "rows": 7398,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.467,
+     "score": 0.161,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing, building_name missing)",
+     "sql": "(entity_status_description IS NULL AND building_name IS NULL)",
+     "support": 0.096,
+     "rows": 7398,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.464,
+     "score": 0.161,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "block",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing, building_name missing)",
+     "sql": "(entity_status_description IS NULL AND building_name IS NULL)",
+     "support": 0.096,
+     "rows": 7398,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.465,
+     "score": 0.161,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "unit_no",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing, building_name missing)",
+     "sql": "(entity_status_description IS NULL AND building_name IS NULL)",
+     "support": 0.096,
+     "rows": 7398,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.723,
+     "score": 0.161,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name",
+      "primary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing, secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(level_no IS NULL AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.095,
+     "rows": 7324,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.749,
+     "score": 0.161,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing, unit_no missing)",
+     "sql": "(entity_status_description IS NULL AND unit_no IS NULL)",
+     "support": 0.055,
+     "rows": 4236,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.471,
+     "score": 0.137,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing, level_no missing)",
+     "sql": "(entity_status_description IS NULL AND level_no IS NULL)",
+     "support": 0.055,
+     "rows": 4234,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.47,
+     "score": 0.137,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(unit_no missing, building_name present)",
+     "sql": "(unit_no IS NULL AND building_name IS NOT NULL)",
+     "support": 0.047,
+     "rows": 3633,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.479,
+     "score": 0.127,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(level_no missing, building_name present)",
+     "sql": "(level_no IS NULL AND building_name IS NOT NULL)",
+     "support": 0.046,
+     "rows": 3529,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.48,
+     "score": 0.125,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "building_name",
+      "primary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(business_constitution_description = 'Partnership' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.053,
+     "rows": 4056,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.519,
+     "score": 0.119,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "block",
+      "secondary_ssic_description"
+     ],
+     "cls": "cert",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(business_constitution_description = 'Partnership' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.053,
+     "rows": 4056,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.119,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "unit_no",
+      "primary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), secondary_ssic_code present [same rows: secondary_ssic_description present])",
+     "sql": "(business_constitution_description = 'Partnership' AND secondary_ssic_code IS NOT NULL)",
+     "support": 0.053,
+     "rows": 4056,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.285,
+     "score": 0.119,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "block",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%))",
+     "sql": "(business_constitution_description = 'Partnership')",
+     "support": 0.094,
+     "rows": 7198,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.439,
+     "score": 0.119,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "secondary_ssic_description",
+      "primary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), entity_status_description missing)",
+     "sql": "(business_constitution_description = 'Partnership' AND entity_status_description IS NULL)",
+     "support": 0.05,
+     "rows": 3865,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.422,
+     "score": 0.117,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "secondary_ssic_code",
+      "primary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), entity_status_description missing)",
+     "sql": "(business_constitution_description = 'Partnership' AND entity_status_description IS NULL)",
+     "support": 0.05,
+     "rows": 3865,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.422,
+     "score": 0.117,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "uen_issue_date",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), building_name missing)",
+     "sql": "(business_constitution_description = 'Partnership' AND building_name IS NULL)",
+     "support": 0.05,
+     "rows": 3828,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.45,
+     "score": 0.116,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "secondary_ssic_description",
+      "primary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), building_name missing)",
+     "sql": "(business_constitution_description = 'Partnership' AND building_name IS NULL)",
+     "support": 0.05,
+     "rows": 3828,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.45,
+     "score": 0.116,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "secondary_ssic_code",
+      "primary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), building_name missing)",
+     "sql": "(business_constitution_description = 'Partnership' AND building_name IS NULL)",
+     "support": 0.05,
+     "rows": 3828,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.45,
+     "score": 0.116,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "secondary_ssic_description",
+      "primary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), building_name present)",
+     "sql": "(business_constitution_description = 'Partnership' AND building_name IS NOT NULL)",
+     "support": 0.044,
+     "rows": 3370,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.421,
+     "score": 0.109,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "secondary_ssic_code",
+      "primary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), building_name present)",
+     "sql": "(business_constitution_description = 'Partnership' AND building_name IS NOT NULL)",
+     "support": 0.044,
+     "rows": 3370,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.421,
+     "score": 0.109,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "building_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), entity_status_description present)",
+     "sql": "(business_constitution_description = 'Partnership' AND entity_status_description IS NOT NULL)",
+     "support": 0.043,
+     "rows": 3333,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.711,
+     "score": 0.108,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "street_name",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), entity_status_description present)",
+     "sql": "(business_constitution_description = 'Partnership' AND entity_status_description IS NOT NULL)",
+     "support": 0.043,
+     "rows": 3333,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.454,
+     "score": 0.108,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "postal_code",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), entity_status_description present)",
+     "sql": "(business_constitution_description = 'Partnership' AND entity_status_description IS NOT NULL)",
+     "support": 0.043,
+     "rows": 3333,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.453,
+     "score": 0.108,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "block",
+      "secondary_ssic_code"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), entity_status_description present)",
+     "sql": "(business_constitution_description = 'Partnership' AND entity_status_description IS NOT NULL)",
+     "support": 0.043,
+     "rows": 3333,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.454,
+     "score": 0.108,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "unit_no",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), entity_status_description present)",
+     "sql": "(business_constitution_description = 'Partnership' AND entity_status_description IS NOT NULL)",
+     "support": 0.043,
+     "rows": 3333,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.566,
+     "score": 0.108,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "block",
+      "primary_ssic_description"
+     ],
+     "cls": "dom",
+     "condition": "(entity_status_description missing, building_name missing)",
+     "sql": "(entity_status_description IS NULL AND building_name IS NULL)",
+     "support": 0.096,
+     "rows": 7398,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.019,
+     "score": 0.108,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "entity_name",
+      "block",
+      "secondary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(entity_status_description missing, building_name missing)",
+     "sql": "(entity_status_description IS NULL AND building_name IS NULL)",
+     "support": 0.096,
+     "rows": 7398,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.465,
+     "score": 0.081,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "secondary_ssic_description",
+      "primary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), entity_status_description missing)",
+     "sql": "(business_constitution_description = 'Partnership' AND entity_status_description IS NULL)",
+     "support": 0.05,
+     "rows": 3865,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.422,
+     "score": 0.058,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    },
+    {
+     "table": "lbsg.t40",
+     "K": [
+      "registration_incorporation_date",
+      "secondary_ssic_description",
+      "primary_ssic_description"
+     ],
+     "cls": "pos",
+     "condition": "(business_constitution_description = \"Partnership\" (9%), building_name missing)",
+     "sql": "(business_constitution_description = 'Partnership' AND building_name IS NULL)",
+     "support": 0.05,
+     "rows": 3828,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.45,
+     "score": 0.058,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "business_constitution_description=v2": "Partnership"
+     }
+    }
+   ],
+   "unconditional": {
+    "uen": "cand",
+    "entity_name,registration_incorporation_date,building_name": "pos",
+    "entity_name,registration_incorporation_date,street_name": "cert",
+    "entity_name,registration_incorporation_date,postal_code": "cert",
+    "entity_name,registration_incorporation_date,block": "cert",
+    "entity_name,registration_incorporation_date,unit_no": "pos",
+    "entity_name,registration_incorporation_date,secondary_ssic_description": "pos",
+    "entity_name,registration_incorporation_date,secondary_ssic_code": "pos"
+   }
+  }
+ ]
+}

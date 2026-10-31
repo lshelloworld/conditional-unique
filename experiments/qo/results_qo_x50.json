@@ -1,0 +1,2870 @@
+[
+ {
+  "case": "SP",
+  "list": "QO",
+  "table": "SeriesPost",
+  "cls": "cand",
+  "K": [
+   "year",
+   "tmIDLoser"
+  ],
+  "P": "\"lgIDWinner\" = 8925760856993695661",
+  "template": "DISTINCT",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT DISTINCT \"year\", \"tmIDLoser\" FROM \"hockey_SeriesPost\" WHERE \"lgIDWinner\" = 8925760856993695661",
+  "rew_sql": "SELECT \"year\", \"tmIDLoser\" FROM \"hockey_SeriesPost\" WHERE \"lgIDWinner\" = 8925760856993695661",
+  "configs": {
+   "none": {
+    "orig_ms": 7.359,
+    "rew_ms": 2.393,
+    "orig_plan_ms": 0.023,
+    "rew_plan_ms": 0.021,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 7.365,
+    "rew_ms": 2.381,
+    "orig_plan_ms": 0.024,
+    "rew_plan_ms": 0.009,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 7.009,
+    "rew_ms": 2.311,
+    "orig_plan_ms": 0.025,
+    "rew_plan_ms": 0.011,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "SP",
+  "list": "QO",
+  "table": "SeriesPost",
+  "cls": "cand",
+  "K": [
+   "year",
+   "tmIDLoser"
+  ],
+  "P": "\"lgIDWinner\" = 8925760856993695661",
+  "template": "GROUPBY",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT \"year\", \"tmIDLoser\", count(*) AS n FROM \"hockey_SeriesPost\" WHERE \"lgIDWinner\" = 8925760856993695661 GROUP BY \"year\", \"tmIDLoser\"",
+  "rew_sql": "SELECT \"year\", \"tmIDLoser\", 1 AS n FROM \"hockey_SeriesPost\" WHERE \"lgIDWinner\" = 8925760856993695661",
+  "configs": {
+   "none": {
+    "orig_ms": 8.689,
+    "rew_ms": 2.51,
+    "orig_plan_ms": 0.024,
+    "rew_plan_ms": 0.013,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 7.962,
+    "rew_ms": 2.443,
+    "orig_plan_ms": 0.034,
+    "rew_plan_ms": 0.021,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 7.846,
+    "rew_ms": 2.527,
+    "orig_plan_ms": 0.034,
+    "rew_plan_ms": 0.012,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "SP",
+  "list": "QO",
+  "table": "SeriesPost",
+  "cls": "cand",
+  "K": [
+   "year",
+   "tmIDLoser"
+  ],
+  "P": "\"lgIDWinner\" = 8925760856993695661",
+  "template": "LEFTJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"year\", a.\"tmIDLoser\", a.\"round\" FROM \"hockey_SeriesPost\" a LEFT JOIN \"hockey_SeriesPost\" b ON a.\"year\" = b.\"year\" AND a.\"tmIDLoser\" = b.\"tmIDLoser\" AND b.\"lgIDWinner\" = 8925760856993695661",
+  "rew_sql": "SELECT a.\"year\", a.\"tmIDLoser\", a.\"round\" FROM \"hockey_SeriesPost\" a",
+  "configs": {
+   "none": {
+    "orig_ms": 9.395,
+    "rew_ms": 2.126,
+    "orig_plan_ms": 0.06,
+    "rew_plan_ms": 0.008,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 32.23,
+    "rew_ms": 2.251,
+    "orig_plan_ms": 0.102,
+    "rew_plan_ms": 0.009,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Nested Loop",
+     "Seq Scan",
+     "Memoize",
+     "Index Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 31.934,
+    "rew_ms": 2.365,
+    "orig_plan_ms": 0.086,
+    "rew_plan_ms": 0.01,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Nested Loop",
+     "Seq Scan",
+     "Memoize",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "SP",
+  "list": "QO",
+  "table": "SeriesPost",
+  "cls": "cand",
+  "K": [
+   "year",
+   "tmIDLoser"
+  ],
+  "P": "\"lgIDWinner\" = 8925760856993695661",
+  "template": "SEMIJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"year\", a.\"tmIDLoser\", a.\"round\" FROM \"hockey_SeriesPost\" a WHERE EXISTS (SELECT 1 FROM \"hockey_SeriesPost\" b WHERE a.\"year\" = b.\"year\" AND a.\"tmIDLoser\" = b.\"tmIDLoser\" AND b.\"lgIDWinner\" = 8925760856993695661)",
+  "rew_sql": "SELECT a.\"year\", a.\"tmIDLoser\", a.\"round\" FROM \"hockey_SeriesPost\" a JOIN \"hockey_SeriesPost\" b ON a.\"year\" = b.\"year\" AND a.\"tmIDLoser\" = b.\"tmIDLoser\" AND b.\"lgIDWinner\" = 8925760856993695661",
+  "configs": {
+   "none": {
+    "orig_ms": 16.127,
+    "rew_ms": 9.039,
+    "orig_plan_ms": 0.081,
+    "rew_plan_ms": 0.063,
+    "pg_already_removes": true,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 14.002,
+    "rew_ms": 31.795,
+    "orig_plan_ms": 0.103,
+    "rew_plan_ms": 0.092,
+    "pg_already_removes": true,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 15.338,
+    "rew_ms": 32.375,
+    "orig_plan_ms": 0.094,
+    "rew_plan_ms": 0.078,
+    "pg_already_removes": true,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Aggregate",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "GO",
+  "list": "QO",
+  "table": "Goalies",
+  "cls": "cand",
+  "K": [
+   "playerID",
+   "year",
+   "tmID"
+  ],
+  "P": "\"lgID\" = 8925760856993695661",
+  "template": "DISTINCT",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT DISTINCT \"playerID\", \"year\", \"tmID\" FROM \"hockey_Goalies\" WHERE \"lgID\" = 8925760856993695661",
+  "rew_sql": "SELECT \"playerID\", \"year\", \"tmID\" FROM \"hockey_Goalies\" WHERE \"lgID\" = 8925760856993695661",
+  "configs": {
+   "none": {
+    "orig_ms": 75.262,
+    "rew_ms": 12.318,
+    "orig_plan_ms": 0.027,
+    "rew_plan_ms": 0.017,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 67.762,
+    "rew_ms": 12.03,
+    "orig_plan_ms": 0.033,
+    "rew_plan_ms": 0.021,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 69.313,
+    "rew_ms": 12.057,
+    "orig_plan_ms": 0.038,
+    "rew_plan_ms": 0.024,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "GO",
+  "list": "QO",
+  "table": "Goalies",
+  "cls": "cand",
+  "K": [
+   "playerID",
+   "year",
+   "tmID"
+  ],
+  "P": "\"lgID\" = 8925760856993695661",
+  "template": "GROUPBY",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT \"playerID\", \"year\", \"tmID\", count(*) AS n FROM \"hockey_Goalies\" WHERE \"lgID\" = 8925760856993695661 GROUP BY \"playerID\", \"year\", \"tmID\"",
+  "rew_sql": "SELECT \"playerID\", \"year\", \"tmID\", 1 AS n FROM \"hockey_Goalies\" WHERE \"lgID\" = 8925760856993695661",
+  "configs": {
+   "none": {
+    "orig_ms": 72.347,
+    "rew_ms": 11.602,
+    "orig_plan_ms": 0.032,
+    "rew_plan_ms": 0.019,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 73.713,
+    "rew_ms": 11.766,
+    "orig_plan_ms": 0.039,
+    "rew_plan_ms": 0.025,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 71.314,
+    "rew_ms": 12.545,
+    "orig_plan_ms": 0.036,
+    "rew_plan_ms": 0.028,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "GO",
+  "list": "QO",
+  "table": "Goalies",
+  "cls": "cand",
+  "K": [
+   "playerID",
+   "year",
+   "tmID"
+  ],
+  "P": "\"lgID\" = 8925760856993695661",
+  "template": "LEFTJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"playerID\", a.\"year\", a.\"tmID\", a.\"stint\" FROM \"hockey_Goalies\" a LEFT JOIN \"hockey_Goalies\" b ON a.\"playerID\" = b.\"playerID\" AND a.\"year\" = b.\"year\" AND a.\"tmID\" = b.\"tmID\" AND b.\"lgID\" = 8925760856993695661",
+  "rew_sql": "SELECT a.\"playerID\", a.\"year\", a.\"tmID\", a.\"stint\" FROM \"hockey_Goalies\" a",
+  "configs": {
+   "none": {
+    "orig_ms": 132.275,
+    "rew_ms": 12.003,
+    "orig_plan_ms": 0.085,
+    "rew_plan_ms": 0.015,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Merge Join",
+     "Sort",
+     "Seq Scan",
+     "Materialize",
+     "Sort",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 226.735,
+    "rew_ms": 11.79,
+    "orig_plan_ms": 0.118,
+    "rew_plan_ms": 0.022,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Nested Loop",
+     "Seq Scan",
+     "Memoize",
+     "Index Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 215.383,
+    "rew_ms": 12.287,
+    "orig_plan_ms": 0.1,
+    "rew_plan_ms": 0.017,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Nested Loop",
+     "Seq Scan",
+     "Memoize",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "GO",
+  "list": "QO",
+  "table": "Goalies",
+  "cls": "cand",
+  "K": [
+   "playerID",
+   "year",
+   "tmID"
+  ],
+  "P": "\"lgID\" = 8925760856993695661",
+  "template": "SEMIJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"playerID\", a.\"year\", a.\"tmID\", a.\"stint\" FROM \"hockey_Goalies\" a WHERE EXISTS (SELECT 1 FROM \"hockey_Goalies\" b WHERE a.\"playerID\" = b.\"playerID\" AND a.\"year\" = b.\"year\" AND a.\"tmID\" = b.\"tmID\" AND b.\"lgID\" = 8925760856993695661)",
+  "rew_sql": "SELECT a.\"playerID\", a.\"year\", a.\"tmID\", a.\"stint\" FROM \"hockey_Goalies\" a JOIN \"hockey_Goalies\" b ON a.\"playerID\" = b.\"playerID\" AND a.\"year\" = b.\"year\" AND a.\"tmID\" = b.\"tmID\" AND b.\"lgID\" = 8925760856993695661",
+  "configs": {
+   "none": {
+    "orig_ms": 149.008,
+    "rew_ms": 127.002,
+    "orig_plan_ms": 0.093,
+    "rew_plan_ms": 0.073,
+    "pg_already_removes": true,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 147.864,
+    "rew_ms": 219.107,
+    "orig_plan_ms": 0.137,
+    "rew_plan_ms": 0.113,
+    "pg_already_removes": true,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 145.862,
+    "rew_ms": 212.203,
+    "orig_plan_ms": 0.106,
+    "rew_plan_ms": 0.089,
+    "pg_already_removes": true,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Aggregate",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "CO",
+  "list": "QO",
+  "table": "Coaches",
+  "cls": "cand",
+  "K": [
+   "coachID",
+   "year"
+  ],
+  "P": "\"postg\" IS NOT NULL",
+  "template": "DISTINCT",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT DISTINCT \"coachID\", \"year\" FROM \"hockey_Coaches\" WHERE \"postg\" IS NOT NULL",
+  "rew_sql": "SELECT \"coachID\", \"year\" FROM \"hockey_Coaches\" WHERE \"postg\" IS NOT NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 10.166,
+    "rew_ms": 4.78,
+    "orig_plan_ms": 0.02,
+    "rew_plan_ms": 0.009,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 9.682,
+    "rew_ms": 4.385,
+    "orig_plan_ms": 0.027,
+    "rew_plan_ms": 0.009,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 9.907,
+    "rew_ms": 4.768,
+    "orig_plan_ms": 0.022,
+    "rew_plan_ms": 0.015,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "CO",
+  "list": "QO",
+  "table": "Coaches",
+  "cls": "cand",
+  "K": [
+   "coachID",
+   "year"
+  ],
+  "P": "\"postg\" IS NOT NULL",
+  "template": "GROUPBY",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT \"coachID\", \"year\", count(*) AS n FROM \"hockey_Coaches\" WHERE \"postg\" IS NOT NULL GROUP BY \"coachID\", \"year\"",
+  "rew_sql": "SELECT \"coachID\", \"year\", 1 AS n FROM \"hockey_Coaches\" WHERE \"postg\" IS NOT NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 11.294,
+    "rew_ms": 4.453,
+    "orig_plan_ms": 0.019,
+    "rew_plan_ms": 0.01,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 11.238,
+    "rew_ms": 4.733,
+    "orig_plan_ms": 0.032,
+    "rew_plan_ms": 0.016,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 10.048,
+    "rew_ms": 4.198,
+    "orig_plan_ms": 0.031,
+    "rew_plan_ms": 0.015,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "CO",
+  "list": "QO",
+  "table": "Coaches",
+  "cls": "cand",
+  "K": [
+   "coachID",
+   "year"
+  ],
+  "P": "\"postg\" IS NOT NULL",
+  "template": "LEFTJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"coachID\", a.\"year\", a.\"tmID\" FROM \"hockey_Coaches\" a LEFT JOIN \"hockey_Coaches\" b ON a.\"coachID\" = b.\"coachID\" AND a.\"year\" = b.\"year\" AND b.\"postg\" IS NOT NULL",
+  "rew_sql": "SELECT a.\"coachID\", a.\"year\", a.\"tmID\" FROM \"hockey_Coaches\" a",
+  "configs": {
+   "none": {
+    "orig_ms": 21.114,
+    "rew_ms": 4.726,
+    "orig_plan_ms": 0.058,
+    "rew_plan_ms": 0.012,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 21.919,
+    "rew_ms": 4.894,
+    "orig_plan_ms": 0.088,
+    "rew_plan_ms": 0.011,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 61.672,
+    "rew_ms": 4.7,
+    "orig_plan_ms": 0.094,
+    "rew_plan_ms": 0.012,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Nested Loop",
+     "Seq Scan",
+     "Memoize",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "CO",
+  "list": "QO",
+  "table": "Coaches",
+  "cls": "cand",
+  "K": [
+   "coachID",
+   "year"
+  ],
+  "P": "\"postg\" IS NOT NULL",
+  "template": "SEMIJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"coachID\", a.\"year\", a.\"tmID\" FROM \"hockey_Coaches\" a WHERE EXISTS (SELECT 1 FROM \"hockey_Coaches\" b WHERE a.\"coachID\" = b.\"coachID\" AND a.\"year\" = b.\"year\" AND b.\"postg\" IS NOT NULL)",
+  "rew_sql": "SELECT a.\"coachID\", a.\"year\", a.\"tmID\" FROM \"hockey_Coaches\" a JOIN \"hockey_Coaches\" b ON a.\"coachID\" = b.\"coachID\" AND a.\"year\" = b.\"year\" AND b.\"postg\" IS NOT NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 23.905,
+    "rew_ms": 18.205,
+    "orig_plan_ms": 0.071,
+    "rew_plan_ms": 0.052,
+    "pg_already_removes": true,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 24.545,
+    "rew_ms": 17.053,
+    "orig_plan_ms": 0.11,
+    "rew_plan_ms": 0.09,
+    "pg_already_removes": true,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 23.541,
+    "rew_ms": 60.18,
+    "orig_plan_ms": 0.086,
+    "rew_plan_ms": 0.072,
+    "pg_already_removes": true,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Aggregate",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "GO2",
+  "list": "QO",
+  "table": "Goalies",
+  "cls": "cand",
+  "K": [
+   "playerID",
+   "year"
+  ],
+  "P": "\"PostGP\" IS NOT NULL",
+  "template": "DISTINCT",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT DISTINCT \"playerID\", \"year\" FROM \"hockey_Goalies\" WHERE \"PostGP\" IS NOT NULL",
+  "rew_sql": "SELECT \"playerID\", \"year\" FROM \"hockey_Goalies\" WHERE \"PostGP\" IS NOT NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 19.796,
+    "rew_ms": 10.789,
+    "orig_plan_ms": 0.025,
+    "rew_plan_ms": 0.013,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 21.0,
+    "rew_ms": 10.04,
+    "orig_plan_ms": 0.023,
+    "rew_plan_ms": 0.011,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 7.451,
+    "rew_ms": 3.51,
+    "orig_plan_ms": 0.014,
+    "rew_plan_ms": 0.012,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Unique",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "GO2",
+  "list": "QO",
+  "table": "Goalies",
+  "cls": "cand",
+  "K": [
+   "playerID",
+   "year"
+  ],
+  "P": "\"PostGP\" IS NOT NULL",
+  "template": "GROUPBY",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT \"playerID\", \"year\", count(*) AS n FROM \"hockey_Goalies\" WHERE \"PostGP\" IS NOT NULL GROUP BY \"playerID\", \"year\"",
+  "rew_sql": "SELECT \"playerID\", \"year\", 1 AS n FROM \"hockey_Goalies\" WHERE \"PostGP\" IS NOT NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 20.43,
+    "rew_ms": 10.05,
+    "orig_plan_ms": 0.028,
+    "rew_plan_ms": 0.017,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 22.237,
+    "rew_ms": 10.035,
+    "orig_plan_ms": 0.028,
+    "rew_plan_ms": 0.015,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 8.868,
+    "rew_ms": 4.222,
+    "orig_plan_ms": 0.02,
+    "rew_plan_ms": 0.01,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "GO2",
+  "list": "QO",
+  "table": "Goalies",
+  "cls": "cand",
+  "K": [
+   "playerID",
+   "year"
+  ],
+  "P": "\"PostGP\" IS NOT NULL",
+  "template": "LEFTJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"playerID\", a.\"year\", a.\"stint\" FROM \"hockey_Goalies\" a LEFT JOIN \"hockey_Goalies\" b ON a.\"playerID\" = b.\"playerID\" AND a.\"year\" = b.\"year\" AND b.\"PostGP\" IS NOT NULL",
+  "rew_sql": "SELECT a.\"playerID\", a.\"year\", a.\"stint\" FROM \"hockey_Goalies\" a",
+  "configs": {
+   "none": {
+    "orig_ms": 60.411,
+    "rew_ms": 11.107,
+    "orig_plan_ms": 0.051,
+    "rew_plan_ms": 0.01,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 190.134,
+    "rew_ms": 10.838,
+    "orig_plan_ms": 0.096,
+    "rew_plan_ms": 0.02,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Nested Loop",
+     "Seq Scan",
+     "Memoize",
+     "Index Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 153.319,
+    "rew_ms": 10.739,
+    "orig_plan_ms": 0.079,
+    "rew_plan_ms": 0.014,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Nested Loop",
+     "Seq Scan",
+     "Memoize",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "GO2",
+  "list": "QO",
+  "table": "Goalies",
+  "cls": "cand",
+  "K": [
+   "playerID",
+   "year"
+  ],
+  "P": "\"PostGP\" IS NOT NULL",
+  "template": "SEMIJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"playerID\", a.\"year\", a.\"stint\" FROM \"hockey_Goalies\" a WHERE EXISTS (SELECT 1 FROM \"hockey_Goalies\" b WHERE a.\"playerID\" = b.\"playerID\" AND a.\"year\" = b.\"year\" AND b.\"PostGP\" IS NOT NULL)",
+  "rew_sql": "SELECT a.\"playerID\", a.\"year\", a.\"stint\" FROM \"hockey_Goalies\" a JOIN \"hockey_Goalies\" b ON a.\"playerID\" = b.\"playerID\" AND a.\"year\" = b.\"year\" AND b.\"PostGP\" IS NOT NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 48.761,
+    "rew_ms": 49.578,
+    "orig_plan_ms": 0.068,
+    "rew_plan_ms": 0.05,
+    "pg_already_removes": true,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 46.861,
+    "rew_ms": 180.674,
+    "orig_plan_ms": 0.108,
+    "rew_plan_ms": 0.095,
+    "pg_already_removes": true,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 43.877,
+    "rew_ms": 145.422,
+    "orig_plan_ms": 0.087,
+    "rew_plan_ms": 0.073,
+    "pg_already_removes": true,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Aggregate",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "HOF",
+  "list": "QO",
+  "table": "HOF",
+  "cls": "cand",
+  "K": [
+   "name"
+  ],
+  "P": "\"category\" = 8632613616513808566",
+  "template": "DISTINCT",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT DISTINCT \"name\" FROM \"hockey_HOF\" WHERE \"category\" = 8632613616513808566",
+  "rew_sql": "SELECT \"name\" FROM \"hockey_HOF\" WHERE \"category\" = 8632613616513808566",
+  "configs": {
+   "none": {
+    "orig_ms": 0.955,
+    "rew_ms": 0.597,
+    "orig_plan_ms": 0.006,
+    "rew_plan_ms": 0.004,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 0.966,
+    "rew_ms": 0.575,
+    "orig_plan_ms": 0.008,
+    "rew_plan_ms": 0.005,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 0.497,
+    "rew_ms": 0.251,
+    "orig_plan_ms": 0.008,
+    "rew_plan_ms": 0.007,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Unique",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "HOF",
+  "list": "QO",
+  "table": "HOF",
+  "cls": "cand",
+  "K": [
+   "name"
+  ],
+  "P": "\"category\" = 8632613616513808566",
+  "template": "GROUPBY",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT \"name\", count(*) AS n FROM \"hockey_HOF\" WHERE \"category\" = 8632613616513808566 GROUP BY \"name\"",
+  "rew_sql": "SELECT \"name\", 1 AS n FROM \"hockey_HOF\" WHERE \"category\" = 8632613616513808566",
+  "configs": {
+   "none": {
+    "orig_ms": 1.032,
+    "rew_ms": 0.548,
+    "orig_plan_ms": 0.011,
+    "rew_plan_ms": 0.006,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 1.06,
+    "rew_ms": 0.588,
+    "orig_plan_ms": 0.014,
+    "rew_plan_ms": 0.008,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 0.573,
+    "rew_ms": 0.259,
+    "orig_plan_ms": 0.009,
+    "rew_plan_ms": 0.006,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "HOF",
+  "list": "QO",
+  "table": "HOF",
+  "cls": "cand",
+  "K": [
+   "name"
+  ],
+  "P": "\"category\" = 8632613616513808566",
+  "template": "LEFTJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"name\", a.\"year\" FROM \"hockey_HOF\" a LEFT JOIN \"hockey_HOF\" b ON a.\"name\" = b.\"name\" AND b.\"category\" = 8632613616513808566",
+  "rew_sql": "SELECT a.\"name\", a.\"year\" FROM \"hockey_HOF\" a",
+  "configs": {
+   "none": {
+    "orig_ms": 2.555,
+    "rew_ms": 0.968,
+    "orig_plan_ms": 0.032,
+    "rew_plan_ms": 0.005,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 2.48,
+    "rew_ms": 0.94,
+    "orig_plan_ms": 0.038,
+    "rew_plan_ms": 0.004,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 2.098,
+    "rew_ms": 0.936,
+    "orig_plan_ms": 0.03,
+    "rew_plan_ms": 0.005,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "HOF",
+  "list": "QO",
+  "table": "HOF",
+  "cls": "cand",
+  "K": [
+   "name"
+  ],
+  "P": "\"category\" = 8632613616513808566",
+  "template": "SEMIJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"name\", a.\"year\" FROM \"hockey_HOF\" a WHERE EXISTS (SELECT 1 FROM \"hockey_HOF\" b WHERE a.\"name\" = b.\"name\" AND b.\"category\" = 8632613616513808566)",
+  "rew_sql": "SELECT a.\"name\", a.\"year\" FROM \"hockey_HOF\" a JOIN \"hockey_HOF\" b ON a.\"name\" = b.\"name\" AND b.\"category\" = 8632613616513808566",
+  "configs": {
+   "none": {
+    "orig_ms": 1.984,
+    "rew_ms": 1.941,
+    "orig_plan_ms": 0.024,
+    "rew_plan_ms": 0.014,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 1.815,
+    "rew_ms": 1.832,
+    "orig_plan_ms": 0.038,
+    "rew_plan_ms": 0.033,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 1.474,
+    "rew_ms": 1.442,
+    "orig_plan_ms": 0.022,
+    "rew_plan_ms": 0.017,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "SO",
+  "list": "QO",
+  "table": "soldiers",
+  "cls": "cand",
+  "K": [
+   "number"
+  ],
+  "P": "\"onboard_at_arrival\" IS NOT NULL",
+  "template": "DISTINCT",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT DISTINCT \"number\" FROM \"voc_soldiers\" WHERE \"onboard_at_arrival\" IS NOT NULL",
+  "rew_sql": "SELECT \"number\" FROM \"voc_soldiers\" WHERE \"onboard_at_arrival\" IS NOT NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 28.745,
+    "rew_ms": 10.012,
+    "orig_plan_ms": 0.018,
+    "rew_plan_ms": 0.011,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 30.532,
+    "rew_ms": 10.232,
+    "orig_plan_ms": 0.023,
+    "rew_plan_ms": 0.015,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 13.376,
+    "rew_ms": 7.115,
+    "orig_plan_ms": 0.022,
+    "rew_plan_ms": 0.015,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Unique",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "SO",
+  "list": "QO",
+  "table": "soldiers",
+  "cls": "cand",
+  "K": [
+   "number"
+  ],
+  "P": "\"onboard_at_arrival\" IS NOT NULL",
+  "template": "GROUPBY",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT \"number\", count(*) AS n FROM \"voc_soldiers\" WHERE \"onboard_at_arrival\" IS NOT NULL GROUP BY \"number\"",
+  "rew_sql": "SELECT \"number\", 1 AS n FROM \"voc_soldiers\" WHERE \"onboard_at_arrival\" IS NOT NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 38.861,
+    "rew_ms": 10.325,
+    "orig_plan_ms": 0.025,
+    "rew_plan_ms": 0.009,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 38.56,
+    "rew_ms": 10.086,
+    "orig_plan_ms": 0.029,
+    "rew_plan_ms": 0.016,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 16.379,
+    "rew_ms": 7.709,
+    "orig_plan_ms": 0.026,
+    "rew_plan_ms": 0.013,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "SO",
+  "list": "QO",
+  "table": "soldiers",
+  "cls": "cand",
+  "K": [
+   "number"
+  ],
+  "P": "\"onboard_at_arrival\" IS NOT NULL",
+  "template": "LEFTJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"number\", a.\"number_sup\" FROM \"voc_soldiers\" a LEFT JOIN \"voc_soldiers\" b ON a.\"number\" = b.\"number\" AND b.\"onboard_at_arrival\" IS NOT NULL",
+  "rew_sql": "SELECT a.\"number\", a.\"number_sup\" FROM \"voc_soldiers\" a",
+  "configs": {
+   "none": {
+    "orig_ms": 48.913,
+    "rew_ms": 10.727,
+    "orig_plan_ms": 0.038,
+    "rew_plan_ms": 0.015,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 43.133,
+    "rew_ms": 10.384,
+    "orig_plan_ms": 0.067,
+    "rew_plan_ms": 0.01,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 45.86,
+    "rew_ms": 11.109,
+    "orig_plan_ms": 0.042,
+    "rew_plan_ms": 0.012,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "SO",
+  "list": "QO",
+  "table": "soldiers",
+  "cls": "cand",
+  "K": [
+   "number"
+  ],
+  "P": "\"onboard_at_arrival\" IS NOT NULL",
+  "template": "SEMIJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"number\", a.\"number_sup\" FROM \"voc_soldiers\" a WHERE EXISTS (SELECT 1 FROM \"voc_soldiers\" b WHERE a.\"number\" = b.\"number\" AND b.\"onboard_at_arrival\" IS NOT NULL)",
+  "rew_sql": "SELECT a.\"number\", a.\"number_sup\" FROM \"voc_soldiers\" a JOIN \"voc_soldiers\" b ON a.\"number\" = b.\"number\" AND b.\"onboard_at_arrival\" IS NOT NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 38.775,
+    "rew_ms": 42.783,
+    "orig_plan_ms": 0.044,
+    "rew_plan_ms": 0.033,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 36.779,
+    "rew_ms": 39.407,
+    "orig_plan_ms": 0.076,
+    "rew_plan_ms": 0.064,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 37.561,
+    "rew_ms": 42.834,
+    "orig_plan_ms": 0.046,
+    "rew_plan_ms": 0.052,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "SE",
+  "list": "QO",
+  "table": "seafarers",
+  "cls": "cand",
+  "K": [
+   "number"
+  ],
+  "P": "\"onboard_at_arrival\" IS NOT NULL",
+  "template": "DISTINCT",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT DISTINCT \"number\" FROM \"voc_seafarers\" WHERE \"onboard_at_arrival\" IS NOT NULL",
+  "rew_sql": "SELECT \"number\" FROM \"voc_seafarers\" WHERE \"onboard_at_arrival\" IS NOT NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 29.691,
+    "rew_ms": 10.781,
+    "orig_plan_ms": 0.017,
+    "rew_plan_ms": 0.012,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 29.774,
+    "rew_ms": 11.338,
+    "orig_plan_ms": 0.025,
+    "rew_plan_ms": 0.016,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 14.265,
+    "rew_ms": 7.261,
+    "orig_plan_ms": 0.022,
+    "rew_plan_ms": 0.014,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Unique",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "SE",
+  "list": "QO",
+  "table": "seafarers",
+  "cls": "cand",
+  "K": [
+   "number"
+  ],
+  "P": "\"onboard_at_arrival\" IS NOT NULL",
+  "template": "GROUPBY",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT \"number\", count(*) AS n FROM \"voc_seafarers\" WHERE \"onboard_at_arrival\" IS NOT NULL GROUP BY \"number\"",
+  "rew_sql": "SELECT \"number\", 1 AS n FROM \"voc_seafarers\" WHERE \"onboard_at_arrival\" IS NOT NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 41.181,
+    "rew_ms": 10.62,
+    "orig_plan_ms": 0.026,
+    "rew_plan_ms": 0.016,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 42.392,
+    "rew_ms": 11.253,
+    "orig_plan_ms": 0.036,
+    "rew_plan_ms": 0.02,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 17.738,
+    "rew_ms": 7.937,
+    "orig_plan_ms": 0.024,
+    "rew_plan_ms": 0.017,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "SE",
+  "list": "QO",
+  "table": "seafarers",
+  "cls": "cand",
+  "K": [
+   "number"
+  ],
+  "P": "\"onboard_at_arrival\" IS NOT NULL",
+  "template": "LEFTJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"number\", a.\"number_sup\" FROM \"voc_seafarers\" a LEFT JOIN \"voc_seafarers\" b ON a.\"number\" = b.\"number\" AND b.\"onboard_at_arrival\" IS NOT NULL",
+  "rew_sql": "SELECT a.\"number\", a.\"number_sup\" FROM \"voc_seafarers\" a",
+  "configs": {
+   "none": {
+    "orig_ms": 53.505,
+    "rew_ms": 11.519,
+    "orig_plan_ms": 0.038,
+    "rew_plan_ms": 0.014,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 47.712,
+    "rew_ms": 11.504,
+    "orig_plan_ms": 0.069,
+    "rew_plan_ms": 0.016,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 46.168,
+    "rew_ms": 11.512,
+    "orig_plan_ms": 0.048,
+    "rew_plan_ms": 0.017,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "SE",
+  "list": "QO",
+  "table": "seafarers",
+  "cls": "cand",
+  "K": [
+   "number"
+  ],
+  "P": "\"onboard_at_arrival\" IS NOT NULL",
+  "template": "SEMIJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"number\", a.\"number_sup\" FROM \"voc_seafarers\" a WHERE EXISTS (SELECT 1 FROM \"voc_seafarers\" b WHERE a.\"number\" = b.\"number\" AND b.\"onboard_at_arrival\" IS NOT NULL)",
+  "rew_sql": "SELECT a.\"number\", a.\"number_sup\" FROM \"voc_seafarers\" a JOIN \"voc_seafarers\" b ON a.\"number\" = b.\"number\" AND b.\"onboard_at_arrival\" IS NOT NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 43.296,
+    "rew_ms": 47.127,
+    "orig_plan_ms": 0.044,
+    "rew_plan_ms": 0.037,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 40.987,
+    "rew_ms": 45.314,
+    "orig_plan_ms": 0.067,
+    "rew_plan_ms": 0.057,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 43.739,
+    "rew_ms": 40.24,
+    "orig_plan_ms": 0.051,
+    "rew_plan_ms": 0.051,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "VO1",
+  "list": "QO",
+  "table": "voyages",
+  "cls": "cert",
+  "K": [
+   "number",
+   "arrival_date"
+  ],
+  "P": "\"type_of_boat\" IS NULL",
+  "template": "DISTINCT",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT DISTINCT \"number\", \"arrival_date\" FROM \"voc_voyages\" WHERE \"type_of_boat\" IS NULL",
+  "rew_sql": "SELECT \"number\", \"arrival_date\" FROM \"voc_voyages\" WHERE \"type_of_boat\" IS NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 124.299,
+    "rew_ms": 36.751,
+    "orig_plan_ms": 0.019,
+    "rew_plan_ms": 0.016,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 98.315,
+    "rew_ms": 24.631,
+    "orig_plan_ms": 0.03,
+    "rew_plan_ms": 0.021,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 99.815,
+    "rew_ms": 25.401,
+    "orig_plan_ms": 0.029,
+    "rew_plan_ms": 0.023,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "VO1",
+  "list": "QO",
+  "table": "voyages",
+  "cls": "cert",
+  "K": [
+   "number",
+   "arrival_date"
+  ],
+  "P": "\"type_of_boat\" IS NULL",
+  "template": "GROUPBY",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT \"number\", \"arrival_date\", count(*) AS n FROM \"voc_voyages\" WHERE \"type_of_boat\" IS NULL GROUP BY \"number\", \"arrival_date\"",
+  "rew_sql": "SELECT \"number\", \"arrival_date\", 1 AS n FROM \"voc_voyages\" WHERE \"type_of_boat\" IS NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 107.51,
+    "rew_ms": 25.773,
+    "orig_plan_ms": 0.027,
+    "rew_plan_ms": 0.01,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 103.926,
+    "rew_ms": 25.873,
+    "orig_plan_ms": 0.033,
+    "rew_plan_ms": 0.019,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 106.688,
+    "rew_ms": 25.828,
+    "orig_plan_ms": 0.032,
+    "rew_plan_ms": 0.019,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "VO1",
+  "list": "QO",
+  "table": "voyages",
+  "cls": "cert",
+  "K": [
+   "number",
+   "arrival_date"
+  ],
+  "P": "\"type_of_boat\" IS NULL",
+  "template": "LEFTJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"number\", a.\"arrival_date\", a.\"artificial_id\" FROM \"voc_voyages\" a LEFT JOIN \"voc_voyages\" b ON a.\"number\" = b.\"number\" AND a.\"arrival_date\" = b.\"arrival_date\" AND b.\"type_of_boat\" IS NULL",
+  "rew_sql": "SELECT a.\"number\", a.\"arrival_date\", a.\"artificial_id\" FROM \"voc_voyages\" a",
+  "configs": {
+   "none": {
+    "orig_ms": 136.771,
+    "rew_ms": 25.428,
+    "orig_plan_ms": 0.042,
+    "rew_plan_ms": 0.015,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 139.361,
+    "rew_ms": 25.69,
+    "orig_plan_ms": 0.077,
+    "rew_plan_ms": 0.018,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 129.573,
+    "rew_ms": 25.755,
+    "orig_plan_ms": 0.063,
+    "rew_plan_ms": 0.02,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "VO1",
+  "list": "QO",
+  "table": "voyages",
+  "cls": "cert",
+  "K": [
+   "number",
+   "arrival_date"
+  ],
+  "P": "\"type_of_boat\" IS NULL",
+  "template": "SEMIJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"number\", a.\"arrival_date\", a.\"artificial_id\" FROM \"voc_voyages\" a WHERE EXISTS (SELECT 1 FROM \"voc_voyages\" b WHERE a.\"number\" = b.\"number\" AND a.\"arrival_date\" = b.\"arrival_date\" AND b.\"type_of_boat\" IS NULL)",
+  "rew_sql": "SELECT a.\"number\", a.\"arrival_date\", a.\"artificial_id\" FROM \"voc_voyages\" a JOIN \"voc_voyages\" b ON a.\"number\" = b.\"number\" AND a.\"arrival_date\" = b.\"arrival_date\" AND b.\"type_of_boat\" IS NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 133.218,
+    "rew_ms": 132.51,
+    "orig_plan_ms": 0.052,
+    "rew_plan_ms": 0.044,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 132.409,
+    "rew_ms": 136.715,
+    "orig_plan_ms": 0.081,
+    "rew_plan_ms": 0.078,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 126.628,
+    "rew_ms": 119.348,
+    "orig_plan_ms": 0.07,
+    "rew_plan_ms": 0.065,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Index Only Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "VO2",
+  "list": "QO",
+  "table": "voyages",
+  "cls": "cand",
+  "K": [
+   "number",
+   "departure_date"
+  ],
+  "P": "\"type_of_boat\" IS NULL",
+  "template": "DISTINCT",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT DISTINCT \"number\", \"departure_date\" FROM \"voc_voyages\" WHERE \"type_of_boat\" IS NULL",
+  "rew_sql": "SELECT \"number\", \"departure_date\" FROM \"voc_voyages\" WHERE \"type_of_boat\" IS NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 94.662,
+    "rew_ms": 22.151,
+    "orig_plan_ms": 0.023,
+    "rew_plan_ms": 0.013,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 94.604,
+    "rew_ms": 22.629,
+    "orig_plan_ms": 0.027,
+    "rew_plan_ms": 0.014,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 27.35,
+    "rew_ms": 13.432,
+    "orig_plan_ms": 0.026,
+    "rew_plan_ms": 0.023,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Unique",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "VO2",
+  "list": "QO",
+  "table": "voyages",
+  "cls": "cand",
+  "K": [
+   "number",
+   "departure_date"
+  ],
+  "P": "\"type_of_boat\" IS NULL",
+  "template": "GROUPBY",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT \"number\", \"departure_date\", count(*) AS n FROM \"voc_voyages\" WHERE \"type_of_boat\" IS NULL GROUP BY \"number\", \"departure_date\"",
+  "rew_sql": "SELECT \"number\", \"departure_date\", 1 AS n FROM \"voc_voyages\" WHERE \"type_of_boat\" IS NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 106.344,
+    "rew_ms": 22.578,
+    "orig_plan_ms": 0.027,
+    "rew_plan_ms": 0.013,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 107.809,
+    "rew_ms": 22.646,
+    "orig_plan_ms": 0.027,
+    "rew_plan_ms": 0.018,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 31.792,
+    "rew_ms": 14.849,
+    "orig_plan_ms": 0.032,
+    "rew_plan_ms": 0.024,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "VO2",
+  "list": "QO",
+  "table": "voyages",
+  "cls": "cand",
+  "K": [
+   "number",
+   "departure_date"
+  ],
+  "P": "\"type_of_boat\" IS NULL",
+  "template": "LEFTJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"number\", a.\"departure_date\", a.\"artificial_id\" FROM \"voc_voyages\" a LEFT JOIN \"voc_voyages\" b ON a.\"number\" = b.\"number\" AND a.\"departure_date\" = b.\"departure_date\" AND b.\"type_of_boat\" IS NULL",
+  "rew_sql": "SELECT a.\"number\", a.\"departure_date\", a.\"artificial_id\" FROM \"voc_voyages\" a",
+  "configs": {
+   "none": {
+    "orig_ms": 134.144,
+    "rew_ms": 22.573,
+    "orig_plan_ms": 0.04,
+    "rew_plan_ms": 0.016,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 134.614,
+    "rew_ms": 23.428,
+    "orig_plan_ms": 0.075,
+    "rew_plan_ms": 0.02,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 126.44,
+    "rew_ms": 24.482,
+    "orig_plan_ms": 0.054,
+    "rew_plan_ms": 0.018,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "VO2",
+  "list": "QO",
+  "table": "voyages",
+  "cls": "cand",
+  "K": [
+   "number",
+   "departure_date"
+  ],
+  "P": "\"type_of_boat\" IS NULL",
+  "template": "SEMIJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"number\", a.\"departure_date\", a.\"artificial_id\" FROM \"voc_voyages\" a WHERE EXISTS (SELECT 1 FROM \"voc_voyages\" b WHERE a.\"number\" = b.\"number\" AND a.\"departure_date\" = b.\"departure_date\" AND b.\"type_of_boat\" IS NULL)",
+  "rew_sql": "SELECT a.\"number\", a.\"departure_date\", a.\"artificial_id\" FROM \"voc_voyages\" a JOIN \"voc_voyages\" b ON a.\"number\" = b.\"number\" AND a.\"departure_date\" = b.\"departure_date\" AND b.\"type_of_boat\" IS NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 132.564,
+    "rew_ms": 137.121,
+    "orig_plan_ms": 0.051,
+    "rew_plan_ms": 0.045,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 129.791,
+    "rew_ms": 130.835,
+    "orig_plan_ms": 0.087,
+    "rew_plan_ms": 0.081,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 125.803,
+    "rew_ms": 122.299,
+    "orig_plan_ms": 0.061,
+    "rew_plan_ms": 0.061,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Index Only Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "VO3",
+  "list": "QO",
+  "table": "voyages",
+  "cls": "dom",
+  "K": [
+   "boatname",
+   "departure_date"
+  ],
+  "P": "\"master\" IS NOT NULL",
+  "template": "DISTINCT",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT DISTINCT \"boatname\", \"departure_date\" FROM \"voc_voyages\" WHERE \"master\" IS NOT NULL",
+  "rew_sql": "SELECT \"boatname\", \"departure_date\" FROM \"voc_voyages\" WHERE \"master\" IS NOT NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 116.684,
+    "rew_ms": 24.915,
+    "orig_plan_ms": 0.021,
+    "rew_plan_ms": 0.017,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 115.746,
+    "rew_ms": 24.342,
+    "orig_plan_ms": 0.03,
+    "rew_plan_ms": 0.022,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 31.584,
+    "rew_ms": 16.301,
+    "orig_plan_ms": 0.019,
+    "rew_plan_ms": 0.021,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Unique",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "VO3",
+  "list": "QO",
+  "table": "voyages",
+  "cls": "dom",
+  "K": [
+   "boatname",
+   "departure_date"
+  ],
+  "P": "\"master\" IS NOT NULL",
+  "template": "GROUPBY",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT \"boatname\", \"departure_date\", count(*) AS n FROM \"voc_voyages\" WHERE \"master\" IS NOT NULL GROUP BY \"boatname\", \"departure_date\"",
+  "rew_sql": "SELECT \"boatname\", \"departure_date\", 1 AS n FROM \"voc_voyages\" WHERE \"master\" IS NOT NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 129.801,
+    "rew_ms": 24.753,
+    "orig_plan_ms": 0.029,
+    "rew_plan_ms": 0.02,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 131.255,
+    "rew_ms": 25.679,
+    "orig_plan_ms": 0.031,
+    "rew_plan_ms": 0.018,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 39.182,
+    "rew_ms": 18.548,
+    "orig_plan_ms": 0.032,
+    "rew_plan_ms": 0.024,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "VO3",
+  "list": "QO",
+  "table": "voyages",
+  "cls": "dom",
+  "K": [
+   "boatname",
+   "departure_date"
+  ],
+  "P": "\"master\" IS NOT NULL",
+  "template": "LEFTJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"boatname\", a.\"departure_date\", a.\"artificial_id\" FROM \"voc_voyages\" a LEFT JOIN \"voc_voyages\" b ON a.\"boatname\" = b.\"boatname\" AND a.\"departure_date\" = b.\"departure_date\" AND b.\"master\" IS NOT NULL",
+  "rew_sql": "SELECT a.\"boatname\", a.\"departure_date\", a.\"artificial_id\" FROM \"voc_voyages\" a",
+  "configs": {
+   "none": {
+    "orig_ms": 144.886,
+    "rew_ms": 23.149,
+    "orig_plan_ms": 0.045,
+    "rew_plan_ms": 0.015,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 226.058,
+    "rew_ms": 24.653,
+    "orig_plan_ms": 0.084,
+    "rew_plan_ms": 0.017,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Merge Join",
+     "Index Scan",
+     "Index Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 152.639,
+    "rew_ms": 24.504,
+    "orig_plan_ms": 0.069,
+    "rew_plan_ms": 0.018,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Merge Join",
+     "Sort",
+     "Seq Scan",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "VO3",
+  "list": "QO",
+  "table": "voyages",
+  "cls": "dom",
+  "K": [
+   "boatname",
+   "departure_date"
+  ],
+  "P": "\"master\" IS NOT NULL",
+  "template": "SEMIJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"boatname\", a.\"departure_date\", a.\"artificial_id\" FROM \"voc_voyages\" a WHERE EXISTS (SELECT 1 FROM \"voc_voyages\" b WHERE a.\"boatname\" = b.\"boatname\" AND a.\"departure_date\" = b.\"departure_date\" AND b.\"master\" IS NOT NULL)",
+  "rew_sql": "SELECT a.\"boatname\", a.\"departure_date\", a.\"artificial_id\" FROM \"voc_voyages\" a JOIN \"voc_voyages\" b ON a.\"boatname\" = b.\"boatname\" AND a.\"departure_date\" = b.\"departure_date\" AND b.\"master\" IS NOT NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 154.81,
+    "rew_ms": 150.404,
+    "orig_plan_ms": 0.054,
+    "rew_plan_ms": 0.047,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 154.792,
+    "rew_ms": 147.98,
+    "orig_plan_ms": 0.091,
+    "rew_plan_ms": 0.078,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 153.036,
+    "rew_ms": 138.522,
+    "orig_plan_ms": 0.066,
+    "rew_plan_ms": 0.061,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Index Only Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "IN",
+  "list": "QO",
+  "table": "invoices",
+  "cls": "cand",
+  "K": [
+   "number",
+   "invoice"
+  ],
+  "P": "\"chamber\" = -5822201839289945793",
+  "template": "DISTINCT",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT DISTINCT \"number\", \"invoice\" FROM \"voc_invoices\" WHERE \"chamber\" = -5822201839289945793",
+  "rew_sql": "SELECT \"number\", \"invoice\" FROM \"voc_invoices\" WHERE \"chamber\" = -5822201839289945793",
+  "configs": {
+   "none": {
+    "orig_ms": 17.182,
+    "rew_ms": 7.468,
+    "orig_plan_ms": 0.021,
+    "rew_plan_ms": 0.012,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 18.129,
+    "rew_ms": 7.338,
+    "orig_plan_ms": 0.023,
+    "rew_plan_ms": 0.022,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 7.14,
+    "rew_ms": 3.575,
+    "orig_plan_ms": 0.023,
+    "rew_plan_ms": 0.013,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Unique",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "IN",
+  "list": "QO",
+  "table": "invoices",
+  "cls": "cand",
+  "K": [
+   "number",
+   "invoice"
+  ],
+  "P": "\"chamber\" = -5822201839289945793",
+  "template": "GROUPBY",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT \"number\", \"invoice\", count(*) AS n FROM \"voc_invoices\" WHERE \"chamber\" = -5822201839289945793 GROUP BY \"number\", \"invoice\"",
+  "rew_sql": "SELECT \"number\", \"invoice\", 1 AS n FROM \"voc_invoices\" WHERE \"chamber\" = -5822201839289945793",
+  "configs": {
+   "none": {
+    "orig_ms": 17.767,
+    "rew_ms": 7.286,
+    "orig_plan_ms": 0.022,
+    "rew_plan_ms": 0.011,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 17.487,
+    "rew_ms": 7.265,
+    "orig_plan_ms": 0.025,
+    "rew_plan_ms": 0.014,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 9.019,
+    "rew_ms": 4.101,
+    "orig_plan_ms": 0.022,
+    "rew_plan_ms": 0.02,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "IN",
+  "list": "QO",
+  "table": "invoices",
+  "cls": "cand",
+  "K": [
+   "number",
+   "invoice"
+  ],
+  "P": "\"chamber\" = -5822201839289945793",
+  "template": "LEFTJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"number\", a.\"invoice\", a.\"number_sup\" FROM \"voc_invoices\" a LEFT JOIN \"voc_invoices\" b ON a.\"number\" = b.\"number\" AND a.\"invoice\" = b.\"invoice\" AND b.\"chamber\" = -5822201839289945793",
+  "rew_sql": "SELECT a.\"number\", a.\"invoice\", a.\"number_sup\" FROM \"voc_invoices\" a",
+  "configs": {
+   "none": {
+    "orig_ms": 35.59,
+    "rew_ms": 8.924,
+    "orig_plan_ms": 0.044,
+    "rew_plan_ms": 0.014,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 49.805,
+    "rew_ms": 8.989,
+    "orig_plan_ms": 0.078,
+    "rew_plan_ms": 0.017,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 31.577,
+    "rew_ms": 8.754,
+    "orig_plan_ms": 0.055,
+    "rew_plan_ms": 0.017,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "IN",
+  "list": "QO",
+  "table": "invoices",
+  "cls": "cand",
+  "K": [
+   "number",
+   "invoice"
+  ],
+  "P": "\"chamber\" = -5822201839289945793",
+  "template": "SEMIJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"number\", a.\"invoice\", a.\"number_sup\" FROM \"voc_invoices\" a WHERE EXISTS (SELECT 1 FROM \"voc_invoices\" b WHERE a.\"number\" = b.\"number\" AND a.\"invoice\" = b.\"invoice\" AND b.\"chamber\" = -5822201839289945793)",
+  "rew_sql": "SELECT a.\"number\", a.\"invoice\", a.\"number_sup\" FROM \"voc_invoices\" a JOIN \"voc_invoices\" b ON a.\"number\" = b.\"number\" AND a.\"invoice\" = b.\"invoice\" AND b.\"chamber\" = -5822201839289945793",
+  "configs": {
+   "none": {
+    "orig_ms": 46.204,
+    "rew_ms": 40.006,
+    "orig_plan_ms": 0.047,
+    "rew_plan_ms": 0.045,
+    "pg_already_removes": true,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 40.804,
+    "rew_ms": 39.45,
+    "orig_plan_ms": 0.083,
+    "rew_plan_ms": 0.075,
+    "pg_already_removes": true,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 37.115,
+    "rew_ms": 37.037,
+    "orig_plan_ms": 0.069,
+    "rew_plan_ms": 0.059,
+    "pg_already_removes": true,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Aggregate",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "TR1",
+  "list": "GROUP-BY-trap",
+  "table": "voyages",
+  "cls": "pos",
+  "K": [
+   "master",
+   "departure_date"
+  ],
+  "P": "\"yard\" IS NOT NULL",
+  "template": "DISTINCT",
+  "licensed": false,
+  "rewrite_correct": false,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT DISTINCT \"master\", \"departure_date\" FROM \"voc_voyages\" WHERE \"yard\" IS NOT NULL",
+  "rew_sql": "SELECT \"master\", \"departure_date\" FROM \"voc_voyages\" WHERE \"yard\" IS NOT NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 128.635,
+    "rew_ms": 25.422,
+    "orig_plan_ms": 0.021,
+    "rew_plan_ms": 0.017,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 134.719,
+    "rew_ms": 26.234,
+    "orig_plan_ms": 0.026,
+    "rew_plan_ms": 0.02,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 35.628,
+    "rew_ms": 19.168,
+    "orig_plan_ms": 0.024,
+    "rew_plan_ms": 0.014,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Unique",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "TR1",
+  "list": "GROUP-BY-trap",
+  "table": "voyages",
+  "cls": "pos",
+  "K": [
+   "master",
+   "departure_date"
+  ],
+  "P": "\"yard\" IS NOT NULL",
+  "template": "GROUPBY",
+  "licensed": false,
+  "rewrite_correct": false,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT \"master\", \"departure_date\", count(*) AS n FROM \"voc_voyages\" WHERE \"yard\" IS NOT NULL GROUP BY \"master\", \"departure_date\"",
+  "rew_sql": "SELECT \"master\", \"departure_date\", 1 AS n FROM \"voc_voyages\" WHERE \"yard\" IS NOT NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 146.31,
+    "rew_ms": 27.488,
+    "orig_plan_ms": 0.026,
+    "rew_plan_ms": 0.013,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 152.151,
+    "rew_ms": 26.754,
+    "orig_plan_ms": 0.037,
+    "rew_plan_ms": 0.02,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 44.212,
+    "rew_ms": 21.618,
+    "orig_plan_ms": 0.024,
+    "rew_plan_ms": 0.014,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "TR1",
+  "list": "GROUP-BY-trap",
+  "table": "voyages",
+  "cls": "pos",
+  "K": [
+   "master",
+   "departure_date"
+  ],
+  "P": "\"yard\" IS NOT NULL",
+  "template": "LEFTJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"master\", a.\"departure_date\", a.\"artificial_id\" FROM \"voc_voyages\" a LEFT JOIN \"voc_voyages\" b ON a.\"master\" = b.\"master\" AND a.\"departure_date\" = b.\"departure_date\" AND b.\"yard\" IS NOT NULL",
+  "rew_sql": "SELECT a.\"master\", a.\"departure_date\", a.\"artificial_id\" FROM \"voc_voyages\" a",
+  "configs": {
+   "none": {
+    "orig_ms": 147.369,
+    "rew_ms": 25.402,
+    "orig_plan_ms": 0.045,
+    "rew_plan_ms": 0.013,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 146.41,
+    "rew_ms": 24.375,
+    "orig_plan_ms": 0.08,
+    "rew_plan_ms": 0.02,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 142.785,
+    "rew_ms": 24.968,
+    "orig_plan_ms": 0.054,
+    "rew_plan_ms": 0.015,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "TR1",
+  "list": "GROUP-BY-trap",
+  "table": "voyages",
+  "cls": "pos",
+  "K": [
+   "master",
+   "departure_date"
+  ],
+  "P": "\"yard\" IS NOT NULL",
+  "template": "SEMIJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"master\", a.\"departure_date\", a.\"artificial_id\" FROM \"voc_voyages\" a WHERE EXISTS (SELECT 1 FROM \"voc_voyages\" b WHERE a.\"master\" = b.\"master\" AND a.\"departure_date\" = b.\"departure_date\" AND b.\"yard\" IS NOT NULL)",
+  "rew_sql": "SELECT a.\"master\", a.\"departure_date\", a.\"artificial_id\" FROM \"voc_voyages\" a JOIN \"voc_voyages\" b ON a.\"master\" = b.\"master\" AND a.\"departure_date\" = b.\"departure_date\" AND b.\"yard\" IS NOT NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 136.962,
+    "rew_ms": 141.401,
+    "orig_plan_ms": 0.05,
+    "rew_plan_ms": 0.045,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 138.849,
+    "rew_ms": 139.07,
+    "orig_plan_ms": 0.084,
+    "rew_plan_ms": 0.081,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 139.186,
+    "rew_ms": 134.199,
+    "orig_plan_ms": 0.057,
+    "rew_plan_ms": 0.06,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Index Only Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "TR2",
+  "list": "GROUP-BY-trap",
+  "table": "voyages",
+  "cls": "pos",
+  "K": [
+   "master",
+   "departure_date"
+  ],
+  "P": "\"cape_arrival\" IS NOT NULL",
+  "template": "DISTINCT",
+  "licensed": false,
+  "rewrite_correct": false,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT DISTINCT \"master\", \"departure_date\" FROM \"voc_voyages\" WHERE \"cape_arrival\" IS NOT NULL",
+  "rew_sql": "SELECT \"master\", \"departure_date\" FROM \"voc_voyages\" WHERE \"cape_arrival\" IS NOT NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 128.615,
+    "rew_ms": 25.882,
+    "orig_plan_ms": 0.021,
+    "rew_plan_ms": 0.017,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 124.284,
+    "rew_ms": 26.403,
+    "orig_plan_ms": 0.032,
+    "rew_plan_ms": 0.017,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 33.243,
+    "rew_ms": 17.225,
+    "orig_plan_ms": 0.03,
+    "rew_plan_ms": 0.021,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Unique",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "TR2",
+  "list": "GROUP-BY-trap",
+  "table": "voyages",
+  "cls": "pos",
+  "K": [
+   "master",
+   "departure_date"
+  ],
+  "P": "\"cape_arrival\" IS NOT NULL",
+  "template": "GROUPBY",
+  "licensed": false,
+  "rewrite_correct": false,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT \"master\", \"departure_date\", count(*) AS n FROM \"voc_voyages\" WHERE \"cape_arrival\" IS NOT NULL GROUP BY \"master\", \"departure_date\"",
+  "rew_sql": "SELECT \"master\", \"departure_date\", 1 AS n FROM \"voc_voyages\" WHERE \"cape_arrival\" IS NOT NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 137.458,
+    "rew_ms": 25.609,
+    "orig_plan_ms": 0.026,
+    "rew_plan_ms": 0.016,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 137.5,
+    "rew_ms": 25.31,
+    "orig_plan_ms": 0.033,
+    "rew_plan_ms": 0.023,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 39.867,
+    "rew_ms": 20.22,
+    "orig_plan_ms": 0.027,
+    "rew_plan_ms": 0.02,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Aggregate",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "TR2",
+  "list": "GROUP-BY-trap",
+  "table": "voyages",
+  "cls": "pos",
+  "K": [
+   "master",
+   "departure_date"
+  ],
+  "P": "\"cape_arrival\" IS NOT NULL",
+  "template": "LEFTJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"master\", a.\"departure_date\", a.\"artificial_id\" FROM \"voc_voyages\" a LEFT JOIN \"voc_voyages\" b ON a.\"master\" = b.\"master\" AND a.\"departure_date\" = b.\"departure_date\" AND b.\"cape_arrival\" IS NOT NULL",
+  "rew_sql": "SELECT a.\"master\", a.\"departure_date\", a.\"artificial_id\" FROM \"voc_voyages\" a",
+  "configs": {
+   "none": {
+    "orig_ms": 144.751,
+    "rew_ms": 25.179,
+    "orig_plan_ms": 0.045,
+    "rew_plan_ms": 0.011,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 144.077,
+    "rew_ms": 24.326,
+    "orig_plan_ms": 0.079,
+    "rew_plan_ms": 0.016,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 139.213,
+    "rew_ms": 24.032,
+    "orig_plan_ms": 0.055,
+    "rew_plan_ms": 0.017,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Index Only Scan"
+    ]
+   }
+  }
+ },
+ {
+  "case": "TR2",
+  "list": "GROUP-BY-trap",
+  "table": "voyages",
+  "cls": "pos",
+  "K": [
+   "master",
+   "departure_date"
+  ],
+  "P": "\"cape_arrival\" IS NOT NULL",
+  "template": "SEMIJOIN",
+  "licensed": true,
+  "rewrite_correct": true,
+  "rewrite_correct_without_P": false,
+  "orig_sql": "SELECT a.\"master\", a.\"departure_date\", a.\"artificial_id\" FROM \"voc_voyages\" a WHERE EXISTS (SELECT 1 FROM \"voc_voyages\" b WHERE a.\"master\" = b.\"master\" AND a.\"departure_date\" = b.\"departure_date\" AND b.\"cape_arrival\" IS NOT NULL)",
+  "rew_sql": "SELECT a.\"master\", a.\"departure_date\", a.\"artificial_id\" FROM \"voc_voyages\" a JOIN \"voc_voyages\" b ON a.\"master\" = b.\"master\" AND a.\"departure_date\" = b.\"departure_date\" AND b.\"cape_arrival\" IS NOT NULL",
+  "configs": {
+   "none": {
+    "orig_ms": 138.998,
+    "rew_ms": 139.456,
+    "orig_plan_ms": 0.052,
+    "rew_plan_ms": 0.044,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "idx": {
+    "orig_ms": 139.433,
+    "rew_ms": 139.115,
+    "orig_plan_ms": 0.079,
+    "rew_plan_ms": 0.078,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Seq Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   },
+   "uq": {
+    "orig_ms": 130.784,
+    "rew_ms": 128.542,
+    "orig_plan_ms": 0.062,
+    "rew_plan_ms": 0.06,
+    "pg_already_removes": false,
+    "orig_nodes": [
+     "Hash Join",
+     "Index Only Scan",
+     "Hash",
+     "Seq Scan"
+    ]
+   }
+  }
+ }
+]

@@ -1,0 +1,87 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "entity_name",
+   "street_name",
+   "block",
+   "secondary_ssic_description"
+  ]
+ },
+ "sample_rows": 33157,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbsg.t68",
+   "rows": 33157,
+   "cols": [
+    "block",
+    "entity_name",
+    "secondary_ssic_description",
+    "entity_status_description",
+    "street_name"
+   ],
+   "n_conditional": 2,
+   "conditional": [
+    {
+     "table": "lbsg.t68",
+     "K": [
+      "entity_name",
+      "street_name"
+     ],
+     "cls": "cert",
+     "condition": "(secondary_ssic_description missing, entity_status_description missing)",
+     "sql": "(secondary_ssic_description IS NULL AND entity_status_description IS NULL)",
+     "support": 0.092,
+     "rows": 3058,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.022,
+     "score": 0.711,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t68",
+     "K": [
+      "entity_name",
+      "block"
+     ],
+     "cls": "cert",
+     "condition": "(secondary_ssic_description missing, entity_status_description missing)",
+     "sql": "(secondary_ssic_description IS NULL AND entity_status_description IS NULL)",
+     "support": 0.092,
+     "rows": 3058,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.027,
+     "score": 0.355,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    }
+   ],
+   "unconditional": {}
+  }
+ ]
+}

@@ -1,0 +1,283 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "buildingaddress",
+   "buildingname",
+   "grossfloorarea",
+   "2018energyusintensity",
+   "2017energyuseintensity",
+   "buildingtype"
+  ]
+ },
+ "sample_rows": 1244,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbsg.t0",
+   "rows": 1244,
+   "cols": [
+    "buildingname",
+    "buildingaddress",
+    "buildingtype",
+    "greenmarkstatus",
+    "buildingsize",
+    "grossfloorarea",
+    "2017energyuseintensity",
+    "2018energyusintensity",
+    "voluntarydisclosure"
+   ],
+   "n_conditional": 9,
+   "conditional": [
+    {
+     "table": "lbsg.t0",
+     "K": [
+      "buildingaddress"
+     ],
+     "cls": "cand",
+     "condition": "(buildingname present)",
+     "sql": "(buildingname IS NOT NULL)",
+     "support": 0.629,
+     "rows": 783,
+     "uncond": "pos",
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 2.38,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t0",
+     "K": [
+      "buildingname",
+      "grossfloorarea"
+     ],
+     "cls": "cand",
+     "condition": "(buildingname present)",
+     "sql": "(buildingname IS NOT NULL)",
+     "support": 0.629,
+     "rows": 783,
+     "uncond": "pos",
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 2.142,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t0",
+     "K": [
+      "grossfloorarea"
+     ],
+     "cls": "pos",
+     "condition": "(buildingaddress missing [same rows: grossfloorarea missing, voluntarydisclosure =v2])",
+     "sql": "(buildingaddress IS NULL)",
+     "support": 0.207,
+     "rows": 258,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.888,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t0",
+     "K": [
+      "buildingname",
+      "grossfloorarea"
+     ],
+     "cls": "dom",
+     "condition": "(buildingaddress present [same rows: grossfloorarea present, voluntarydisclosure =v1], buildingsize = \"Large\" (39%))",
+     "sql": "(buildingaddress IS NOT NULL AND buildingsize = 'Large')",
+     "support": 0.334,
+     "rows": 415,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.135,
+     "score": 0.676,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "buildingsize=v2": "Large"
+     }
+    },
+    {
+     "table": "lbsg.t0",
+     "K": [
+      "grossfloorarea"
+     ],
+     "cls": "pos",
+     "condition": "(greenmarkstatus = \"Yes\" (30%), buildingsize = \"Large\" (39%))",
+     "sql": "(greenmarkstatus = 'Yes' AND buildingsize = 'Large')",
+     "support": 0.227,
+     "rows": 282,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.152,
+     "score": 0.619,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "greenmarkstatus=v2": "Yes",
+      "buildingsize=v2": "Large"
+     }
+    },
+    {
+     "table": "lbsg.t0",
+     "K": [
+      "buildingname",
+      "grossfloorarea"
+     ],
+     "cls": "dom",
+     "condition": "(buildingaddress present [same rows: grossfloorarea present, voluntarydisclosure =v1], greenmarkstatus = \"Yes\" (30%))",
+     "sql": "(buildingaddress IS NOT NULL AND greenmarkstatus = 'Yes')",
+     "support": 0.246,
+     "rows": 306,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.15,
+     "score": 0.58,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "greenmarkstatus=v2": "Yes"
+     }
+    },
+    {
+     "table": "lbsg.t0",
+     "K": [
+      "grossfloorarea"
+     ],
+     "cls": "pos",
+     "condition": "(buildingsize missing)",
+     "sql": "(buildingsize IS NULL)",
+     "support": 0.044,
+     "rows": 55,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.41,
+     "tags": [
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t0",
+     "K": [
+      "grossfloorarea"
+     ],
+     "cls": "pos",
+     "condition": "(buildingname missing, buildingsize = \"Large\" (39%))",
+     "sql": "(buildingname IS NULL AND buildingsize = 'Large')",
+     "support": 0.098,
+     "rows": 122,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.541,
+     "score": 0.407,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "buildingsize=v2": "Large"
+     }
+    },
+    {
+     "table": "lbsg.t0",
+     "K": [
+      "grossfloorarea"
+     ],
+     "cls": "pos",
+     "condition": "(buildingname missing, greenmarkstatus = \"Yes\" (30%))",
+     "sql": "(buildingname IS NULL AND greenmarkstatus = 'Yes')",
+     "support": 0.093,
+     "rows": 116,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.603,
+     "score": 0.397,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "greenmarkstatus=v2": "Yes"
+     }
+    }
+   ],
+   "unconditional": {
+    "buildingaddress": "pos",
+    "buildingaddress,buildingname": "pos",
+    "buildingaddress,grossfloorarea": "pos",
+    "buildingaddress,2018energyusintensity": "pos",
+    "buildingaddress,2017energyuseintensity": "pos",
+    "buildingaddress,buildingtype": "pos",
+    "buildingname,grossfloorarea": "pos",
+    "buildingname,2018energyusintensity": "pos",
+    "buildingname,2017energyuseintensity": "pos",
+    "grossfloorarea,2017energyuseintensity": "pos",
+    "buildingaddress,buildingname,grossfloorarea": "pos",
+    "buildingaddress,buildingname,2018energyusintensity": "pos",
+    "buildingaddress,buildingname,2017energyuseintensity": "pos",
+    "buildingaddress,buildingname,buildingtype": "pos",
+    "buildingaddress,grossfloorarea,2018energyusintensity": "pos",
+    "buildingaddress,grossfloorarea,2017energyuseintensity": "pos",
+    "buildingaddress,grossfloorarea,buildingtype": "pos",
+    "buildingaddress,2018energyusintensity,2017energyuseintensity": "pos",
+    "buildingaddress,2018energyusintensity,buildingtype": "pos",
+    "buildingaddress,2017energyuseintensity,buildingtype": "pos",
+    "buildingname,grossfloorarea,2018energyusintensity": "pos",
+    "buildingname,grossfloorarea,2017energyuseintensity": "pos",
+    "buildingname,grossfloorarea,buildingtype": "pos",
+    "buildingname,2018energyusintensity,2017energyuseintensity": "pos",
+    "buildingname,2018energyusintensity,buildingtype": "pos",
+    "buildingname,2017energyuseintensity,buildingtype": "pos",
+    "grossfloorarea,2018energyusintensity,2017energyuseintensity": "pos",
+    "grossfloorarea,2018energyusintensity,buildingtype": "pos",
+    "grossfloorarea,2017energyuseintensity,buildingtype": "pos"
+   }
+  }
+ ]
+}

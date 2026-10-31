@@ -1,0 +1,591 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "a_invoice_number",
+   "a_check_number",
+   "a_vendor_number",
+   "i_invoice_date",
+   "a_line_item_desc",
+   "a_line_item_amount",
+   "a_purch_order_no",
+   "Vendor",
+   "Vendor Zip"
+  ]
+ },
+ "sample_rows": 74435,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbusa.t33348",
+   "rows": 74435,
+   "cols": [
+    "j_jrnl_entry_year",
+    "j_jrnl_entry_per",
+    "Service",
+    "Dept Name",
+    "Program",
+    "Expense Category",
+    "Fund Name",
+    "Fund Type",
+    "Vendor",
+    "a_vendor_number",
+    "Vendor Zip",
+    "a_check_number",
+    "Payment Type",
+    "a_check_date",
+    "Payment Status",
+    "a_invoice_number",
+    "id_line_number",
+    "i_invoice_date",
+    "a_line_item_amount",
+    "a_line_item_desc",
+    "a_purch_order_no"
+   ],
+   "n_conditional": 20,
+   "conditional": [
+    {
+     "table": "lbusa.t33348",
+     "K": [
+      "a_invoice_number",
+      "a_purch_order_no"
+     ],
+     "cls": "pos",
+     "condition": "(a_check_number missing [same rows: a_check_date missing])",
+     "sql": "(a_check_number IS NULL)",
+     "support": 0.126,
+     "rows": 9350,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.622,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33348",
+     "K": [
+      "a_invoice_number",
+      "a_line_item_amount"
+     ],
+     "cls": "cand",
+     "condition": "Service in {\"OVERHEAD/DISTRIBUTIVE\", \"Public Safety\"}",
+     "sql": "(Service = 'OVERHEAD/DISTRIBUTIVE') OR (Service = 'Public Safety')",
+     "support": 0.227,
+     "rows": 16907,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.5,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Service=v3": "OVERHEAD/DISTRIBUTIVE",
+      "Service=v6": "Public Safety"
+     }
+    },
+    {
+     "table": "lbusa.t33348",
+     "K": [
+      "a_invoice_number",
+      "a_check_number"
+     ],
+     "cls": "pos",
+     "condition": "(Service = \"Human Services\" (10%), Payment Type = \"ACI\" (21%))",
+     "sql": "(Service = 'Human Services' AND Payment Type = 'ACI')",
+     "support": 0.064,
+     "rows": 4774,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.998,
+     "score": 0.296,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Service=v4": "Human Services",
+      "Payment Type=v2": "ACI"
+     }
+    },
+    {
+     "table": "lbusa.t33348",
+     "K": [
+      "a_invoice_number",
+      "a_purch_order_no"
+     ],
+     "cls": "pos",
+     "condition": "(Service = \"Human Services\" (10%), Payment Type = \"ACI\" (21%))",
+     "sql": "(Service = 'Human Services' AND Payment Type = 'ACI')",
+     "support": 0.064,
+     "rows": 4774,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.296,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Service=v4": "Human Services",
+      "Payment Type=v2": "ACI"
+     }
+    },
+    {
+     "table": "lbusa.t33348",
+     "K": [
+      "i_invoice_date",
+      "a_line_item_amount",
+      "a_purch_order_no"
+     ],
+     "cls": "pos",
+     "condition": "(a_check_number missing [same rows: a_check_date missing])",
+     "sql": "(a_check_number IS NULL)",
+     "support": 0.126,
+     "rows": 9350,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.276,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33348",
+     "K": [
+      "a_invoice_number",
+      "a_line_item_amount"
+     ],
+     "cls": "cand",
+     "condition": "(Service = \"Human Services\" (10%), Payment Type = \"ACI\" (21%))",
+     "sql": "(Service = 'Human Services' AND Payment Type = 'ACI')",
+     "support": 0.064,
+     "rows": 4774,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.266,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Service=v4": "Human Services",
+      "Payment Type=v2": "ACI"
+     }
+    },
+    {
+     "table": "lbusa.t33348",
+     "K": [
+      "a_invoice_number",
+      "a_line_item_amount"
+     ],
+     "cls": "cand",
+     "condition": "(Service = \"Human Services\" (10%), a_check_number missing [same rows: a_check_date missing])",
+     "sql": "(Service = 'Human Services' AND a_check_number IS NULL)",
+     "support": 0.064,
+     "rows": 4765,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.266,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Service=v4": "Human Services"
+     }
+    },
+    {
+     "table": "lbusa.t33348",
+     "K": [
+      "a_invoice_number",
+      "a_line_item_amount"
+     ],
+     "cls": "cand",
+     "condition": "(Service = \"EDUCATION\" (35%), a_purch_order_no missing)",
+     "sql": "(Service = 'EDUCATION' AND a_purch_order_no IS NULL)",
+     "support": 0.048,
+     "rows": 3568,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.23,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Service=v1": "EDUCATION"
+     }
+    },
+    {
+     "table": "lbusa.t33348",
+     "K": [
+      "a_invoice_number",
+      "a_check_number",
+      "a_line_item_amount"
+     ],
+     "cls": "pos",
+     "condition": "(Payment Type = \"ACI\" (21%), a_purch_order_no missing)",
+     "sql": "(Payment Type = 'ACI' AND a_purch_order_no IS NULL)",
+     "support": 0.134,
+     "rows": 9954,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.938,
+     "score": 0.19,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Payment Type=v2": "ACI"
+     }
+    },
+    {
+     "table": "lbusa.t33348",
+     "K": [
+      "a_line_item_desc",
+      "a_line_item_amount",
+      "a_purch_order_no"
+     ],
+     "cls": "pos",
+     "condition": "(a_check_number missing [same rows: a_check_date missing])",
+     "sql": "(a_check_number IS NULL)",
+     "support": 0.126,
+     "rows": 9350,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.138,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t33348",
+     "K": [
+      "a_check_number",
+      "i_invoice_date",
+      "a_line_item_desc"
+     ],
+     "cls": "pos",
+     "condition": "(Service = \"Human Services\" (10%), Payment Type = \"ACI\" (21%))",
+     "sql": "(Service = 'Human Services' AND Payment Type = 'ACI')",
+     "support": 0.064,
+     "rows": 4774,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.998,
+     "score": 0.132,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Service=v4": "Human Services",
+      "Payment Type=v2": "ACI"
+     }
+    },
+    {
+     "table": "lbusa.t33348",
+     "K": [
+      "a_check_number",
+      "i_invoice_date",
+      "a_line_item_amount"
+     ],
+     "cls": "pos",
+     "condition": "(Service = \"Human Services\" (10%), Payment Type = \"ACI\" (21%))",
+     "sql": "(Service = 'Human Services' AND Payment Type = 'ACI')",
+     "support": 0.064,
+     "rows": 4774,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.998,
+     "score": 0.132,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Service=v4": "Human Services",
+      "Payment Type=v2": "ACI"
+     }
+    },
+    {
+     "table": "lbusa.t33348",
+     "K": [
+      "i_invoice_date",
+      "a_line_item_amount",
+      "a_purch_order_no"
+     ],
+     "cls": "pos",
+     "condition": "(Service = \"Human Services\" (10%), Payment Type = \"ACI\" (21%))",
+     "sql": "(Service = 'Human Services' AND Payment Type = 'ACI')",
+     "support": 0.064,
+     "rows": 4774,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.132,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Service=v4": "Human Services",
+      "Payment Type=v2": "ACI"
+     }
+    },
+    {
+     "table": "lbusa.t33348",
+     "K": [
+      "a_invoice_number",
+      "a_check_number",
+      "a_line_item_amount"
+     ],
+     "cls": "pos",
+     "condition": "(j_jrnl_entry_year = \"2021\" (29%), Payment Type = \"ACI\" (21%))",
+     "sql": "(j_jrnl_entry_year = '2021' AND Payment Type = 'ACI')",
+     "support": 0.054,
+     "rows": 4055,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.551,
+     "score": 0.121,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "j_jrnl_entry_year=v2": "2021",
+      "Payment Type=v2": "ACI"
+     }
+    },
+    {
+     "table": "lbusa.t33348",
+     "K": [
+      "a_invoice_number",
+      "a_line_item_amount",
+      "a_purch_order_no"
+     ],
+     "cls": "pos",
+     "condition": "(j_jrnl_entry_year = \"2021\" (29%), Payment Type = \"ACI\" (21%))",
+     "sql": "(j_jrnl_entry_year = '2021' AND Payment Type = 'ACI')",
+     "support": 0.054,
+     "rows": 4055,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.594,
+     "score": 0.121,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "j_jrnl_entry_year=v2": "2021",
+      "Payment Type=v2": "ACI"
+     }
+    },
+    {
+     "table": "lbusa.t33348",
+     "K": [
+      "a_invoice_number",
+      "a_line_item_amount",
+      "a_purch_order_no"
+     ],
+     "cls": "pos",
+     "condition": "(j_jrnl_entry_year = \"2020\" (71%), j_jrnl_entry_per = \"2\" (6%))",
+     "sql": "(j_jrnl_entry_year = '2020' AND j_jrnl_entry_per = '2')",
+     "support": 0.032,
+     "rows": 2381,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.281,
+     "score": 0.093,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "j_jrnl_entry_year=v1": "2020",
+      "j_jrnl_entry_per=v8": "2"
+     }
+    },
+    {
+     "table": "lbusa.t33348",
+     "K": [
+      "a_invoice_number",
+      "a_check_number",
+      "a_line_item_amount"
+     ],
+     "cls": "pos",
+     "condition": "(j_jrnl_entry_per = \"6\" (12%), Payment Type = \"ACI\" (21%))",
+     "sql": "(j_jrnl_entry_per = '6' AND Payment Type = 'ACI')",
+     "support": 0.031,
+     "rows": 2300,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.673,
+     "score": 0.091,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "j_jrnl_entry_per=v3": "6",
+      "Payment Type=v2": "ACI"
+     }
+    },
+    {
+     "table": "lbusa.t33348",
+     "K": [
+      "a_invoice_number",
+      "a_line_item_amount",
+      "a_purch_order_no"
+     ],
+     "cls": "pos",
+     "condition": "(j_jrnl_entry_per = \"6\" (12%), Payment Type = \"ACI\" (21%))",
+     "sql": "(j_jrnl_entry_per = '6' AND Payment Type = 'ACI')",
+     "support": 0.031,
+     "rows": 2300,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.704,
+     "score": 0.091,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "j_jrnl_entry_per=v3": "6",
+      "Payment Type=v2": "ACI"
+     }
+    },
+    {
+     "table": "lbusa.t33348",
+     "K": [
+      "a_check_number",
+      "a_line_item_desc",
+      "a_line_item_amount"
+     ],
+     "cls": "pos",
+     "condition": "(Service = \"Human Services\" (10%), Payment Type = \"ACI\" (21%))",
+     "sql": "(Service = 'Human Services' AND Payment Type = 'ACI')",
+     "support": 0.064,
+     "rows": 4774,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.998,
+     "score": 0.066,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Service=v4": "Human Services",
+      "Payment Type=v2": "ACI"
+     }
+    },
+    {
+     "table": "lbusa.t33348",
+     "K": [
+      "a_line_item_desc",
+      "a_line_item_amount",
+      "a_purch_order_no"
+     ],
+     "cls": "pos",
+     "condition": "(Service = \"Human Services\" (10%), Payment Type = \"ACI\" (21%))",
+     "sql": "(Service = 'Human Services' AND Payment Type = 'ACI')",
+     "support": 0.064,
+     "rows": 4774,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.999,
+     "score": 0.066,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Service=v4": "Human Services",
+      "Payment Type=v2": "ACI"
+     }
+    }
+   ],
+   "unconditional": {}
+  }
+ ]
+}

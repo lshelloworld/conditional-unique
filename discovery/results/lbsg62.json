@@ -1,0 +1,126 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "candidates",
+   "vote_count",
+   "vote_percentage",
+   "constituency",
+   "party",
+   "year"
+  ]
+ },
+ "sample_rows": 1539,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbsg.t62",
+   "rows": 1539,
+   "cols": [
+    "year",
+    "constituency",
+    "candidates",
+    "party",
+    "vote_count",
+    "vote_percentage"
+   ],
+   "n_conditional": 3,
+   "conditional": [
+    {
+     "table": "lbsg.t62",
+     "K": [
+      "candidates",
+      "vote_percentage"
+     ],
+     "cls": "cand",
+     "condition": "(vote_count present [same rows: vote_percentage present])",
+     "sql": "(vote_count IS NOT NULL)",
+     "support": 0.88,
+     "rows": 1354,
+     "uncond": "pos",
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 2.533,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t62",
+     "K": [
+      "vote_count",
+      "vote_percentage"
+     ],
+     "cls": "cand",
+     "condition": "(vote_count present [same rows: vote_percentage present])",
+     "sql": "(vote_count IS NOT NULL)",
+     "support": 0.88,
+     "rows": 1354,
+     "uncond": "pos",
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 2.533,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t62",
+     "K": [
+      "vote_percentage"
+     ],
+     "cls": "pos",
+     "condition": "(vote_count missing [same rows: vote_percentage missing])",
+     "sql": "(vote_count IS NULL)",
+     "support": 0.12,
+     "rows": 185,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 1.0,
+     "score": 0.676,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    }
+   ],
+   "unconditional": {
+    "candidates,vote_count": "pos",
+    "candidates,vote_percentage": "pos",
+    "candidates,year": "cand",
+    "vote_count,vote_percentage": "pos",
+    "vote_percentage,constituency": "pos",
+    "candidates,vote_count,vote_percentage": "pos",
+    "candidates,vote_count,constituency": "pos",
+    "candidates,vote_count,party": "pos",
+    "candidates,vote_percentage,constituency": "pos",
+    "candidates,vote_percentage,party": "pos",
+    "vote_count,vote_percentage,constituency": "pos",
+    "vote_count,vote_percentage,party": "pos",
+    "vote_count,vote_percentage,year": "pos",
+    "vote_count,constituency,year": "cert",
+    "vote_percentage,constituency,party": "pos",
+    "vote_percentage,constituency,year": "cert"
+   }
+  }
+ ]
+}

@@ -1,0 +1,1172 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "identifier_uuid",
+   "identifier_uri",
+   "date_created",
+   "description",
+   "title",
+   "subject_lcsh",
+   "subject_singheritage",
+   "rights",
+   "contributor",
+   "ispartof_collections",
+   "language"
+  ]
+ },
+ "sample_rows": 1750,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbsg.t8",
+   "rows": 1750,
+   "cols": [
+    "identifier_uuid",
+    "identifier_uri",
+    "title",
+    "contributor",
+    "digital_publisher",
+    "date_created",
+    "description",
+    "subject_lcsh",
+    "subject_singheritage",
+    "language",
+    "ispartof_collections",
+    "nlb_type",
+    "rights",
+    "access_rights"
+   ],
+   "n_conditional": 43,
+   "conditional": [
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "identifier_uri",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(nlb_type = \"Ephemera {18491069}\" (28%))",
+     "sql": "(nlb_type = 'Ephemera {18491069}')",
+     "support": 0.275,
+     "rows": 482,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.002,
+     "score": 0.768,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v3": "Ephemera {18491069}"
+     }
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "identifier_uri",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(access_rights missing)",
+     "sql": "(access_rights IS NULL)",
+     "support": 0.263,
+     "rows": 460,
+     "uncond": "pos",
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.692,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "identifier_uri",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(ispartof_collections missing)",
+     "sql": "(ispartof_collections IS NULL)",
+     "support": 0.201,
+     "rows": 352,
+     "uncond": "pos",
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.605,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "identifier_uri",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(digital_publisher = \"National Library Board Singapore\" (96%), nlb_type = \"Poster {18335739}\" (36%))",
+     "sql": "(digital_publisher = 'National Library Board Singapore' AND nlb_type = 'Poster {18335739}')",
+     "support": 0.321,
+     "rows": 561,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.023,
+     "score": 0.552,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "digital_publisher=v1": "National Library Board Singapore",
+      "nlb_type=v2": "Poster {18335739}"
+     }
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "identifier_uri",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(description missing, subject_singheritage present)",
+     "sql": "(description IS NULL AND subject_singheritage IS NOT NULL)",
+     "support": 0.315,
+     "rows": 552,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.013,
+     "score": 0.548,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "identifier_uri",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(description missing, subject_lcsh present)",
+     "sql": "(description IS NULL AND subject_lcsh IS NOT NULL)",
+     "support": 0.292,
+     "rows": 511,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.016,
+     "score": 0.527,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "identifier_uri",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(date_created present, description missing)",
+     "sql": "(date_created IS NOT NULL AND description IS NULL)",
+     "support": 0.291,
+     "rows": 509,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.014,
+     "score": 0.526,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "identifier_uri",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(description missing, nlb_type = \"Poster {18335739}\" (36%))",
+     "sql": "(description IS NULL AND nlb_type = 'Poster {18335739}')",
+     "support": 0.229,
+     "rows": 400,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.013,
+     "score": 0.466,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v2": "Poster {18335739}"
+     }
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "identifier_uri",
+      "description"
+     ],
+     "cls": "dom",
+     "condition": "(nlb_type = \"Ephemera {18491069}\" (28%))",
+     "sql": "(nlb_type = 'Ephemera {18491069}')",
+     "support": 0.275,
+     "rows": 482,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.326,
+     "score": 0.461,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v3": "Ephemera {18491069}"
+     }
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "identifier_uri",
+      "description"
+     ],
+     "cls": "dom",
+     "condition": "(access_rights missing)",
+     "sql": "(access_rights IS NULL)",
+     "support": 0.263,
+     "rows": 460,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.135,
+     "score": 0.45,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "identifier_uri",
+      "description"
+     ],
+     "cls": "dom",
+     "condition": "(ispartof_collections missing)",
+     "sql": "(ispartof_collections IS NULL)",
+     "support": 0.201,
+     "rows": 352,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.156,
+     "score": 0.394,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(nlb_type = \"Poster {18335739}\" (36%), access_rights missing)",
+     "sql": "(nlb_type = 'Poster {18335739}' AND access_rights IS NULL)",
+     "support": 0.079,
+     "rows": 138,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.328,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v2": "Poster {18335739}"
+     }
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "identifier_uri",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(rights missing)",
+     "sql": "(rights IS NULL)",
+     "support": 0.055,
+     "rows": 96,
+     "uncond": "pos",
+     "gain": 4,
+     "nulls_in_scope": 0.0,
+     "score": 0.316,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(date_created missing, nlb_type = \"Ephemera {18491069}\" (28%))",
+     "sql": "(date_created IS NULL AND nlb_type = 'Ephemera {18491069}')",
+     "support": 0.065,
+     "rows": 114,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.298,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v3": "Ephemera {18491069}"
+     }
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "identifier_uri",
+      "date_created",
+      "description"
+     ],
+     "cls": "dom",
+     "condition": "(digital_publisher = \"National Library Board Singapore\" (96%), nlb_type = \"Poster {18335739}\" (36%))",
+     "sql": "(digital_publisher = 'National Library Board Singapore' AND nlb_type = 'Poster {18335739}')",
+     "support": 0.321,
+     "rows": 561,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.788,
+     "score": 0.294,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "digital_publisher=v1": "National Library Board Singapore",
+      "nlb_type=v2": "Poster {18335739}"
+     }
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(ispartof_collections present, access_rights missing)",
+     "sql": "(ispartof_collections IS NOT NULL AND access_rights IS NULL)",
+     "support": 0.062,
+     "rows": 108,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.29,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "title",
+      "ispartof_collections"
+     ],
+     "cls": "pos",
+     "condition": "(access_rights missing)",
+     "sql": "(access_rights IS NULL)",
+     "support": 0.263,
+     "rows": 460,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.765,
+     "score": 0.225,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(description missing, access_rights missing)",
+     "sql": "(description IS NULL AND access_rights IS NULL)",
+     "support": 0.035,
+     "rows": 62,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.22,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(description missing, ispartof_collections missing)",
+     "sql": "(description IS NULL AND ispartof_collections IS NULL)",
+     "support": 0.031,
+     "rows": 55,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.207,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "identifier_uri",
+      "description"
+     ],
+     "cls": "dom",
+     "condition": "(rights missing)",
+     "sql": "(rights IS NULL)",
+     "support": 0.055,
+     "rows": 96,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.75,
+     "score": 0.206,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "identifier_uri",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(date_created missing, nlb_type = \"Poster {18335739}\" (36%))",
+     "sql": "(date_created IS NULL AND nlb_type = 'Poster {18335739}')",
+     "support": 0.041,
+     "rows": 72,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.028,
+     "score": 0.198,
+     "tags": [
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v2": "Poster {18335739}"
+     }
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "description",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(date_created missing, access_rights missing)",
+     "sql": "(date_created IS NULL AND access_rights IS NULL)",
+     "support": 0.085,
+     "rows": 149,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.04,
+     "score": 0.171,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "description",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(date_created missing, ispartof_collections missing)",
+     "sql": "(date_created IS NULL AND ispartof_collections IS NULL)",
+     "support": 0.073,
+     "rows": 127,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.031,
+     "score": 0.158,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "description",
+      "title",
+      "rights"
+     ],
+     "cls": "pos",
+     "condition": "(digital_publisher = \"National Library Board Singapore\" (96%), nlb_type = \"Poster {18335739}\" (36%))",
+     "sql": "(digital_publisher = 'National Library Board Singapore' AND nlb_type = 'Poster {18335739}')",
+     "support": 0.321,
+     "rows": 561,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.75,
+     "score": 0.147,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "digital_publisher=v1": "National Library Board Singapore",
+      "nlb_type=v2": "Poster {18335739}"
+     }
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "description",
+      "title",
+      "rights"
+     ],
+     "cls": "pos",
+     "condition": "(identifier_uri present, nlb_type = \"Poster {18335739}\" (36%))",
+     "sql": "(identifier_uri IS NOT NULL AND nlb_type = 'Poster {18335739}')",
+     "support": 0.313,
+     "rows": 548,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.765,
+     "score": 0.145,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v2": "Poster {18335739}"
+     }
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "identifier_uri",
+      "description"
+     ],
+     "cls": "dom",
+     "condition": "(date_created missing, nlb_type = \"Poster {18335739}\" (36%))",
+     "sql": "(date_created IS NULL AND nlb_type = 'Poster {18335739}')",
+     "support": 0.041,
+     "rows": 72,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.528,
+     "score": 0.119,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v2": "Poster {18335739}"
+     }
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "title",
+      "subject_lcsh",
+      "ispartof_collections"
+     ],
+     "cls": "pos",
+     "condition": "(description present, nlb_type = \"Ephemera {18491069}\" (28%))",
+     "sql": "(description IS NOT NULL AND nlb_type = 'Ephemera {18491069}')",
+     "support": 0.186,
+     "rows": 325,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.791,
+     "score": 0.112,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v3": "Ephemera {18491069}"
+     }
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "title",
+      "contributor",
+      "ispartof_collections"
+     ],
+     "cls": "pos",
+     "condition": "(description present, nlb_type = \"Ephemera {18491069}\" (28%))",
+     "sql": "(description IS NOT NULL AND nlb_type = 'Ephemera {18491069}')",
+     "support": 0.186,
+     "rows": 325,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.791,
+     "score": 0.112,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v3": "Ephemera {18491069}"
+     }
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "description",
+      "title",
+      "subject_singheritage"
+     ],
+     "cls": "pos",
+     "condition": "(subject_lcsh missing)",
+     "sql": "(subject_lcsh IS NULL)",
+     "support": 0.066,
+     "rows": 115,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.991,
+     "score": 0.1,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "title",
+      "subject_lcsh"
+     ],
+     "cls": "pos",
+     "condition": "(subject_singheritage missing)",
+     "sql": "(subject_singheritage IS NULL)",
+     "support": 0.042,
+     "rows": 74,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.973,
+     "score": 0.09,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "description",
+      "title",
+      "rights"
+     ],
+     "cls": "pos",
+     "condition": "(identifier_uri present, date_created missing)",
+     "sql": "(identifier_uri IS NOT NULL AND date_created IS NULL)",
+     "support": 0.119,
+     "rows": 209,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.282,
+     "score": 0.09,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "title",
+      "rights",
+      "ispartof_collections"
+     ],
+     "cls": "pos",
+     "condition": "(identifier_uri present, date_created missing)",
+     "sql": "(identifier_uri IS NOT NULL AND date_created IS NULL)",
+     "support": 0.119,
+     "rows": 209,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.77,
+     "score": 0.09,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "description",
+      "title",
+      "subject_lcsh"
+     ],
+     "cls": "pos",
+     "condition": "(ispartof_collections present, nlb_type = \"Ephemera {18491069}\" (28%))",
+     "sql": "(ispartof_collections IS NOT NULL AND nlb_type = 'Ephemera {18491069}')",
+     "support": 0.109,
+     "rows": 191,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.644,
+     "score": 0.086,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v3": "Ephemera {18491069}"
+     }
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "description",
+      "title",
+      "contributor"
+     ],
+     "cls": "pos",
+     "condition": "(ispartof_collections present, nlb_type = \"Ephemera {18491069}\" (28%))",
+     "sql": "(ispartof_collections IS NOT NULL AND nlb_type = 'Ephemera {18491069}')",
+     "support": 0.109,
+     "rows": 191,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.644,
+     "score": 0.086,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v3": "Ephemera {18491069}"
+     }
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "description",
+      "title",
+      "subject_lcsh"
+     ],
+     "cls": "pos",
+     "condition": "(nlb_type = \"Ephemera {18491069}\" (28%), access_rights = \"The information on this page and any images that appear here may be used for private research and study purposes only. They may not be copied, altered or amended in any way without first gaining the permission of the copyright holder.\" (74%))",
+     "sql": "(nlb_type = 'Ephemera {18491069}' AND access_rights = 'The information on this page and any images that appear here may be used for private research and study purposes only. They may not be copied, altered or amended in any way without first gaining the permission of the copyright holder.')",
+     "support": 0.105,
+     "rows": 184,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.63,
+     "score": 0.084,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v3": "Ephemera {18491069}",
+      "access_rights=v1": "The information on this page and any images that appear here may be used for private research and study purposes only. They may not be copied, altered or amended in any way without first gaining the permission of the copyright holder."
+     }
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "description",
+      "title",
+      "subject_lcsh"
+     ],
+     "cls": "pos",
+     "condition": "(nlb_type = \"Ephemera {18491069}\" (28%), access_rights present)",
+     "sql": "(nlb_type = 'Ephemera {18491069}' AND access_rights IS NOT NULL)",
+     "support": 0.105,
+     "rows": 184,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.63,
+     "score": 0.084,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v3": "Ephemera {18491069}"
+     }
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "description",
+      "title",
+      "contributor"
+     ],
+     "cls": "pos",
+     "condition": "(nlb_type = \"Ephemera {18491069}\" (28%), access_rights = \"The information on this page and any images that appear here may be used for private research and study purposes only. They may not be copied, altered or amended in any way without first gaining the permission of the copyright holder.\" (74%))",
+     "sql": "(nlb_type = 'Ephemera {18491069}' AND access_rights = 'The information on this page and any images that appear here may be used for private research and study purposes only. They may not be copied, altered or amended in any way without first gaining the permission of the copyright holder.')",
+     "support": 0.105,
+     "rows": 184,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.63,
+     "score": 0.084,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v3": "Ephemera {18491069}",
+      "access_rights=v1": "The information on this page and any images that appear here may be used for private research and study purposes only. They may not be copied, altered or amended in any way without first gaining the permission of the copyright holder."
+     }
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "description",
+      "title",
+      "contributor"
+     ],
+     "cls": "pos",
+     "condition": "(nlb_type = \"Ephemera {18491069}\" (28%), access_rights present)",
+     "sql": "(nlb_type = 'Ephemera {18491069}' AND access_rights IS NOT NULL)",
+     "support": 0.105,
+     "rows": 184,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.63,
+     "score": 0.084,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v3": "Ephemera {18491069}"
+     }
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "title",
+      "rights"
+     ],
+     "cls": "pos",
+     "condition": "(date_created missing, nlb_type = \"Poster {18335739}\" (36%))",
+     "sql": "(date_created IS NULL AND nlb_type = 'Poster {18335739}')",
+     "support": 0.041,
+     "rows": 72,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.472,
+     "score": 0.059,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "nlb_type=v2": "Poster {18335739}"
+     }
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "title",
+      "subject_lcsh",
+      "rights"
+     ],
+     "cls": "pos",
+     "condition": "(date_created missing, description missing)",
+     "sql": "(date_created IS NULL AND description IS NULL)",
+     "support": 0.052,
+     "rows": 91,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.736,
+     "score": 0.059,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "title",
+      "subject_singheritage",
+      "rights"
+     ],
+     "cls": "pos",
+     "condition": "(date_created missing, description missing)",
+     "sql": "(date_created IS NULL AND description IS NULL)",
+     "support": 0.052,
+     "rows": 91,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.714,
+     "score": 0.059,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "title",
+      "subject_singheritage"
+     ],
+     "cls": "pos",
+     "condition": "(identifier_uri missing, subject_lcsh missing)",
+     "sql": "(identifier_uri IS NULL AND subject_lcsh IS NULL)",
+     "support": 0.038,
+     "rows": 66,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.985,
+     "score": 0.057,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t8",
+     "K": [
+      "title",
+      "subject_singheritage"
+     ],
+     "cls": "pos",
+     "condition": "(subject_lcsh missing, nlb_type = \"Postcard {18335738}\" (37%))",
+     "sql": "(subject_lcsh IS NULL AND nlb_type = 'Postcard {18335738}')",
+     "support": 0.038,
+     "rows": 66,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.985,
+     "score": 0.057,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "nlb_type=v1": "Postcard {18335738}"
+     }
+    }
+   ],
+   "unconditional": {
+    "identifier_uuid": "cand",
+    "identifier_uri": "pos",
+    "identifier_uri,date_created": "pos",
+    "identifier_uri,description": "pos",
+    "identifier_uri,title": "pos",
+    "identifier_uri,subject_lcsh": "pos",
+    "identifier_uri,subject_singheritage": "pos",
+    "identifier_uri,rights": "pos",
+    "identifier_uri,contributor": "pos",
+    "identifier_uri,ispartof_collections": "pos",
+    "identifier_uri,language": "pos",
+    "identifier_uri,date_created,description": "pos",
+    "identifier_uri,date_created,title": "pos",
+    "identifier_uri,date_created,subject_lcsh": "pos",
+    "identifier_uri,date_created,subject_singheritage": "pos",
+    "identifier_uri,date_created,rights": "pos",
+    "identifier_uri,date_created,contributor": "pos",
+    "identifier_uri,date_created,ispartof_collections": "pos",
+    "identifier_uri,date_created,language": "pos",
+    "identifier_uri,description,title": "pos",
+    "identifier_uri,description,subject_lcsh": "pos",
+    "identifier_uri,description,subject_singheritage": "pos",
+    "identifier_uri,description,rights": "pos",
+    "identifier_uri,description,contributor": "pos",
+    "identifier_uri,description,ispartof_collections": "pos",
+    "identifier_uri,description,language": "pos",
+    "identifier_uri,title,subject_lcsh": "pos",
+    "identifier_uri,title,subject_singheritage": "pos",
+    "identifier_uri,title,rights": "pos",
+    "identifier_uri,title,contributor": "pos",
+    "identifier_uri,title,ispartof_collections": "pos",
+    "identifier_uri,title,language": "pos",
+    "identifier_uri,subject_lcsh,subject_singheritage": "pos",
+    "identifier_uri,subject_lcsh,rights": "pos",
+    "identifier_uri,subject_lcsh,contributor": "pos",
+    "identifier_uri,subject_lcsh,ispartof_collections": "pos",
+    "identifier_uri,subject_lcsh,language": "pos",
+    "identifier_uri,subject_singheritage,rights": "pos",
+    "identifier_uri,subject_singheritage,contributor": "pos",
+    "identifier_uri,subject_singheritage,ispartof_collections": "pos",
+    "identifier_uri,subject_singheritage,language": "pos",
+    "identifier_uri,rights,contributor": "pos",
+    "identifier_uri,rights,ispartof_collections": "pos",
+    "identifier_uri,rights,language": "pos",
+    "identifier_uri,contributor,ispartof_collections": "pos",
+    "identifier_uri,contributor,language": "pos",
+    "identifier_uri,ispartof_collections,language": "pos"
+   }
+  }
+ ]
+}

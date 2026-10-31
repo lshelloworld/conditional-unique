@@ -1,0 +1,419 @@
+{
+ "campsite": {
+  "tables": 94,
+  "unique": 91,
+  "filtered": 0,
+  "tables_with_filtered": 0,
+  "tables_with_several_filtered": 0,
+  "shapes": {},
+  "redundant": {},
+  "examples": []
+ },
+ "chatwoot": {
+  "tables": 109,
+  "unique": 93,
+  "filtered": 9,
+  "tables_with_filtered": 6,
+  "tables_with_several_filtered": 2,
+  "shapes": {
+   "IS NOT NULL on key only": 4,
+   "constant / boolean": 2,
+   "IS NULL on other column": 2,
+   "conjunction of several kinds": 1
+  },
+  "redundant": {
+   "unconditional, by one index": 4
+  },
+  "examples": [
+   {
+    "table": "channel_twilio_sms",
+    "index": "t.index [\"account_sid\", \"phone_number\"], name: \"index_channel_twilio_sms_on_account_sid_and_phone_number\", unique: true",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "installation_configs",
+    "index": "t.index [\"name\", \"created_at\"], name: \"index_installation_configs_on_name_and_created_at\", unique: true",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "related_categories",
+    "index": "t.index [\"category_id\", \"related_category_id\"], name: \"index_related_categories_on_category_id_and_related_category_id\", unique: true",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "related_categories",
+    "index": "t.index [\"related_category_id\", \"category_id\"], name: \"index_related_categories_on_related_category_id_and_category_id\", unique: true",
+    "kind": "unconditional, by one index"
+   }
+  ]
+ },
+ "consul": {
+  "tables": 136,
+  "unique": 31,
+  "filtered": 0,
+  "tables_with_filtered": 0,
+  "tables_with_several_filtered": 0,
+  "shapes": {},
+  "redundant": {},
+  "examples": []
+ },
+ "docuseal": {
+  "tables": 44,
+  "unique": 36,
+  "filtered": 3,
+  "tables_with_filtered": 3,
+  "tables_with_several_filtered": 0,
+  "shapes": {
+   "constant / boolean": 1,
+   "disjunctive (IN/OR)": 2
+  },
+  "redundant": {},
+  "examples": []
+ },
+ "forem": {
+  "tables": 131,
+  "unique": 110,
+  "filtered": 12,
+  "tables_with_filtered": 6,
+  "tables_with_several_filtered": 4,
+  "shapes": {
+   "constant / boolean": 2,
+   "IS NOT NULL on key only": 4,
+   "IS NULL on other column": 3,
+   "disjunctive (IN/OR)": 1,
+   "untranslatable": 2
+  },
+  "redundant": {
+   "unconditional, by one index": 1
+  },
+  "examples": [
+   {
+    "table": "notifications",
+    "index": "t.index [\"user_id\", \"organization_id\", \"notifiable_id\", \"notifiable_type\", \"action\"], name: \"index_notifications_user_id_organization_id_notifiable_action\", unique: true",
+    "kind": "unconditional, by one index"
+   }
+  ]
+ },
+ "gitlab": {
+  "tables": 1135,
+  "unique": 930,
+  "filtered": 128,
+  "tables_with_filtered": 91,
+  "tables_with_several_filtered": 26,
+  "shapes": {
+   "disjunctive (IN/OR)": 6,
+   "IS NOT NULL on key only": 63,
+   "constant / boolean": 23,
+   "IS NULL on other column": 20,
+   "untranslatable": 12,
+   "conjunction of several kinds": 3,
+   "IS NOT NULL on other column": 1
+  },
+  "redundant": {
+   "unconditional, by one index": 42,
+   "filtered, by one index": 2
+  },
+  "examples": [
+   {
+    "table": "namespaces",
+    "index": "CREATE UNIQUE INDEX index_namespaces_on_parent_id_and_id ON namespaces USING btree (parent_id, id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "projects",
+    "index": "CREATE UNIQUE INDEX index_projects_on_id_partial_for_visibility ON projects USING btree (id) WHERE (visibility_level = ANY (ARRAY[10, 20]));",
+    "kind": "filtered, by one index"
+   },
+   {
+    "table": "p_ci_pipeline_artifact_states",
+    "index": "CREATE UNIQUE INDEX index_ci_pipeline_artifact_states_on_artifact_and_partition ON ONLY p_ci_pipeline_artifact_states USING btree (pipeline_artifact_id, partition_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "ai_catalog_item_versions",
+    "index": "CREATE UNIQUE INDEX index_ai_catalog_item_versions_on_ai_catalog_item_id_and_id ON ai_catalog_item_versions USING btree (ai_catalog_item_id, id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "alert_management_alert_user_mentions",
+    "index": "CREATE UNIQUE INDEX index_alert_user_mentions_on_alert_id_and_note_id ON alert_management_alert_user_mentions USING btree (alert_management_alert_id, note_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "aws_roles",
+    "index": "CREATE UNIQUE INDEX index_aws_roles_on_user_id ON aws_roles USING btree (user_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "batched_background_migrations",
+    "index": "CREATE UNIQUE INDEX index_batched_migrations_on_gl_schema_and_unique_configuration ON batched_background_migrations USING btree (gitlab_schema, job_class_name, table_name, column_name, job_arguments);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "ci_build_pending_states",
+    "index": "CREATE UNIQUE INDEX unique_index_ci_build_pending_states_on_partition_id_build_id ON ci_build_pending_states USING btree (partition_id, build_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "ci_builds_runner_session",
+    "index": "CREATE UNIQUE INDEX index_ci_builds_runner_session_on_partition_id_build_id ON ci_builds_runner_session USING btree (partition_id, build_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "ci_pending_builds",
+    "index": "CREATE UNIQUE INDEX index_ci_pending_builds_on_partition_id_build_id ON ci_pending_builds USING btree (partition_id, build_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "ci_pipeline_artifacts",
+    "index": "CREATE UNIQUE INDEX index_ci_pipeline_artifacts_on_id_and_partition_id ON ci_pipeline_artifacts USING btree (id, partition_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "ci_runner_versions",
+    "index": "CREATE UNIQUE INDEX index_ci_runner_versions_on_unique_status_and_version ON ci_runner_versions USING btree (status, version);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "ci_running_builds",
+    "index": "CREATE UNIQUE INDEX index_ci_running_builds_on_partition_id_build_id ON ci_running_builds USING btree (partition_id, build_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "commit_user_mentions",
+    "index": "CREATE UNIQUE INDEX commit_user_mentions_on_commit_id_and_note_id_unique_index ON commit_user_mentions USING btree (commit_id, note_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "deployment_clusters",
+    "index": "CREATE UNIQUE INDEX index_deployment_clusters_on_cluster_id_and_deployment_id ON deployment_clusters USING btree (cluster_id, deployment_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "design_user_mentions",
+    "index": "CREATE UNIQUE INDEX design_user_mentions_on_design_id_and_note_id_unique_index ON design_user_mentions USING btree (design_id, note_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "epic_user_mentions",
+    "index": "CREATE UNIQUE INDEX epic_user_mentions_on_epic_id_and_note_id_index ON epic_user_mentions USING btree (epic_id, note_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "incident_management_oncall_rotations",
+    "index": "CREATE UNIQUE INDEX index_inc_mgmnt_oncall_rotations_on_oncall_schedule_id_and_id ON incident_management_oncall_rotations USING btree (oncall_schedule_id, id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "issue_user_mentions",
+    "index": "CREATE UNIQUE INDEX issue_user_mentions_on_issue_id_and_note_id_index ON issue_user_mentions USING btree (issue_id, note_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "keys",
+    "index": "CREATE UNIQUE INDEX index_on_deploy_keys_id_and_type_and_public ON keys USING btree (id, type) WHERE (public = true);",
+    "kind": "filtered, by one index"
+   },
+   {
+    "table": "merge_request_approval_metrics",
+    "index": "CREATE UNIQUE INDEX index_mr_approval_metrics_on_project_id_and_mr_id ON merge_request_approval_metrics USING btree (target_project_id, merge_request_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "merge_request_cleanup_schedules",
+    "index": "CREATE UNIQUE INDEX index_merge_request_cleanup_schedules_on_merge_request_id ON merge_request_cleanup_schedules USING btree (merge_request_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "merge_request_user_mentions",
+    "index": "CREATE UNIQUE INDEX merge_request_user_mentions_on_mr_id_and_note_id_index ON merge_request_user_mentions USING btree (merge_request_id, note_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "namespace_aggregation_schedules",
+    "index": "CREATE UNIQUE INDEX index_namespace_aggregation_schedules_on_namespace_id ON namespace_aggregation_schedules USING btree (namespace_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "namespace_ai_settings",
+    "index": "CREATE UNIQUE INDEX index_namespace_ai_settings_on_namespace_id ON namespace_ai_settings USING btree (namespace_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "namespace_root_storage_statistics",
+    "index": "CREATE UNIQUE INDEX index_namespace_root_storage_statistics_on_namespace_id ON namespace_root_storage_statistics USING btree (namespace_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "note_duo_metadata",
+    "index": "CREATE UNIQUE INDEX idx_note_duo_metadata_note_and_workflow ON note_duo_metadata USING btree (note_id, workflow_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "packages_composer_metadata",
+    "index": "CREATE UNIQUE INDEX index_packages_composer_metadata_on_package_id_and_target_sha ON packages_composer_metadata USING btree (package_id, target_sha);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "project_authorizations",
+    "index": "CREATE UNIQUE INDEX index_project_authorizations_on_project_user_access_level ON project_authorizations USING btree (project_id, user_id, access_level);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "project_features",
+    "index": "CREATE UNIQUE INDEX index_project_features_on_project_id ON project_features USING btree (project_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "project_features",
+    "index": "CREATE UNIQUE INDEX index_project_features_on_project_id_include_container_registry ON project_features USING btree (project_id) INCLUDE (container_registry_access_level);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "snippet_user_mentions",
+    "index": "CREATE UNIQUE INDEX snippet_user_mentions_on_snippet_id_and_note_id_index ON snippet_user_mentions USING btree (snippet_id, note_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "ssh_signatures",
+    "index": "CREATE UNIQUE INDEX index_ssh_signatures_on_commit_sha_project_id ON ssh_signatures USING btree (commit_sha, project_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "ssh_signatures",
+    "index": "CREATE UNIQUE INDEX index_ssh_signatures_on_project_id_and_commit_sha ON ssh_signatures USING btree (project_id, commit_sha);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "user_details",
+    "index": "CREATE UNIQUE INDEX index_user_details_on_user_id ON user_details USING btree (user_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "vulnerability_finding_risk_scores",
+    "index": "CREATE UNIQUE INDEX index_vulnerability_risk_scores_on_vulnerability_finding ON vulnerability_finding_risk_scores USING btree (finding_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "vulnerability_historical_statistics",
+    "index": "CREATE UNIQUE INDEX index_vuln_hist_stats_on_project_date_and_tracked_context_id ON vulnerability_historical_statistics USING btree (project_id, date, security_project_tracked_context_id) NULLS NOT DISTINCT;",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "vulnerability_identifiers",
+    "index": "CREATE UNIQUE INDEX idx_vulnerability_identifiers_on_project_id_fingerprint_part_id ON vulnerability_identifiers USING btree (project_id, fingerprint, partition_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "vulnerability_namespace_statistics",
+    "index": "CREATE UNIQUE INDEX idx_vuln_ns_stats_on_traversal_ids_and_namespace_id ON vulnerability_namespace_statistics USING btree (traversal_ids, namespace_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "vulnerability_statistics",
+    "index": "CREATE UNIQUE INDEX index_vuln_stats_on_project_id_and_tracked_context_id ON vulnerability_statistics USING btree (project_id, security_project_tracked_context_id) NULLS NOT DISTINCT;",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "work_item_current_statuses",
+    "index": "CREATE UNIQUE INDEX idx_wi_current_statuses_on_wi_id_custom_status_id_unique ON work_item_current_statuses USING btree (work_item_id, custom_status_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "work_item_current_statuses",
+    "index": "CREATE UNIQUE INDEX idx_wi_current_statuses_on_wi_id_system_def_status_id_unique ON work_item_current_statuses USING btree (work_item_id, system_defined_status_id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "zoekt_indices",
+    "index": "CREATE UNIQUE INDEX index_zoekt_indices_on_state_and_id ON zoekt_indices USING btree (state, id);",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "zoekt_indices",
+    "index": "CREATE UNIQUE INDEX index_zoekt_indices_on_zoekt_node_id_and_id ON zoekt_indices USING btree (zoekt_node_id, id);",
+    "kind": "unconditional, by one index"
+   }
+  ]
+ },
+ "loomio": {
+  "tables": 76,
+  "unique": 68,
+  "filtered": 5,
+  "tables_with_filtered": 4,
+  "tables_with_several_filtered": 1,
+  "shapes": {
+   "IS NULL on other column": 1,
+   "constant / boolean": 3,
+   "IS NOT NULL on key only": 1
+  },
+  "redundant": {
+   "unconditional, by one index": 3
+  },
+  "examples": [
+   {
+    "table": "active_storage_blobs",
+    "index": "t.index [\"id\"], name: \"active_storage_blobs_idx\", unique: true",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "group_handle_redirects",
+    "index": "t.index [\"group_id\", \"handle\"], name: \"index_group_handle_redirects_on_group_id_and_handle\", unique: true",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "topic_items",
+    "index": "t.index [\"id\", \"topic_id\"], name: \"index_topic_items_on_id_and_topic_id\", unique: true",
+    "kind": "unconditional, by one index"
+   }
+  ]
+ },
+ "mastodon": {
+  "tables": 122,
+  "unique": 91,
+  "filtered": 14,
+  "tables_with_filtered": 11,
+  "tables_with_several_filtered": 3,
+  "shapes": {
+   "IS NOT NULL on key only": 14
+  },
+  "redundant": {},
+  "examples": []
+ },
+ "maybe": {
+  "tables": 59,
+  "unique": 30,
+  "filtered": 3,
+  "tables_with_filtered": 2,
+  "tables_with_several_filtered": 1,
+  "shapes": {
+   "constant / boolean": 2,
+   "IS NOT NULL on key only": 1
+  },
+  "redundant": {},
+  "examples": []
+ },
+ "openfoodnetwork": {
+  "tables": 93,
+  "unique": 33,
+  "filtered": 0,
+  "tables_with_filtered": 0,
+  "tables_with_several_filtered": 0,
+  "shapes": {},
+  "redundant": {
+   "unconditional, by one index": 2
+  },
+  "examples": [
+   {
+    "table": "enterprise_roles",
+    "index": "t.index [\"enterprise_id\", \"user_id\"], name: \"index_enterprise_roles_on_enterprise_id_and_user_id\", unique: true",
+    "kind": "unconditional, by one index"
+   },
+   {
+    "table": "enterprise_roles",
+    "index": "t.index [\"user_id\", \"enterprise_id\"], name: \"index_enterprise_roles_on_user_id_and_enterprise_id\", unique: true",
+    "kind": "unconditional, by one index"
+   }
+  ]
+ }
+}

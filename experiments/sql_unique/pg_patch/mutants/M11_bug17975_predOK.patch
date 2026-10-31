@@ -1,0 +1,11 @@
+--- a/src/backend/optimizer/path/indxpath.c
++++ b/src/backend/optimizer/path/indxpath.c
+@@ -4230,7 +4230,7 @@
+ 		 * determine if the partial index is usable. Here we need proofs that
+ 		 * hold true before any joins are evaluated.
+ 		 */
+-		if (!ind->unique || !ind->immediate || ind->indpred != NIL)
++		if (!ind->unique || !ind->immediate || (ind->indpred != NIL && !(enable_conditional_unique && ind->predOK)))
+ 			continue;
+ 
+ 		/*

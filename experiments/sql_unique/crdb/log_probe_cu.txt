@@ -1,0 +1,64 @@
+--- left join, predicate = index predicate
+    select a.id from a left join bf b on b.k = a.bk and b.d is null
+    off: kept  on: gone  plan changed: True  same result: True
+    on plan: scan a
+--- left join, subquery form
+    select a.id from a left join (select * from bf where d is null) b on b.k = a.bk
+    off: kept  on: gone  plan changed: True  same result: True
+    on plan: scan a
+--- DISTINCT, k NOT NULL
+    select distinct k from bf where d is null
+    off: kept  on: gone  plan changed: True  same result: True
+    on plan: project | └── project | ├── scan bf@bf_k,partial | └── projections | └── CAST(NULL AS INT8)
+--- GROUP BY
+    select k, x from bf where d is null group by k, x
+    off: kept  on: gone  plan changed: True  same result: True
+    on plan: project | └── select | ├── scan bf | │    └── partial index predicates | │         └── bf_k: filters | │              └── d IS NULL | └── filters | └── d IS NULL
+--- semi-join
+    select a.id from a where a.bk in (select k from bf where d is null)
+    off: kept  on: kept  plan changed: False  same result: True
+    on plan: project | └── semi-join (hash) | ├── scan a | ├── project | │    ├── scan bf@bf_k,partial | │    └── projections | │         └── CAST(NULL AS INT8) | └── filters
+--- implied predicate (st = 0 vs IN (0, 1))
+    select a.id from a left join bfs b on b.k = a.bk and b.st = 0
+    off: kept  on: gone  plan changed: True  same result: True
+    on plan: scan a
+--- index excluding NULL keys: left join
+    select a.id from a left join bn b on b.k = a.bk
+    off: kept  on: gone  plan changed: True  same result: True
+    on plan: scan a
+--- index excluding NULL keys: DISTINCT
+    select distinct k from bn where k is not null
+    off: kept  on: gone  plan changed: True  same result: True
+    on plan: scan bn@bn_k_key,partial
+--- bug #17975 shape: predicate only via join clause (must keep)
+    select a.id from a left join bf b on b.k = a.bk and b.d = a.v
+    off: kept  on: kept  plan changed: False  same result: True
+--- union of two scopes (must keep)
+    select a.id from a left join cu_s b on b.k = a.bk and b.st in (0, 1)
+    off: kept  on: kept  plan changed: False  same result: True
+--- one scope of two
+    select a.id from a left join cu_s b on b.k = a.bk and b.st = 1
+    off: kept  on: gone  plan changed: True  same result: True
+    on plan: scan a
+--- nulls: DISTINCT over nullable key (must keep)
+    select distinct k from cu_n
+    off: kept  on: kept  plan changed: False  same result: True
+--- nulls: left join over nullable key
+    select a.id from a left join cu_n b on b.k = a.bk
+    off: kept  on: gone  plan changed: True  same result: True
+    on plan: scan a
+--- running example: DISTINCT through join
+    select distinct u.email, e.addr from cu_u u join cu_e e on e.uid = u.id and e.prim where u.deleted_at is null
+    off: kept  on: kept  plan changed: True  same result: True
+    on plan: distinct-on | ├── inner-join (lookup cu_e [as=e]) | │    ├── lookup columns are key | │    ├── inner-join (lookup cu_e@cu_e_uid_prim_key,partial [as=e]) | │    │    ├── project | │    │    │    ├── project | │    │    │    │    ├── scan cu_u@cu_u_email_key,partial [as=u] | │    │    │    │    └── projections
+--- running example without e.prim (must keep)
+    select distinct u.email, e.addr from cu_u u join cu_e e on e.uid = u.id where u.deleted_at is null
+    off: kept  on: kept  plan changed: False  same result: True
+--- CHECK gives the primary alias a locale
+    select distinct ent, locale from cu_m where prim
+    off: kept  on: gone  plan changed: True  same result: True
+    on plan: project | └── select | ├── scan cu_m | │    ├── check constraint expressions | │    │    └── ((locale IS NULL) AND (prim IS false)) OR (locale IS NOT NULL) | │    └── partial index predicates | │         └── cu_m_ent_locale_key: filters | │              ├── prim
+--- without the CHECK reasoning: locale written out
+    select distinct ent, locale from cu_m where prim and locale is not null
+    off: kept  on: gone  plan changed: True  same result: True
+    on plan: project | └── project | ├── scan cu_m@cu_m_ent_locale_key,partial | └── projections | └── true

@@ -1,0 +1,3043 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "identifier_uuid",
+   "identifier_uri",
+   "is_version_of",
+   "abstract",
+   "title",
+   "digital_publisher",
+   "subject_lcsh",
+   "rights",
+   "subject_singheritage",
+   "ispartof_collection"
+  ]
+ },
+ "sample_rows": 2907,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbsg.t13",
+   "rows": 2907,
+   "cols": [
+    "identifier_uri",
+    "identifier_uuid",
+    "title",
+    "digital_publisher",
+    "is_version_of",
+    "abstract",
+    "subject_lcsh",
+    "subject_singheritage",
+    "language",
+    "ispartof_collection",
+    "nlb_type",
+    "rights",
+    "access_rights"
+   ],
+   "n_conditional": 126,
+   "conditional": [
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "abstract",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(digital_publisher present)",
+     "sql": "(digital_publisher IS NOT NULL)",
+     "support": 0.513,
+     "rows": 1491,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.038,
+     "score": 2.514,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "abstract",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(abstract present)",
+     "sql": "(abstract IS NOT NULL)",
+     "support": 0.926,
+     "rows": 2691,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.069,
+     "score": 2.001,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "is_version_of",
+      "abstract",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(abstract present)",
+     "sql": "(abstract IS NOT NULL)",
+     "support": 0.926,
+     "rows": 2691,
+     "uncond": "dom",
+     "gain": 2,
+     "nulls_in_scope": 0.071,
+     "score": 2.001,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "is_version_of",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(is_version_of present, abstract present)",
+     "sql": "(is_version_of IS NOT NULL AND abstract IS NOT NULL)",
+     "support": 0.86,
+     "rows": 2499,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.947,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "is_version_of",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(identifier_uri present, abstract present)",
+     "sql": "(identifier_uri IS NOT NULL AND abstract IS NOT NULL)",
+     "support": 0.862,
+     "rows": 2505,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 1.931,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "abstract"
+     ],
+     "cls": "cert",
+     "condition": "(is_version_of present, abstract present)",
+     "sql": "(is_version_of IS NOT NULL AND abstract IS NOT NULL)",
+     "support": 0.86,
+     "rows": 2499,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.003,
+     "score": 1.808,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "abstract"
+     ],
+     "cls": "dom",
+     "condition": "(identifier_uri present)",
+     "sql": "(identifier_uri IS NOT NULL)",
+     "support": 0.936,
+     "rows": 2721,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.079,
+     "score": 1.698,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "abstract"
+     ],
+     "cls": "dom",
+     "condition": "(is_version_of present)",
+     "sql": "(is_version_of IS NOT NULL)",
+     "support": 0.934,
+     "rows": 2714,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.082,
+     "score": 1.696,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "is_version_of",
+      "title"
+     ],
+     "cls": "pos",
+     "condition": "(abstract present)",
+     "sql": "(abstract IS NOT NULL)",
+     "support": 0.926,
+     "rows": 2691,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.071,
+     "score": 1.689,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "is_version_of",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(identifier_uri present, digital_publisher present)",
+     "sql": "(identifier_uri IS NOT NULL AND digital_publisher IS NOT NULL)",
+     "support": 0.473,
+     "rows": 1374,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 1.609,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(digital_publisher present, is_version_of present)",
+     "sql": "(digital_publisher IS NOT NULL AND is_version_of IS NOT NULL)",
+     "support": 0.472,
+     "rows": 1372,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.002,
+     "score": 1.608,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "is_version_of"
+     ],
+     "cls": "cand",
+     "condition": "(digital_publisher present, is_version_of present)",
+     "sql": "(digital_publisher IS NOT NULL AND is_version_of IS NOT NULL)",
+     "support": 0.472,
+     "rows": 1372,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.603,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(digital_publisher missing, abstract present)",
+     "sql": "(digital_publisher IS NULL AND abstract IS NOT NULL)",
+     "support": 0.432,
+     "rows": 1256,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.055,
+     "score": 1.538,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "is_version_of",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(digital_publisher missing, abstract present)",
+     "sql": "(digital_publisher IS NULL AND abstract IS NOT NULL)",
+     "support": 0.432,
+     "rows": 1256,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.058,
+     "score": 1.538,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "title",
+      "ispartof_collection"
+     ],
+     "cls": "cert",
+     "condition": "(abstract present)",
+     "sql": "(abstract IS NOT NULL)",
+     "support": 0.926,
+     "rows": 2691,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.069,
+     "score": 1.501,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "is_version_of",
+      "title",
+      "subject_singheritage"
+     ],
+     "cls": "cert",
+     "condition": "(abstract present)",
+     "sql": "(abstract IS NOT NULL)",
+     "support": 0.926,
+     "rows": 2691,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.122,
+     "score": 1.501,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "is_version_of",
+      "title",
+      "ispartof_collection"
+     ],
+     "cls": "cert",
+     "condition": "(abstract present)",
+     "sql": "(abstract IS NOT NULL)",
+     "support": 0.926,
+     "rows": 2691,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.072,
+     "score": 1.501,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "is_version_of",
+      "title"
+     ],
+     "cls": "dom",
+     "condition": "(identifier_uri present, abstract present)",
+     "sql": "(identifier_uri IS NOT NULL AND abstract IS NOT NULL)",
+     "support": 0.862,
+     "rows": 2505,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.006,
+     "score": 1.448,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(identifier_uri present, digital_publisher present)",
+     "sql": "(identifier_uri IS NOT NULL AND digital_publisher IS NOT NULL)",
+     "support": 0.473,
+     "rows": 1374,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.444,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "is_version_of"
+     ],
+     "cls": "pos",
+     "condition": "(digital_publisher present)",
+     "sql": "(digital_publisher IS NOT NULL)",
+     "support": 0.513,
+     "rows": 1491,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.08,
+     "score": 1.397,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "abstract"
+     ],
+     "cls": "cert",
+     "condition": "(identifier_uri present, digital_publisher present)",
+     "sql": "(identifier_uri IS NOT NULL AND digital_publisher IS NOT NULL)",
+     "support": 0.473,
+     "rows": 1374,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.041,
+     "score": 1.341,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "abstract"
+     ],
+     "cls": "cert",
+     "condition": "(digital_publisher missing, abstract present)",
+     "sql": "(digital_publisher IS NULL AND abstract IS NOT NULL)",
+     "support": 0.432,
+     "rows": 1256,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.055,
+     "score": 1.282,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "title"
+     ],
+     "cls": "pos",
+     "condition": "(digital_publisher present)",
+     "sql": "(digital_publisher IS NOT NULL)",
+     "support": 0.513,
+     "rows": 1491,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.078,
+     "score": 1.257,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "title",
+      "subject_lcsh"
+     ],
+     "cls": "cert",
+     "condition": "(digital_publisher present)",
+     "sql": "(digital_publisher IS NOT NULL)",
+     "support": 0.513,
+     "rows": 1491,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.045,
+     "score": 1.257,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "title",
+      "subject_singheritage"
+     ],
+     "cls": "cert",
+     "condition": "(digital_publisher present)",
+     "sql": "(digital_publisher IS NOT NULL)",
+     "support": 0.513,
+     "rows": 1491,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.013,
+     "score": 1.257,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "abstract"
+     ],
+     "cls": "dom",
+     "condition": "(digital_publisher missing)",
+     "sql": "(digital_publisher IS NULL)",
+     "support": 0.487,
+     "rows": 1416,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.162,
+     "score": 1.225,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(subject_lcsh missing)",
+     "sql": "(subject_lcsh IS NULL)",
+     "support": 0.101,
+     "rows": 295,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.02,
+     "score": 1.118,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "title",
+      "ispartof_collection"
+     ],
+     "cls": "cert",
+     "condition": "(digital_publisher present)",
+     "sql": "(digital_publisher IS NOT NULL)",
+     "support": 0.513,
+     "rows": 1491,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.079,
+     "score": 1.117,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "is_version_of",
+      "title",
+      "ispartof_collection"
+     ],
+     "cls": "cert",
+     "condition": "(digital_publisher present)",
+     "sql": "(digital_publisher IS NOT NULL)",
+     "support": 0.513,
+     "rows": 1491,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.08,
+     "score": 1.117,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(subject_singheritage missing)",
+     "sql": "(subject_singheritage IS NULL)",
+     "support": 0.098,
+     "rows": 285,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.158,
+     "score": 1.099,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "is_version_of",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(subject_singheritage missing)",
+     "sql": "(subject_singheritage IS NULL)",
+     "support": 0.098,
+     "rows": 285,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.175,
+     "score": 1.099,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "abstract"
+     ],
+     "cls": "part",
+     "condition": "(digital_publisher present, is_version_of present)",
+     "sql": "(digital_publisher IS NOT NULL AND is_version_of IS NOT NULL)",
+     "support": 0.472,
+     "rows": 1372,
+     "uncond": "pos",
+     "gain": 2,
+     "nulls_in_scope": 0.043,
+     "score": 1.072,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "title",
+      "subject_lcsh"
+     ],
+     "cls": "dom",
+     "condition": "(abstract present)",
+     "sql": "(abstract IS NOT NULL)",
+     "support": 0.926,
+     "rows": 2691,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.134,
+     "score": 1.001,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "title",
+      "rights"
+     ],
+     "cls": "dom",
+     "condition": "(abstract present)",
+     "sql": "(abstract IS NOT NULL)",
+     "support": 0.926,
+     "rows": 2691,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.075,
+     "score": 1.001,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "title",
+      "subject_singheritage"
+     ],
+     "cls": "dom",
+     "condition": "(abstract present)",
+     "sql": "(abstract IS NOT NULL)",
+     "support": 0.926,
+     "rows": 2691,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.122,
+     "score": 1.001,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "is_version_of",
+      "title",
+      "rights"
+     ],
+     "cls": "dom",
+     "condition": "(abstract present)",
+     "sql": "(abstract IS NOT NULL)",
+     "support": 0.926,
+     "rows": 2691,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.075,
+     "score": 1.001,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "title",
+      "subject_lcsh"
+     ],
+     "cls": "cert",
+     "condition": "(abstract present, subject_lcsh present)",
+     "sql": "(abstract IS NOT NULL AND subject_lcsh IS NOT NULL)",
+     "support": 0.863,
+     "rows": 2510,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.072,
+     "score": 0.966,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "title",
+      "subject_singheritage"
+     ],
+     "cls": "cert",
+     "condition": "(abstract present, subject_lcsh present)",
+     "sql": "(abstract IS NOT NULL AND subject_lcsh IS NOT NULL)",
+     "support": 0.863,
+     "rows": 2510,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.08,
+     "score": 0.966,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "title",
+      "subject_lcsh"
+     ],
+     "cls": "cert",
+     "condition": "(abstract present, subject_singheritage present)",
+     "sql": "(abstract IS NOT NULL AND subject_singheritage IS NOT NULL)",
+     "support": 0.862,
+     "rows": 2505,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.079,
+     "score": 0.965,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "title",
+      "rights"
+     ],
+     "cls": "cert",
+     "condition": "(identifier_uri present, abstract present)",
+     "sql": "(identifier_uri IS NOT NULL AND abstract IS NOT NULL)",
+     "support": 0.862,
+     "rows": 2505,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 0.965,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "title",
+      "subject_singheritage"
+     ],
+     "cls": "cert",
+     "condition": "(abstract present, subject_singheritage present)",
+     "sql": "(abstract IS NOT NULL AND subject_singheritage IS NOT NULL)",
+     "support": 0.862,
+     "rows": 2505,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.056,
+     "score": 0.965,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "is_version_of",
+      "title",
+      "rights"
+     ],
+     "cls": "cert",
+     "condition": "(identifier_uri present, abstract present)",
+     "sql": "(identifier_uri IS NOT NULL AND abstract IS NOT NULL)",
+     "support": 0.862,
+     "rows": 2505,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.965,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "title",
+      "rights"
+     ],
+     "cls": "cert",
+     "condition": "(is_version_of present, abstract present)",
+     "sql": "(is_version_of IS NOT NULL AND abstract IS NOT NULL)",
+     "support": 0.86,
+     "rows": 2499,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.006,
+     "score": 0.964,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "is_version_of",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(abstract missing)",
+     "sql": "(abstract IS NULL)",
+     "support": 0.074,
+     "rows": 216,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.005,
+     "score": 0.957,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri"
+     ],
+     "cls": "cand",
+     "condition": "(abstract missing)",
+     "sql": "(abstract IS NULL)",
+     "support": 0.074,
+     "rows": 216,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.954,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "abstract",
+      "title"
+     ],
+     "cls": "cert",
+     "condition": "(is_version_of missing)",
+     "sql": "(is_version_of IS NULL)",
+     "support": 0.066,
+     "rows": 193,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.005,
+     "score": 0.904,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "title",
+      "rights"
+     ],
+     "cls": "dom",
+     "condition": "(digital_publisher present)",
+     "sql": "(digital_publisher IS NOT NULL)",
+     "support": 0.513,
+     "rows": 1491,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.003,
+     "score": 0.838,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "ispartof_collection"
+     ],
+     "cls": "cert",
+     "condition": "(identifier_uri present, digital_publisher present)",
+     "sql": "(identifier_uri IS NOT NULL AND digital_publisher IS NOT NULL)",
+     "support": 0.473,
+     "rows": 1374,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.804,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "title",
+      "rights"
+     ],
+     "cls": "cert",
+     "condition": "(identifier_uri present, digital_publisher present)",
+     "sql": "(identifier_uri IS NOT NULL AND digital_publisher IS NOT NULL)",
+     "support": 0.473,
+     "rows": 1374,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.804,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "title",
+      "rights"
+     ],
+     "cls": "cert",
+     "condition": "(digital_publisher present, is_version_of present)",
+     "sql": "(digital_publisher IS NOT NULL AND is_version_of IS NOT NULL)",
+     "support": 0.472,
+     "rows": 1372,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.804,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "abstract",
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(identifier_uri missing)",
+     "sql": "(identifier_uri IS NULL)",
+     "support": 0.064,
+     "rows": 186,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.797,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "abstract"
+     ],
+     "cls": "part",
+     "condition": "(subject_lcsh missing)",
+     "sql": "(subject_lcsh IS NULL)",
+     "support": 0.101,
+     "rows": 295,
+     "uncond": "pos",
+     "gain": 2,
+     "nulls_in_scope": 0.407,
+     "score": 0.745,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri"
+     ],
+     "cls": "cand",
+     "condition": "(identifier_uri present, subject_lcsh missing)",
+     "sql": "(identifier_uri IS NOT NULL AND subject_lcsh IS NULL)",
+     "support": 0.099,
+     "rows": 289,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.736,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri"
+     ],
+     "cls": "cand",
+     "condition": "(is_version_of present, subject_lcsh missing)",
+     "sql": "(is_version_of IS NOT NULL AND subject_lcsh IS NULL)",
+     "support": 0.099,
+     "rows": 287,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.733,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "is_version_of"
+     ],
+     "cls": "cand",
+     "condition": "(is_version_of present, subject_lcsh missing)",
+     "sql": "(is_version_of IS NOT NULL AND subject_lcsh IS NULL)",
+     "support": 0.099,
+     "rows": 287,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.733,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "abstract"
+     ],
+     "cls": "part",
+     "condition": "(subject_singheritage missing)",
+     "sql": "(subject_singheritage IS NULL)",
+     "support": 0.098,
+     "rows": 285,
+     "uncond": "pos",
+     "gain": 2,
+     "nulls_in_scope": 0.505,
+     "score": 0.733,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "is_version_of"
+     ],
+     "cls": "dom",
+     "condition": "(abstract missing)",
+     "sql": "(abstract IS NULL)",
+     "support": 0.074,
+     "rows": 216,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.005,
+     "score": 0.709,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri"
+     ],
+     "cls": "cand",
+     "condition": "(identifier_uri present, subject_singheritage missing)",
+     "sql": "(identifier_uri IS NOT NULL AND subject_singheritage IS NULL)",
+     "support": 0.083,
+     "rows": 240,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.67,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "is_version_of"
+     ],
+     "cls": "cand",
+     "condition": "(is_version_of present, subject_singheritage missing)",
+     "sql": "(is_version_of IS NOT NULL AND subject_singheritage IS NULL)",
+     "support": 0.081,
+     "rows": 235,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.663,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "is_version_of",
+      "title",
+      "digital_publisher"
+     ],
+     "cls": "part",
+     "condition": "(identifier_uri present, abstract present)",
+     "sql": "(identifier_uri IS NOT NULL AND abstract IS NOT NULL)",
+     "support": 0.862,
+     "rows": 2505,
+     "uncond": "pos",
+     "gain": 2,
+     "nulls_in_scope": 0.476,
+     "score": 0.644,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "ispartof_collection"
+     ],
+     "cls": "pos",
+     "condition": "(digital_publisher present)",
+     "sql": "(digital_publisher IS NOT NULL)",
+     "support": 0.513,
+     "rows": 1491,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.079,
+     "score": 0.628,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri"
+     ],
+     "cls": "pos",
+     "condition": "(subject_lcsh missing)",
+     "sql": "(subject_lcsh IS NULL)",
+     "support": 0.101,
+     "rows": 295,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.02,
+     "score": 0.621,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "is_version_of"
+     ],
+     "cls": "pos",
+     "condition": "(subject_lcsh missing)",
+     "sql": "(subject_lcsh IS NULL)",
+     "support": 0.101,
+     "rows": 295,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.027,
+     "score": 0.621,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "abstract"
+     ],
+     "cls": "pos",
+     "condition": "(subject_lcsh missing)",
+     "sql": "(subject_lcsh IS NULL)",
+     "support": 0.101,
+     "rows": 295,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.386,
+     "score": 0.621,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri"
+     ],
+     "cls": "pos",
+     "condition": "(subject_singheritage missing)",
+     "sql": "(subject_singheritage IS NULL)",
+     "support": 0.098,
+     "rows": 285,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.158,
+     "score": 0.611,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "is_version_of"
+     ],
+     "cls": "pos",
+     "condition": "(subject_singheritage missing)",
+     "sql": "(subject_singheritage IS NULL)",
+     "support": 0.098,
+     "rows": 285,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.175,
+     "score": 0.611,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "abstract"
+     ],
+     "cls": "pos",
+     "condition": "(subject_singheritage missing)",
+     "sql": "(subject_singheritage IS NULL)",
+     "support": 0.098,
+     "rows": 285,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.347,
+     "score": 0.611,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "abstract",
+      "digital_publisher"
+     ],
+     "cls": "cert",
+     "condition": "(digital_publisher present, is_version_of present)",
+     "sql": "(digital_publisher IS NOT NULL AND is_version_of IS NOT NULL)",
+     "support": 0.472,
+     "rows": 1372,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.043,
+     "score": 0.595,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "abstract",
+      "rights"
+     ],
+     "cls": "cert",
+     "condition": "(digital_publisher present, is_version_of present)",
+     "sql": "(digital_publisher IS NOT NULL AND is_version_of IS NOT NULL)",
+     "support": 0.472,
+     "rows": 1372,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.044,
+     "score": 0.595,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "abstract",
+      "ispartof_collection"
+     ],
+     "cls": "cert",
+     "condition": "(digital_publisher present, is_version_of present)",
+     "sql": "(digital_publisher IS NOT NULL AND is_version_of IS NOT NULL)",
+     "support": 0.472,
+     "rows": 1372,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.044,
+     "score": 0.595,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "abstract"
+     ],
+     "cls": "cand",
+     "condition": "(abstract present, subject_singheritage missing)",
+     "sql": "(abstract IS NOT NULL AND subject_singheritage IS NULL)",
+     "support": 0.064,
+     "rows": 186,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.59,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(abstract present, subject_singheritage missing)",
+     "sql": "(abstract IS NOT NULL AND subject_singheritage IS NULL)",
+     "support": 0.064,
+     "rows": 186,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.59,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "abstract"
+     ],
+     "cls": "cand",
+     "condition": "(abstract present, subject_lcsh missing)",
+     "sql": "(abstract IS NOT NULL AND subject_lcsh IS NULL)",
+     "support": 0.062,
+     "rows": 181,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.582,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(abstract present, subject_lcsh missing)",
+     "sql": "(abstract IS NOT NULL AND subject_lcsh IS NULL)",
+     "support": 0.062,
+     "rows": 181,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.582,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "title",
+      "rights",
+      "ispartof_collection"
+     ],
+     "cls": "cert",
+     "condition": "(digital_publisher present)",
+     "sql": "(digital_publisher IS NOT NULL)",
+     "support": 0.513,
+     "rows": 1491,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.559,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "is_version_of"
+     ],
+     "cls": "pos",
+     "condition": "(identifier_uri missing)",
+     "sql": "(identifier_uri IS NULL)",
+     "support": 0.064,
+     "rows": 186,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.957,
+     "score": 0.493,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "title",
+      "digital_publisher"
+     ],
+     "cls": "dom",
+     "condition": "(identifier_uri present, abstract present)",
+     "sql": "(identifier_uri IS NOT NULL AND abstract IS NOT NULL)",
+     "support": 0.862,
+     "rows": 2505,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.474,
+     "score": 0.483,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "subject_lcsh",
+      "ispartof_collection"
+     ],
+     "cls": "cert",
+     "condition": "(identifier_uri present, abstract present)",
+     "sql": "(identifier_uri IS NOT NULL AND abstract IS NOT NULL)",
+     "support": 0.862,
+     "rows": 2505,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.07,
+     "score": 0.483,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "title",
+      "digital_publisher"
+     ],
+     "cls": "dom",
+     "condition": "(is_version_of present, abstract present)",
+     "sql": "(is_version_of IS NOT NULL AND abstract IS NOT NULL)",
+     "support": 0.86,
+     "rows": 2499,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.475,
+     "score": 0.482,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "subject_lcsh",
+      "ispartof_collection"
+     ],
+     "cls": "cert",
+     "condition": "(is_version_of present, abstract present)",
+     "sql": "(is_version_of IS NOT NULL AND abstract IS NOT NULL)",
+     "support": 0.86,
+     "rows": 2499,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.073,
+     "score": 0.482,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(abstract missing, subject_singheritage present)",
+     "sql": "(abstract IS NULL AND subject_singheritage IS NOT NULL)",
+     "support": 0.04,
+     "rows": 117,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.468,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "title"
+     ],
+     "cls": "pos",
+     "condition": "(is_version_of missing)",
+     "sql": "(is_version_of IS NULL)",
+     "support": 0.066,
+     "rows": 193,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.922,
+     "score": 0.452,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "title",
+      "subject_singheritage"
+     ],
+     "cls": "cert",
+     "condition": "(is_version_of missing)",
+     "sql": "(is_version_of IS NULL)",
+     "support": 0.066,
+     "rows": 193,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.259,
+     "score": 0.452,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "title",
+      "subject_lcsh"
+     ],
+     "cls": "cert",
+     "condition": "(identifier_uri missing)",
+     "sql": "(identifier_uri IS NULL)",
+     "support": 0.064,
+     "rows": 186,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.032,
+     "score": 0.444,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "title",
+      "subject_singheritage"
+     ],
+     "cls": "cert",
+     "condition": "(identifier_uri missing)",
+     "sql": "(identifier_uri IS NULL)",
+     "support": 0.064,
+     "rows": 186,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.242,
+     "score": 0.444,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "title"
+     ],
+     "cls": "cand",
+     "condition": "(abstract missing, subject_lcsh present)",
+     "sql": "(abstract IS NULL AND subject_lcsh IS NOT NULL)",
+     "support": 0.035,
+     "rows": 102,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.437,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "abstract",
+      "ispartof_collection"
+     ],
+     "cls": "cert",
+     "condition": "(subject_lcsh missing)",
+     "sql": "(subject_lcsh IS NULL)",
+     "support": 0.101,
+     "rows": 295,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.407,
+     "score": 0.414,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "abstract",
+      "ispartof_collection"
+     ],
+     "cls": "cert",
+     "condition": "(subject_singheritage missing)",
+     "sql": "(subject_singheritage IS NULL)",
+     "support": 0.098,
+     "rows": 285,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.505,
+     "score": 0.407,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "title",
+      "ispartof_collection"
+     ],
+     "cls": "cand",
+     "condition": "(is_version_of missing)",
+     "sql": "(is_version_of IS NULL)",
+     "support": 0.066,
+     "rows": 193,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.406,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "digital_publisher"
+     ],
+     "cls": "dom",
+     "condition": "(digital_publisher present, is_version_of present)",
+     "sql": "(digital_publisher IS NOT NULL AND is_version_of IS NOT NULL)",
+     "support": 0.472,
+     "rows": 1372,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.002,
+     "score": 0.402,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "title",
+      "ispartof_collection"
+     ],
+     "cls": "cand",
+     "condition": "(identifier_uri missing)",
+     "sql": "(identifier_uri IS NULL)",
+     "support": 0.064,
+     "rows": 186,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.398,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "subject_lcsh",
+      "ispartof_collection"
+     ],
+     "cls": "pos",
+     "condition": "(abstract present)",
+     "sql": "(abstract IS NOT NULL)",
+     "support": 0.926,
+     "rows": 2691,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.135,
+     "score": 0.375,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "subject_singheritage",
+      "ispartof_collection"
+     ],
+     "cls": "pos",
+     "condition": "(abstract present)",
+     "sql": "(abstract IS NOT NULL)",
+     "support": 0.926,
+     "rows": 2691,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.122,
+     "score": 0.375,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "subject_lcsh",
+      "ispartof_collection"
+     ],
+     "cls": "cert",
+     "condition": "(digital_publisher present, is_version_of present)",
+     "sql": "(digital_publisher IS NOT NULL AND is_version_of IS NOT NULL)",
+     "support": 0.472,
+     "rows": 1372,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.051,
+     "score": 0.357,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "rights",
+      "ispartof_collection"
+     ],
+     "cls": "cert",
+     "condition": "(digital_publisher present, is_version_of present)",
+     "sql": "(digital_publisher IS NOT NULL AND is_version_of IS NOT NULL)",
+     "support": 0.472,
+     "rows": 1372,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.004,
+     "score": 0.357,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "subject_singheritage",
+      "ispartof_collection"
+     ],
+     "cls": "dom",
+     "condition": "(identifier_uri present, abstract present)",
+     "sql": "(identifier_uri IS NOT NULL AND abstract IS NOT NULL)",
+     "support": 0.862,
+     "rows": 2505,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.057,
+     "score": 0.322,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "title",
+      "rights"
+     ],
+     "cls": "dom",
+     "condition": "(is_version_of missing)",
+     "sql": "(is_version_of IS NULL)",
+     "support": 0.066,
+     "rows": 193,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.352,
+     "score": 0.301,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "digital_publisher",
+      "ispartof_collection"
+     ],
+     "cls": "cert",
+     "condition": "(digital_publisher present, is_version_of present)",
+     "sql": "(digital_publisher IS NOT NULL AND is_version_of IS NOT NULL)",
+     "support": 0.472,
+     "rows": 1372,
+     "uncond": "pos",
+     "gain": 3,
+     "nulls_in_scope": 0.003,
+     "score": 0.298,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "title",
+      "rights"
+     ],
+     "cls": "dom",
+     "condition": "(identifier_uri missing)",
+     "sql": "(identifier_uri IS NULL)",
+     "support": 0.064,
+     "rows": 186,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.333,
+     "score": 0.296,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "title",
+      "digital_publisher"
+     ],
+     "cls": "pos",
+     "condition": "(subject_lcsh missing)",
+     "sql": "(subject_lcsh IS NULL)",
+     "support": 0.101,
+     "rows": 295,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.773,
+     "score": 0.28,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "title",
+      "subject_singheritage"
+     ],
+     "cls": "pos",
+     "condition": "(subject_lcsh missing)",
+     "sql": "(subject_lcsh IS NULL)",
+     "support": 0.101,
+     "rows": 295,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.756,
+     "score": 0.28,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "title",
+      "digital_publisher"
+     ],
+     "cls": "pos",
+     "condition": "(subject_singheritage missing)",
+     "sql": "(subject_singheritage IS NULL)",
+     "support": 0.098,
+     "rows": 285,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.93,
+     "score": 0.275,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "title",
+      "subject_lcsh"
+     ],
+     "cls": "pos",
+     "condition": "(subject_singheritage missing)",
+     "sql": "(subject_singheritage IS NULL)",
+     "support": 0.098,
+     "rows": 285,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.782,
+     "score": 0.275,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "is_version_of",
+      "rights"
+     ],
+     "cls": "dom",
+     "condition": "(identifier_uri present, subject_lcsh missing)",
+     "sql": "(identifier_uri IS NOT NULL AND subject_lcsh IS NULL)",
+     "support": 0.099,
+     "rows": 289,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.01,
+     "score": 0.246,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "title",
+      "digital_publisher"
+     ],
+     "cls": "pos",
+     "condition": "(abstract missing)",
+     "sql": "(abstract IS NULL)",
+     "support": 0.074,
+     "rows": 216,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.741,
+     "score": 0.239,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "title",
+      "subject_lcsh"
+     ],
+     "cls": "pos",
+     "condition": "(abstract missing)",
+     "sql": "(abstract IS NULL)",
+     "support": 0.074,
+     "rows": 216,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.528,
+     "score": 0.239,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "title",
+      "subject_singheritage"
+     ],
+     "cls": "pos",
+     "condition": "(abstract missing)",
+     "sql": "(abstract IS NULL)",
+     "support": 0.074,
+     "rows": 216,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.458,
+     "score": 0.239,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "subject_singheritage",
+      "ispartof_collection"
+     ],
+     "cls": "dom",
+     "condition": "(digital_publisher present, is_version_of present)",
+     "sql": "(digital_publisher IS NOT NULL AND is_version_of IS NOT NULL)",
+     "support": 0.472,
+     "rows": 1372,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.009,
+     "score": 0.238,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "digital_publisher"
+     ],
+     "cls": "dom",
+     "condition": "(is_version_of present, subject_singheritage missing)",
+     "sql": "(is_version_of IS NOT NULL AND subject_singheritage IS NULL)",
+     "support": 0.081,
+     "rows": 235,
+     "uncond": "pos",
+     "gain": 1,
+     "nulls_in_scope": 0.962,
+     "score": 0.166,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "subject_lcsh",
+      "ispartof_collection"
+     ],
+     "cls": "cert",
+     "condition": "(is_version_of present, subject_singheritage missing)",
+     "sql": "(is_version_of IS NOT NULL AND subject_singheritage IS NULL)",
+     "support": 0.081,
+     "rows": 235,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.936,
+     "score": 0.148,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "digital_publisher",
+      "subject_lcsh"
+     ],
+     "cls": "pos",
+     "condition": "(subject_singheritage missing)",
+     "sql": "(subject_singheritage IS NULL)",
+     "support": 0.098,
+     "rows": 285,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.933,
+     "score": 0.137,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "subject_lcsh",
+      "rights"
+     ],
+     "cls": "pos",
+     "condition": "(subject_singheritage missing)",
+     "sql": "(subject_singheritage IS NULL)",
+     "support": 0.098,
+     "rows": 285,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.916,
+     "score": 0.137,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "digital_publisher",
+      "subject_lcsh"
+     ],
+     "cls": "pos",
+     "condition": "(abstract missing)",
+     "sql": "(abstract IS NULL)",
+     "support": 0.074,
+     "rows": 216,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.806,
+     "score": 0.12,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "subject_lcsh",
+      "rights"
+     ],
+     "cls": "pos",
+     "condition": "(abstract missing)",
+     "sql": "(abstract IS NULL)",
+     "support": 0.074,
+     "rows": 216,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.528,
+     "score": 0.12,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "subject_lcsh",
+      "ispartof_collection"
+     ],
+     "cls": "pos",
+     "condition": "(is_version_of missing)",
+     "sql": "(is_version_of IS NULL)",
+     "support": 0.066,
+     "rows": 193,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.933,
+     "score": 0.1,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "subject_singheritage",
+      "ispartof_collection"
+     ],
+     "cls": "pos",
+     "condition": "(is_version_of missing)",
+     "sql": "(is_version_of IS NULL)",
+     "support": 0.066,
+     "rows": 193,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.964,
+     "score": 0.1,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "identifier_uri",
+      "rights",
+      "ispartof_collection"
+     ],
+     "cls": "dom",
+     "condition": "(is_version_of present, subject_singheritage missing)",
+     "sql": "(is_version_of IS NOT NULL AND subject_singheritage IS NULL)",
+     "support": 0.081,
+     "rows": 235,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.017,
+     "score": 0.099,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "subject_lcsh",
+      "rights"
+     ],
+     "cls": "cand",
+     "condition": "(abstract missing, subject_lcsh present)",
+     "sql": "(abstract IS NULL AND subject_lcsh IS NOT NULL)",
+     "support": 0.035,
+     "rows": 102,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.098,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "digital_publisher",
+      "subject_lcsh"
+     ],
+     "cls": "dom",
+     "condition": "(abstract missing, subject_singheritage present)",
+     "sql": "(abstract IS NULL AND subject_singheritage IS NOT NULL)",
+     "support": 0.04,
+     "rows": 117,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.641,
+     "score": 0.078,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "subject_lcsh",
+      "rights"
+     ],
+     "cls": "dom",
+     "condition": "(abstract missing, subject_singheritage present)",
+     "sql": "(abstract IS NULL AND subject_singheritage IS NOT NULL)",
+     "support": 0.04,
+     "rows": 117,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.128,
+     "score": 0.078,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "rights",
+      "subject_singheritage",
+      "ispartof_collection"
+     ],
+     "cls": "pos",
+     "condition": "(subject_lcsh missing, language = \"eng\" (93%))",
+     "sql": "(subject_lcsh IS NULL AND language = 'eng')",
+     "support": 0.088,
+     "rows": 257,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.747,
+     "score": 0.077,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "language=v1": "eng"
+     }
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "digital_publisher",
+      "subject_lcsh"
+     ],
+     "cls": "dom",
+     "condition": "(abstract missing, subject_lcsh present)",
+     "sql": "(abstract IS NULL AND subject_lcsh IS NOT NULL)",
+     "support": 0.035,
+     "rows": 102,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.588,
+     "score": 0.073,
+     "tags": [
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "rights",
+      "subject_singheritage",
+      "ispartof_collection"
+     ],
+     "cls": "pos",
+     "condition": "(digital_publisher missing, subject_lcsh missing)",
+     "sql": "(digital_publisher IS NULL AND subject_lcsh IS NULL)",
+     "support": 0.078,
+     "rows": 228,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.978,
+     "score": 0.073,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "subject_lcsh",
+      "subject_singheritage"
+     ],
+     "cls": "pos",
+     "condition": "(digital_publisher missing, abstract missing)",
+     "sql": "(digital_publisher IS NULL AND abstract IS NULL)",
+     "support": 0.055,
+     "rows": 160,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.625,
+     "score": 0.069,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "rights",
+      "subject_singheritage",
+      "ispartof_collection"
+     ],
+     "cls": "pos",
+     "condition": "(abstract present, subject_lcsh missing)",
+     "sql": "(abstract IS NOT NULL AND subject_lcsh IS NULL)",
+     "support": 0.062,
+     "rows": 181,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.696,
+     "score": 0.065,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbsg.t13",
+     "K": [
+      "rights",
+      "subject_singheritage",
+      "ispartof_collection"
+     ],
+     "cls": "pos",
+     "condition": "(abstract missing, subject_lcsh missing)",
+     "sql": "(abstract IS NULL AND subject_lcsh IS NULL)",
+     "support": 0.039,
+     "rows": 114,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.868,
+     "score": 0.051,
+     "tags": [
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    }
+   ],
+   "unconditional": {
+    "identifier_uuid": "cand",
+    "identifier_uri,abstract": "pos",
+    "identifier_uri,digital_publisher": "pos",
+    "is_version_of,abstract": "pos",
+    "is_version_of,digital_publisher": "pos",
+    "is_version_of,subject_lcsh": "pos",
+    "identifier_uri,is_version_of,abstract": "pos",
+    "identifier_uri,is_version_of,digital_publisher": "pos",
+    "identifier_uri,is_version_of,subject_lcsh": "pos",
+    "identifier_uri,abstract,title": "dom",
+    "identifier_uri,abstract,digital_publisher": "pos",
+    "identifier_uri,abstract,subject_lcsh": "pos",
+    "identifier_uri,abstract,rights": "pos",
+    "identifier_uri,abstract,subject_singheritage": "pos",
+    "identifier_uri,abstract,ispartof_collection": "pos",
+    "identifier_uri,title,digital_publisher": "pos",
+    "identifier_uri,digital_publisher,subject_lcsh": "pos",
+    "identifier_uri,digital_publisher,rights": "pos",
+    "identifier_uri,digital_publisher,subject_singheritage": "pos",
+    "identifier_uri,digital_publisher,ispartof_collection": "pos",
+    "is_version_of,abstract,title": "dom",
+    "is_version_of,abstract,digital_publisher": "pos",
+    "is_version_of,abstract,subject_lcsh": "pos",
+    "is_version_of,abstract,rights": "pos",
+    "is_version_of,abstract,subject_singheritage": "pos",
+    "is_version_of,abstract,ispartof_collection": "pos",
+    "is_version_of,title,digital_publisher": "pos",
+    "is_version_of,title,subject_lcsh": "cert",
+    "is_version_of,digital_publisher,subject_lcsh": "pos",
+    "is_version_of,digital_publisher,rights": "pos",
+    "is_version_of,digital_publisher,subject_singheritage": "pos",
+    "is_version_of,digital_publisher,ispartof_collection": "pos",
+    "is_version_of,subject_lcsh,rights": "pos",
+    "is_version_of,subject_lcsh,subject_singheritage": "pos",
+    "is_version_of,subject_lcsh,ispartof_collection": "pos",
+    "abstract,title,digital_publisher": "pos",
+    "title,digital_publisher,subject_lcsh": "pos",
+    "title,digital_publisher,rights": "pos",
+    "title,digital_publisher,subject_singheritage": "pos"
+   }
+  }
+ ]
+}

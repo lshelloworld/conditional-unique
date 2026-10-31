@@ -1,0 +1,7750 @@
+{
+ "params": {
+  "kmax": 3,
+  "minsup_rows": 20,
+  "minsup_frac": 0.03,
+  "max_const_card": 15,
+  "max_const_card_narrow": 15,
+  "narrow_cols": 10,
+  "max_key_null": 0.9,
+  "pair_cap": 200000,
+  "max_involved": 0.3,
+  "approx_pairs": 3,
+  "time_budget": 300.0,
+  "key_cols": [
+   "CDIAC Number",
+   "Sale Date",
+   "Project Name",
+   "Final Maturity Date",
+   "Other Issuance Expenses",
+   "UW Expenses",
+   "Principal Amount",
+   "NIC Interest Rate",
+   "Total Issuance Costs",
+   "UW Total Discount/Spread",
+   "New Money",
+   "Issuance Documents",
+   "Net Issue Discount/Premium",
+   "Refunding Amount",
+   "Bond Counsel Fee",
+   "Issue Costs Pct of Principal Amt",
+   "Issuer",
+   "ADTR Report"
+  ]
+ },
+ "sample_rows": 2829,
+ "seed": null,
+ "tables": [
+  {
+   "table": "lbusa.t19807",
+   "rows": 2829,
+   "cols": [
+    "CDIAC Number",
+    "Issuer",
+    "Issuance Documents",
+    "Sold Status",
+    "Sale Date",
+    "ADTR Report",
+    "ADTR Filing Status",
+    "ADTR Reportable",
+    "Issuer County",
+    "MKR Authority",
+    "Local Obligation",
+    "Issuer Group",
+    "Issuer Type",
+    "Project Name",
+    "Principal Amount",
+    "New Money",
+    "Refunding Amount",
+    "Net Issue Discount/Premium",
+    "Debt Type",
+    "Purpose",
+    "Source of Repayment",
+    "NIC Interest Rate",
+    "Interest Type",
+    "Federally Taxable",
+    "Final Maturity Date",
+    "CAB Flag",
+    "S and P Rating",
+    "Moody Rating",
+    "Fitch Rating",
+    "Other Rating",
+    "Sale Type (Comp/Neg)",
+    "Private Placement Flag",
+    "Underwriter",
+    "Financial Advisor",
+    "Bond Counsel",
+    "Trustee",
+    "Issue Costs Pct of Principal Amt",
+    "Total Issuance Costs",
+    "UW Expenses",
+    "UW Total Discount/Spread",
+    "Bond Counsel Fee",
+    "Other Issuance Expenses"
+   ],
+   "n_conditional": 19050,
+   "conditional": [
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "CDIAC Number"
+     ],
+     "cls": "cand",
+     "condition": "(Local Obligation = \"NO\" (94%))",
+     "sql": "(Local Obligation = 'NO')",
+     "support": 0.943,
+     "rows": 2669,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 3.4,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Local Obligation=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "CDIAC Number"
+     ],
+     "cls": "cand",
+     "condition": "(Underwriter present)",
+     "sql": "(Underwriter IS NOT NULL)",
+     "support": 0.856,
+     "rows": 2421,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 3.238,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "CDIAC Number"
+     ],
+     "cls": "cand",
+     "condition": "(Interest Type = \"NIC\" (51%))",
+     "sql": "(Interest Type = 'NIC')",
+     "support": 0.508,
+     "rows": 1438,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.495,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Interest Type=v1": "NIC"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "CDIAC Number"
+     ],
+     "cls": "cand",
+     "condition": "(Bond Counsel Fee missing)",
+     "sql": "(Bond Counsel Fee IS NULL)",
+     "support": 0.499,
+     "rows": 1411,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.472,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "CDIAC Number"
+     ],
+     "cls": "cand",
+     "condition": "(Other Issuance Expenses missing)",
+     "sql": "(Other Issuance Expenses IS NULL)",
+     "support": 0.496,
+     "rows": 1403,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.465,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "CDIAC Number"
+     ],
+     "cls": "cand",
+     "condition": "(CAB Flag missing)",
+     "sql": "(CAB Flag IS NULL)",
+     "support": 0.455,
+     "rows": 1287,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.361,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "CDIAC Number"
+     ],
+     "cls": "cand",
+     "condition": "(Trustee missing)",
+     "sql": "(Trustee IS NULL)",
+     "support": 0.352,
+     "rows": 996,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 2.077,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "CDIAC Number"
+     ],
+     "cls": "cand",
+     "condition": "(NIC Interest Rate missing)",
+     "sql": "(NIC Interest Rate IS NULL)",
+     "support": 0.289,
+     "rows": 817,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.881,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "CDIAC Number"
+     ],
+     "cls": "cand",
+     "condition": "(UW Expenses missing)",
+     "sql": "(UW Expenses IS NULL)",
+     "support": 0.276,
+     "rows": 781,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.839,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "CDIAC Number"
+     ],
+     "cls": "cand",
+     "condition": "(Financial Advisor missing)",
+     "sql": "(Financial Advisor IS NULL)",
+     "support": 0.246,
+     "rows": 697,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.737,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "CDIAC Number"
+     ],
+     "cls": "cand",
+     "condition": "(Sale Type (Comp/Neg) = \"Comp\" (24%))",
+     "sql": "(Sale Type (Comp/Neg) = 'Comp')",
+     "support": 0.236,
+     "rows": 667,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.699,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Sale Type (Comp/Neg)=v2": "Comp"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "CDIAC Number"
+     ],
+     "cls": "cand",
+     "condition": "(Net Issue Discount/Premium missing)",
+     "sql": "(Net Issue Discount/Premium IS NULL)",
+     "support": 0.21,
+     "rows": 593,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.602,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "CDIAC Number"
+     ],
+     "cls": "cand",
+     "condition": "(Project Name missing)",
+     "sql": "(Project Name IS NULL)",
+     "support": 0.186,
+     "rows": 526,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.509,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "CDIAC Number"
+     ],
+     "cls": "cand",
+     "condition": "(Final Maturity Date missing)",
+     "sql": "(Final Maturity Date IS NULL)",
+     "support": 0.136,
+     "rows": 386,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.293,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "CDIAC Number"
+     ],
+     "cls": "cand",
+     "condition": "(ADTR Reportable = \"Y\" (12%))",
+     "sql": "(ADTR Reportable = 'Y')",
+     "support": 0.116,
+     "rows": 329,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.194,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "ADTR Reportable=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "CDIAC Number"
+     ],
+     "cls": "cand",
+     "condition": "(Federally Taxable = \"Federal Tax Flag: T\" (10%))",
+     "sql": "(Federally Taxable = 'Federal Tax Flag: T')",
+     "support": 0.101,
+     "rows": 287,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.115,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Federally Taxable=v2": "Federal Tax Flag: T"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "CDIAC Number"
+     ],
+     "cls": "cand",
+     "condition": "Issuer Group in {\"K-14 Schools\", \"Cities\", \"Special Districts\", \"JPA & Marks-Roos\", \"Counties\"}",
+     "sql": "(Issuer Group = 'K-14 Schools') OR (Issuer Group = 'Cities') OR (Issuer Group = 'Special Districts') OR (Issuer Group = 'JPA & Marks-Roos') OR (Issuer Group = 'Counties')",
+     "support": 0.883,
+     "rows": 2497,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.096,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Issuer Group=v1": "K-14 Schools",
+      "Issuer Group=v2": "Cities",
+      "Issuer Group=v3": "Special Districts",
+      "Issuer Group=v5": "JPA & Marks-Roos",
+      "Issuer Group=v6": "Counties"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "CDIAC Number"
+     ],
+     "cls": "cand",
+     "condition": "Private Placement Flag in {\"Unknown\", \"YES\"}",
+     "sql": "(Private Placement Flag = 'Unknown') OR (Private Placement Flag = 'YES')",
+     "support": 0.2,
+     "rows": 567,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 1.045,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Private Placement Flag=v2": "Unknown",
+      "Private Placement Flag=v3": "YES"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "CDIAC Number"
+     ],
+     "cls": "cand",
+     "condition": "ADTR Filing Status in {\"ENDED (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)\", \"FILED (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)\"}",
+     "sql": "(ADTR Filing Status = 'ENDED (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)') OR (ADTR Filing Status = 'FILED (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)')",
+     "support": 0.183,
+     "rows": 517,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.997,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "ADTR Filing Status=v2": "ENDED (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)",
+      "ADTR Filing Status=v3": "FILED (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "CDIAC Number"
+     ],
+     "cls": "cand",
+     "condition": "(Refunding Amount missing)",
+     "sql": "(Refunding Amount IS NULL)",
+     "support": 0.055,
+     "rows": 157,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.825,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "CDIAC Number"
+     ],
+     "cls": "cand",
+     "condition": "Source of Repayment in {\"General Fund of Issuing Jurisdiction\", \"Property Tax Revenues\", \"Tax Increment\", \"Public Enterprise Revenues\", \"Private Obligor Payments\", \"Special Assessments\", \"Local Obligations\"}",
+     "sql": "(Source of Repayment = 'General Fund of Issuing Jurisdiction') OR (Source of Repayment = 'Property Tax Revenues') OR (Source of Repayment = 'Tax Increment') OR (Source of Repayment = 'Public Enterprise Revenues') OR (Source of Repayment = 'Private Obligor Payments') OR (Source of Repayment = 'Special Assessments') OR (Source of Repayment = 'Local Obligations')",
+     "support": 0.844,
+     "rows": 2387,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.804,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Source of Repayment=v1": "General Fund of Issuing Jurisdiction",
+      "Source of Repayment=v2": "Property Tax Revenues",
+      "Source of Repayment=v4": "Tax Increment",
+      "Source of Repayment=v5": "Public Enterprise Revenues",
+      "Source of Repayment=v6": "Private Obligor Payments",
+      "Source of Repayment=v7": "Special Assessments",
+      "Source of Repayment=v8": "Local Obligations"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Net Issue Discount/Premium missing, UW Expenses present)",
+     "sql": "(Net Issue Discount/Premium IS NULL AND UW Expenses IS NOT NULL)",
+     "support": 0.112,
+     "rows": 318,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.17,
+     "score": 0.697,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Net Issue Discount/Premium missing, Bond Counsel Fee present)",
+     "sql": "(Net Issue Discount/Premium IS NULL AND Bond Counsel Fee IS NOT NULL)",
+     "support": 0.105,
+     "rows": 297,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.189,
+     "score": 0.674,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Net Issue Discount/Premium missing, Other Issuance Expenses present)",
+     "sql": "(Net Issue Discount/Premium IS NULL AND Other Issuance Expenses IS NOT NULL)",
+     "support": 0.101,
+     "rows": 285,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.151,
+     "score": 0.66,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(ADTR Reportable = \"Y\" (12%), Local Obligation = \"NO\" (94%))",
+     "sql": "(ADTR Reportable = 'Y' AND Local Obligation = 'NO')",
+     "support": 0.1,
+     "rows": 282,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.025,
+     "score": 0.657,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "ADTR Reportable=v2": "Y",
+      "Local Obligation=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "dom",
+     "condition": "(Issuer Group = \"Counties\" (10%))",
+     "sql": "(Issuer Group = 'Counties')",
+     "support": 0.095,
+     "rows": 270,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.363,
+     "score": 0.643,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Issuer Group=v6": "Counties"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "CDIAC Number"
+     ],
+     "cls": "cand",
+     "condition": "(MKR Authority = \"YES\" (3%))",
+     "sql": "(MKR Authority = 'YES')",
+     "support": 0.033,
+     "rows": 93,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.635,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "MKR Authority=v2": "YES"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Project Name",
+      "UW Expenses"
+     ],
+     "cls": "pos",
+     "condition": "(Bond Counsel Fee missing)",
+     "sql": "(Bond Counsel Fee IS NULL)",
+     "support": 0.499,
+     "rows": 1411,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.665,
+     "score": 0.62,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Project Name",
+      "UW Expenses"
+     ],
+     "cls": "pos",
+     "condition": "(Other Issuance Expenses missing)",
+     "sql": "(Other Issuance Expenses IS NULL)",
+     "support": 0.496,
+     "rows": 1403,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.674,
+     "score": 0.618,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "CDIAC Number"
+     ],
+     "cls": "cand",
+     "condition": "(CAB Flag = \"YES\" (3%))",
+     "sql": "(CAB Flag = 'YES')",
+     "support": 0.031,
+     "rows": 87,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.614,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "CAB Flag=v2": "YES"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(ADTR Filing Status = \"FILED (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)\" (9%), MKR Authority = \"NO\" (97%))",
+     "sql": "(ADTR Filing Status = 'FILED (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)' AND MKR Authority = 'NO')",
+     "support": 0.078,
+     "rows": 221,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.023,
+     "score": 0.581,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "ADTR Filing Status=v3": "FILED (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)",
+      "MKR Authority=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(MKR Authority = \"NO\" (97%), Source of Repayment = \"Special Assessments\" (8%))",
+     "sql": "(MKR Authority = 'NO' AND Source of Repayment = 'Special Assessments')",
+     "support": 0.077,
+     "rows": 218,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.17,
+     "score": 0.577,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "MKR Authority=v1": "NO",
+      "Source of Repayment=v7": "Special Assessments"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(ADTR Filing Status = \"FILED (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)\" (9%), Local Obligation = \"NO\" (94%))",
+     "sql": "(ADTR Filing Status = 'FILED (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)' AND Local Obligation = 'NO')",
+     "support": 0.077,
+     "rows": 217,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.023,
+     "score": 0.576,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "ADTR Filing Status=v3": "FILED (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)",
+      "Local Obligation=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(MKR Authority = \"YES\" (3%))",
+     "sql": "(MKR Authority = 'YES')",
+     "support": 0.033,
+     "rows": 93,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.022,
+     "score": 0.566,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "MKR Authority=v2": "YES"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"JPA & Marks-Roos\" (10%), CAB Flag present)",
+     "sql": "(Issuer Group = 'JPA & Marks-Roos' AND CAB Flag IS NOT NULL)",
+     "support": 0.074,
+     "rows": 208,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.053,
+     "score": 0.564,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Issuer Group=v5": "JPA & Marks-Roos"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Local Obligation = \"NO\" (94%), Source of Repayment = \"Special Assessments\" (8%))",
+     "sql": "(Local Obligation = 'NO' AND Source of Repayment = 'Special Assessments')",
+     "support": 0.073,
+     "rows": 207,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.174,
+     "score": 0.563,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Local Obligation=v1": "NO",
+      "Source of Repayment=v7": "Special Assessments"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Principal Amount",
+      "NIC Interest Rate",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "(Interest Type = \"NIC\" (51%))",
+     "sql": "(Interest Type = 'NIC')",
+     "support": 0.508,
+     "rows": 1438,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.001,
+     "score": 0.556,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Interest Type=v1": "NIC"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Cities\" (28%), Net Issue Discount/Premium missing)",
+     "sql": "(Issuer Group = 'Cities' AND Net Issue Discount/Premium IS NULL)",
+     "support": 0.071,
+     "rows": 202,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.188,
+     "score": 0.556,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Issuer Group=v2": "Cities"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"JPA & Marks-Roos\" (10%), CAB Flag = \"NO\" (51%))",
+     "sql": "(Issuer Group = 'JPA & Marks-Roos' AND CAB Flag = 'NO')",
+     "support": 0.071,
+     "rows": 202,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.054,
+     "score": 0.556,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {
+      "Issuer Group=v5": "JPA & Marks-Roos",
+      "CAB Flag=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Other Issuance Expenses"
+     ],
+     "cls": "pos",
+     "condition": "(Bond Counsel Fee missing)",
+     "sql": "(Bond Counsel Fee IS NULL)",
+     "support": 0.499,
+     "rows": 1411,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.972,
+     "score": 0.551,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": true,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Project Name",
+      "Final Maturity Date",
+      "Other Issuance Expenses"
+     ],
+     "cls": "pos",
+     "condition": "(Bond Counsel Fee missing)",
+     "sql": "(Bond Counsel Fee IS NULL)",
+     "support": 0.499,
+     "rows": 1411,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.974,
+     "score": 0.551,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"Local Obligations\" (3%))",
+     "sql": "(Source of Repayment = 'Local Obligations')",
+     "support": 0.031,
+     "rows": 88,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.011,
+     "score": 0.55,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v8": "Local Obligations"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Bond Counsel Fee"
+     ],
+     "cls": "pos",
+     "condition": "(Other Issuance Expenses missing)",
+     "sql": "(Other Issuance Expenses IS NULL)",
+     "support": 0.496,
+     "rows": 1403,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.986,
+     "score": 0.549,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Final Maturity Date",
+      "UW Expenses"
+     ],
+     "cls": "pos",
+     "condition": "(Other Issuance Expenses missing)",
+     "sql": "(Other Issuance Expenses IS NULL)",
+     "support": 0.496,
+     "rows": 1403,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.689,
+     "score": 0.549,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Counties\" (10%), Project Name present)",
+     "sql": "(Issuer Group = 'Counties' AND Project Name IS NOT NULL)",
+     "support": 0.07,
+     "rows": 197,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.127,
+     "score": 0.549,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v6": "Counties"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Cities\" (28%), Source of Repayment = \"Special Assessments\" (8%))",
+     "sql": "(Issuer Group = 'Cities' AND Source of Repayment = 'Special Assessments')",
+     "support": 0.069,
+     "rows": 196,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.158,
+     "score": 0.547,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities",
+      "Source of Repayment=v7": "Special Assessments"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(ADTR Filing Status = \"N/A (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)\" (79%), Source of Repayment = \"Special Assessments\" (8%))",
+     "sql": "(ADTR Filing Status = 'N/A (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)' AND Source of Repayment = 'Special Assessments')",
+     "support": 0.068,
+     "rows": 193,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.187,
+     "score": 0.543,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ADTR Filing Status=v1": "N/A (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)",
+      "Source of Repayment=v7": "Special Assessments"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"JPA & Marks-Roos\" (10%), Other Issuance Expenses present)",
+     "sql": "(Issuer Group = 'JPA & Marks-Roos' AND Other Issuance Expenses IS NOT NULL)",
+     "support": 0.068,
+     "rows": 193,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.052,
+     "score": 0.543,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v5": "JPA & Marks-Roos"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Counties\" (10%), Financial Advisor present)",
+     "sql": "(Issuer Group = 'Counties' AND Financial Advisor IS NOT NULL)",
+     "support": 0.068,
+     "rows": 192,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.292,
+     "score": 0.542,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v6": "Counties"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "ADTR Report"
+     ],
+     "cls": "cert",
+     "condition": "(ADTR Reportable = \"Y\" (12%))",
+     "sql": "(ADTR Reportable = 'Y')",
+     "support": 0.116,
+     "rows": 329,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.024,
+     "score": 0.532,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ADTR Reportable=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"JPA & Marks-Roos\" (10%), Bond Counsel Fee present)",
+     "sql": "(Issuer Group = 'JPA & Marks-Roos' AND Bond Counsel Fee IS NOT NULL)",
+     "support": 0.065,
+     "rows": 185,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.049,
+     "score": 0.532,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v5": "JPA & Marks-Roos"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"General Fund of Issuing Jurisdiction\" (29%), Federally Taxable = \"Federal Tax Flag: E\" (87%))",
+     "sql": "(Source of Repayment = 'General Fund of Issuing Jurisdiction' AND Federally Taxable = 'Federal Tax Flag: E')",
+     "support": 0.261,
+     "rows": 739,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.241,
+     "score": 0.532,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v1": "General Fund of Issuing Jurisdiction",
+      "Federally Taxable=v1": "Federal Tax Flag: E"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"Special Assessments\" (8%), Underwriter present)",
+     "sql": "(Source of Repayment = 'Special Assessments' AND Underwriter IS NOT NULL)",
+     "support": 0.064,
+     "rows": 181,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.193,
+     "score": 0.526,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v7": "Special Assessments"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Other Issuance Expenses"
+     ],
+     "cls": "pos",
+     "condition": "(CAB Flag missing)",
+     "sql": "(CAB Flag IS NULL)",
+     "support": 0.455,
+     "rows": 1287,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.96,
+     "score": 0.526,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "UW Expenses"
+     ],
+     "cls": "pos",
+     "condition": "(CAB Flag missing)",
+     "sql": "(CAB Flag IS NULL)",
+     "support": 0.455,
+     "rows": 1287,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.657,
+     "score": 0.526,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Bond Counsel Fee"
+     ],
+     "cls": "pos",
+     "condition": "(CAB Flag missing)",
+     "sql": "(CAB Flag IS NULL)",
+     "support": 0.455,
+     "rows": 1287,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.967,
+     "score": 0.526,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Special Districts\" (12%), NIC Interest Rate present)",
+     "sql": "(Issuer Group = 'Special Districts' AND NIC Interest Rate IS NOT NULL)",
+     "support": 0.064,
+     "rows": 180,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.506,
+     "score": 0.525,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v3": "Special Districts"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Total Issuance Costs"
+     ],
+     "cls": "cand",
+     "condition": "(UW Expenses present, Bond Counsel Fee missing)",
+     "sql": "(UW Expenses IS NOT NULL AND Bond Counsel Fee IS NULL)",
+     "support": 0.248,
+     "rows": 703,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.523,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"Special Assessments\" (8%), UW Expenses present)",
+     "sql": "(Source of Repayment = 'Special Assessments' AND UW Expenses IS NOT NULL)",
+     "support": 0.063,
+     "rows": 179,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.151,
+     "score": 0.523,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v7": "Special Assessments"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Total Issuance Costs"
+     ],
+     "cls": "cand",
+     "condition": "(UW Expenses present, Other Issuance Expenses missing)",
+     "sql": "(UW Expenses IS NOT NULL AND Other Issuance Expenses IS NULL)",
+     "support": 0.244,
+     "rows": 691,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.519,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "UW Total Discount/Spread"
+     ],
+     "cls": "cand",
+     "condition": "(UW Expenses present, Other Issuance Expenses missing)",
+     "sql": "(UW Expenses IS NOT NULL AND Other Issuance Expenses IS NULL)",
+     "support": 0.244,
+     "rows": 691,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.519,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "UW Expenses"
+     ],
+     "cls": "cert",
+     "condition": "(UW Expenses present, Bond Counsel Fee missing)",
+     "sql": "(UW Expenses IS NOT NULL AND Bond Counsel Fee IS NULL)",
+     "support": 0.248,
+     "rows": 703,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.327,
+     "score": 0.518,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(UW Expenses present, Bond Counsel Fee missing)",
+     "sql": "(UW Expenses IS NOT NULL AND Bond Counsel Fee IS NULL)",
+     "support": 0.248,
+     "rows": 703,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.327,
+     "score": 0.518,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "UW Total Discount/Spread"
+     ],
+     "cls": "cert",
+     "condition": "(UW Expenses present, Bond Counsel Fee missing)",
+     "sql": "(UW Expenses IS NOT NULL AND Bond Counsel Fee IS NULL)",
+     "support": 0.248,
+     "rows": 703,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.327,
+     "score": 0.518,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "UW Expenses"
+     ],
+     "cls": "cert",
+     "condition": "(UW Expenses present, Other Issuance Expenses missing)",
+     "sql": "(UW Expenses IS NOT NULL AND Other Issuance Expenses IS NULL)",
+     "support": 0.244,
+     "rows": 691,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.339,
+     "score": 0.514,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(UW Expenses present, Other Issuance Expenses missing)",
+     "sql": "(UW Expenses IS NOT NULL AND Other Issuance Expenses IS NULL)",
+     "support": 0.244,
+     "rows": 691,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.339,
+     "score": 0.514,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Final Maturity Date",
+      "UW Expenses"
+     ],
+     "cls": "cert",
+     "condition": "(UW Expenses present, Other Issuance Expenses missing)",
+     "sql": "(UW Expenses IS NOT NULL AND Other Issuance Expenses IS NULL)",
+     "support": 0.244,
+     "rows": 691,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.369,
+     "score": 0.514,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(CAB Flag missing, UW Expenses present)",
+     "sql": "(CAB Flag IS NULL AND UW Expenses IS NOT NULL)",
+     "support": 0.236,
+     "rows": 668,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.51,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "UW Expenses"
+     ],
+     "cls": "cert",
+     "condition": "(CAB Flag missing, UW Expenses present)",
+     "sql": "(CAB Flag IS NULL AND UW Expenses IS NOT NULL)",
+     "support": 0.236,
+     "rows": 668,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.338,
+     "score": 0.505,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Total Issuance Costs"
+     ],
+     "cls": "cert",
+     "condition": "(CAB Flag missing, UW Expenses present)",
+     "sql": "(CAB Flag IS NULL AND UW Expenses IS NOT NULL)",
+     "support": 0.236,
+     "rows": 668,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.338,
+     "score": 0.505,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "UW Total Discount/Spread"
+     ],
+     "cls": "cert",
+     "condition": "(CAB Flag missing, UW Expenses present)",
+     "sql": "(CAB Flag IS NULL AND UW Expenses IS NOT NULL)",
+     "support": 0.236,
+     "rows": 668,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.338,
+     "score": 0.505,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount",
+      "Issuer"
+     ],
+     "cls": "cand",
+     "condition": "(Interest Type = \"NIC\" (51%))",
+     "sql": "(Interest Type = 'NIC')",
+     "support": 0.508,
+     "rows": 1438,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.499,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Interest Type=v1": "NIC"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "pos",
+     "condition": "(Issuer Group = \"JPA & Marks-Roos\" (10%))",
+     "sql": "(Issuer Group = 'JPA & Marks-Roos')",
+     "support": 0.101,
+     "rows": 285,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.204,
+     "score": 0.495,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v5": "JPA & Marks-Roos"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "UW Expenses"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"JPA & Marks-Roos\" (10%))",
+     "sql": "(Issuer Group = 'JPA & Marks-Roos')",
+     "support": 0.101,
+     "rows": 285,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.228,
+     "score": 0.495,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v5": "JPA & Marks-Roos"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"JPA & Marks-Roos\" (10%))",
+     "sql": "(Issuer Group = 'JPA & Marks-Roos')",
+     "support": 0.101,
+     "rows": 285,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.151,
+     "score": 0.495,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v5": "JPA & Marks-Roos"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Refunding Amount"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"JPA & Marks-Roos\" (10%))",
+     "sql": "(Issuer Group = 'JPA & Marks-Roos')",
+     "support": 0.101,
+     "rows": 285,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.196,
+     "score": 0.495,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v5": "JPA & Marks-Roos"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "pos",
+     "condition": "(Source of Repayment = \"Public Enterprise Revenues\" (10%))",
+     "sql": "(Source of Repayment = 'Public Enterprise Revenues')",
+     "support": 0.1,
+     "rows": 283,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.382,
+     "score": 0.493,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v5": "Public Enterprise Revenues"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(Issuer Group = \"Counties\" (10%))",
+     "sql": "(Issuer Group = 'Counties')",
+     "support": 0.095,
+     "rows": 270,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.487,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v6": "Counties"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "pos",
+     "condition": "Issuer Group in {\"Special Districts\", \"Counties\"}",
+     "sql": "(Issuer Group = 'Special Districts') OR (Issuer Group = 'Counties')",
+     "support": 0.218,
+     "rows": 616,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.386,
+     "score": 0.485,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v3": "Special Districts",
+      "Issuer Group=v6": "Counties"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "Issuer Group in {\"Special Districts\", \"Counties\"}",
+     "sql": "(Issuer Group = 'Special Districts') OR (Issuer Group = 'Counties')",
+     "support": 0.218,
+     "rows": 616,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.266,
+     "score": 0.485,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v3": "Special Districts",
+      "Issuer Group=v6": "Counties"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(Issuer Group = \"Cities\" (28%), Financial Advisor present)",
+     "sql": "(Issuer Group = 'Cities' AND Financial Advisor IS NOT NULL)",
+     "support": 0.213,
+     "rows": 603,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.485,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "UW Expenses"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Counties\" (10%))",
+     "sql": "(Issuer Group = 'Counties')",
+     "support": 0.095,
+     "rows": 270,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.504,
+     "score": 0.482,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v6": "Counties"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(Issuer Group = \"Cities\" (28%), Private Placement Flag = \"NO\" (80%))",
+     "sql": "(Issuer Group = 'Cities' AND Private Placement Flag = 'NO')",
+     "support": 0.209,
+     "rows": 591,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.48,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities",
+      "Private Placement Flag=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Counties\" (10%), Trustee present)",
+     "sql": "(Issuer Group = 'Counties' AND Trustee IS NOT NULL)",
+     "support": 0.052,
+     "rows": 146,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.103,
+     "score": 0.473,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v6": "Counties"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"Private Obligor Payments\" (9%), Financial Advisor present)",
+     "sql": "(Source of Repayment = 'Private Obligor Payments' AND Financial Advisor IS NOT NULL)",
+     "support": 0.052,
+     "rows": 146,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.062,
+     "score": 0.473,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v6": "Private Obligor Payments"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(Issuer Group = \"Cities\" (28%), NIC Interest Rate present)",
+     "sql": "(Issuer Group = 'Cities' AND NIC Interest Rate IS NOT NULL)",
+     "support": 0.202,
+     "rows": 572,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.472,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(Issuer Group = \"Cities\" (28%), UW Expenses present)",
+     "sql": "(Issuer Group = 'Cities' AND UW Expenses IS NOT NULL)",
+     "support": 0.199,
+     "rows": 563,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.468,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Total Issuance Costs"
+     ],
+     "cls": "cert",
+     "condition": "Issuer Group in {\"JPA & Marks-Roos\", \"Counties\"}",
+     "sql": "(Issuer Group = 'JPA & Marks-Roos') OR (Issuer Group = 'Counties')",
+     "support": 0.196,
+     "rows": 555,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.211,
+     "score": 0.461,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v5": "JPA & Marks-Roos",
+      "Issuer Group=v6": "Counties"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "UW Total Discount/Spread"
+     ],
+     "cls": "cert",
+     "condition": "Issuer Group in {\"JPA & Marks-Roos\", \"Counties\"}",
+     "sql": "(Issuer Group = 'JPA & Marks-Roos') OR (Issuer Group = 'Counties')",
+     "support": 0.196,
+     "rows": 555,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.211,
+     "score": 0.461,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v5": "JPA & Marks-Roos",
+      "Issuer Group=v6": "Counties"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "New Money"
+     ],
+     "cls": "cert",
+     "condition": "Issuer Group in {\"JPA & Marks-Roos\", \"Counties\"}",
+     "sql": "(Issuer Group = 'JPA & Marks-Roos') OR (Issuer Group = 'Counties')",
+     "support": 0.196,
+     "rows": 555,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.209,
+     "score": 0.461,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v5": "JPA & Marks-Roos",
+      "Issuer Group=v6": "Counties"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(NIC Interest Rate missing, Financial Advisor present)",
+     "sql": "(NIC Interest Rate IS NULL AND Financial Advisor IS NOT NULL)",
+     "support": 0.194,
+     "rows": 548,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.193,
+     "score": 0.458,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(NIC Interest Rate missing, UW Expenses present)",
+     "sql": "(NIC Interest Rate IS NULL AND UW Expenses IS NOT NULL)",
+     "support": 0.192,
+     "rows": 543,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.188,
+     "score": 0.456,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Total Issuance Costs"
+     ],
+     "cls": "cert",
+     "condition": "(ADTR Filing Status = \"FILED (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)\" (9%))",
+     "sql": "(ADTR Filing Status = 'FILED (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)')",
+     "support": 0.085,
+     "rows": 241,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.021,
+     "score": 0.455,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ADTR Filing Status=v3": "FILED (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "UW Total Discount/Spread"
+     ],
+     "cls": "cert",
+     "condition": "(ADTR Filing Status = \"FILED (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)\" (9%))",
+     "sql": "(ADTR Filing Status = 'FILED (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)')",
+     "support": 0.085,
+     "rows": 241,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.021,
+     "score": 0.455,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ADTR Filing Status=v3": "FILED (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "ADTR Report"
+     ],
+     "cls": "cert",
+     "condition": "(ADTR Filing Status = \"FILED (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)\" (9%))",
+     "sql": "(ADTR Filing Status = 'FILED (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)')",
+     "support": 0.085,
+     "rows": 241,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.021,
+     "score": 0.455,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ADTR Filing Status=v3": "FILED (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Cities\" (28%), Interest Type missing)",
+     "sql": "(Issuer Group = 'Cities' AND Interest Type IS NULL)",
+     "support": 0.048,
+     "rows": 135,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.141,
+     "score": 0.454,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"General Fund of Issuing Jurisdiction\" (29%), Trustee present)",
+     "sql": "(Source of Repayment = 'General Fund of Issuing Jurisdiction' AND Trustee IS NOT NULL)",
+     "support": 0.189,
+     "rows": 535,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.116,
+     "score": 0.452,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v1": "General Fund of Issuing Jurisdiction"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "Source of Repayment in {\"Public Enterprise Revenues\", \"Private Obligor Payments\"}",
+     "sql": "(Source of Repayment = 'Public Enterprise Revenues') OR (Source of Repayment = 'Private Obligor Payments')",
+     "support": 0.187,
+     "rows": 528,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.212,
+     "score": 0.449,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v5": "Public Enterprise Revenues",
+      "Source of Repayment=v6": "Private Obligor Payments"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(Financial Advisor missing, UW Expenses present)",
+     "sql": "(Financial Advisor IS NULL AND UW Expenses IS NOT NULL)",
+     "support": 0.185,
+     "rows": 524,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.239,
+     "score": 0.448,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"Private Obligor Payments\" (9%), Trustee present)",
+     "sql": "(Source of Repayment = 'Private Obligor Payments' AND Trustee IS NOT NULL)",
+     "support": 0.046,
+     "rows": 129,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.444,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v6": "Private Obligor Payments"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuer"
+     ],
+     "cls": "cand",
+     "condition": "(Project Name present, Source of Repayment = \"General Fund of Issuing Jurisdiction\" (29%))",
+     "sql": "(Project Name IS NOT NULL AND Source of Repayment = 'General Fund of Issuing Jurisdiction')",
+     "support": 0.223,
+     "rows": 632,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.441,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v1": "General Fund of Issuing Jurisdiction"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Total Issuance Costs"
+     ],
+     "cls": "cert",
+     "condition": "(Local Obligation = \"NO\" (94%), Interest Type missing)",
+     "sql": "(Local Obligation = 'NO' AND Interest Type IS NULL)",
+     "support": 0.177,
+     "rows": 501,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.08,
+     "score": 0.438,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Local Obligation=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "NIC Interest Rate"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"Special Assessments\" (8%))",
+     "sql": "(Source of Repayment = 'Special Assessments')",
+     "support": 0.078,
+     "rows": 221,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.222,
+     "score": 0.436,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v7": "Special Assessments"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Net Issue Discount/Premium"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"Special Assessments\" (8%))",
+     "sql": "(Source of Repayment = 'Special Assessments')",
+     "support": 0.078,
+     "rows": 221,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.457,
+     "score": 0.436,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v7": "Special Assessments"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Refunding Amount"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"Special Assessments\" (8%))",
+     "sql": "(Source of Repayment = 'Special Assessments')",
+     "support": 0.078,
+     "rows": 221,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.009,
+     "score": 0.436,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v7": "Special Assessments"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Final Maturity Date",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(ADTR Filing Status = \"N/A (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)\" (79%), Project Name missing)",
+     "sql": "(ADTR Filing Status = 'N/A (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)' AND Project Name IS NULL)",
+     "support": 0.174,
+     "rows": 492,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.248,
+     "score": 0.434,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ADTR Filing Status=v1": "N/A (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"K-14 Schools\" (28%), Interest Type = \"NIC\" (51%))",
+     "sql": "(Issuer Group = 'K-14 Schools' AND Interest Type = 'NIC')",
+     "support": 0.172,
+     "rows": 488,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.121,
+     "score": 0.432,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v1": "K-14 Schools",
+      "Interest Type=v1": "NIC"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Final Maturity Date",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"K-14 Schools\" (28%), Interest Type = \"NIC\" (51%))",
+     "sql": "(Issuer Group = 'K-14 Schools' AND Interest Type = 'NIC')",
+     "support": 0.172,
+     "rows": 488,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.029,
+     "score": 0.432,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v1": "K-14 Schools",
+      "Interest Type=v1": "NIC"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Special Districts\" (12%), Interest Type = \"NIC\" (51%))",
+     "sql": "(Issuer Group = 'Special Districts' AND Interest Type = 'NIC')",
+     "support": 0.043,
+     "rows": 121,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.719,
+     "score": 0.43,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v3": "Special Districts",
+      "Interest Type=v1": "NIC"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"Special Assessments\" (8%), CAB Flag = \"NO\" (51%))",
+     "sql": "(Source of Repayment = 'Special Assessments' AND CAB Flag = 'NO')",
+     "support": 0.043,
+     "rows": 121,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.43,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v7": "Special Assessments",
+      "CAB Flag=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"Special Assessments\" (8%), CAB Flag present)",
+     "sql": "(Source of Repayment = 'Special Assessments' AND CAB Flag IS NOT NULL)",
+     "support": 0.043,
+     "rows": 121,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.008,
+     "score": 0.43,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v7": "Special Assessments"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Private Placement Flag = \"YES\" (6%), Trustee present)",
+     "sql": "(Private Placement Flag = 'YES' AND Trustee IS NOT NULL)",
+     "support": 0.042,
+     "rows": 120,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.05,
+     "score": 0.428,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Private Placement Flag=v3": "YES"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Counties\" (10%), CAB Flag present)",
+     "sql": "(Issuer Group = 'Counties' AND CAB Flag IS NOT NULL)",
+     "support": 0.041,
+     "rows": 115,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.13,
+     "score": 0.419,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v6": "Counties"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Counties\" (10%), CAB Flag = \"NO\" (51%))",
+     "sql": "(Issuer Group = 'Counties' AND CAB Flag = 'NO')",
+     "support": 0.04,
+     "rows": 114,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.132,
+     "score": 0.418,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v6": "Counties",
+      "CAB Flag=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(Issuer Group = \"Cities\" (28%), Trustee present)",
+     "sql": "(Issuer Group = 'Cities' AND Trustee IS NOT NULL)",
+     "support": 0.158,
+     "rows": 447,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.417,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Final Maturity Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(Issuer Group = \"Cities\" (28%), Trustee present)",
+     "sql": "(Issuer Group = 'Cities' AND Trustee IS NOT NULL)",
+     "support": 0.158,
+     "rows": 447,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.417,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(Issuer Group = \"Cities\" (28%), Interest Type = \"NIC\" (51%))",
+     "sql": "(Issuer Group = 'Cities' AND Interest Type = 'NIC')",
+     "support": 0.157,
+     "rows": 445,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.416,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities",
+      "Interest Type=v1": "NIC"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "dom",
+     "condition": "(Issuer Group = \"Special Districts\" (12%), Project Name present)",
+     "sql": "(Issuer Group = 'Special Districts' AND Project Name IS NOT NULL)",
+     "support": 0.09,
+     "rows": 255,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.192,
+     "score": 0.416,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v3": "Special Districts"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Final Maturity Date",
+      "Principal Amount",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"K-14 Schools\" (28%))",
+     "sql": "(Issuer Group = 'K-14 Schools')",
+     "support": 0.283,
+     "rows": 801,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.025,
+     "score": 0.415,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v1": "K-14 Schools"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "dom",
+     "condition": "(Issuer Group = \"JPA & Marks-Roos\" (10%), Final Maturity Date present)",
+     "sql": "(Issuer Group = 'JPA & Marks-Roos' AND Final Maturity Date IS NOT NULL)",
+     "support": 0.089,
+     "rows": 253,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.103,
+     "score": 0.415,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v5": "JPA & Marks-Roos"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "New Money"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Cities\" (28%), Trustee present)",
+     "sql": "(Issuer Group = 'Cities' AND Trustee IS NOT NULL)",
+     "support": 0.158,
+     "rows": 447,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.13,
+     "score": 0.413,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Project Name",
+      "Final Maturity Date",
+      "Principal Amount"
+     ],
+     "cls": "part",
+     "condition": "(Issuer Group = \"JPA & Marks-Roos\" (10%))",
+     "sql": "(Issuer Group = 'JPA & Marks-Roos')",
+     "support": 0.101,
+     "rows": 285,
+     "uncond": null,
+     "gain": 3,
+     "nulls_in_scope": 0.204,
+     "score": 0.413,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v5": "JPA & Marks-Roos"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "(Net Issue Discount/Premium missing, Financial Advisor present)",
+     "sql": "(Net Issue Discount/Premium IS NULL AND Financial Advisor IS NOT NULL)",
+     "support": 0.157,
+     "rows": 445,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.126,
+     "score": 0.412,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Final Maturity Date",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Cities\" (28%), CAB Flag present)",
+     "sql": "(Issuer Group = 'Cities' AND CAB Flag IS NOT NULL)",
+     "support": 0.124,
+     "rows": 351,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.011,
+     "score": 0.412,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Special Districts\" (12%), UW Expenses missing)",
+     "sql": "(Issuer Group = 'Special Districts' AND UW Expenses IS NULL)",
+     "support": 0.039,
+     "rows": 111,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.378,
+     "score": 0.412,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v3": "Special Districts"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Final Maturity Date",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(Project Name missing, Net Issue Discount/Premium present)",
+     "sql": "(Project Name IS NULL AND Net Issue Discount/Premium IS NOT NULL)",
+     "support": 0.157,
+     "rows": 444,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.279,
+     "score": 0.412,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"K-14 Schools\" (28%), Source of Repayment = \"General Fund of Issuing Jurisdiction\" (29%))",
+     "sql": "(Issuer Group = 'K-14 Schools' AND Source of Repayment = 'General Fund of Issuing Jurisdiction')",
+     "support": 0.156,
+     "rows": 442,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.097,
+     "score": 0.411,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v1": "K-14 Schools",
+      "Source of Repayment=v1": "General Fund of Issuing Jurisdiction"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Final Maturity Date",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"K-14 Schools\" (28%), Source of Repayment = \"General Fund of Issuing Jurisdiction\" (29%))",
+     "sql": "(Issuer Group = 'K-14 Schools' AND Source of Repayment = 'General Fund of Issuing Jurisdiction')",
+     "support": 0.156,
+     "rows": 442,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.027,
+     "score": 0.411,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v1": "K-14 Schools",
+      "Source of Repayment=v1": "General Fund of Issuing Jurisdiction"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Final Maturity Date",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Cities\" (28%), CAB Flag = \"NO\" (51%))",
+     "sql": "(Issuer Group = 'Cities' AND CAB Flag = 'NO')",
+     "support": 0.123,
+     "rows": 348,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.011,
+     "score": 0.41,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities",
+      "CAB Flag=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Other Issuance Expenses"
+     ],
+     "cls": "pos",
+     "condition": "(UW Expenses missing)",
+     "sql": "(UW Expenses IS NULL)",
+     "support": 0.276,
+     "rows": 781,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.923,
+     "score": 0.41,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Bond Counsel Fee"
+     ],
+     "cls": "pos",
+     "condition": "(UW Expenses missing)",
+     "sql": "(UW Expenses IS NULL)",
+     "support": 0.276,
+     "rows": 781,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.927,
+     "score": 0.41,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Project Name",
+      "Final Maturity Date",
+      "Other Issuance Expenses"
+     ],
+     "cls": "pos",
+     "condition": "(UW Expenses missing)",
+     "sql": "(UW Expenses IS NULL)",
+     "support": 0.276,
+     "rows": 781,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.923,
+     "score": 0.41,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "(Trustee present, UW Expenses missing)",
+     "sql": "(Trustee IS NOT NULL AND UW Expenses IS NULL)",
+     "support": 0.155,
+     "rows": 438,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.078,
+     "score": 0.409,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Final Maturity Date",
+      "Issuance Documents"
+     ],
+     "cls": "cand",
+     "condition": "(ADTR Filing Status = \"FILED (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)\" (9%))",
+     "sql": "(ADTR Filing Status = 'FILED (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)')",
+     "support": 0.085,
+     "rows": 241,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.409,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ADTR Filing Status=v3": "FILED (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Final Maturity Date",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(Project Name missing, Other Issuance Expenses missing)",
+     "sql": "(Project Name IS NULL AND Other Issuance Expenses IS NULL)",
+     "support": 0.153,
+     "rows": 434,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.286,
+     "score": 0.407,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "dom",
+     "condition": "(Issuer Group = \"JPA & Marks-Roos\" (10%), Trustee present)",
+     "sql": "(Issuer Group = 'JPA & Marks-Roos' AND Trustee IS NOT NULL)",
+     "support": 0.086,
+     "rows": 244,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.078,
+     "score": 0.407,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v5": "JPA & Marks-Roos"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Final Maturity Date",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(Project Name missing, Bond Counsel Fee missing)",
+     "sql": "(Project Name IS NULL AND Bond Counsel Fee IS NULL)",
+     "support": 0.15,
+     "rows": 423,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.296,
+     "score": 0.402,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Project Name",
+      "UW Expenses"
+     ],
+     "cls": "pos",
+     "condition": "(Net Issue Discount/Premium missing)",
+     "sql": "(Net Issue Discount/Premium IS NULL)",
+     "support": 0.21,
+     "rows": 593,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.555,
+     "score": 0.402,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Other Issuance Expenses"
+     ],
+     "cls": "pos",
+     "condition": "(Local Obligation = \"NO\" (94%), Trustee present)",
+     "sql": "(Local Obligation = 'NO' AND Trustee IS NOT NULL)",
+     "support": 0.595,
+     "rows": 1682,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.413,
+     "score": 0.401,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Local Obligation=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Project Name",
+      "Final Maturity Date",
+      "Other Issuance Expenses"
+     ],
+     "cls": "pos",
+     "condition": "(Local Obligation = \"NO\" (94%), Trustee present)",
+     "sql": "(Local Obligation = 'NO' AND Trustee IS NOT NULL)",
+     "support": 0.595,
+     "rows": 1682,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.413,
+     "score": 0.401,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Local Obligation=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(Private Placement Flag = \"YES\" (6%))",
+     "sql": "(Private Placement Flag = 'YES')",
+     "support": 0.064,
+     "rows": 180,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.397,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Private Placement Flag=v3": "YES"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"Special Assessments\" (8%), Bond Counsel Fee present)",
+     "sql": "(Source of Repayment = 'Special Assessments' AND Bond Counsel Fee IS NOT NULL)",
+     "support": 0.036,
+     "rows": 103,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.029,
+     "score": 0.397,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v7": "Special Assessments"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"Special Assessments\" (8%), Other Issuance Expenses present)",
+     "sql": "(Source of Repayment = 'Special Assessments' AND Other Issuance Expenses IS NOT NULL)",
+     "support": 0.036,
+     "rows": 103,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.029,
+     "score": 0.397,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v7": "Special Assessments"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuer"
+     ],
+     "cls": "cand",
+     "condition": "(Project Name present, Net Issue Discount/Premium missing)",
+     "sql": "(Project Name IS NOT NULL AND Net Issue Discount/Premium IS NULL)",
+     "support": 0.181,
+     "rows": 511,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.397,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Total Issuance Costs"
+     ],
+     "cls": "cand",
+     "condition": "(Interest Type missing, Underwriter present)",
+     "sql": "(Interest Type IS NULL AND Underwriter IS NOT NULL)",
+     "support": 0.142,
+     "rows": 403,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.396,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Final Maturity Date",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(Project Name missing, CAB Flag missing)",
+     "sql": "(Project Name IS NULL AND CAB Flag IS NULL)",
+     "support": 0.145,
+     "rows": 410,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.305,
+     "score": 0.396,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Final Maturity Date",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Cities\" (28%), Bond Counsel Fee present)",
+     "sql": "(Issuer Group = 'Cities' AND Bond Counsel Fee IS NOT NULL)",
+     "support": 0.113,
+     "rows": 321,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.019,
+     "score": 0.394,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Project Name",
+      "Final Maturity Date",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(Private Placement Flag = \"YES\" (6%))",
+     "sql": "(Private Placement Flag = 'YES')",
+     "support": 0.064,
+     "rows": 180,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.122,
+     "score": 0.393,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Private Placement Flag=v3": "YES"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Final Maturity Date",
+      "UW Total Discount/Spread"
+     ],
+     "cls": "cert",
+     "condition": "(Interest Type missing, Underwriter present)",
+     "sql": "(Interest Type IS NULL AND Underwriter IS NOT NULL)",
+     "support": 0.142,
+     "rows": 403,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.03,
+     "score": 0.393,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Final Maturity Date",
+      "Issuance Documents"
+     ],
+     "cls": "cert",
+     "condition": "(Interest Type missing, Underwriter present)",
+     "sql": "(Interest Type IS NULL AND Underwriter IS NOT NULL)",
+     "support": 0.142,
+     "rows": 403,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.03,
+     "score": 0.393,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "dom",
+     "condition": "(Issuer Group = \"Special Districts\" (12%), Financial Advisor present)",
+     "sql": "(Issuer Group = 'Special Districts' AND Financial Advisor IS NOT NULL)",
+     "support": 0.079,
+     "rows": 224,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.29,
+     "score": 0.39,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v3": "Special Districts"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(ADTR Reportable = \"Y\" (12%), Issuer Group = \"K-14 Schools\" (28%))",
+     "sql": "(ADTR Reportable = 'Y' AND Issuer Group = 'K-14 Schools')",
+     "support": 0.035,
+     "rows": 99,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.03,
+     "score": 0.389,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ADTR Reportable=v2": "Y",
+      "Issuer Group=v1": "K-14 Schools"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Cities\" (28%), Federally Taxable = \"Federal Tax Flag: T\" (10%))",
+     "sql": "(Issuer Group = 'Cities' AND Federally Taxable = 'Federal Tax Flag: T')",
+     "support": 0.035,
+     "rows": 99,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.192,
+     "score": 0.389,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities",
+      "Federally Taxable=v2": "Federal Tax Flag: T"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(MKR Authority = \"NO\" (97%), Final Maturity Date missing)",
+     "sql": "(MKR Authority = 'NO' AND Final Maturity Date IS NULL)",
+     "support": 0.136,
+     "rows": 385,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.387,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "MKR Authority=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(Local Obligation = \"NO\" (94%), Final Maturity Date missing)",
+     "sql": "(Local Obligation = 'NO' AND Final Maturity Date IS NULL)",
+     "support": 0.136,
+     "rows": 385,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.387,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Local Obligation=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"General Fund of Issuing Jurisdiction\" (29%), Interest Type missing)",
+     "sql": "(Source of Repayment = 'General Fund of Issuing Jurisdiction' AND Interest Type IS NULL)",
+     "support": 0.034,
+     "rows": 97,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.103,
+     "score": 0.385,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v1": "General Fund of Issuing Jurisdiction"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(Refunding Amount present, Final Maturity Date missing)",
+     "sql": "(Refunding Amount IS NOT NULL AND Final Maturity Date IS NULL)",
+     "support": 0.134,
+     "rows": 378,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.384,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(Net Issue Discount/Premium present, Final Maturity Date missing)",
+     "sql": "(Net Issue Discount/Premium IS NOT NULL AND Final Maturity Date IS NULL)",
+     "support": 0.134,
+     "rows": 378,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.384,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Interest Type missing, Private Placement Flag = \"YES\" (6%))",
+     "sql": "(Interest Type IS NULL AND Private Placement Flag = 'YES')",
+     "support": 0.034,
+     "rows": 96,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.094,
+     "score": 0.383,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Private Placement Flag=v3": "YES"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "dom",
+     "condition": "(Source of Repayment = \"Special Assessments\" (8%), Federally Taxable = \"Federal Tax Flag: E\" (87%))",
+     "sql": "(Source of Repayment = 'Special Assessments' AND Federally Taxable = 'Federal Tax Flag: E')",
+     "support": 0.076,
+     "rows": 216,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.171,
+     "score": 0.383,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v7": "Special Assessments",
+      "Federally Taxable=v1": "Federal Tax Flag: E"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Other Issuance Expenses"
+     ],
+     "cls": "pos",
+     "condition": "(Underwriter present, Trustee present)",
+     "sql": "(Underwriter IS NOT NULL AND Trustee IS NOT NULL)",
+     "support": 0.54,
+     "rows": 1527,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.438,
+     "score": 0.382,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Project Name",
+      "Final Maturity Date",
+      "Other Issuance Expenses"
+     ],
+     "cls": "pos",
+     "condition": "(Underwriter present, Trustee present)",
+     "sql": "(Underwriter IS NOT NULL AND Trustee IS NOT NULL)",
+     "support": 0.54,
+     "rows": 1527,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.438,
+     "score": 0.382,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(Interest Type present, Final Maturity Date missing)",
+     "sql": "(Interest Type IS NOT NULL AND Final Maturity Date IS NULL)",
+     "support": 0.129,
+     "rows": 366,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.378,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Counties\" (10%), Other Issuance Expenses present)",
+     "sql": "(Issuer Group = 'Counties' AND Other Issuance Expenses IS NOT NULL)",
+     "support": 0.033,
+     "rows": 93,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.097,
+     "score": 0.377,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v6": "Counties"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Net Issue Discount/Premium missing, Interest Type = \"VAR\" (12%))",
+     "sql": "(Net Issue Discount/Premium IS NULL AND Interest Type = 'VAR')",
+     "support": 0.033,
+     "rows": 92,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.152,
+     "score": 0.375,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Interest Type=v3": "VAR"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(NIC Interest Rate missing, Other Issuance Expenses present)",
+     "sql": "(NIC Interest Rate IS NULL AND Other Issuance Expenses IS NOT NULL)",
+     "support": 0.129,
+     "rows": 366,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.079,
+     "score": 0.374,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Project Name",
+      "Final Maturity Date",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(NIC Interest Rate missing, Other Issuance Expenses present)",
+     "sql": "(NIC Interest Rate IS NULL AND Other Issuance Expenses IS NOT NULL)",
+     "support": 0.129,
+     "rows": 366,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.098,
+     "score": 0.374,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(Final Maturity Date missing, Underwriter present)",
+     "sql": "(Final Maturity Date IS NULL AND Underwriter IS NOT NULL)",
+     "support": 0.127,
+     "rows": 359,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.374,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Special Districts\" (12%), Source of Repayment = \"Private Obligor Payments\" (9%))",
+     "sql": "(Issuer Group = 'Special Districts' AND Source of Repayment = 'Private Obligor Payments')",
+     "support": 0.032,
+     "rows": 91,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.033,
+     "score": 0.373,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v3": "Special Districts",
+      "Source of Repayment=v6": "Private Obligor Payments"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Counties\" (10%), UW Expenses missing)",
+     "sql": "(Issuer Group = 'Counties' AND UW Expenses IS NULL)",
+     "support": 0.032,
+     "rows": 91,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.396,
+     "score": 0.373,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v6": "Counties"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"Private Obligor Payments\" (9%), Private Placement Flag = \"Unknown\" (14%))",
+     "sql": "(Source of Repayment = 'Private Obligor Payments' AND Private Placement Flag = 'Unknown')",
+     "support": 0.032,
+     "rows": 91,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.154,
+     "score": 0.373,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v6": "Private Obligor Payments",
+      "Private Placement Flag=v2": "Unknown"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Final Maturity Date",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(Project Name missing, Trustee missing)",
+     "sql": "(Project Name IS NULL AND Trustee IS NULL)",
+     "support": 0.128,
+     "rows": 361,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.343,
+     "score": 0.372,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Counties\" (10%), Bond Counsel Fee present)",
+     "sql": "(Issuer Group = 'Counties' AND Bond Counsel Fee IS NOT NULL)",
+     "support": 0.032,
+     "rows": 90,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.1,
+     "score": 0.371,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v6": "Counties"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(NIC Interest Rate missing, Bond Counsel Fee present)",
+     "sql": "(NIC Interest Rate IS NULL AND Bond Counsel Fee IS NOT NULL)",
+     "support": 0.127,
+     "rows": 360,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.097,
+     "score": 0.371,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Project Name",
+      "Final Maturity Date",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(NIC Interest Rate missing, Bond Counsel Fee present)",
+     "sql": "(NIC Interest Rate IS NULL AND Bond Counsel Fee IS NOT NULL)",
+     "support": 0.127,
+     "rows": 360,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.114,
+     "score": 0.371,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"General Fund of Issuing Jurisdiction\" (29%), CAB Flag present)",
+     "sql": "(Source of Repayment = 'General Fund of Issuing Jurisdiction' AND CAB Flag IS NOT NULL)",
+     "support": 0.127,
+     "rows": 359,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.109,
+     "score": 0.37,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v1": "General Fund of Issuing Jurisdiction"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(Issuer Group = \"Cities\" (28%), CAB Flag present)",
+     "sql": "(Issuer Group = 'Cities' AND CAB Flag IS NOT NULL)",
+     "support": 0.124,
+     "rows": 351,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.37,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Final Maturity Date",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(Project Name missing, NIC Interest Rate present)",
+     "sql": "(Project Name IS NULL AND NIC Interest Rate IS NOT NULL)",
+     "support": 0.126,
+     "rows": 357,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.238,
+     "score": 0.369,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(ADTR Reportable = \"Y\" (12%), Source of Repayment = \"Property Tax Revenues\" (15%))",
+     "sql": "(ADTR Reportable = 'Y' AND Source of Repayment = 'Property Tax Revenues')",
+     "support": 0.031,
+     "rows": 89,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.011,
+     "score": 0.369,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ADTR Reportable=v2": "Y",
+      "Source of Repayment=v2": "Property Tax Revenues"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"Private Obligor Payments\" (9%), CAB Flag = \"NO\" (51%))",
+     "sql": "(Source of Repayment = 'Private Obligor Payments' AND CAB Flag = 'NO')",
+     "support": 0.031,
+     "rows": 89,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.011,
+     "score": 0.369,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v6": "Private Obligor Payments",
+      "CAB Flag=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"Private Obligor Payments\" (9%), CAB Flag present)",
+     "sql": "(Source of Repayment = 'Private Obligor Payments' AND CAB Flag IS NOT NULL)",
+     "support": 0.031,
+     "rows": 89,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.011,
+     "score": 0.369,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v6": "Private Obligor Payments"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(Issuer Group = \"Cities\" (28%), CAB Flag = \"NO\" (51%))",
+     "sql": "(Issuer Group = 'Cities' AND CAB Flag = 'NO')",
+     "support": 0.123,
+     "rows": 348,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.368,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities",
+      "CAB Flag=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "(Refunding Amount missing)",
+     "sql": "(Refunding Amount IS NULL)",
+     "support": 0.055,
+     "rows": 157,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.019,
+     "score": 0.368,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Final Maturity Date",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(Project Name missing, Financial Advisor present)",
+     "sql": "(Project Name IS NULL AND Financial Advisor IS NOT NULL)",
+     "support": 0.125,
+     "rows": 353,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.227,
+     "score": 0.367,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(ADTR Filing Status = \"FILED (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)\" (9%), Issuer Group = \"K-14 Schools\" (28%))",
+     "sql": "(ADTR Filing Status = 'FILED (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)' AND Issuer Group = 'K-14 Schools')",
+     "support": 0.031,
+     "rows": 88,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.023,
+     "score": 0.367,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ADTR Filing Status=v3": "FILED (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)",
+      "Issuer Group=v1": "K-14 Schools"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "NIC Interest Rate"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Cities\" (28%), CAB Flag present)",
+     "sql": "(Issuer Group = 'Cities' AND CAB Flag IS NOT NULL)",
+     "support": 0.124,
+     "rows": 351,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.319,
+     "score": 0.366,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "New Money"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Cities\" (28%), CAB Flag present)",
+     "sql": "(Issuer Group = 'Cities' AND CAB Flag IS NOT NULL)",
+     "support": 0.124,
+     "rows": 351,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.123,
+     "score": 0.366,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuance Documents"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Cities\" (28%), CAB Flag present)",
+     "sql": "(Issuer Group = 'Cities' AND CAB Flag IS NOT NULL)",
+     "support": 0.124,
+     "rows": 351,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.123,
+     "score": 0.366,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"General Fund of Issuing Jurisdiction\" (29%), CAB Flag = \"NO\" (51%))",
+     "sql": "(Source of Repayment = 'General Fund of Issuing Jurisdiction' AND CAB Flag = 'NO')",
+     "support": 0.124,
+     "rows": 350,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.111,
+     "score": 0.366,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v1": "General Fund of Issuing Jurisdiction",
+      "CAB Flag=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "NIC Interest Rate"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Cities\" (28%), CAB Flag = \"NO\" (51%))",
+     "sql": "(Issuer Group = 'Cities' AND CAB Flag = 'NO')",
+     "support": 0.123,
+     "rows": 348,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.313,
+     "score": 0.365,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities",
+      "CAB Flag=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "New Money"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Cities\" (28%), CAB Flag = \"NO\" (51%))",
+     "sql": "(Issuer Group = 'Cities' AND CAB Flag = 'NO')",
+     "support": 0.123,
+     "rows": 348,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.121,
+     "score": 0.365,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities",
+      "CAB Flag=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuance Documents"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Cities\" (28%), CAB Flag = \"NO\" (51%))",
+     "sql": "(Issuer Group = 'Cities' AND CAB Flag = 'NO')",
+     "support": 0.123,
+     "rows": 348,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.121,
+     "score": 0.365,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities",
+      "CAB Flag=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Final Maturity Date",
+      "UW Expenses"
+     ],
+     "cls": "pos",
+     "condition": "(MKR Authority = \"NO\" (97%), Bond Counsel Fee missing)",
+     "sql": "(MKR Authority = 'NO' AND Bond Counsel Fee IS NULL)",
+     "support": 0.492,
+     "rows": 1391,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.692,
+     "score": 0.365,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "MKR Authority=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "(Net Issue Discount/Premium missing, NIC Interest Rate present)",
+     "sql": "(Net Issue Discount/Premium IS NULL AND NIC Interest Rate IS NOT NULL)",
+     "support": 0.123,
+     "rows": 347,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.115,
+     "score": 0.364,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Final Maturity Date",
+      "UW Expenses"
+     ],
+     "cls": "pos",
+     "condition": "(Local Obligation = \"NO\" (94%), Bond Counsel Fee missing)",
+     "sql": "(Local Obligation = 'NO' AND Bond Counsel Fee IS NULL)",
+     "support": 0.489,
+     "rows": 1382,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.685,
+     "score": 0.363,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Local Obligation=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"General Fund of Issuing Jurisdiction\" (29%), Underwriter missing)",
+     "sql": "(Source of Repayment = 'General Fund of Issuing Jurisdiction' AND Underwriter IS NULL)",
+     "support": 0.03,
+     "rows": 86,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.105,
+     "score": 0.363,
+     "tags": [
+      "null-semantics",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v1": "General Fund of Issuing Jurisdiction"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Final Maturity Date",
+      "Principal Amount"
+     ],
+     "cls": "dom",
+     "condition": "(Issuer Group = \"Counties\" (10%))",
+     "sql": "(Issuer Group = 'Counties')",
+     "support": 0.095,
+     "rows": 270,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.159,
+     "score": 0.361,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v6": "Counties"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "Source of Repayment in {\"Private Obligor Payments\", \"Local Obligations\"}",
+     "sql": "(Source of Repayment = 'Private Obligor Payments') OR (Source of Repayment = 'Local Obligations')",
+     "support": 0.118,
+     "rows": 333,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.36,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v6": "Private Obligor Payments",
+      "Source of Repayment=v8": "Local Obligations"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Other Issuance Expenses"
+     ],
+     "cls": "pos",
+     "condition": "(Net Issue Discount/Premium missing)",
+     "sql": "(Net Issue Discount/Premium IS NULL)",
+     "support": 0.21,
+     "rows": 593,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.592,
+     "score": 0.357,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Bond Counsel Fee"
+     ],
+     "cls": "pos",
+     "condition": "(Net Issue Discount/Premium missing)",
+     "sql": "(Net Issue Discount/Premium IS NULL)",
+     "support": 0.21,
+     "rows": 593,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.594,
+     "score": 0.357,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuer"
+     ],
+     "cls": "pos",
+     "condition": "(Net Issue Discount/Premium missing)",
+     "sql": "(Net Issue Discount/Premium IS NULL)",
+     "support": 0.21,
+     "rows": 593,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.138,
+     "score": 0.357,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Project Name",
+      "Final Maturity Date",
+      "Other Issuance Expenses"
+     ],
+     "cls": "pos",
+     "condition": "(Net Issue Discount/Premium missing)",
+     "sql": "(Net Issue Discount/Premium IS NULL)",
+     "support": 0.21,
+     "rows": 593,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.592,
+     "score": 0.357,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Final Maturity Date",
+      "UW Expenses"
+     ],
+     "cls": "pos",
+     "condition": "(Underwriter present, Bond Counsel Fee missing)",
+     "sql": "(Underwriter IS NOT NULL AND Bond Counsel Fee IS NULL)",
+     "support": 0.469,
+     "rows": 1327,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.677,
+     "score": 0.356,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Final Maturity Date",
+      "UW Expenses"
+     ],
+     "cls": "pos",
+     "condition": "(ADTR Filing Status = \"N/A (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)\" (79%), Bond Counsel Fee missing)",
+     "sql": "(ADTR Filing Status = 'N/A (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)' AND Bond Counsel Fee IS NULL)",
+     "support": 0.467,
+     "rows": 1322,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.703,
+     "score": 0.355,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ADTR Filing Status=v1": "N/A (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Final Maturity Date",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(Project Name missing, Interest Type = \"NIC\" (51%))",
+     "sql": "(Project Name IS NULL AND Interest Type = 'NIC')",
+     "support": 0.117,
+     "rows": 330,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.258,
+     "score": 0.355,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Interest Type=v1": "NIC"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "dom",
+     "condition": "(Project Name present, Source of Repayment = \"Public Enterprise Revenues\" (10%))",
+     "sql": "(Project Name IS NOT NULL AND Source of Repayment = 'Public Enterprise Revenues')",
+     "support": 0.065,
+     "rows": 185,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.054,
+     "score": 0.355,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v5": "Public Enterprise Revenues"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(Issuer Group = \"Cities\" (28%), Bond Counsel Fee present)",
+     "sql": "(Issuer Group = 'Cities' AND Bond Counsel Fee IS NOT NULL)",
+     "support": 0.113,
+     "rows": 321,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.354,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Total Issuance Costs"
+     ],
+     "cls": "cand",
+     "condition": "(Net Issue Discount/Premium missing, UW Expenses present)",
+     "sql": "(Net Issue Discount/Premium IS NULL AND UW Expenses IS NOT NULL)",
+     "support": 0.112,
+     "rows": 318,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.352,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(Project Name missing, UW Expenses present)",
+     "sql": "(Project Name IS NULL AND UW Expenses IS NOT NULL)",
+     "support": 0.112,
+     "rows": 317,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.351,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"K-14 Schools\" (28%), Bond Counsel Fee missing)",
+     "sql": "(Issuer Group = 'K-14 Schools' AND Bond Counsel Fee IS NULL)",
+     "support": 0.114,
+     "rows": 323,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.192,
+     "score": 0.351,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v1": "K-14 Schools"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Final Maturity Date",
+      "Principal Amount",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "(Local Obligation = \"NO\" (94%), Other Issuance Expenses present)",
+     "sql": "(Local Obligation = 'NO' AND Other Issuance Expenses IS NOT NULL)",
+     "support": 0.455,
+     "rows": 1288,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.017,
+     "score": 0.351,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Local Obligation=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Final Maturity Date",
+      "Principal Amount",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "(Local Obligation = \"NO\" (94%), Bond Counsel Fee present)",
+     "sql": "(Local Obligation = 'NO' AND Bond Counsel Fee IS NOT NULL)",
+     "support": 0.455,
+     "rows": 1287,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.015,
+     "score": 0.351,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Local Obligation=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "NIC Interest Rate"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Cities\" (28%), Bond Counsel Fee present)",
+     "sql": "(Issuer Group = 'Cities' AND Bond Counsel Fee IS NOT NULL)",
+     "support": 0.113,
+     "rows": 321,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.312,
+     "score": 0.35,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "New Money"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Cities\" (28%), Bond Counsel Fee present)",
+     "sql": "(Issuer Group = 'Cities' AND Bond Counsel Fee IS NOT NULL)",
+     "support": 0.113,
+     "rows": 321,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.112,
+     "score": 0.35,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuance Documents"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Cities\" (28%), Bond Counsel Fee present)",
+     "sql": "(Issuer Group = 'Cities' AND Bond Counsel Fee IS NOT NULL)",
+     "support": 0.113,
+     "rows": 321,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.112,
+     "score": 0.35,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "dom",
+     "condition": "(Source of Repayment = \"Private Obligor Payments\" (9%), Other Issuance Expenses missing)",
+     "sql": "(Source of Repayment = 'Private Obligor Payments' AND Other Issuance Expenses IS NULL)",
+     "support": 0.064,
+     "rows": 180,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.167,
+     "score": 0.35,
+     "tags": [
+      "QO",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v6": "Private Obligor Payments"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(Issuer Group = \"Cities\" (28%), Other Issuance Expenses present)",
+     "sql": "(Issuer Group = 'Cities' AND Other Issuance Expenses IS NOT NULL)",
+     "support": 0.111,
+     "rows": 313,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.349,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"K-14 Schools\" (28%), Other Issuance Expenses missing)",
+     "sql": "(Issuer Group = 'K-14 Schools' AND Other Issuance Expenses IS NULL)",
+     "support": 0.113,
+     "rows": 319,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.191,
+     "score": 0.349,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v1": "K-14 Schools"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Final Maturity Date"
+     ],
+     "cls": "cand",
+     "condition": "(Net Issue Discount/Premium missing, Source of Repayment = \"Special Assessments\" (8%))",
+     "sql": "(Net Issue Discount/Premium IS NULL AND Source of Repayment = 'Special Assessments')",
+     "support": 0.035,
+     "rows": 99,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.349,
+     "tags": [
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v7": "Special Assessments"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "UW Expenses"
+     ],
+     "cls": "cert",
+     "condition": "(Net Issue Discount/Premium missing, UW Expenses present)",
+     "sql": "(Net Issue Discount/Premium IS NULL AND UW Expenses IS NOT NULL)",
+     "support": 0.112,
+     "rows": 318,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.17,
+     "score": 0.349,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(Net Issue Discount/Premium missing, UW Expenses present)",
+     "sql": "(Net Issue Discount/Premium IS NULL AND UW Expenses IS NOT NULL)",
+     "support": 0.112,
+     "rows": 318,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.17,
+     "score": 0.349,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "UW Total Discount/Spread"
+     ],
+     "cls": "cert",
+     "condition": "(Net Issue Discount/Premium missing, UW Expenses present)",
+     "sql": "(Net Issue Discount/Premium IS NULL AND UW Expenses IS NOT NULL)",
+     "support": 0.112,
+     "rows": 318,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.17,
+     "score": 0.349,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Refunding Amount"
+     ],
+     "cls": "cert",
+     "condition": "(Net Issue Discount/Premium missing, UW Expenses present)",
+     "sql": "(Net Issue Discount/Premium IS NULL AND UW Expenses IS NOT NULL)",
+     "support": 0.112,
+     "rows": 318,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.198,
+     "score": 0.349,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Project Name",
+      "Final Maturity Date",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(Net Issue Discount/Premium missing, UW Expenses present)",
+     "sql": "(Net Issue Discount/Premium IS NULL AND UW Expenses IS NOT NULL)",
+     "support": 0.112,
+     "rows": 318,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.17,
+     "score": 0.349,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Final Maturity Date",
+      "UW Expenses"
+     ],
+     "cls": "pos",
+     "condition": "(Local Obligation = \"NO\" (94%), CAB Flag missing)",
+     "sql": "(Local Obligation = 'NO' AND CAB Flag IS NULL)",
+     "support": 0.449,
+     "rows": 1269,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.685,
+     "score": 0.348,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Local Obligation=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "(Net Issue Discount/Premium missing, Interest Type = \"NIC\" (51%))",
+     "sql": "(Net Issue Discount/Premium IS NULL AND Interest Type = 'NIC')",
+     "support": 0.112,
+     "rows": 316,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.114,
+     "score": 0.348,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Interest Type=v1": "NIC"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"General Fund of Issuing Jurisdiction\" (29%), Bond Counsel Fee present)",
+     "sql": "(Source of Repayment = 'General Fund of Issuing Jurisdiction' AND Bond Counsel Fee IS NOT NULL)",
+     "support": 0.112,
+     "rows": 316,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.101,
+     "score": 0.348,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v1": "General Fund of Issuing Jurisdiction"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "NIC Interest Rate"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Cities\" (28%), Other Issuance Expenses present)",
+     "sql": "(Issuer Group = 'Cities' AND Other Issuance Expenses IS NOT NULL)",
+     "support": 0.111,
+     "rows": 313,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.284,
+     "score": 0.346,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Total Issuance Costs"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Special Districts\" (12%), Sale Type (Comp/Neg) = \"Neg\" (76%))",
+     "sql": "(Issuer Group = 'Special Districts' AND Sale Type (Comp/Neg) = 'Neg')",
+     "support": 0.111,
+     "rows": 313,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.224,
+     "score": 0.346,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v3": "Special Districts",
+      "Sale Type (Comp/Neg)=v1": "Neg"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "New Money"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Cities\" (28%), Other Issuance Expenses present)",
+     "sql": "(Issuer Group = 'Cities' AND Other Issuance Expenses IS NOT NULL)",
+     "support": 0.111,
+     "rows": 313,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.086,
+     "score": 0.346,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuance Documents"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Cities\" (28%), Other Issuance Expenses present)",
+     "sql": "(Issuer Group = 'Cities' AND Other Issuance Expenses IS NOT NULL)",
+     "support": 0.111,
+     "rows": 313,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.086,
+     "score": 0.346,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Project Name",
+      "Final Maturity Date",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Cities\" (28%), Other Issuance Expenses present)",
+     "sql": "(Issuer Group = 'Cities' AND Other Issuance Expenses IS NOT NULL)",
+     "support": 0.111,
+     "rows": 313,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.109,
+     "score": 0.346,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v2": "Cities"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Project Name",
+      "Final Maturity Date",
+      "UW Expenses"
+     ],
+     "cls": "dom",
+     "condition": "(UW Expenses present, Bond Counsel Fee missing)",
+     "sql": "(UW Expenses IS NOT NULL AND Bond Counsel Fee IS NULL)",
+     "support": 0.248,
+     "rows": 703,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.578,
+     "score": 0.346,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Total Issuance Costs"
+     ],
+     "cls": "cert",
+     "condition": "Source of Repayment in {\"Private Obligor Payments\", \"Special Assessments\", \"Local Obligations\"}",
+     "sql": "(Source of Repayment = 'Private Obligor Payments') OR (Source of Repayment = 'Special Assessments') OR (Source of Repayment = 'Local Obligations')",
+     "support": 0.196,
+     "rows": 554,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.031,
+     "score": 0.345,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v6": "Private Obligor Payments",
+      "Source of Repayment=v7": "Special Assessments",
+      "Source of Repayment=v8": "Local Obligations"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "New Money"
+     ],
+     "cls": "cert",
+     "condition": "Source of Repayment in {\"Private Obligor Payments\", \"Special Assessments\", \"Local Obligations\"}",
+     "sql": "(Source of Repayment = 'Private Obligor Payments') OR (Source of Repayment = 'Special Assessments') OR (Source of Repayment = 'Local Obligations')",
+     "support": 0.196,
+     "rows": 554,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.031,
+     "score": 0.345,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v6": "Private Obligor Payments",
+      "Source of Repayment=v7": "Special Assessments",
+      "Source of Repayment=v8": "Local Obligations"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Final Maturity Date",
+      "UW Expenses"
+     ],
+     "cls": "pos",
+     "condition": "(CAB Flag missing, Bond Counsel Fee missing)",
+     "sql": "(CAB Flag IS NULL AND Bond Counsel Fee IS NULL)",
+     "support": 0.438,
+     "rows": 1238,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.702,
+     "score": 0.344,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "UW Total Discount/Spread"
+     ],
+     "cls": "cert",
+     "condition": "Source of Repayment in {\"Special Assessments\", \"Local Obligations\"}",
+     "sql": "(Source of Repayment = 'Special Assessments') OR (Source of Repayment = 'Local Obligations')",
+     "support": 0.109,
+     "rows": 309,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.01,
+     "score": 0.344,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v7": "Special Assessments",
+      "Source of Repayment=v8": "Local Obligations"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"General Fund of Issuing Jurisdiction\" (29%), Other Issuance Expenses present)",
+     "sql": "(Source of Repayment = 'General Fund of Issuing Jurisdiction' AND Other Issuance Expenses IS NOT NULL)",
+     "support": 0.109,
+     "rows": 309,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.081,
+     "score": 0.344,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v1": "General Fund of Issuing Jurisdiction"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "Source of Repayment in {\"Special Assessments\", \"Local Obligations\"}",
+     "sql": "(Source of Repayment = 'Special Assessments') OR (Source of Repayment = 'Local Obligations')",
+     "support": 0.109,
+     "rows": 309,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.01,
+     "score": 0.344,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v7": "Special Assessments",
+      "Source of Repayment=v8": "Local Obligations"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "(Net Issue Discount/Premium missing, Other Issuance Expenses missing)",
+     "sql": "(Net Issue Discount/Premium IS NULL AND Other Issuance Expenses IS NULL)",
+     "support": 0.109,
+     "rows": 308,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.127,
+     "score": 0.343,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Project Name",
+      "Final Maturity Date",
+      "UW Expenses"
+     ],
+     "cls": "dom",
+     "condition": "(UW Expenses present, Other Issuance Expenses missing)",
+     "sql": "(UW Expenses IS NOT NULL AND Other Issuance Expenses IS NULL)",
+     "support": 0.244,
+     "rows": 691,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.59,
+     "score": 0.343,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Final Maturity Date",
+      "UW Expenses"
+     ],
+     "cls": "pos",
+     "condition": "(CAB Flag missing, Underwriter present)",
+     "sql": "(CAB Flag IS NULL AND Underwriter IS NOT NULL)",
+     "support": 0.434,
+     "rows": 1227,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.679,
+     "score": 0.342,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"K-14 Schools\" (28%), CAB Flag missing)",
+     "sql": "(Issuer Group = 'K-14 Schools' AND CAB Flag IS NULL)",
+     "support": 0.108,
+     "rows": 306,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.206,
+     "score": 0.342,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v1": "K-14 Schools"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Final Maturity Date",
+      "UW Expenses"
+     ],
+     "cls": "pos",
+     "condition": "(ADTR Filing Status = \"N/A (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)\" (79%), CAB Flag missing)",
+     "sql": "(ADTR Filing Status = 'N/A (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)' AND CAB Flag IS NULL)",
+     "support": 0.431,
+     "rows": 1218,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.702,
+     "score": 0.341,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ADTR Filing Status=v1": "N/A (http://cdiacdocs.sto.ca.gov/ADTRFilingStatus.pdf)"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(Net Issue Discount/Premium missing, Bond Counsel Fee present)",
+     "sql": "(Net Issue Discount/Premium IS NULL AND Bond Counsel Fee IS NOT NULL)",
+     "support": 0.105,
+     "rows": 297,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.34,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Total Issuance Costs"
+     ],
+     "cls": "cand",
+     "condition": "(Net Issue Discount/Premium missing, Bond Counsel Fee present)",
+     "sql": "(Net Issue Discount/Premium IS NULL AND Bond Counsel Fee IS NOT NULL)",
+     "support": 0.105,
+     "rows": 297,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.34,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Final Maturity Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(Net Issue Discount/Premium missing, Bond Counsel Fee present)",
+     "sql": "(Net Issue Discount/Premium IS NULL AND Bond Counsel Fee IS NOT NULL)",
+     "support": 0.105,
+     "rows": 297,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.34,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount",
+      "Issuer"
+     ],
+     "cls": "cand",
+     "condition": "(Sale Type (Comp/Neg) = \"Comp\" (24%))",
+     "sql": "(Sale Type (Comp/Neg) = 'Comp')",
+     "support": 0.236,
+     "rows": 667,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.34,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Sale Type (Comp/Neg)=v2": "Comp"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "New Money"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Special Districts\" (12%), Interest Type present)",
+     "sql": "(Issuer Group = 'Special Districts' AND Interest Type IS NOT NULL)",
+     "support": 0.106,
+     "rows": 301,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.279,
+     "score": 0.339,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v3": "Special Districts"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(Final Maturity Date missing, Private Placement Flag = \"NO\" (80%))",
+     "sql": "(Final Maturity Date IS NULL AND Private Placement Flag = 'NO')",
+     "support": 0.104,
+     "rows": 293,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.338,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Private Placement Flag=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "New Money"
+     ],
+     "cls": "cert",
+     "condition": "(Net Issue Discount/Premium missing, Bond Counsel Fee present)",
+     "sql": "(Net Issue Discount/Premium IS NULL AND Bond Counsel Fee IS NOT NULL)",
+     "support": 0.105,
+     "rows": 297,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.189,
+     "score": 0.337,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuance Documents"
+     ],
+     "cls": "cert",
+     "condition": "(Net Issue Discount/Premium missing, Bond Counsel Fee present)",
+     "sql": "(Net Issue Discount/Premium IS NULL AND Bond Counsel Fee IS NOT NULL)",
+     "support": 0.105,
+     "rows": 297,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.189,
+     "score": 0.337,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Bond Counsel Fee"
+     ],
+     "cls": "cert",
+     "condition": "(Net Issue Discount/Premium missing, Bond Counsel Fee present)",
+     "sql": "(Net Issue Discount/Premium IS NULL AND Bond Counsel Fee IS NOT NULL)",
+     "support": 0.105,
+     "rows": 297,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.189,
+     "score": 0.337,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"K-14 Schools\" (28%), UW Expenses missing)",
+     "sql": "(Issuer Group = 'K-14 Schools' AND UW Expenses IS NULL)",
+     "support": 0.105,
+     "rows": 297,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.148,
+     "score": 0.337,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v1": "K-14 Schools"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Total Issuance Costs"
+     ],
+     "cls": "cert",
+     "condition": "(ADTR Reportable = \"Y\" (12%), Refunding Amount present)",
+     "sql": "(ADTR Reportable = 'Y' AND Refunding Amount IS NOT NULL)",
+     "support": 0.105,
+     "rows": 296,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.017,
+     "score": 0.336,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ADTR Reportable=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Total Issuance Costs"
+     ],
+     "cls": "cert",
+     "condition": "(ADTR Reportable = \"Y\" (12%), Trustee present)",
+     "sql": "(ADTR Reportable = 'Y' AND Trustee IS NOT NULL)",
+     "support": 0.105,
+     "rows": 296,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.014,
+     "score": 0.336,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ADTR Reportable=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "UW Total Discount/Spread"
+     ],
+     "cls": "cert",
+     "condition": "(ADTR Reportable = \"Y\" (12%), Refunding Amount present)",
+     "sql": "(ADTR Reportable = 'Y' AND Refunding Amount IS NOT NULL)",
+     "support": 0.105,
+     "rows": 296,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.017,
+     "score": 0.336,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ADTR Reportable=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "UW Total Discount/Spread"
+     ],
+     "cls": "cert",
+     "condition": "(ADTR Reportable = \"Y\" (12%), Trustee present)",
+     "sql": "(ADTR Reportable = 'Y' AND Trustee IS NOT NULL)",
+     "support": 0.105,
+     "rows": 296,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.014,
+     "score": 0.336,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ADTR Reportable=v2": "Y"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "(Net Issue Discount/Premium missing, Bond Counsel Fee missing)",
+     "sql": "(Net Issue Discount/Premium IS NULL AND Bond Counsel Fee IS NULL)",
+     "support": 0.105,
+     "rows": 296,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.088,
+     "score": 0.336,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(Net Issue Discount/Premium missing, Other Issuance Expenses present)",
+     "sql": "(Net Issue Discount/Premium IS NULL AND Other Issuance Expenses IS NOT NULL)",
+     "support": 0.101,
+     "rows": 285,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.333,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(NIC Interest Rate present, Final Maturity Date missing)",
+     "sql": "(NIC Interest Rate IS NOT NULL AND Final Maturity Date IS NULL)",
+     "support": 0.101,
+     "rows": 285,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.333,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(Interest Type = \"NIC\" (51%), Final Maturity Date missing)",
+     "sql": "(Interest Type = 'NIC' AND Final Maturity Date IS NULL)",
+     "support": 0.101,
+     "rows": 285,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.333,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Interest Type=v1": "NIC"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Total Issuance Costs"
+     ],
+     "cls": "cand",
+     "condition": "(Net Issue Discount/Premium missing, Other Issuance Expenses present)",
+     "sql": "(Net Issue Discount/Premium IS NULL AND Other Issuance Expenses IS NOT NULL)",
+     "support": 0.101,
+     "rows": 285,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.333,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Final Maturity Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(Net Issue Discount/Premium missing, Other Issuance Expenses present)",
+     "sql": "(Net Issue Discount/Premium IS NULL AND Other Issuance Expenses IS NOT NULL)",
+     "support": 0.101,
+     "rows": 285,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.333,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(ADTR Reportable = \"Y\" (12%), MKR Authority = \"NO\" (97%))",
+     "sql": "(ADTR Reportable = 'Y' AND MKR Authority = 'NO')",
+     "support": 0.103,
+     "rows": 290,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.024,
+     "score": 0.333,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ADTR Reportable=v2": "Y",
+      "MKR Authority=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Net Issue Discount/Premium"
+     ],
+     "cls": "cert",
+     "condition": "(ADTR Reportable = \"Y\" (12%), MKR Authority = \"NO\" (97%))",
+     "sql": "(ADTR Reportable = 'Y' AND MKR Authority = 'NO')",
+     "support": 0.103,
+     "rows": 290,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.024,
+     "score": 0.333,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ADTR Reportable=v2": "Y",
+      "MKR Authority=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Project Name",
+      "Final Maturity Date",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(ADTR Reportable = \"Y\" (12%), MKR Authority = \"NO\" (97%))",
+     "sql": "(ADTR Reportable = 'Y' AND MKR Authority = 'NO')",
+     "support": 0.103,
+     "rows": 290,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.024,
+     "score": 0.333,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ADTR Reportable=v2": "Y",
+      "MKR Authority=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Total Issuance Costs"
+     ],
+     "cls": "cand",
+     "condition": "(ADTR Reportable = \"Y\" (12%), Local Obligation = \"NO\" (94%))",
+     "sql": "(ADTR Reportable = 'Y' AND Local Obligation = 'NO')",
+     "support": 0.1,
+     "rows": 282,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.332,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ADTR Reportable=v2": "Y",
+      "Local Obligation=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Other Issuance Expenses"
+     ],
+     "cls": "cert",
+     "condition": "(Net Issue Discount/Premium missing, Other Issuance Expenses present)",
+     "sql": "(Net Issue Discount/Premium IS NULL AND Other Issuance Expenses IS NOT NULL)",
+     "support": 0.101,
+     "rows": 285,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.151,
+     "score": 0.33,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"Property Tax Revenues\" (15%), Trustee present)",
+     "sql": "(Source of Repayment = 'Property Tax Revenues' AND Trustee IS NOT NULL)",
+     "support": 0.101,
+     "rows": 285,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.035,
+     "score": 0.33,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v2": "Property Tax Revenues"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Total Issuance Costs"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"Property Tax Revenues\" (15%), Trustee present)",
+     "sql": "(Source of Repayment = 'Property Tax Revenues' AND Trustee IS NOT NULL)",
+     "support": 0.101,
+     "rows": 285,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.035,
+     "score": 0.33,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v2": "Property Tax Revenues"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "UW Total Discount/Spread"
+     ],
+     "cls": "cert",
+     "condition": "(Net Issue Discount/Premium missing, Other Issuance Expenses present)",
+     "sql": "(Net Issue Discount/Premium IS NULL AND Other Issuance Expenses IS NOT NULL)",
+     "support": 0.101,
+     "rows": 285,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.151,
+     "score": 0.33,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "New Money"
+     ],
+     "cls": "cert",
+     "condition": "(Net Issue Discount/Premium missing, Other Issuance Expenses present)",
+     "sql": "(Net Issue Discount/Premium IS NULL AND Other Issuance Expenses IS NOT NULL)",
+     "support": 0.101,
+     "rows": 285,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.151,
+     "score": 0.33,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuance Documents"
+     ],
+     "cls": "cert",
+     "condition": "(Net Issue Discount/Premium missing, Other Issuance Expenses present)",
+     "sql": "(Net Issue Discount/Premium IS NULL AND Other Issuance Expenses IS NOT NULL)",
+     "support": 0.101,
+     "rows": 285,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.151,
+     "score": 0.33,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuance Documents"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"Property Tax Revenues\" (15%), Trustee present)",
+     "sql": "(Source of Repayment = 'Property Tax Revenues' AND Trustee IS NOT NULL)",
+     "support": 0.101,
+     "rows": 285,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.035,
+     "score": 0.33,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v2": "Property Tax Revenues"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Bond Counsel Fee"
+     ],
+     "cls": "cert",
+     "condition": "(Net Issue Discount/Premium missing, Other Issuance Expenses present)",
+     "sql": "(Net Issue Discount/Premium IS NULL AND Other Issuance Expenses IS NOT NULL)",
+     "support": 0.101,
+     "rows": 285,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.221,
+     "score": 0.33,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Project Name",
+      "Final Maturity Date",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"Property Tax Revenues\" (15%), Trustee present)",
+     "sql": "(Source of Repayment = 'Property Tax Revenues' AND Trustee IS NOT NULL)",
+     "support": 0.101,
+     "rows": 285,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.035,
+     "score": 0.33,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v2": "Property Tax Revenues"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"Property Tax Revenues\" (15%), Sale Type (Comp/Neg) = \"Neg\" (76%))",
+     "sql": "(Source of Repayment = 'Property Tax Revenues' AND Sale Type (Comp/Neg) = 'Neg')",
+     "support": 0.1,
+     "rows": 284,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.077,
+     "score": 0.33,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v2": "Property Tax Revenues",
+      "Sale Type (Comp/Neg)=v1": "Neg"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Total Issuance Costs"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Special Districts\" (12%), Federally Taxable = \"Federal Tax Flag: E\" (87%))",
+     "sql": "(Issuer Group = 'Special Districts' AND Federally Taxable = 'Federal Tax Flag: E')",
+     "support": 0.1,
+     "rows": 284,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.292,
+     "score": 0.33,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v3": "Special Districts",
+      "Federally Taxable=v1": "Federal Tax Flag: E"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "UW Total Discount/Spread"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Special Districts\" (12%), Federally Taxable = \"Federal Tax Flag: E\" (87%))",
+     "sql": "(Issuer Group = 'Special Districts' AND Federally Taxable = 'Federal Tax Flag: E')",
+     "support": 0.1,
+     "rows": 284,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.292,
+     "score": 0.33,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v3": "Special Districts",
+      "Federally Taxable=v1": "Federal Tax Flag: E"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Project Name",
+      "Final Maturity Date",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(Source of Repayment = \"Property Tax Revenues\" (15%), Sale Type (Comp/Neg) = \"Neg\" (76%))",
+     "sql": "(Source of Repayment = 'Property Tax Revenues' AND Sale Type (Comp/Neg) = 'Neg')",
+     "support": 0.1,
+     "rows": 284,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.158,
+     "score": 0.33,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Source of Repayment=v2": "Property Tax Revenues",
+      "Sale Type (Comp/Neg)=v1": "Neg"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(Final Maturity Date missing, UW Expenses present)",
+     "sql": "(Final Maturity Date IS NULL AND UW Expenses IS NOT NULL)",
+     "support": 0.098,
+     "rows": 277,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.329,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Total Issuance Costs"
+     ],
+     "cls": "cand",
+     "condition": "(Final Maturity Date missing, UW Expenses present)",
+     "sql": "(Final Maturity Date IS NULL AND UW Expenses IS NOT NULL)",
+     "support": 0.098,
+     "rows": 277,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.329,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "UW Total Discount/Spread"
+     ],
+     "cls": "cand",
+     "condition": "(Final Maturity Date missing, UW Expenses present)",
+     "sql": "(Final Maturity Date IS NULL AND UW Expenses IS NOT NULL)",
+     "support": 0.098,
+     "rows": 277,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.329,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Other Issuance Expenses"
+     ],
+     "cls": "cert",
+     "condition": "(ADTR Reportable = \"Y\" (12%), Local Obligation = \"NO\" (94%))",
+     "sql": "(ADTR Reportable = 'Y' AND Local Obligation = 'NO')",
+     "support": 0.1,
+     "rows": 282,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.025,
+     "score": 0.328,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ADTR Reportable=v2": "Y",
+      "Local Obligation=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(ADTR Reportable = \"Y\" (12%), Local Obligation = \"NO\" (94%))",
+     "sql": "(ADTR Reportable = 'Y' AND Local Obligation = 'NO')",
+     "support": 0.1,
+     "rows": 282,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.025,
+     "score": 0.328,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ADTR Reportable=v2": "Y",
+      "Local Obligation=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "UW Total Discount/Spread"
+     ],
+     "cls": "cert",
+     "condition": "(ADTR Reportable = \"Y\" (12%), Local Obligation = \"NO\" (94%))",
+     "sql": "(ADTR Reportable = 'Y' AND Local Obligation = 'NO')",
+     "support": 0.1,
+     "rows": 282,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.025,
+     "score": 0.328,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ADTR Reportable=v2": "Y",
+      "Local Obligation=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "New Money"
+     ],
+     "cls": "cert",
+     "condition": "(ADTR Reportable = \"Y\" (12%), Local Obligation = \"NO\" (94%))",
+     "sql": "(ADTR Reportable = 'Y' AND Local Obligation = 'NO')",
+     "support": 0.1,
+     "rows": 282,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.025,
+     "score": 0.328,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ADTR Reportable=v2": "Y",
+      "Local Obligation=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Net Issue Discount/Premium"
+     ],
+     "cls": "cert",
+     "condition": "(ADTR Reportable = \"Y\" (12%), Local Obligation = \"NO\" (94%))",
+     "sql": "(ADTR Reportable = 'Y' AND Local Obligation = 'NO')",
+     "support": 0.1,
+     "rows": 282,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.025,
+     "score": 0.328,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ADTR Reportable=v2": "Y",
+      "Local Obligation=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issue Costs Pct of Principal Amt"
+     ],
+     "cls": "cert",
+     "condition": "(ADTR Reportable = \"Y\" (12%), Local Obligation = \"NO\" (94%))",
+     "sql": "(ADTR Reportable = 'Y' AND Local Obligation = 'NO')",
+     "support": 0.1,
+     "rows": 282,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.025,
+     "score": 0.328,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ADTR Reportable=v2": "Y",
+      "Local Obligation=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Project Name",
+      "Final Maturity Date",
+      "Principal Amount"
+     ],
+     "cls": "cert",
+     "condition": "(ADTR Reportable = \"Y\" (12%), Local Obligation = \"NO\" (94%))",
+     "sql": "(ADTR Reportable = 'Y' AND Local Obligation = 'NO')",
+     "support": 0.1,
+     "rows": 282,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.025,
+     "score": 0.328,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "ADTR Reportable=v2": "Y",
+      "Local Obligation=v1": "NO"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Project Name",
+      "UW Expenses"
+     ],
+     "cls": "pos",
+     "condition": "(CAB Flag missing, Sale Type (Comp/Neg) = \"Neg\" (76%))",
+     "sql": "(CAB Flag IS NULL AND Sale Type (Comp/Neg) = 'Neg')",
+     "support": 0.315,
+     "rows": 890,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.575,
+     "score": 0.328,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Sale Type (Comp/Neg)=v1": "Neg"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "UW Expenses"
+     ],
+     "cls": "cert",
+     "condition": "(Final Maturity Date missing, UW Expenses present)",
+     "sql": "(Final Maturity Date IS NULL AND UW Expenses IS NOT NULL)",
+     "support": 0.098,
+     "rows": 277,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.296,
+     "score": 0.325,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "New Money"
+     ],
+     "cls": "cert",
+     "condition": "(Issuer Group = \"Special Districts\" (12%), Final Maturity Date present)",
+     "sql": "(Issuer Group = 'Special Districts' AND Final Maturity Date IS NOT NULL)",
+     "support": 0.097,
+     "rows": 275,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.251,
+     "score": 0.324,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v3": "Special Districts"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "(Net Issue Discount/Premium missing, UW Expenses missing)",
+     "sql": "(Net Issue Discount/Premium IS NULL AND UW Expenses IS NULL)",
+     "support": 0.097,
+     "rows": 275,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.102,
+     "score": 0.324,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Project Name",
+      "UW Expenses"
+     ],
+     "cls": "pos",
+     "condition": "(Final Maturity Date missing)",
+     "sql": "(Final Maturity Date IS NULL)",
+     "support": 0.136,
+     "rows": 386,
+     "uncond": null,
+     "gain": 1,
+     "nulls_in_scope": 0.495,
+     "score": 0.324,
+     "tags": [
+      "QO",
+      "GROUP-BY-trap",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Final Maturity Date",
+      "Principal Amount",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "(Underwriter present, Other Issuance Expenses present)",
+     "sql": "(Underwriter IS NOT NULL AND Other Issuance Expenses IS NOT NULL)",
+     "support": 0.388,
+     "rows": 1099,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.02,
+     "score": 0.324,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Final Maturity Date",
+      "Principal Amount",
+      "Issuer"
+     ],
+     "cls": "cert",
+     "condition": "(Underwriter present, Bond Counsel Fee present)",
+     "sql": "(Underwriter IS NOT NULL AND Bond Counsel Fee IS NOT NULL)",
+     "support": 0.387,
+     "rows": 1094,
+     "uncond": null,
+     "gain": 4,
+     "nulls_in_scope": 0.017,
+     "score": 0.323,
+     "tags": [
+      "QO",
+      "null-semantics",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {}
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Principal Amount"
+     ],
+     "cls": "cand",
+     "condition": "(Issuer Group = \"Special Districts\" (12%), Net Issue Discount/Premium present)",
+     "sql": "(Issuer Group = 'Special Districts' AND Net Issue Discount/Premium IS NOT NULL)",
+     "support": 0.094,
+     "rows": 265,
+     "uncond": null,
+     "gain": 5,
+     "nulls_in_scope": 0.0,
+     "score": 0.321,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v3": "Special Districts"
+     }
+    },
+    {
+     "table": "lbusa.t19807",
+     "K": [
+      "Sale Date",
+      "Project Name",
+      "NIC Interest Rate"
+     ],
+     "cls": "dom",
+     "condition": "(Issuer Group = \"Counties\" (10%))",
+     "sql": "(Issuer Group = 'Counties')",
+     "support": 0.095,
+     "rows": 270,
+     "uncond": null,
+     "gain": 2,
+     "nulls_in_scope": 0.644,
+     "score": 0.321,
+     "tags": [
+      "QO",
+      "accidental?",
+      "cleaning-rule"
+     ],
+     "verified": null,
+     "constants": {
+      "Issuer Group=v6": "Counties"
+     }
+    }
+   ],
+   "unconditional": {}
+  }
+ ]
+}

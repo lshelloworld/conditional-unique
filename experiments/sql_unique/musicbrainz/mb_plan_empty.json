@@ -1,0 +1,610 @@
+[
+ {
+  "kind": "lb",
+  "origin": "mbid_mapping/mapping/canonical_release.py:37",
+  "sql": "SELECT r.id AS release\n                                     , r.gid AS release_mbid\n                                  FROM musicbrainz.release_group rg\n                                  JOIN musicbrainz.release r\n                                    ON rg.id = r.release_group\n                             LEFT JOIN musicbrainz.release_country rc\n                                    ON rc.release = r.id\n                                  JOIN musicbrainz.medium m\n                                    ON m.release = r.id\n                             LEFT JOIN musicbrainz.medium_format mf\n                                    ON m.format = mf.id\n                             LEFT JOIN mapping.format_sort fs\n                                    ON mf.id = fs.format\n                                  JOIN musicbrainz.artist_credit ac\n                                    ON rg.artist_credit = ac.id\n                             LEFT JOIN musicbrainz.release_group_primary_type rgpt\n                                    ON rg.type = rgpt.id\n                             LEFT JOIN musicbrainz.release_group_secondary_type_join rgstj\n                                    ON rg.id = rgstj.release_group\n                             LEFT JOIN musicbrainz.release_group_secondary_type rgst\n                                    ON rgstj.secondary_type = rgst.id\n                             LEFT JOIN mapping.release_group_combined_type_sort rgcts\n                                    ON (rgpt.id = rgcts.primary_type OR (rgpt.id IS NULL AND rgcts.primary_type IS NULL))\n                                   AND (rgst.id = rgcts.secondary_type OR (rgst.id IS NULL AND rgcts.secondary_type IS NULL))\n                                 WHERE rg.artist_credit NULL 1\n                                       NULL\n                              ORDER BY rgcts.sort NULLS LAST\n                                     , fs.sort NULLS LAST\n                                     , to_date(date_year::TEXT || '-' ||\n                                               COALESCE(date_month,12)::TEXT || '-' ||\n                                               COALESCE(date_day,28)::TEXT, 'YYYY-MM-DD')\n                                     , country, rg.artist_credit, rg.name, r.id",
+  "names_filtered": [],
+  "error": "SyntaxError: syntax error at or near \"NULL\""
+ },
+ {
+  "kind": "lb",
+  "origin": "mbid_mapping/mapping/mb_release_group_cache.py:205",
+  "sql": "WITH  artist_rels AS (\n                                SELECT a.gid\n                                     , array_agg(distinct(ARRAY[lt.name, url])) AS artist_links\n                                  FROM musicbrainz.release_group rg\n                                  JOIN musicbrainz.artist_credit_name acn\n                                 USING (artist_credit)\n                                -- we cannot directly start as FROM artist a because the values_join JOINs on release_group\n                                  JOIN musicbrainz.artist a\n                                    ON acn.artist = a.id\n                                  JOIN musicbrainz.l_artist_url lau\n                                    ON lau.entity0 = a.id\n                                  JOIN musicbrainz.url u\n                                    ON lau.entity1 = u.id\n                                  JOIN musicbrainz.link l\n                                    ON lau.link = l.id\n                                  JOIN musicbrainz.link_type lt\n                                    ON l.link_type = lt.id\n                                  \n                                 WHERE lt.gid IN (NULL)\n                                 -- do not show outdated urls to users\n                                   AND NOT l.ended\n                              GROUP BY a.gid\n                   ), release_group_rels AS (\n                                SELECT rg.gid\n                                     , array_agg(ARRAY[lt.name, a1.name, a1.gid::TEXT, lat.name]) AS release_group_links\n                                  FROM musicbrainz.release_group rg\n                                  JOIN musicbrainz.l_artist_release_group lar\n                                    ON lar.entity1 = rg.id\n                                  JOIN musicbrainz.artist a1\n                                    ON lar.entity0 = a1.id\n                                  JOIN musicbrainz.link l\n                                    ON lar.link = l.id\n                                  JOIN musicbrainz.link_type lt\n                                    ON l.link_type = lt.id\n                             LEFT JOIN musicbrainz.link_attribute la\n                                    ON la.link = l.id\n                             LEFT JOIN musicbrainz.link_attribute_type lat\n                                    ON la.attribute_type = lat.id\n                                  \n                                 WHERE lt.gid IN (NULL)\n                                 -- the release group rels we use make sense to be shown to the user even if they have been marked as ended\n                               GROUP BY rg.gid\n                   ), artist_data AS (\n                            SELECT rg.gid\n                                 , jsonb_agg(\n                                    jsonb_build_array(\n                                        a.gid\n                                      , acn.name\n                                      , acn.join_phrase\n                                      , a.begin_date_year\n                                      , a.end_date_year\n                                      , at.name\n                                      , ag.name\n                                      , ar.name\n                                      , artist_links\n                                    )\n                                    ORDER BY acn.position\n                                   ) AS artist_data\n                              FROM musicbrainz.release_group rg\n                              JOIN musicbrainz.artist_credit_name acn\n                             USING (artist_credit)\n                              JOIN musicbrainz.artist a\n                                ON acn.artist = a.id\n                         LEFT JOIN musicbrainz.artist_type at\n                                ON a.type = at.id\n                         LEFT JOIN musicbrainz.gender ag\n                                ON a.gender = ag.id\n                         LEFT JOIN musicbrainz.area ar\n                                ON a.area = ar.id\n                         LEFT JOIN artist_rels arl\n                                ON arl.gid = a.gid\n                              \n                          GROUP BY rg.gid\n                   ), artist_tags AS (\n                            SELECT rg.gid AS release_group_mbid\n                                 , array_agg(jsonb_build_array(t.name, count, a.gid, g.gid)) AS artist_tags\n                              FROM musicbrainz.release_group rg\n                              JOIN musicbrainz.artist_credit_name acn\n                             USING (artist_credit)\n                              JOIN musicbrainz.artist a\n                                ON acn.artist = a.id\n                              JOIN musicbrainz.artist_tag at\n                                ON at.artist = a.id\n                              JOIN musicbrainz.tag t\n                                ON at.tag = t.id\n                         LEFT JOIN musicbrainz.genre g\n                                ON t.name = g.name\n                              \n                             WHERE count > 0\n                          GROUP BY rg.gid\n                   ), release_group_tags AS (\n                            SELECT rg.gid AS release_group_mbid\n                                 , array_agg(jsonb_build_array(t.name, count, g.gid)) AS release_group_tags\n                              FROM musicbrainz.release_group rg\n                              JOIN musicbrainz.release_group_tag rgt\n                                ON rg.id = rgt.release_group\n                              JOIN musicbrainz.tag t\n                                ON rgt.tag = t.id\n                         LEFT JOIN musicbrainz.genre g\n                                ON t.name = g.name\n                              \n                             WHERE count > 0\n                          GROUP BY rg.gid\n                   ), rg_cover_art AS (\n                            SELECT DISTINCT ON(rg.id)\n                                   rg.id AS release_group\n                                 , caa_rel.gid::TEXT AS caa_release_mbid\n                                 , caa.id AS caa_id\n                              FROM musicbrainz.release_group rg\n                              JOIN musicbrainz.release caa_rel\n                                ON rg.id = caa_rel.release_group\n                         LEFT JOIN (\n                                  SELECT release, date_year, date_month, date_day\n                                    FROM musicbrainz.release_country\n                               UNION ALL\n                                  SELECT release, date_year, date_month, date_day\n                                    FROM musicbrainz.release_unknown_country\n                                 ) re\n                                ON (re.release = caa_rel.id)\n                         FULL JOIN cover_art_archive.release_group_cover_art rgca\n                                ON rgca.release = caa_rel.id\n                         LEFT JOIN cover_art_archive.cover_art caa\n                                ON caa.release = caa_rel.id\n                         LEFT JOIN cover_art_archive.cover_art_type cat\n                                ON cat.id = caa.id\n                              \n                             WHERE type_id = 1\n                               AND mime_type != 'application/pdf'\n                          ORDER BY rg.id\n                                 , rgca.release\n                                 , re.date_year\n                                 , re.date_month\n                                 , re.date_day\n                                 , caa.ordering\n                   ), canonical_release_selection AS (\n                            SELECT DISTINCT ON (rg.gid)\n                                   rg.gid AS release_group_mbid\n                                 , rel.id AS release_id\n                              FROM musicbrainz.release_group rg\n                              JOIN musicbrainz.release rel\n                                ON rel.release_group = rg.id\n                              JOIN mapping.canonical_release crl\n                                ON rel.id = crl.release\n                              \n                          ORDER BY rg.gid\n                                 , crl.id\n                   ), recording_artist_data AS (\n                           SELECT release_group_mbid\n                                , rel.gid AS recordings_release_mbid\n                                , m.name AS medium_name\n                                , m.position AS medium_position\n                                , mf.name AS medium_format\n                                , t.position AS track_position\n                                , r.name AS recording_name\n                                , r.gid::TEXT AS recording_mbid\n                                , r.length AS recording_length\n                                , jsonb_agg(\n                                    jsonb_build_array(\n                                        a.gid::TEXT\n                                      , acn.name\n                                      , acn.join_phrase\n                                    )\n                                    ORDER BY acn.position\n                                   ) AS artists\n                             FROM canonical_release_selection crs\n                             JOIN musicbrainz.release rel\n                               ON rel.id = crs.release_id\n                             JOIN musicbrainz.medium m\n                               ON m.release = rel.id\n                        LEFT JOIN musicbrainz.medium_format mf\n                               ON mf.id = m.format\n                             JOIN musicbrainz.track t\n                               ON t.medium = m.id\n                             JOIN musicbrainz.recording r\n                               ON r.id = t.recording\n                             JOIN musicbrainz.artist_credit_name acn\n                               ON r.artist_credit = acn.artist_credit\n                             JOIN musicbrainz.artist a\n                               ON acn.artist = a.id\n                         GROUP BY release_group_mbid\n                                , rel.gid\n                                , medium_name\n                                , medium_position\n                                , medium_format\n                                , track_position\n                                , recording_name\n                                , recording_mbid\n                                , recording_length\n                   ), recording_medium_data AS (\n                           SELECT release_group_mbid\n                                , recordings_release_mbid\n                                , medium_name\n                                , medium_position\n                                , medium_format\n                                , array_agg(\n                                        jsonb_build_array(\n                                            track_position\n                                          , recording_name\n                                          , recording_mbid\n                                          , recording_length\n                                          , artists\n                                        ) ORDER BY track_position\n                                  ) AS tracks\n                             FROM recording_artist_data rad\n                         GROUP BY release_group_mbid\n                                , recordings_release_mbid\n                                , medium_name\n                                , medium_position\n                                , medium_format\n                   ), recording_data AS (\n                           SELECT release_group_mbid\n                                , recordings_release_mbid\n                                , array_agg(\n                                        jsonb_build_array(\n                                            medium_name\n                                          , medium_position\n                                          , medium_format\n                                          , tracks\n                                        ) ORDER BY medium_position\n                                  ) AS mediums\n                             FROM recording_medium_data\n                         GROUP BY release_group_mbid\n                                , recordings_release_mbid\n                   )\n                            SELECT release_group_links\n                                 , rg.name AS release_group_name\n                                 , rg.artist_credit AS artist_credit_id\n                                 , ac.name AS artist_credit_name\n                                 , artist_data\n                                 , artist_tags\n                                 , release_group_tags\n                                 , rg.gid::TEXT AS release_group_mbid\n                                 , rgca.caa_id\n                                 , rgca.caa_release_mbid\n                                 , rgpt.name AS type\n                                 , rgm.first_release_date_year AS year\n                                 , rgm.first_release_date_month AS month\n                                 , rgm.first_release_date_day AS day\n                                 , rec_data.mediums\n                                 , rec_data.recordings_release_mbid\n                              FROM musicbrainz.release_group rg\n                              JOIN musicbrainz.artist_credit ac\n                                ON rg.artist_credit = ac.id\n                         LEFT JOIN musicbrainz.release_group_primary_type rgpt\n                                ON rg.type = rgpt.id\n                         LEFT JOIN musicbrainz.release_group_meta rgm\n                                ON rgm.id = rg.id\n                         LEFT JOIN artist_data ard\n                                ON ard.gid = rg.gid\n                         LEFT JOIN release_group_rels rrl\n                                ON rrl.gid = rg.gid\n                         LEFT JOIN release_group_tags rt\n                                ON rt.release_group_mbid = rg.gid\n                         LEFT JOIN artist_tags ats\n                                ON ats.release_group_mbid = rg.gid\n                         LEFT JOIN rg_cover_art rgca\n                                ON rgca.release_group = rg.id\n                         LEFT JOIN recording_data rec_data\n                                ON rec_data.release_group_mbid = rg.gid\n                              \n                          GROUP BY rg.gid\n                                 , rg.name\n                                 , rg.artist_credit\n                                 , ac.name\n                                 , rgpt.name\n                                 , rgm.first_release_date_year\n                                 , rgm.first_release_date_month\n                                 , rgm.first_release_date_day\n                                 , release_group_links\n                                 , release_group_tags\n                                 , artist_data\n                                 , artist_tags\n                                 , rgca.caa_id\n                                 , rgca.caa_release_mbid\n                                 , rec_data.mediums\n                                 , rec_data.recordings_release_mbid",
+  "names_filtered": [],
+  "error": "UndefinedTable: relation \"cover_art_archive.release_group_cover_art\" does not exist"
+ },
+ {
+  "kind": "lb",
+  "origin": "mbid_mapping/mapping/mb_release_group_cache.py:505",
+  "sql": "WITH artist_mbids(id) AS (\n                SELECT a.id\n                  FROM musicbrainz.artist a\n                  JOIN musicbrainz.l_artist_url lau\n                    ON lau.entity0 = a.id\n                  JOIN musicbrainz.url u\n                    ON lau.entity1 = u.id\n                  JOIN musicbrainz.link l\n                    ON lau.link = l.id\n                  JOIN musicbrainz.link_type lt\n                    ON l.link_type = lt.id\n                 WHERE lt.gid IN (NULL)\n                       AND (\n                            lau.last_updated > NULL\n                         OR   u.last_updated > NULL\n                         OR  lt.last_updated > NULL\n                       )\n            UNION\n                SELECT a.id\n                  FROM musicbrainz.artist a\n                  JOIN musicbrainz.area ar\n                    ON a.area = ar.id\n                 WHERE ar.last_updated > NULL\n            UNION\n                SELECT a.id\n                  FROM musicbrainz.artist a\n                  JOIN musicbrainz.artist_tag at\n                    ON at.artist = a.id\n                  JOIN musicbrainz.tag t\n                    ON at.tag = t.id\n             LEFT JOIN musicbrainz.genre g\n                    ON t.name = g.name\n                 WHERE at.last_updated > NULL\n                    OR  g.last_updated > NULL\n            UNION\n                SELECT a.id\n                  FROM musicbrainz.artist a\n                 WHERE a.last_updated > NULL\n            ) SELECT rg.gid\n                FROM musicbrainz.release_group rg\n                JOIN musicbrainz.artist_credit_name acn\n               USING (artist_credit)\n                JOIN artist_mbids am\n                  ON acn.artist = am.id",
+  "names_filtered": [],
+  "proofs": 0,
+  "changed": false,
+  "removed": false,
+  "groupby": false,
+  "distinct": false,
+  "unique": false,
+  "plan_off": [
+   "Nested Loop",
+   "  Join Filter: (rg.artist_credit = acn.artist_credit)",
+   "  ->  Hash Join",
+   "        Hash Cond: (id = acn.artist)",
+   "        ->  HashAggregate",
+   "              Group Key: id",
+   "              ->  Append",
+   "                    ->  Result",
+   "                          One-Time Filter: false",
+   "                    ->  Result",
+   "                          One-Time Filter: false",
+   "                    ->  Result",
+   "                          One-Time Filter: false",
+   "                    ->  Result",
+   "                          One-Time Filter: false",
+   "        ->  Hash",
+   "              ->  Seq Scan on artist_credit_name acn",
+   "  ->  Seq Scan on release_group rg"
+  ],
+  "plan_on": [
+   "Nested Loop",
+   "  Join Filter: (rg.artist_credit = acn.artist_credit)",
+   "  ->  Hash Join",
+   "        Hash Cond: (id = acn.artist)",
+   "        ->  HashAggregate",
+   "              Group Key: id",
+   "              ->  Append",
+   "                    ->  Result",
+   "                          One-Time Filter: false",
+   "                    ->  Result",
+   "                          One-Time Filter: false",
+   "                    ->  Result",
+   "                          One-Time Filter: false",
+   "                    ->  Result",
+   "                          One-Time Filter: false",
+   "        ->  Hash",
+   "              ->  Seq Scan on artist_credit_name acn",
+   "  ->  Seq Scan on release_group rg"
+  ]
+ },
+ {
+  "kind": "lb",
+  "origin": "mbid_mapping/mapping/mb_release_group_cache.py:560",
+  "sql": "SELECT rg.gid\n                  FROM musicbrainz.release_group rg\n                  JOIN musicbrainz.l_artist_release_group lar\n                    ON lar.entity1 = rg.id\n                  JOIN musicbrainz.link l\n                    ON lar.link = l.id\n                  JOIN musicbrainz.link_type lt\n                    ON l.link_type = lt.id\n                  JOIN musicbrainz.link_attribute la\n                    ON la.link = l.id\n                  JOIN musicbrainz.link_attribute_type lat\n                    ON la.attribute_type = lat.id\n                 WHERE lt.gid IN (NULL)\n                   AND (\n                         lar.last_updated > NULL\n                      OR  lt.last_updated > NULL\n                      OR lat.last_updated > NULL\n                   )\n            UNION\n                SELECT rg.gid\n                  FROM musicbrainz.tag t\n                  JOIN musicbrainz.release_group_tag rt\n                    ON rt.tag = t.id\n                  JOIN musicbrainz.release_group rg\n                    ON rt.release_group = rg.id\n             LEFT JOIN musicbrainz.genre g\n                    ON t.name = g.name\n                 WHERE rt.last_updated > NULL\n                    OR  g.last_updated > NULL\n            UNION\n                SELECT rg.gid\n                  FROM musicbrainz.release_group rg\n                 WHERE rg.last_updated > NULL",
+  "names_filtered": [],
+  "proofs": 0,
+  "changed": false,
+  "removed": false,
+  "groupby": false,
+  "distinct": false,
+  "unique": false,
+  "plan_off": [
+   "HashAggregate",
+   "  Group Key: gid",
+   "  ->  Append",
+   "        ->  Result",
+   "              One-Time Filter: false",
+   "        ->  Result",
+   "              One-Time Filter: false",
+   "        ->  Result",
+   "              One-Time Filter: false"
+  ],
+  "plan_on": [
+   "HashAggregate",
+   "  Group Key: gid",
+   "  ->  Append",
+   "        ->  Result",
+   "              One-Time Filter: false",
+   "        ->  Result",
+   "              One-Time Filter: false",
+   "        ->  Result",
+   "              One-Time Filter: false"
+  ]
+ },
+ {
+  "kind": "lb",
+  "origin": "mbid_mapping/mapping/mb_release_group_cache.py:598",
+  "sql": "WITH canonical_release_selection AS (\n                    SELECT DISTINCT ON (rg.gid)\n                           rg.gid AS release_group_mbid\n                         , rel.id AS release_id\n                      FROM musicbrainz.release_group rg\n                      JOIN musicbrainz.release rel\n                        ON rel.release_group = rg.id\n                      JOIN mapping.canonical_release crl\n                        ON rel.id = crl.release\n                  ORDER BY rg.gid\n                         , crl.id\n            )\n                   SELECT release_group_mbid\n                     FROM musicbrainz.recording r\n                     JOIN musicbrainz.track t\n                       ON t.recording = r.id\n                     JOIN musicbrainz.medium m\n                       ON t.medium = m.id\n                     JOIN musicbrainz.release rel\n                       ON m.release = rel.id\n                     JOIN canonical_release_selection crs\n                       ON rel.id = crs.release_id\n                    WHERE r.last_updated > NULL\n                       OR t.last_updated > NULL\n                       OR m.last_updated > NULL\n                 GROUP BY release_group_mbid",
+  "names_filtered": [],
+  "error": "UndefinedTable: relation \"mapping.canonical_release\" does not exist"
+ },
+ {
+  "kind": "lb",
+  "origin": "mbid_mapping/mapping/canonical_release_redirect.py:27",
+  "sql": "WITH canonical_release AS (\n                SELECT release.gid rel_mbid\n                    , rg.gid rg_mbid\n                    , cmdr.id\n                    , rank() over (partition by rg.id order by cmdr.id)\n                FROM musicbrainz.release\n                JOIN musicbrainz.release_group rg\n                  ON release.release_group = rg.id\n                JOIN mapping.canonical_release_tmp cmdr\n                  ON cmdr.release = release.id\n            ), first_release AS (\n              SELECT *\n                FROM canonical_release\n               WHERE rank = 1\n            ), release_rg AS (\n              SELECT release.gid release_mbid\n                   , rg.gid release_group_mbid\n                FROM musicbrainz.release\n                JOIN musicbrainz.release_group rg\n                  ON release.release_group = rg.id\n           )\n              SELECT release_rg.release_mbid\n                   , first_release.rel_mbid AS canonical_release_mbid\n                   , release_rg.release_group_mbid\n                FROM release_rg\n                JOIN first_release\n                  ON first_release.rg_mbid = release_rg.release_group_mbid",
+  "names_filtered": [],
+  "error": "UndefinedTable: relation \"mapping.canonical_release_tmp\" does not exist"
+ },
+ {
+  "kind": "lb",
+  "origin": "mbid_mapping/mapping/mb_metadata_cache.py:202",
+  "sql": "WITH  artist_rels AS (\n                                SELECT a.gid\n                                     , array_agg(distinct(ARRAY[lt.name, url])) AS artist_links\n                                  FROM musicbrainz.recording r\n                                  JOIN musicbrainz.artist_credit_name acn\n                                 USING (artist_credit)\n                                -- we cannot directly start as FROM artist a because the values_join JOINs on recording\n                                  JOIN musicbrainz.artist a\n                                    ON acn.artist = a.id\n                                  JOIN musicbrainz.l_artist_url lau\n                                    ON lau.entity0 = a.id\n                                  JOIN musicbrainz.url u\n                                    ON lau.entity1 = u.id\n                                  JOIN musicbrainz.link l\n                                    ON lau.link = l.id\n                                  JOIN musicbrainz.link_type lt\n                                    ON l.link_type = lt.id\n                                  \n                                 WHERE lt.gid IN (NULL)\n                                 -- do not show outdated urls to users\n                                   AND NOT l.ended\n                              GROUP BY a.gid\n                   ), recording_rels AS (\n                                SELECT r.gid\n                                     , array_agg(ARRAY[lt.name, a1.name, a1.gid::TEXT, lat.name]) AS recording_links\n                                  FROM musicbrainz.recording r\n                                  JOIN musicbrainz.l_artist_recording lar\n                                    ON lar.entity1 = r.id\n                                  JOIN musicbrainz.artist a1\n                                    ON lar.entity0 = a1.id\n                                  JOIN musicbrainz.link l\n                                    ON lar.link = l.id\n                                  JOIN musicbrainz.link_type lt\n                                    ON l.link_type = lt.id\n                             LEFT JOIN musicbrainz.link_attribute la\n                                    ON la.link = l.id\n                             LEFT JOIN musicbrainz.link_attribute_type lat\n                                    ON la.attribute_type = lat.id\n                                  \n                                 WHERE lt.gid IN (NULL)\n                                 -- performer rels are ended by definition (the artist is no longer performing) but they should still be shown to the user\n                               GROUP BY r.gid\n                   ), recording_url_rels AS (\n                                SELECT r.gid\n                                     , array_agg(ARRAY[lt.name, url]) AS recording_url_rels\n                                  FROM musicbrainz.recording r\n                                  JOIN musicbrainz.l_recording_url lru\n                                    ON lru.entity0 = r.id\n                                  JOIN musicbrainz.url u\n                                    ON lru.entity1 = u.id\n                                  JOIN musicbrainz.link l\n                                    ON lru.link = l.id\n                                  JOIN musicbrainz.link_type lt\n                                    ON l.link_type = lt.id\n                                  \n                                 WHERE lt.gid IN (NULL)\n                                    -- do not show outdated urls to users\n                                   AND NOT l.ended\n                               GROUP BY r.gid\n                   ), artist_data AS (\n                            SELECT r.gid\n                                 , jsonb_agg(\n                                    jsonb_build_array(\n                                        a.gid\n                                      , a.id\n                                      , acn.name\n                                      , acn.join_phrase\n                                      , a.begin_date_year\n                                      , a.end_date_year\n                                      , at.name\n                                      , ag.name\n                                      , ar.name\n                                      , artist_links\n                                    )\n                                    ORDER BY acn.position\n                                   ) AS artist_data\n                              FROM musicbrainz.recording r\n                              JOIN musicbrainz.artist_credit_name acn\n                             USING (artist_credit)\n                              JOIN musicbrainz.artist a\n                                ON acn.artist = a.id\n                         LEFT JOIN musicbrainz.artist_type at\n                                ON a.type = at.id\n                         LEFT JOIN musicbrainz.gender ag\n                                ON a.gender = ag.id\n                         LEFT JOIN musicbrainz.area ar\n                                ON a.area = ar.id\n                         LEFT JOIN artist_rels arl\n                                ON arl.gid = a.gid\n                              \n                          GROUP BY r.gid\n                   ), recording_tags AS (\n                            SELECT r.gid AS recording_mbid\n                                 , array_agg(jsonb_build_array(t.name, count, g.gid)) AS recording_tags\n                              FROM musicbrainz.tag t\n                              JOIN musicbrainz.recording_tag rt\n                                ON rt.tag = t.id\n                              JOIN musicbrainz.recording r\n                                ON rt.recording = r.id\n                         LEFT JOIN musicbrainz.genre g\n                                ON t.name = g.name\n                              \n                             WHERE count > 0\n                             GROUP BY r.gid\n                   ), artist_tags AS (\n                            SELECT r.gid AS recording_mbid\n                                 , array_agg(jsonb_build_array(t.name, count, a.gid, g.gid)) AS artist_tags\n                              FROM musicbrainz.recording r\n                              JOIN musicbrainz.artist_credit_name acn\n                             USING (artist_credit)\n                              JOIN musicbrainz.artist a\n                                ON acn.artist = a.id\n                              JOIN musicbrainz.artist_tag at\n                                ON at.artist = a.id\n                              JOIN musicbrainz.tag t\n                                ON at.tag = t.id\n                         LEFT JOIN musicbrainz.genre g\n                                ON t.name = g.name\n                              \n                             WHERE count > 0\n                          GROUP BY r.gid\n                   ), release_group_tags AS (\n                            SELECT r.gid AS recording_mbid\n                                 , array_agg(jsonb_build_array(t.name, count, g.gid)) AS release_group_tags\n                              FROM musicbrainz.recording r\n                              JOIN mapping.canonical_recording_release_redirect crrr\n                                ON r.gid = crrr.recording_mbid\n                              JOIN musicbrainz.release rel\n                                ON crrr.release_mbid = rel.gid\n                              JOIN musicbrainz.release_group_tag rgt\n                                ON rgt.release_group = rel.release_group\n                              JOIN musicbrainz.tag t\n                                ON rgt.tag = t.id\n                         LEFT JOIN musicbrainz.genre g\n                                ON t.name = g.name\n                              \n                             WHERE count > 0\n                          GROUP BY r.gid\n                   ), rg_cover_art AS (\n                            SELECT DISTINCT ON(rg.id)\n                                   rg.id AS release_group\n                                 , caa_rel.gid::TEXT AS caa_release_mbid\n                                 , caa.id AS caa_id\n                              FROM musicbrainz.recording r\n                              JOIN mapping.canonical_recording_release_redirect crrr\n                                ON r.gid = crrr.recording_mbid\n                                -- need to join twice to release, once to get the canonical release group of the recording\n                                -- and then to find the preferred cover art release for that release group\n                              JOIN musicbrainz.release crrr_rel\n                                ON crrr_rel.gid = crrr.release_mbid   \n                              JOIN musicbrainz.release_group rg\n                                ON rg.id = crrr_rel.release_group\n                              JOIN musicbrainz.release caa_rel\n                                ON rg.id = caa_rel.release_group\n                         LEFT JOIN (\n                                  SELECT release, date_year, date_month, date_day\n                                    FROM musicbrainz.release_country\n                               UNION ALL\n                                  SELECT release, date_year, date_month, date_day\n                                    FROM musicbrainz.release_unknown_country\n                                 ) re\n                                ON (re.release = caa_rel.id)\n                         FULL JOIN cover_art_archive.release_group_cover_art rgca\n                                ON rgca.release = caa_rel.id\n                         LEFT JOIN cover_art_archive.cover_art caa\n                                ON caa.release = caa_rel.id\n                         LEFT JOIN cover_art_archive.cover_art_type cat\n                                ON cat.id = caa.id\n                              \n                             WHERE type_id = 1\n                               AND mime_type != 'application/pdf'\n                          ORDER BY rg.id\n                                 , rgca.release\n                                 , re.date_year\n                                 , re.date_month\n                                 , re.date_day\n                                 , caa.ordering\n                   ), release_data AS (\n                            SELECT r.gid AS recording_mbid\n                                 , rel.name\n                                 , rel.id AS release_id\n                                 , rac.name AS album_artist_name\n                                 , rg.id AS release_group_id\n                                 , rg.gid AS release_group_mbid\n                                 , crrr.release_mbid::TEXT\n                                 , rgca.caa_id\n                                 , rgca.caa_release_mbid\n                                 , rfdr.year\n                              FROM musicbrainz.recording r\n                              JOIN mapping.canonical_recording_release_redirect crrr\n                                ON r.gid = crrr.recording_mbid\n                              JOIN musicbrainz.release rel\n                                ON crrr.release_mbid = rel.gid\n                         LEFT JOIN musicbrainz.release_first_release_date rfdr\n                                ON rfdr.release = rel.id     \n                              JOIN musicbrainz.artist_credit rac\n                                ON rac.id = rel.artist_credit  \n                              JOIN musicbrainz.release_group rg\n                                ON rel.release_group = rg.id  \n                         LEFT JOIN rg_cover_art rgca\n                                ON rgca.release_group = rel.release_group\n                              \n                   )\n                            SELECT recording_links\n                                 , recording_url_rels\n                                 , r.name AS recording_name\n                                 , r.artist_credit AS artist_credit_id\n                                 , ac.name AS artist_credit_name\n                                 , (rfdr.year::TEXT || '-' ||\n                                    LPAD(rfdr.month::TEXT, 2, '0') || '-' ||\n                                    LPAD(rfdr.day::TEXT, 2, '0')) AS first_release_date\n                                 , ARRAY_AGG(isrc.isrc ORDER BY isrc.created) \n                                     FILTER (WHERE isrc.isrc IS NOT NULL) AS isrcs\n                                 , artist_data\n                                 , artist_tags\n                                 , recording_tags\n                                 , rd.name AS release_name\n                                 , release_group_tags\n                                 , rd.release_group_id\n                                 , rd.release_group_mbid::TEXT\n                                 , r.length\n                                 , r.gid::TEXT AS recording_mbid\n                                 , r.id AS recording_id\n                                 , rd.release_mbid::TEXT\n                                 , rd.release_id\n                                 , rd.album_artist_name\n                                 , rd.caa_id\n                                 , rd.caa_release_mbid\n                                 , rd.year\n                              FROM musicbrainz.recording r\n                              JOIN musicbrainz.artist_credit ac\n                                ON r.artist_credit = ac.id\n                         LEFT JOIN musicbrainz.recording_first_release_date rfdr\n                                ON rfdr.recording = r.id\n                         LEFT JOIN musicbrainz.isrc isrc\n                                ON isrc.recording = r.id\n                         LEFT JOIN artist_data ard\n                                ON ard.gid = r.gid\n                         LEFT JOIN recording_rels rrl\n                                ON rrl.gid = r.gid\n                         LEFT JOIN recording_url_rels rurl\n                                ON rurl.gid = r.gid\n                         LEFT JOIN recording_tags rt\n                                ON rt.recording_mbid = r.gid\n                         LEFT JOIN artist_tags ats\n                                ON ats.recording_mbid = r.gid\n                         LEFT JOIN release_group_tags rts\n                                ON rts.recording_mbid = r.gid\n                         LEFT JOIN release_data rd\n                                ON rd.recording_mbid = r.gid\n                              \n                          GROUP BY r.gid\n                                 , r.id\n                                 , r.name\n                                 , r.artist_credit\n                                 , ac.name\n                                 , rfdr.year\n                                 , rfdr.month\n                                 , rfdr.day\n                                 , rd.name\n                                 , r.length\n                                 , recording_links\n                                 , recording_url_rels\n                                 , recording_tags\n                                 , release_group_tags\n                                 , rd.release_group_id\n                                 , rd.release_group_mbid\n                                 , artist_data\n                                 , artist_tags\n                                 , rd.release_mbid\n                                 , rd.release_id\n                                 , rd.album_artist_name\n                                 , rd.caa_id\n                                 , rd.caa_release_mbid\n                                 , rd.year",
+  "names_filtered": [],
+  "error": "UndefinedTable: relation \"mapping.canonical_recording_release_redirect\" does not exist"
+ },
+ {
+  "kind": "lb",
+  "origin": "mbid_mapping/mapping/mb_metadata_cache.py:501",
+  "sql": "WITH artist_mbids(id) AS (\n            SELECT a.id\n              FROM musicbrainz.artist a\n              JOIN musicbrainz.l_artist_url lau\n                ON lau.entity0 = a.id\n              JOIN musicbrainz.url u\n                ON lau.entity1 = u.id\n              JOIN musicbrainz.link l\n                ON lau.link = l.id\n              JOIN musicbrainz.link_type lt\n                ON l.link_type = lt.id\n             WHERE lt.gid IN (NULL)\n                   AND (\n                        lau.last_updated > NULL\n                     OR   u.last_updated > NULL\n                     OR  lt.last_updated > NULL\n                   )\n        UNION\n            SELECT a.id\n              FROM musicbrainz.artist a\n              JOIN musicbrainz.area ar\n                ON a.area = ar.id\n             WHERE ar.last_updated > NULL\n        UNION\n            SELECT a.id\n              FROM musicbrainz.artist a\n              JOIN musicbrainz.artist_tag at\n                ON at.artist = a.id\n              JOIN musicbrainz.tag t\n                ON at.tag = t.id\n         LEFT JOIN musicbrainz.genre g\n                ON t.name = g.name\n             WHERE at.last_updated > NULL\n                OR  g.last_updated > NULL\n        UNION\n            SELECT a.id\n              FROM musicbrainz.artist a\n             WHERE a.last_updated > NULL\n        ) SELECT r.gid\n            FROM musicbrainz.recording r\n            JOIN musicbrainz.artist_credit_name acn\n           USING (artist_credit)\n            JOIN artist_mbids am\n              ON acn.artist = am.id",
+  "names_filtered": [],
+  "proofs": 0,
+  "changed": false,
+  "removed": false,
+  "groupby": false,
+  "distinct": false,
+  "unique": false,
+  "plan_off": [
+   "Nested Loop",
+   "  Join Filter: (r.artist_credit = acn.artist_credit)",
+   "  ->  Hash Join",
+   "        Hash Cond: (id = acn.artist)",
+   "        ->  HashAggregate",
+   "              Group Key: id",
+   "              ->  Append",
+   "                    ->  Result",
+   "                          One-Time Filter: false",
+   "                    ->  Result",
+   "                          One-Time Filter: false",
+   "                    ->  Result",
+   "                          One-Time Filter: false",
+   "                    ->  Result",
+   "                          One-Time Filter: false",
+   "        ->  Hash",
+   "              ->  Seq Scan on artist_credit_name acn",
+   "  ->  Seq Scan on recording r"
+  ],
+  "plan_on": [
+   "Nested Loop",
+   "  Join Filter: (r.artist_credit = acn.artist_credit)",
+   "  ->  Hash Join",
+   "        Hash Cond: (id = acn.artist)",
+   "        ->  HashAggregate",
+   "              Group Key: id",
+   "              ->  Append",
+   "                    ->  Result",
+   "                          One-Time Filter: false",
+   "                    ->  Result",
+   "                          One-Time Filter: false",
+   "                    ->  Result",
+   "                          One-Time Filter: false",
+   "                    ->  Result",
+   "                          One-Time Filter: false",
+   "        ->  Hash",
+   "              ->  Seq Scan on artist_credit_name acn",
+   "  ->  Seq Scan on recording r"
+  ]
+ },
+ {
+  "kind": "lb",
+  "origin": "mbid_mapping/mapping/mb_metadata_cache.py:557",
+  "sql": "SELECT r.gid\n                  FROM musicbrainz.recording r\n                  JOIN musicbrainz.l_artist_recording lar\n                    ON lar.entity1 = r.id\n                  JOIN musicbrainz.link l\n                    ON lar.link = l.id\n                  JOIN musicbrainz.link_type lt\n                    ON l.link_type = lt.id\n                  JOIN musicbrainz.link_attribute la\n                    ON la.link = l.id\n                  JOIN musicbrainz.link_attribute_type lat\n                    ON la.attribute_type = lat.id\n                 WHERE lt.gid IN (NULL)\n                   AND (\n                         lar.last_updated > NULL\n                      OR  lt.last_updated > NULL\n                      OR lat.last_updated > NULL\n                   )\n            UNION\n                SELECT r.gid\n                  FROM musicbrainz.recording r\n                  JOIN musicbrainz.l_recording_url lru\n                    ON lru.entity0 = r.id\n                  JOIN musicbrainz.url u\n                    ON lru.entity1 = u.id\n                  JOIN musicbrainz.link l\n                    ON lru.link = l.id\n                  JOIN musicbrainz.link_type lt\n                    ON l.link_type = lt.id\n                 WHERE lt.gid IN (NULL)\n                   AND (\n                         lru.last_updated > NULL\n                      OR   u.last_updated > NULL\n                      OR  lt.last_updated > NULL\n                   )\n            UNION\n                SELECT r.gid\n                  FROM musicbrainz.tag t\n                  JOIN musicbrainz.recording_tag rt\n                    ON rt.tag = t.id\n                  JOIN musicbrainz.recording r\n                    ON rt.recording = r.id\n             LEFT JOIN musicbrainz.genre g\n                    ON t.name = g.name\n                 WHERE rt.last_updated > NULL\n                    OR  g.last_updated > NULL\n            UNION\n                SELECT r.gid\n                  FROM musicbrainz.recording r\n                 WHERE r.last_updated > NULL",
+  "names_filtered": [],
+  "proofs": 0,
+  "changed": false,
+  "removed": false,
+  "groupby": false,
+  "distinct": false,
+  "unique": false,
+  "plan_off": [
+   "HashAggregate",
+   "  Group Key: gid",
+   "  ->  Append",
+   "        ->  Result",
+   "              One-Time Filter: false",
+   "        ->  Result",
+   "              One-Time Filter: false",
+   "        ->  Result",
+   "              One-Time Filter: false",
+   "        ->  Result",
+   "              One-Time Filter: false"
+  ],
+  "plan_on": [
+   "HashAggregate",
+   "  Group Key: gid",
+   "  ->  Append",
+   "        ->  Result",
+   "              One-Time Filter: false",
+   "        ->  Result",
+   "              One-Time Filter: false",
+   "        ->  Result",
+   "              One-Time Filter: false",
+   "        ->  Result",
+   "              One-Time Filter: false"
+  ]
+ },
+ {
+  "kind": "lb",
+  "origin": "mbid_mapping/mapping/mb_metadata_cache.py:618",
+  "sql": "WITH release_mbids(id) AS (\n                SELECT rel.id\n                  FROM mapping.canonical_recording_release_redirect crrr\n                  JOIN musicbrainz.release rel\n                    ON crrr.release_mbid = rel.gid\n                  JOIN musicbrainz.release_group rg\n                    ON rel.release_group = rg.id\n                  JOIN musicbrainz.release_group_tag rgt\n                    ON rgt.release_group = rel.release_group\n                  JOIN musicbrainz.tag t\n                    ON rgt.tag = t.id\n             LEFT JOIN musicbrainz.genre g\n                    ON t.name = g.name\n                 WHERE rgt.last_updated > NULL\n                    OR   g.last_updated > NULL\n            UNION\n                SELECT rel.id\n                  FROM mapping.canonical_recording_release_redirect crrr\n                  JOIN musicbrainz.release rel\n                    ON crrr.release_mbid = rel.gid\n                  JOIN musicbrainz.release_group rg\n                    ON rel.release_group = rg.id\n             LEFT JOIN cover_art_archive.cover_art caa\n                    ON caa.release = rel.id\n             LEFT JOIN cover_art_archive.cover_art_type cat\n                    ON cat.id = caa.id\n                 WHERE  rel.last_updated > NULL\n                    OR   rg.last_updated > NULL\n                    OR (caa.date_uploaded > NULL AND (type_id = 1 OR type_id IS NULL))\n            ) SELECT r.gid\n                FROM musicbrainz.recording r\n                JOIN musicbrainz.track t\n                  ON t.recording = r.id\n                JOIN musicbrainz.medium m\n                  ON m.id = t.medium\n                JOIN release_mbids rm\n                  ON rm.id = m.release",
+  "names_filtered": [],
+  "error": "UndefinedTable: relation \"mapping.canonical_recording_release_redirect\" does not exist"
+ },
+ {
+  "kind": "lb",
+  "origin": "mbid_mapping/mapping/canonical_musicbrainz_data_base.py:31",
+  "sql": "SELECT ac.id as artist_credit_id\n                    , r.name AS recording_name\n                    , r.gid AS recording_mbid\n                    , ac.name AS artist_credit_name\n                    , s.artist_mbids\n                    , rl.name AS release_name\n                    , rl.gid AS release_mbid\n                    , rpr.id AS score\n                 FROM musicbrainz.recording r\n                 JOIN musicbrainz.artist_credit ac\n                   ON r.artist_credit = ac.id\n                 JOIN musicbrainz.artist_credit_name acn\n                   ON ac.id = acn.artist_credit\n                 JOIN musicbrainz.artist a\n                   ON acn.artist = a.id\n                 JOIN musicbrainz.track t\n                   ON t.recording = r.id\n                 JOIN musicbrainz.medium m\n                   ON m.id = t.medium\n                 JOIN musicbrainz.release rl\n                   ON rl.id = m.release\n                 JOIN mapping.canonical_release_tmp rpr\n                   ON rl.id = rpr.release\n                 JOIN (SELECT artist_credit, array_agg(gid ORDER BY position) AS artist_mbids\n                         FROM musicbrainz.artist_credit_name acn2\n                         JOIN musicbrainz.artist a2\n                           ON acn2.artist = a2.id\n                     GROUP BY acn2.artist_credit) s\n                   ON acn.artist_credit = s.artist_credit\n            LEFT JOIN musicbrainz.release_country rc\n                   ON rc.release = rl.id\n               -- there is some bad data in MB for which the recording/release title is too large and exceeds the \n               -- postgres indexing limits. therefore filter out such recordings before-hand, otherwise index creation\n               -- may fail\n                WHERE length(concat(ac.name, r.name, rl.name)) < 500 \n             GROUP BY rpr.id, ac.id, s.artist_mbids, rl.gid, artist_credit_name, r.gid, r.name, release_name\n             ORDER BY ac.id, rpr.id",
+  "names_filtered": [],
+  "error": "UndefinedTable: relation \"mapping.canonical_release_tmp\" does not exist"
+ },
+ {
+  "kind": "lb",
+  "origin": "mbid_mapping/mapping/release_colors.py:209",
+  "sql": "SELECT caa.id AS caa_id\n                       , r.id AS release_id\n                       , r.gid AS release_mbid\n                       , mime_type\n                       , year\n                    FROM cover_art_archive.cover_art caa\n                    JOIN cover_art_archive.cover_art_type cat\n                      ON cat.id = caa.id\n                    JOIN musicbrainz.release r\n                      ON caa.release = r.id\n                    JOIN musicbrainz.release_first_release_date rfrd\n                      ON rfrd.release = r.id\n                   WHERE type_id = 1\n                     AND caa.id > NULL\n                ORDER BY caa.id\n                   LIMIT NULL",
+  "names_filtered": [],
+  "error": "UndefinedTable: relation \"cover_art_archive.cover_art\" does not exist"
+ },
+ {
+  "kind": "lb",
+  "origin": "mbid_mapping/mapping/release_colors.py:260",
+  "sql": "SELECT caa.id AS caa_id\n                       , r.id AS release_id\n                       , r.gid AS release_mbid\n                       , mime_type\n                       , date_uploaded\n                       , year\n                    FROM cover_art_archive.cover_art caa\n                    JOIN cover_art_archive.cover_art_type cat\n                      ON cat.id = caa.id\n                    JOIN musicbrainz.release r\n                      ON caa.release = r.id\n               LEFT JOIN musicbrainz.release_first_release_date rfrd\n                      ON rfrd.release = r.id\n                   WHERE type_id = 1\n                     AND caa.date_uploaded > NULL\n                ORDER BY caa.date_uploaded\n                   LIMIT NULL",
+  "names_filtered": [],
+  "error": "UndefinedTable: relation \"cover_art_archive.cover_art\" does not exist"
+ },
+ {
+  "kind": "lb",
+  "origin": "mbid_mapping/mapping/mb_artist_metadata_cache.py:124",
+  "sql": "WITH  artist_rels AS (\n                            SELECT a.gid AS artist_mbid\n                                 , array_agg(distinct(ARRAY[lt.name, url])) AS artist_links\n                              FROM musicbrainz.artist a\n                              JOIN musicbrainz.l_artist_url lau\n                                ON lau.entity0 = a.id\n                              JOIN musicbrainz.url u\n                                ON lau.entity1 = u.id\n                              JOIN musicbrainz.link l\n                                ON lau.link = l.id\n                              JOIN musicbrainz.link_type lt\n                                ON l.link_type = lt.id\n                              \n                             WHERE lt.gid IN (NULL)\n                               AND NOT l.ended\n                          GROUP BY a.gid\n                   ), artist_tags AS (\n                            SELECT a.gid AS artist_mbid\n                                 , array_agg(jsonb_build_array(t.name, count, a.gid, g.gid)) AS artist_tags\n                              FROM musicbrainz.artist a\n                              JOIN musicbrainz.artist_tag at\n                                ON at.artist = a.id\n                              JOIN musicbrainz.tag t\n                                ON at.tag = t.id\n                         LEFT JOIN musicbrainz.genre g\n                                ON t.name = g.name\n                              \n                             WHERE count > 0\n                          GROUP BY a.gid\n                   ), rg_cover_art AS (\n                            SELECT DISTINCT ON(rg.id)\n                                   rg.id AS release_group\n                                 , caa_rel.gid::TEXT AS caa_release_mbid\n                                 , caa.id AS caa_id\n                              FROM musicbrainz.artist a\n                              JOIN musicbrainz.artist_credit_name acn\n                                ON a.id = acn.artist\n                              JOIN musicbrainz.release_group rg\n                                ON acn.artist_credit = rg.artist_credit\n                              JOIN musicbrainz.release caa_rel\n                                ON rg.id = caa_rel.release_group\n                         LEFT JOIN (\n                                  SELECT release, date_year, date_month, date_day\n                                    FROM musicbrainz.release_country\n                               UNION ALL\n                                  SELECT release, date_year, date_month, date_day\n                                    FROM musicbrainz.release_unknown_country\n                                 ) re\n                                ON (re.release = caa_rel.id)\n                         FULL JOIN cover_art_archive.release_group_cover_art rgca\n                                ON rgca.release = caa_rel.id\n                         LEFT JOIN cover_art_archive.cover_art caa\n                                ON caa.release = caa_rel.id\n                         LEFT JOIN cover_art_archive.cover_art_type cat\n                                ON cat.id = caa.id\n                              \n                             WHERE type_id = 1\n                               AND mime_type != 'application/pdf'\n                          ORDER BY rg.id\n                                 , rgca.release\n                                 , re.date_year\n                                 , re.date_month\n                                 , re.date_day\n                                 , caa.ordering\n                   ), release_group_data AS (\n                            SELECT a.gid AS artist_mbid\n                                 , rg.gid::TEXT AS release_group_mbid\n                                 , rg.name AS release_group_name\n                                 , ac.name AS artist_credit_name\n                                 , rgca.caa_id AS caa_id\n                                 , rgca.caa_release_mbid::TEXT AS caa_release_mbid\n                                 , rgm.first_release_date_year AS year\n                                 , rgm.first_release_date_month AS month\n                                 , rgm.first_release_date_day AS day\n                                 , rgpt.name AS type\n                                 , array_agg(DISTINCT rgst.name ORDER BY rgst.name)\n                                     FILTER (WHERE rgst.name IS NOT NULL)\n                                   AS secondary_types\n                                 , jsonb_agg(DISTINCT jsonb_build_object(\n                                        'artist_mbid', a2.gid::TEXT,\n                                        'artist_credit_name', acn2.name,\n                                        'join_phrase', acn2.join_phrase,\n                                        'position', acn2.position\n                                   )) AS release_group_artists\n                              FROM musicbrainz.artist a\n                              JOIN musicbrainz.artist_credit_name acn\n                                ON a.id = acn.artist\n                              JOIN musicbrainz.artist_credit ac\n                                ON acn.artist_credit = ac.id\n                              JOIN musicbrainz.release_group rg\n                                ON ac.id = rg.artist_credit\n                              JOIN musicbrainz.release_group_meta rgm\n                                ON rgm.id = rg.id\n                         LEFT JOIN musicbrainz.release_group_primary_type rgpt\n                                ON rg.type = rgpt.id\n                         LEFT JOIN musicbrainz.release_group_secondary_type_join rgstj\n                                ON rgstj.release_group = rg.id\n                         LEFT JOIN musicbrainz.release_group_secondary_type rgst\n                                ON rgst.id = rgstj.secondary_type\n                         LEFT JOIN rg_cover_art rgca\n                                ON rgca.release_group = rg.id\n                        -- need a second join to artist_credit_name/artist to gather other release group artists' names\n                              JOIN musicbrainz.artist_credit_name acn2\n                                ON rg.artist_credit = acn2.artist_credit\n                              JOIN musicbrainz.artist a2\n                                ON acn2.artist = a2.id\n                              \n                          GROUP BY a.gid\n                                 , rg.gid\n                                 , rg.name\n                                 , ac.name\n                                 , rgca.caa_id\n                                 , rgca.caa_release_mbid\n                                 , rgpt.name\n                                 , rgm.first_release_date_year\n                                 , rgm.first_release_date_month\n                                 , rgm.first_release_date_day\n                   )\n                            SELECT a.gid::TEXT AS artist_mbid\n                                 , a.name AS artist_name\n                                 , a.begin_date_year\n                                 , a.end_date_year\n                                 , at.name AS artist_type\n                                 , ag.name AS gender\n                                 , ar.name AS area\n                                 , artist_links\n                                 , artist_tags\n                                 , array_agg(\n                                        jsonb_build_array(\n                                            rgd.release_group_mbid,\n                                            rgd.release_group_name,\n                                            rgd.artist_credit_name, \n                                            rgd.year,\n                                            rgd.month,\n                                            rgd.day,\n                                            rgd.type,\n                                            rgd.secondary_types,\n                                            rgd.release_group_artists,\n                                            rgd.caa_id,\n                                            rgd.caa_release_mbid\n                                        ) ORDER BY rgd.year, rgd.month, rgd.day\n                                   )\n                                    -- if the artist has no release groups, left join will cause a NULL row to be\n                                    -- added to the array, filter ensures that it is removed\n                                    FILTER (WHERE rgd.release_group_mbid IS NOT NULL) AS release_groups\n                              FROM musicbrainz.artist a\n                         LEFT JOIN musicbrainz.artist_type at\n                                ON a.type = at.id\n                         LEFT JOIN musicbrainz.gender ag\n                                ON a.gender = ag.id\n                         LEFT JOIN musicbrainz.area ar\n                                ON a.area = ar.id\n                         LEFT JOIN artist_rels arl\n                                ON arl.artist_mbid = a.gid\n                         LEFT JOIN artist_tags ats\n                                ON ats.artist_mbid = a.gid\n                         LEFT JOIN release_group_data rgd\n                                ON rgd.artist_mbid = a.gid\n                              \n                          GROUP BY a.gid\n                                 , a.name\n                                 , a.begin_date_year\n                                 , a.end_date_year\n                                 , at.name\n                                 , ag.name\n                                 , ar.name\n                                 , artist_links\n                                 , artist_tags",
+  "names_filtered": [],
+  "error": "UndefinedTable: relation \"cover_art_archive.release_group_cover_art\" does not exist"
+ },
+ {
+  "kind": "lb",
+  "origin": "mbid_mapping/mapping/mb_artist_metadata_cache.py:329",
+  "sql": "SELECT a.gid\n              FROM musicbrainz.artist a\n              JOIN musicbrainz.l_artist_url lau\n                ON lau.entity0 = a.id\n              JOIN musicbrainz.url u\n                ON lau.entity1 = u.id\n              JOIN musicbrainz.link l\n                ON lau.link = l.id\n              JOIN musicbrainz.link_type lt\n                ON l.link_type = lt.id\n             WHERE lt.gid IN (NULL)\n                   AND (\n                        lau.last_updated > NULL\n                     OR   u.last_updated > NULL\n                     OR  lt.last_updated > NULL\n                   )\n        UNION\n            SELECT a.gid\n              FROM musicbrainz.artist a\n              JOIN musicbrainz.area ar\n                ON a.area = ar.id\n             WHERE ar.last_updated > NULL\n        UNION\n            SELECT a.gid\n              FROM musicbrainz.artist a\n              JOIN musicbrainz.artist_tag at\n                ON at.artist = a.id\n              JOIN musicbrainz.tag t\n                ON at.tag = t.id\n         LEFT JOIN musicbrainz.genre g\n                ON t.name = g.name\n             WHERE at.last_updated > NULL\n                OR  g.last_updated > NULL\n        UNION\n            SELECT a.gid\n              FROM musicbrainz.artist a\n             WHERE a.last_updated > NULL",
+  "names_filtered": [],
+  "proofs": 0,
+  "changed": false,
+  "removed": false,
+  "groupby": false,
+  "distinct": false,
+  "unique": false,
+  "plan_off": [
+   "HashAggregate",
+   "  Group Key: gid",
+   "  ->  Append",
+   "        ->  Result",
+   "              One-Time Filter: false",
+   "        ->  Result",
+   "              One-Time Filter: false",
+   "        ->  Result",
+   "              One-Time Filter: false",
+   "        ->  Result",
+   "              One-Time Filter: false"
+  ],
+  "plan_on": [
+   "HashAggregate",
+   "  Group Key: gid",
+   "  ->  Append",
+   "        ->  Result",
+   "              One-Time Filter: false",
+   "        ->  Result",
+   "              One-Time Filter: false",
+   "        ->  Result",
+   "              One-Time Filter: false",
+   "        ->  Result",
+   "              One-Time Filter: false"
+  ]
+ },
+ {
+  "kind": "lb",
+  "origin": "mbid_mapping/mapping/mb_artist_metadata_cache.py:372",
+  "sql": "WITH release_group_mbids AS (\n                SELECT rel.id\n                  FROM musicbrainz.release_group rg\n                  JOIN musicbrainz.release rel\n                    ON rel.release_group = rg.id\n             LEFT JOIN cover_art_archive.cover_art caa\n                    ON caa.release = rel.id\n             LEFT JOIN cover_art_archive.cover_art_type cat\n                    ON cat.id = caa.id\n                 WHERE rg.last_updated > NULL\n                    OR (caa.date_uploaded > NULL AND (type_id = 1 OR type_id IS NULL))\n            )   SELECT a.gid\n                  FROM musicbrainz.artist a\n                  JOIN musicbrainz.artist_credit_name acn\n                    ON acn.artist = a.id\n                  JOIN musicbrainz.release_group rg\n                    ON rg.artist_credit = acn.artist_credit\n                  JOIN release_group_mbids rmb\n                    on rg.id = rmb.id",
+  "names_filtered": [],
+  "error": "UndefinedTable: relation \"cover_art_archive.cover_art\" does not exist"
+ },
+ {
+  "kind": "lb",
+  "origin": "listenbrainz/db/recording.py:181",
+  "sql": "WITH input_mbids AS (\n            SELECT unnest(NULL::uuid[]) AS gid\n        ),\n        target_rg AS (\n            SELECT DISTINCT rg.id\n            FROM musicbrainz.recording rec\n            JOIN input_mbids mb ON mb.gid = rec.gid\n            JOIN musicbrainz.track t ON t.recording = rec.id\n            JOIN musicbrainz.medium m ON m.id = t.medium\n            JOIN musicbrainz.release r ON r.id = m.release\n            JOIN musicbrainz.release_group rg ON rg.id = r.release_group\n        ),\n        artist_credits AS (\n            SELECT\n                rg.id AS release_group_id,\n                ac.name AS artist_credit_name,\n                array_agg(a.gid::text ORDER BY acn.position) AS artist_credit_mbids,\n                jsonb_agg(\n                    jsonb_build_object(\n                        'artist_credit_name', acn.name,\n                        'join_phrase', acn.join_phrase,\n                        'artist_mbid', a.gid::TEXT\n                    )\n                    ORDER BY acn.position\n                ) AS artists\n            FROM musicbrainz.release_group rg\n            JOIN musicbrainz.artist_credit ac ON ac.id = rg.artist_credit\n            JOIN musicbrainz.artist_credit_name acn ON acn.artist_credit = ac.id\n            JOIN musicbrainz.artist a ON a.id = acn.artist\n            WHERE rg.id IN (SELECT id FROM target_rg)\n            GROUP BY rg.id, ac.name\n        ),\n        rg_cover_art AS (\n            SELECT DISTINCT ON (rg.id)\n                rg.id AS release_group,\n                caa.id AS caa_id,\n                caa_rel.gid AS caa_release_mbid\n            FROM musicbrainz.release_group rg\n            JOIN musicbrainz.release caa_rel ON rg.id = caa_rel.release_group\n            LEFT JOIN (\n                SELECT release, date_year, date_month, date_day\n                FROM musicbrainz.release_country\n                UNION ALL\n                SELECT release, date_year, date_month, date_day\n                FROM musicbrainz.release_unknown_country\n            ) re ON re.release = caa_rel.id\n            FULL JOIN cover_art_archive.release_group_cover_art rgca\n                ON rgca.release = caa_rel.id\n            LEFT JOIN cover_art_archive.cover_art caa\n                ON caa.release = caa_rel.id\n            LEFT JOIN cover_art_archive.cover_art_type cat\n                ON cat.id = caa.id\n            WHERE rg.id IN (SELECT id FROM target_rg)\n              AND type_id = 1\n              AND mime_type != 'application/pdf'\n            ORDER BY rg.id, rgca.release, re.date_year, re.date_month, re.date_day, caa.ordering\n        )\n        SELECT\n            rg.gid::text AS mbid,\n            rg.name AS name,\n            rgpm.name AS type,\n            array_agg(DISTINCT rgst.name) AS secondary_types,\n            ac.artist_credit_name,\n            ac.artist_credit_mbids,\n            make_date(\n                rgm.first_release_date_year,\n                rgm.first_release_date_month,\n                rgm.first_release_date_day\n            ) AS date,\n            rgca.caa_id,\n            rgca.caa_release_mbid::text,\n            ac.artists\n        FROM target_rg trg\n        JOIN musicbrainz.release_group rg ON rg.id = trg.id\n        JOIN musicbrainz.release_group_primary_type rgpm ON rgpm.id = rg.type\n        LEFT JOIN musicbrainz.release_group_secondary_type_join rgstj ON rgstj.release_group = rg.id\n        LEFT JOIN musicbrainz.release_group_secondary_type rgst ON rgst.id = rgstj.secondary_type\n        JOIN artist_credits ac ON ac.release_group_id = rg.id\n        JOIN musicbrainz.release_group_meta rgm ON rgm.id = rg.id\n        LEFT JOIN rg_cover_art rgca ON rgca.release_group = rg.id\n        GROUP BY\n            rg.id,\n            rg.name,\n            rg.gid,\n            rgpm.name,\n            ac.artist_credit_name,\n            ac.artist_credit_mbids,\n            make_date(\n                rgm.first_release_date_year,\n                rgm.first_release_date_month,\n                rgm.first_release_date_day\n            ),\n            rgca.caa_id,\n            rgca.caa_release_mbid,\n            ac.artists",
+  "names_filtered": [],
+  "error": "UndefinedTable: relation \"cover_art_archive.release_group_cover_art\" does not exist"
+ },
+ {
+  "kind": "lb",
+  "origin": "listenbrainz/db/cover_art.py:35",
+  "sql": "WITH release_mbids(mbid) AS (\n                    VALUES NULL\n            ), release_cover_art AS (\n                    SELECT DISTINCT ON (rm.mbid)\n                           rm.mbid AS original_mbid\n                         , caa.id AS caa_id\n                         , rm.mbid AS caa_release_mbid\n                      FROM release_mbids rm\n                      JOIN musicbrainz.release rel\n                        ON rel.gid = rm.mbid\n                      JOIN cover_art_archive.cover_art caa\n                        ON caa.release = rel.id\n                      JOIN cover_art_archive.cover_art_type cat\n                        ON cat.id = caa.id\n                     WHERE type_id = 1\n                       AND mime_type != 'application/pdf'\n                  ORDER BY rm.mbid\n                         , caa.ordering\n            ), release_group_cover_art AS (\n                    SELECT DISTINCT ON(rg.id)\n                           mbid AS original_mbid\n                         , caa.id AS caa_id\n                         , caa_rel.gid AS caa_release_mbid\n                      FROM release_mbids rm\n                      JOIN musicbrainz.release rel\n                        ON rel.gid = rm.mbid::uuid\n                      JOIN musicbrainz.release_group rg\n                        ON rg.id = rel.release_group\n                      JOIN musicbrainz.release caa_rel\n                        ON rg.id = caa_rel.release_group\n                 LEFT JOIN (\n                          SELECT release, date_year, date_month, date_day\n                            FROM musicbrainz.release_country\n                       UNION ALL\n                          SELECT release, date_year, date_month, date_day\n                            FROM musicbrainz.release_unknown_country\n                         ) re\n                        ON (re.release = caa_rel.id)\n                 FULL JOIN cover_art_archive.release_group_cover_art rgca\n                        ON rgca.release = caa_rel.id\n                 LEFT JOIN cover_art_archive.cover_art caa\n                        ON caa.release = caa_rel.id\n                 LEFT JOIN cover_art_archive.cover_art_type cat\n                        ON cat.id = caa.id\n                     WHERE type_id = 1\n                       AND mime_type != 'application/pdf'\n                  ORDER BY rg.id\n                         , rgca.release\n                         , re.date_year\n                         , re.date_month\n                         , re.date_day\n                         , caa.ordering\n            ) SELECT rm.mbid::TEXT AS original_mbid\n                   , COALESCE(rca.caa_id, rgca.caa_id) AS caa_id\n                   , COALESCE(rca.caa_release_mbid, rgca.caa_release_mbid)::TEXT AS caa_release_mbid\n                   , rel.name AS title\n                   , ac.name AS artist\n                FROM release_mbids rm\n           LEFT JOIN musicbrainz.release rel\n                  ON rel.gid = rm.mbid\n           LEFT JOIN musicbrainz.artist_credit ac\n                  ON ac.id = rel.artist_credit\n           LEFT JOIN release_cover_art rca\n                  ON rm.mbid = rca.original_mbid\n           LEFT JOIN release_group_cover_art rgca\n                  ON rm.mbid = rgca.original_mbid",
+  "names_filtered": [],
+  "error": "SyntaxError: syntax error at or near \"NULL\""
+ },
+ {
+  "kind": "lb",
+  "origin": "listenbrainz/db/cover_art.py:112",
+  "sql": "WITH release_group_mbids(mbid) AS (\n                    VALUES NULL\n            ) SELECT DISTINCT ON(rg.id)\n                           rgm.mbid::TEXT AS original_mbid\n                         , caa.id AS caa_id\n                         , caa_rel.gid::TEXT AS caa_release_mbid\n                         , rg.name as title\n                         , rg.artist_credit as artist\n                      FROM release_group_mbids rgm\n                      JOIN musicbrainz.release_group rg\n                        ON rg.id = rgm.mbid::uuid\n                      JOIN musicbrainz.release caa_rel\n                        ON rg.id = caa_rel.release_group\n                 FULL JOIN cover_art_archive.release_group_cover_art rgca\n                        ON rgca.release = caa_rel.id\n                 LEFT JOIN cover_art_archive.cover_art caa\n                        ON caa.release = caa_rel.id\n                 LEFT JOIN cover_art_archive.cover_art_type cat\n                        ON cat.id = caa.id\n                     WHERE type_id = 1\n                       AND mime_type != 'application/pdf'",
+  "names_filtered": [],
+  "error": "SyntaxError: syntax error at or near \"NULL\""
+ },
+ {
+  "kind": "lb",
+  "origin": "listenbrainz/db/artist.py:11",
+  "sql": "WITH mbids (gid) AS (VALUES NULL)\n           SELECT a.gid::TEXT AS artist_mbid\n                , a.name\n                , a.comment\n                , t.name AS type\n                , g.name AS gender\n             FROM musicbrainz.artist a\n        LEFT JOIN musicbrainz.artist_type t\n               ON t.id = a.type\n        LEFT JOIN musicbrainz.gender g\n               ON g.id = a.gender\n             JOIN mbids m\n               ON a.gid = m.gid::UUID",
+  "names_filtered": [
+   "artist_idx_null_comment",
+   "artist_idx_uniq_name_comment"
+  ],
+  "error": "SyntaxError: syntax error at or near \"NULL\""
+ },
+ {
+  "kind": "cq",
+  "origin": "artist with primary English alias (alias used)",
+  "sql": "SELECT a.gid, a.name, aa.name AS alias FROM artist a LEFT JOIN artist_alias aa ON aa.artist = a.id AND aa.locale = 'en' AND aa.primary_for_locale",
+  "names_filtered": [
+   "artist_alias_idx_primary"
+  ],
+  "proofs": 1,
+  "changed": false,
+  "removed": false,
+  "groupby": false,
+  "distinct": false,
+  "unique": true,
+  "plan_off": [
+   "Nested Loop Left Join",
+   "  Join Filter: (aa.artist = a.id)",
+   "  ->  Seq Scan on artist a",
+   "  ->  Seq Scan on artist_alias aa",
+   "        Filter: (primary_for_locale AND (locale = 'en'::text))"
+  ],
+  "plan_on": [
+   "Nested Loop Left Join",
+   "  Join Filter: (aa.artist = a.id)",
+   "  ->  Seq Scan on artist a",
+   "  ->  Seq Scan on artist_alias aa",
+   "        Filter: (primary_for_locale AND (locale = 'en'::text))"
+  ]
+ },
+ {
+  "kind": "cq",
+  "origin": "artist list, alias join unused (ORM eager load)",
+  "sql": "SELECT a.gid, a.name FROM artist a LEFT JOIN artist_alias aa ON aa.artist = a.id AND aa.locale = 'en' AND aa.primary_for_locale",
+  "names_filtered": [
+   "artist_alias_idx_primary"
+  ],
+  "proofs": 1,
+  "changed": true,
+  "removed": true,
+  "groupby": false,
+  "distinct": false,
+  "unique": false,
+  "plan_off": [
+   "Nested Loop Left Join",
+   "  Join Filter: (aa.artist = a.id)",
+   "  ->  Seq Scan on artist a",
+   "  ->  Seq Scan on artist_alias aa",
+   "        Filter: (primary_for_locale AND (locale = 'en'::text))"
+  ],
+  "plan_on": [
+   "Seq Scan on artist a"
+  ]
+ },
+ {
+  "kind": "cq",
+  "origin": "credits per artist, grouped with its primary English alias",
+  "sql": "SELECT a.id, aa.name, count(*) FROM artist a JOIN artist_alias aa ON aa.artist = a.id AND aa.locale = 'en' AND aa.primary_for_locale JOIN artist_credit_name acn ON acn.artist = a.id GROUP BY a.id, aa.name",
+  "names_filtered": [
+   "artist_alias_idx_primary"
+  ],
+  "proofs": 4,
+  "changed": true,
+  "removed": false,
+  "groupby": true,
+  "distinct": false,
+  "unique": true,
+  "plan_off": [
+   "HashAggregate",
+   "  Group Key: a.id, aa.name",
+   "  ->  Nested Loop",
+   "        Join Filter: (aa.artist = acn.artist)",
+   "        ->  Nested Loop",
+   "              Join Filter: (aa.artist = a.id)",
+   "              ->  Seq Scan on artist a",
+   "              ->  Seq Scan on artist_alias aa",
+   "                    Filter: (primary_for_locale AND (locale = 'en'::text))",
+   "        ->  Seq Scan on artist_credit_name acn"
+  ],
+  "plan_on": [
+   "HashAggregate",
+   "  Group Key: a.id",
+   "  ->  Nested Loop",
+   "        Join Filter: (aa.artist = acn.artist)",
+   "        ->  Nested Loop",
+   "              Join Filter: (aa.artist = a.id)",
+   "              ->  Seq Scan on artist a",
+   "              ->  Seq Scan on artist_alias aa",
+   "                    Filter: (primary_for_locale AND (locale = 'en'::text))",
+   "        ->  Seq Scan on artist_credit_name acn"
+  ]
+ },
+ {
+  "kind": "cq",
+  "origin": "distinct artists with primary English alias",
+  "sql": "SELECT DISTINCT a.id, aa.name FROM artist a JOIN artist_alias aa ON aa.artist = a.id AND aa.locale = 'en' AND aa.primary_for_locale",
+  "names_filtered": [
+   "artist_alias_idx_primary"
+  ],
+  "proofs": 3,
+  "changed": true,
+  "removed": false,
+  "groupby": true,
+  "distinct": true,
+  "unique": true,
+  "plan_off": [
+   "HashAggregate",
+   "  Group Key: a.id, aa.name",
+   "  ->  Nested Loop",
+   "        Join Filter: (aa.artist = a.id)",
+   "        ->  Seq Scan on artist a",
+   "        ->  Seq Scan on artist_alias aa",
+   "              Filter: (primary_for_locale AND (locale = 'en'::text))"
+  ],
+  "plan_on": [
+   "Nested Loop",
+   "  Join Filter: (aa.artist = a.id)",
+   "  ->  Seq Scan on artist a",
+   "  ->  Seq Scan on artist_alias aa",
+   "        Filter: (primary_for_locale AND (locale = 'en'::text))"
+  ]
+ },
+ {
+  "kind": "cq",
+  "origin": "primary aliases per artist and locale (CHECK implies locale not null)",
+  "sql": "SELECT DISTINCT artist, locale FROM artist_alias WHERE primary_for_locale",
+  "names_filtered": [
+   "artist_alias_idx_primary"
+  ],
+  "proofs": 0,
+  "changed": false,
+  "removed": false,
+  "groupby": false,
+  "distinct": false,
+  "unique": false,
+  "plan_off": [
+   "HashAggregate",
+   "  Group Key: artist, locale",
+   "  ->  Seq Scan on artist_alias",
+   "        Filter: primary_for_locale"
+  ],
+  "plan_on": [
+   "HashAggregate",
+   "  Group Key: artist, locale",
+   "  ->  Seq Scan on artist_alias",
+   "        Filter: primary_for_locale"
+  ]
+ },
+ {
+  "kind": "cq",
+  "origin": "... with locale IS NOT NULL written out",
+  "sql": "SELECT DISTINCT artist, locale FROM artist_alias WHERE primary_for_locale AND locale IS NOT NULL",
+  "names_filtered": [
+   "artist_alias_idx_primary"
+  ],
+  "proofs": 1,
+  "changed": true,
+  "removed": false,
+  "groupby": true,
+  "distinct": true,
+  "unique": false,
+  "plan_off": [
+   "HashAggregate",
+   "  Group Key: artist, locale",
+   "  ->  Seq Scan on artist_alias",
+   "        Filter: (primary_for_locale AND (locale IS NOT NULL))"
+  ],
+  "plan_on": [
+   "Seq Scan on artist_alias",
+   "  Filter: (primary_for_locale AND (locale IS NOT NULL))"
+  ]
+ },
+ {
+  "kind": "cq",
+  "origin": "distinct artist names and comments (legacy pair: an unconditional key)",
+  "sql": "SELECT DISTINCT name, comment FROM artist",
+  "names_filtered": [
+   "artist_idx_null_comment",
+   "artist_idx_uniq_name_comment"
+  ],
+  "proofs": 1,
+  "changed": true,
+  "removed": false,
+  "groupby": true,
+  "distinct": true,
+  "unique": false,
+  "plan_off": [
+   "HashAggregate",
+   "  Group Key: name, comment",
+   "  ->  Seq Scan on artist"
+  ],
+  "plan_on": [
+   "Seq Scan on artist"
+  ]
+ },
+ {
+  "kind": "cq",
+  "origin": "labels by name and comment, grouped",
+  "sql": "SELECT name, comment, count(*) FROM label JOIN release_label rl ON rl.label = label.id GROUP BY label.id, name, comment",
+  "names_filtered": [
+   "label_idx_null_comment",
+   "label_idx_uniq_name_comment"
+  ],
+  "proofs": 0,
+  "changed": false,
+  "removed": false,
+  "groupby": false,
+  "distinct": false,
+  "unique": false,
+  "plan_off": [
+   "HashAggregate",
+   "  Group Key: label.id",
+   "  ->  Nested Loop",
+   "        Join Filter: (rl.label = label.id)",
+   "        ->  Seq Scan on label",
+   "        ->  Seq Scan on release_label rl"
+  ],
+  "plan_on": [
+   "HashAggregate",
+   "  Group Key: label.id",
+   "  ->  Nested Loop",
+   "        Join Filter: (rl.label = label.id)",
+   "        ->  Seq Scan on label",
+   "        ->  Seq Scan on release_label rl"
+  ]
+ },
+ {
+  "kind": "cq",
+  "origin": "releases with the primary alias of their release group in a locale",
+  "sql": "SELECT r.gid, rga.name FROM release r JOIN release_group rg ON rg.id = r.release_group LEFT JOIN release_group_alias rga ON rga.release_group = rg.id AND rga.locale = 'ja' AND rga.primary_for_locale",
+  "names_filtered": [
+   "release_group_alias_idx_primary"
+  ],
+  "proofs": 1,
+  "changed": false,
+  "removed": false,
+  "groupby": false,
+  "distinct": false,
+  "unique": true,
+  "plan_off": [
+   "Nested Loop Left Join",
+   "  Join Filter: (rga.release_group = rg.id)",
+   "  ->  Nested Loop",
+   "        Join Filter: (r.release_group = rg.id)",
+   "        ->  Seq Scan on release r",
+   "        ->  Seq Scan on release_group rg",
+   "  ->  Seq Scan on release_group_alias rga",
+   "        Filter: (primary_for_locale AND (locale = 'ja'::text))"
+  ],
+  "plan_on": [
+   "Nested Loop Left Join",
+   "  Join Filter: (rga.release_group = rg.id)",
+   "  ->  Nested Loop",
+   "        Join Filter: (r.release_group = rg.id)",
+   "        ->  Seq Scan on release r",
+   "        ->  Seq Scan on release_group rg",
+   "  ->  Seq Scan on release_group_alias rga",
+   "        Filter: (primary_for_locale AND (locale = 'ja'::text))"
+  ]
+ },
+ {
+  "kind": "cq",
+  "origin": "works with primary alias, IN semi-join on the alias scope",
+  "sql": "SELECT w.gid FROM work w WHERE w.id IN (SELECT wa.work FROM work_alias wa WHERE wa.locale = 'de' AND wa.primary_for_locale)",
+  "names_filtered": [
+   "work_alias_idx_primary"
+  ],
+  "proofs": 1,
+  "changed": true,
+  "removed": false,
+  "groupby": false,
+  "distinct": false,
+  "unique": true,
+  "plan_off": [
+   "Nested Loop Semi Join",
+   "  Join Filter: (w.id = wa.work)",
+   "  ->  Seq Scan on work w",
+   "  ->  Seq Scan on work_alias wa",
+   "        Filter: (primary_for_locale AND (locale = 'de'::text))"
+  ],
+  "plan_on": [
+   "Nested Loop",
+   "  Join Filter: (w.id = wa.work)",
+   "  ->  Seq Scan on work w",
+   "  ->  Seq Scan on work_alias wa",
+   "        Filter: (primary_for_locale AND (locale = 'de'::text))"
+  ]
+ }
+]

@@ -1,0 +1,15 @@
+--- a/src/backend/optimizer/util/condunique.c
++++ b/src/backend/optimizer/util/condunique.c
+@@ -1062,9 +1062,9 @@
+ 		void	   *wctx[2] = {ctx, &nulls};
+ 
+ 		/* rows pass CHECK c iff c is true or null */
+-		if (!cu_dnf(ctx, c, &d) || cu_null_sources(c, wctx))
+-			continue;
+-		d = cu_cross(gdnf, list_concat(d, nulls));
++		if (!cu_dnf(ctx, c, &d))
++			continue;
++		d = cu_cross(gdnf, d);
+ 		if (list_length(d) <= CU_MAX_TEMPLATES)
+ 			gdnf = d;
+ 	}

@@ -1,0 +1,106 @@
+Build Tag:        v26.3.0
+--- select a.id from a left join (select * from bu where d is null) b on b.k = a.bk
+scan a
+--- select a.id from a left join bu b on b.k = a.bk and b.d is null
+scan a
+--- select a.id from a where a.bk in (select k from bu where d is null)
+project
+ └── semi-join (hash)
+      ├── scan a
+      ├── select
+      │    ├── scan bu
+      │    └── filters
+      │         └── d IS NULL
+      └── filters
+           └── bk = k
+--- select distinct k from bu where d is null
+project
+ └── select
+      ├── scan bu
+      └── filters
+           └── d IS NULL
+--- select k, x from bu where d is null group by k, x
+project
+ └── select
+      ├── scan bu
+      └── filters
+           └── d IS NULL
+--- select a.id from a left join (select * from bf where d is null) b on b.k = a.bk
+project
+ └── left-join (hash)
+      ├── scan a
+      ├── project
+      │    ├── scan bf@bf_k,partial
+      │    └── projections
+      │         └── CAST(NULL AS INT8)
+      └── filters
+           └── k = bk
+--- select a.id from a left join bf b on b.k = a.bk and b.d is null
+project
+ └── left-join (hash)
+      ├── scan a
+      ├── project
+      │    ├── scan bf@bf_k,partial [as=b]
+      │    └── projections
+      │         └── CAST(NULL AS INT8)
+      └── filters
+           └── k = bk
+--- select a.id from a where a.bk in (select k from bf where d is null)
+project
+ └── semi-join (hash)
+      ├── scan a
+      ├── project
+      │    ├── scan bf@bf_k,partial
+      │    └── projections
+      │         └── CAST(NULL AS INT8)
+      └── filters
+           └── bk = k
+--- select distinct k from bf where d is null
+distinct-on
+ └── scan bf@bf_k,partial
+--- select k, x from bf where d is null group by k, x
+distinct-on
+ └── select
+      ├── scan bf
+      │    └── partial index predicates
+      │         └── bf_k: filters
+      │              └── d IS NULL
+      └── filters
+           └── d IS NULL
+--- select a.id from a left join bc b on b.k = a.bk and b.d is null
+project
+ └── left-join (hash)
+      ├── scan a
+      ├── select
+      │    ├── scan bc [as=b]
+      │    └── filters
+      │         └── d IS NULL
+      └── filters
+           └── k = bk
+--- select distinct k from bc where d is null
+distinct-on
+ └── select
+      ├── scan bc
+      └── filters
+           └── d IS NULL
+--- select a.id from a left join bn b on b.k = a.bk
+project
+ └── left-join (hash)
+      ├── scan a
+      ├── scan bn@bn_k_key,partial [as=b]
+      └── filters
+           └── k = bk
+--- select distinct k from bn where k is not null
+distinct-on
+ └── scan bn@bn_k_key,partial
+--- select a.id from a left join bfs b on b.k = a.bk and b.st = 0
+project
+ └── left-join (hash)
+      ├── scan a
+      ├── select
+      │    ├── index-join bfs
+      │    │    └── scan bfs@bfs_k_key,partial [as=b]
+      │    └── filters
+      │         └── st = 0
+      └── filters
+           └── k = bk
