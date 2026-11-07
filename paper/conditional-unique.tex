@@ -16,6 +16,9 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 \usetikzlibrary{positioning,arrows.meta}
+% Clickable URLs, cross-references and citations; URLs in dark blue, internal links in black.
+\usepackage[colorlinks=true,urlcolor=blue!60!black,linkcolor=black,citecolor=black]{hyperref}
+\hypersetup{pdftitle={When Can the Planner Trust a Filtered Unique Index?},pdfauthor={Ziheng Wei, Sebastian Link}}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
@@ -54,34 +57,33 @@
 \author{\IEEEauthorblockN{Ziheng Wei}
 \IEEEauthorblockA{School of Computer Science, Wuhan University\\
 Wuhan, Hubei, China\\
-ziheng.wei@whu.edu.cn\\
-ORCID: 0000-0002-1859-0374}
+\href{mailto:ziheng.wei@whu.edu.cn}{ziheng.wei@whu.edu.cn}\\
+ORCID: \href{https://orcid.org/0000-0002-1859-0374}{0000-0002-1859-0374}}
 \and
 \IEEEauthorblockN{Sebastian Link}
 \IEEEauthorblockA{School of Computer Science, The University of Auckland\\
 Auckland, New Zealand\\
-s.link@auckland.ac.nz\\
-ORCID: 0000-0002-1816-2863}}
+\href{mailto:s.link@auckland.ac.nz}{s.link@auckland.ac.nz}\\
+ORCID: \href{https://orcid.org/0000-0002-1816-2863}{0000-0002-1816-2863}}}
 
 \maketitle
 
 \begin{abstract}
-Applications declare keys that hold on part of a table---among undeleted rows, current versions,
-primary addresses---as filtered unique indexes: one in nine unique indexes in ten open-source
-application schemas. Optimisers do not trust them: PostgreSQL did, returned wrong results, and
-since 2023 ignores them, as do CockroachDB and SQL Server; SQLite matches predicates syntactically. We show when trust is sound. A proof may use only the table's own restrictions, and
-it must use the \nul\ semantics of the rewrite: join-shaped rewrites need uniqueness with \nul s
-distinct, group-shaped ones with \nul s not distinct. The first question is polynomial for
-conjunctive predicates without inequalities or \sql{IN}-lists on the columns that both compared
-rows must fill; the second is coNP-complete, and under the same conditions fixed-parameter tractable in the open
-nullable key columns. Among the indexes of real schemas, 2{,}953 of 2{,}960 implications are as easy as
-the first. Our prover combines all unique indexes and
-\sql{CHECK} constraints of a table, carries uniqueness through joins, and fits into
-PostgreSQL~18.6 through 38 planner lines, adding 0.03\,ms, and into CockroachDB. On 1{,}000{,}000 random queries it changed 154{,}532 plans and no result; on catalogs
-over 226 real tables it licenses exactly the rewrites they imply, where PostgreSQL licenses none
-and SQLite a sixth of the joins. It speeds up users' queries over
-Stack Exchange by up to $3.3\times$, mostly through keys carried through joins, and queries we wrote
-over MusicBrainz by up to $4.9\times$, where a filtered index states a key that PostgreSQL ignores.
+Applications often need a key that holds on part of a table only. An e-mail address must be unique among the
+accounts that are not deleted, and a product code among the current versions. Applications declare such keys as
+filtered (partial) unique indexes, which make up one in nine unique indexes in ten open-source application schemas.
+Query optimisers could use these keys, as they use ordinary ones, to remove redundant joins and \sql{DISTINCT}s. In
+practice they do not trust them. PostgreSQL did, returned wrong results, and has ignored them since 2023.
+CockroachDB and SQL Server ignore them too, and SQLite only matches predicates word for word. We show when trust is sound. A proof of
+uniqueness may use only the table's own restrictions, and it must use the \nul\ semantics of the rewrite it serves.
+Rewrites shaped like joins need uniqueness with \nul s distinct, and rewrites shaped like groupings need it with \nul s
+not distinct. Under two side conditions, the first question can be decided in polynomial time. The second is coNP-complete. Yet nearly
+all implications between the indexes of real schemas are easy. Our prover combines all unique indexes and \sql{CHECK}
+constraints of a table and carries uniqueness through joins. It fits into PostgreSQL~18.6 with 38 changed planner lines,
+and into CockroachDB. It changed no result on 1{,}000{,}000 random queries. On catalogs over 226 real tables, it allows
+exactly the rewrites that the catalogs imply, where stock PostgreSQL allows none. It adds 0.03\,ms to planning. Users' queries over
+Stack Exchange run up to $3.3\times$ faster, mostly through keys carried through joins, and queries we wrote over
+MusicBrainz run up to $4.9\times$ faster.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -92,50 +94,70 @@ query optimisation, filtered unique indexes, partial indexes, keys, null markers
 \section{Introduction}\label{sec:intro}
 %=====================================================================
 
-Applications rarely need a key to hold on a whole table. A user's e-mail address must be unique
-among accounts that are not deleted; an item identifier among current versions of a slowly
-changing dimension; a template name among the templates of one account, of one inbox, or of the
-installation. SQL's \sql{UNIQUE} constraint cannot say this. Database systems offer filtered
-unique indexes instead:
+\paragraph*{Keys that hold on part of a table} Many business rules are keys with an exception. A user's
+e-mail address must be unique among the accounts that are not deleted. A deleted account may keep its address,
+and a new account may then reuse it. An item identifier must be unique among the current versions of a slowly
+changing dimension, while old versions repeat it. A template name must be unique within one account, one inbox,
+or the whole installation, depending on its scope. SQL's \sql{UNIQUE} constraint always holds on the whole table,
+so it cannot state any of these rules. Database systems offer \emph{filtered unique indexes} instead. Such an
+index enforces uniqueness only over the rows that satisfy its predicate:
 \begin{center}
 \sql{CREATE UNIQUE INDEX ON users (email) WHERE deleted\_at IS NULL;}
 \end{center}
-PostgreSQL calls them partial indexes~\cite{Sto89,PGDoc}, SQL Server filtered
-indexes~\cite{SQLServerDoc}, SQLite partial indexes~\cite{SQLiteDoc}; Rails and Django generate
-them from model declarations. In ten open-source application schemas we found 174 of them among
-1{,}513 unique indexes, in seven of the ten applications (Section~\ref{sec:practice}).
+PostgreSQL and SQLite call them partial indexes~\cite{Sto89,PGDoc,SQLiteDoc}, and SQL Server calls them filtered
+indexes~\cite{SQLServerDoc}. Frameworks such as Rails and Django generate them from model declarations. In ten
+open-source application schemas we found 174 of them among 1{,}513 unique indexes, and seven of the
+ten applications use them (Section~\ref{sec:practice}).
 
-A unique index is also a fact the optimiser can use. If the inner side of a left join matches
-each outer row at most once and no column of it is used, the join can be dropped; if the
-subquery of an \sql{IN} predicate returns each value at most once, the semi-join is a join; if
-the grouping columns of a block contain a key, \sql{GROUP BY} is redundant~\cite{PL94,SSM96}.
-Each of the four systems applies some of these rewrites for unconditional unique indexes. For filtered ones the
-picture is different (Section~\ref{sec:systems}):
+\paragraph*{What an optimiser does with keys} A unique index is an integrity rule, but it is also a fact that the
+optimiser can use. Object-relational mappers, reporting tools and views often generate queries with work that a key
+makes redundant. Optimisers remove this work with a family of \emph{uniqueness-based rewrites}~\cite{PL94,SSM96}:
 \begin{itemize}
-\item \emph{PostgreSQL} used a partial unique index as a uniqueness proof whenever the query's
-  clauses implied its predicate. Because those clauses included join conditions, it returned
-  wrong results (bug \#17975), and since June 2023 every supported version ignores partial
-  indexes in all of its uniqueness-based optimisations~\cite{PGBug17975}---even when the query
-  predicate \emph{is} the index predicate. Users have asked for these rewrites: a 2019 report
-  shows a left join kept over \sql{UNIQUE (sub\_id) WHERE deleted\_at IS NULL}~\cite{Car19}, and
-  a 2026 patch proposal proves partial-index predicates from base restrictions only, for
-  estimates, and leaves uniqueness proofs open~\cite{Yan26}.
-\item \emph{SQLite} removes a left join over a partial unique index if, for every conjunct of
-  the index predicate, one term of the query matches it syntactically; \sql{st = 0} does not
-  match \sql{st IN (0, 1)}. It never uses partial indexes to remove \sql{DISTINCT}.
-\item \emph{CockroachDB} leaves partial unique indexes out of a table's keys and removes no
-  join, \sql{DISTINCT} or grouping column over them, even directly above a scan of the index.
-\item \emph{SQL Server} likewise removes no join, \sql{DISTINCT} or grouping over a filtered
-  unique index, and costs joins over one as many-to-many~\cite{White13}.
+\item \emph{Left-join removal.} A view may left-join an optional table to show its columns. Suppose a query does not
+  use these columns, and the joined table has at most one match for each outer row. Then the join changes nothing,
+  and it can be dropped.
+\item \emph{Semi-join to join.} A predicate \sql{x IN (SELECT y \ldots)} can be planned as an ordinary join only after
+  duplicate values of \sql{y} are removed. A join gives the optimiser more freedom in the join order. If \sql{y} is a
+  key, there are no duplicates to remove.
+\item \emph{\sql{DISTINCT} and \sql{GROUP BY} removal.} If the selected or grouping columns contain a key, every row is
+  already distinct, and every group has one row.
+\item \emph{Inner-unique joins.} If each outer row has at most one partner, the join can stop searching after the first
+  match. The cost model can also take this into account.
 \end{itemize}
-The systems are not wrong to be careful. There are two pitfalls, and each has bitten. The first is
-PostgreSQL's: a uniqueness proof must hold \emph{before} joins, so it may use only restrictions
-of the base table. The second concerns \nul: a filtered unique index in PostgreSQL or SQLite
-allows any number of rows with a \nul\ key, so it proves that a join probe finds at most one
-partner but not that \sql{DISTINCT} is redundant---\sql{DISTINCT} puts all \nul s into one group. Both pitfalls are real. On random schemas, proving an index predicate from
-another join's clause, as PostgreSQL did, changes 442 of 20{,}000 results; on 217 open-data tables, ignoring the \nul\
-semantics would remove 22{,}171 \sql{DISTINCT}s, 3{,}121 of them wrongly, on 133 of the tables
-(Section~\ref{sec:experiments}).
+All four systems we study apply some of these rewrites with ordinary unique indexes. With filtered ones, the picture
+is different (Section~\ref{sec:systems}):
+\begin{itemize}
+\item \emph{PostgreSQL} once used a partial unique index whenever the query's clauses implied its predicate. This
+  led to wrong results (bug \#17975). Since June 2023, every supported version ignores partial indexes in all of
+  these rewrites~\cite{PGBug17975}, even when the query's predicate \emph{is} the index's predicate. Users have asked
+  for the rewrites back~\cite{Car19}. A patch proposed in 2026 addresses estimates only~\cite{Yan26}.
+\item \emph{SQLite} removes a left join over a partial unique index only if the query's terms match the index predicate
+  word for word. For example, the query term \sql{st = 0} does not match the index predicate \sql{st IN (0, 1)}. SQLite never removes \sql{DISTINCT}
+  with a partial index.
+\item \emph{CockroachDB} and \emph{SQL Server} use filtered unique indexes for none of these rewrites.
+\end{itemize}
+
+\paragraph*{Two pitfalls} The systems have good reason to be careful. A filtered key holds only on its scope. A
+rewrite that relies on the key is sound only if every row that the rewrite reasons about lies in that scope. There
+are two ways to get this wrong, and both have happened.
+
+The first concerns \emph{which conditions may establish the scope}. Take the index \sql{UNIQUE (k) WHERE c IS NOT
+NULL} on a table \sql{t}, and the query \sql{o JOIN t ON o.k = t.k JOIN u ON t.c = u.c}. The second join keeps only
+the rows of \sql{t} whose \sql{c} is not \nul. So it seems that \sql{t} is unique on \sql{k}. But the first join is
+evaluated before the second, on all rows of \sql{t}. If the planner marks the first join as unique, it stops at the
+first match on \sql{k}. That match may have \nul\ in \sql{c}, and the second join then discards it. The row that would
+have survived is never found. This is PostgreSQL's bug \#17975. The lesson is that a uniqueness proof must hold for
+the rows of a table \emph{before} any join. It may therefore use only the table's own restrictions.
+
+The second pitfall concerns \emph{\nul}. By default, a SQL unique index allows any number of rows with \nul\ in the
+key, because \nul\ does not equal \nul. A join on the key never matches \nul. Such an index therefore still proves that a
+join finds at most one partner. But \sql{DISTINCT} and \sql{GROUP BY} put all \nul s into one group. The same index
+therefore does not prove that \sql{DISTINCT} is redundant: two rows with a \nul\ key form one group, not two.
+
+Both pitfalls have measurable effects. On random schemas, a planner that proves an index's predicate from another join's
+clause, as PostgreSQL did, changes 442 of 20{,}000 query results. On 217 open-data tables, a planner that ignores the
+\nul\ semantics would remove 22{,}171 \sql{DISTINCT}s, and 3{,}121 of these removals, on 133 of the tables, would be
+wrong (Section~\ref{sec:experiments}).
 
 \begin{figure}[t]
 \centering\footnotesize
@@ -174,65 +196,66 @@ semantics would remove 22{,}171 \sql{DISTINCT}s, 3{,}121 of them wrongly, on 133
 \node (e) [right=of u] {\sql{user\_emails} determined:\\$\U{\mathit{user\_id}}$ under\\\sql{is\_primary}, via \sql{u.id}};
 \draw[->] (g) -- (u); \draw[->] (u) -- (e);
 \end{tikzpicture}
-\caption{Running example. Each live user has one e-mail address and each user one primary
-address, so every row of the join is determined by its \sql{DISTINCT} values and
-\sql{DISTINCT} is redundant. Without \sql{e.is\_primary}, user~1 has two rows; without
-\sql{deleted\_at IS NULL}, users 1 and 2 share \sql{a@x}. If \sql{email} were nullable,
-$\U{\mathit{email}}$ would not give $\Ueq{\mathit{email}}$, as \sql{DISTINCT} puts all \nul s into
-one group.}
+\caption{Running example. Each live user has one e-mail address, and each user has one primary address. Hence every
+row of the join is determined by its \sql{DISTINCT} values, and \sql{DISTINCT} is redundant. Without \sql{e.is\_primary},
+user~1 has two rows. Without \sql{deleted\_at IS NULL}, users 1 and 2 share \sql{a@x}. If \sql{email} were nullable,
+$\U{\mathit{email}}$ would not give $\Ueq{\mathit{email}}$, because \sql{DISTINCT} puts all \nul s into one group.}
 \label{fig:example}
 \end{figure}
 
-\paragraph*{Approach} We read a filtered unique index as a constraint, a \emph{conditional
-\sql{UNIQUE}}, and the planner's question as implication (Fig.~\ref{fig:example}): do the filtered
-unique indexes of a table, with its \sql{NOT NULL} columns and \sql{CHECK} constraints, imply that
-the rows matching the query's restriction of the table are unique on the columns the query probes
-or groups by? Asking it with the restrictions of the base table only avoids the first pitfall.
-Asking it with the \nul\ semantics that the rewrite needs avoids the second. The two semantics
-also separate the complexity: join-shaped rewrites are polynomial for conjunctive predicates
-without inequalities or \sql{IN}-lists on the columns that both compared rows must fill,
-group-shaped ones are coNP-complete, and among the indexes of real schemas 2{,}953 of 2{,}960
-implications are as easy as the first case.
+\paragraph*{Our approach} We read a filtered unique index as a constraint, which we call a \emph{conditional
+\sql{UNIQUE}}. The planner's question then becomes one of \emph{implication} between constraints. Consider the unique
+indexes of a table, together with its \sql{NOT NULL} columns and \sql{CHECK} constraints. Do they guarantee, for every
+possible content of the table, that the rows matching the query's restriction are unique on the columns that the
+query joins or groups on? Implication concerns the declared constraints, not the current data, so its answer stays
+correct when the data changes.
 
-\paragraph*{Results} The prover is 1{,}683 lines of C, called from PostgreSQL~18.6's planner
-through 38 changed lines. \emph{It is sound:} 1{,}000{,}000 random queries changed 154{,}532
-plans and no result, and dropping any safeguard is caught by random queries or a feature test. \emph{It is exact on real
-catalogs:} on 1{,}454 left joins and 1{,}454 \sql{DISTINCT}s over real data with up to 166
-filtered indexes per table, it licenses exactly the 1{,}094 and 171 rewrites the catalog implies,
-61 and 54 more than one index at a time; on 217 open-data tables, 1{,}483 and 963 more; a port to CockroachDB comes within 2 of the
-1{,}231 rewrites its catalog implies; on real workloads one index at a time would have
-sufficed, and the theory is what makes that check safe. \emph{It is cheap:} 0.03\,ms of planning
-in the median. \emph{It is worth turning on:} beyond the rewrites PostgreSQL has, it removes
-\sql{DISTINCT} and reduces \sql{GROUP BY} through joins, which PostgreSQL never does. Its gains
-depend on who writes the queries: application code, dbt projects and reports rarely filter on
-the scopes; on users' Stack Exchange queries it changes 118 plans and gains up to $3.3\times$,
-mostly through keys carried through joins, as filtered keys gain there only through the \sql{Inner Unique} setting that we leave off; it removes every join that views over versioned data add; and on queries we wrote over
-MusicBrainz it gains up to $4.9\times$.
+Implication also does more than match the query against one index at a time. Several indexes can together guarantee
+a key that none of them states alone. A query's scope can differ from an index's scope and still lie within it. A
+\sql{CHECK} constraint can exclude the rows that an index does not cover. Fig.~\ref{fig:example} shows a query whose
+\sql{DISTINCT} is redundant only because two filtered keys are combined across a join.
+
+If we ask the question with the table's own restrictions only, we avoid the first pitfall. If we ask it with the
+\nul\ semantics that the rewrite needs, we avoid the second. The two semantics also differ in complexity. For
+join-shaped rewrites, implication can be decided in polynomial time when the predicates are conjunctive and have no
+inequalities or \sql{IN}-lists on the compared columns. For group-shaped rewrites, implication is coNP-complete. Under
+the same conditions, it is hard only through nullable grouping columns that the query leaves open. Real schemas fall
+on the easy side. Among the indexes of the ten applications, 2{,}953 of 2{,}960 implications are as easy as in the
+first case. When an implication fails, a table of two rows shows why.
+
+\paragraph*{What we found} We built a prover based on this theory into the planner of PostgreSQL~18.6, with 1{,}683
+new lines of C and 38 changed lines, and we ported it to CockroachDB.
+\begin{itemize}
+\item \emph{It is sound.} On 1{,}000{,}000 random queries it changed 154{,}532 plans and no result. If any of its
+  safeguards is removed, the random queries or a feature test detect the error.
+\item \emph{It is exact on real catalogs.} We declared catalogs of filtered unique indexes over 226 real tables. The
+  prover allows exactly the rewrites that each catalog implies, which is more than one index at a time allows. Stock
+  PostgreSQL allows none.
+\item \emph{It is cheap.} It adds 0.03\,ms to planning in the median.
+\item \emph{Its gains depend on who writes the queries.} Application code, transformation code and reports use filtered
+  keys for integrity, and they rarely filter on the keys' scopes. Users who query Stack Exchange do. Their queries
+  gain up to $3.3\times$, but mostly through ordinary keys carried through joins, which the prover adds to PostgreSQL.
+  Views over versioned data lose every join they add. Queries we wrote over MusicBrainz gain up to $4.9\times$.
+\end{itemize}
 
 \paragraph*{Contributions}
 \begin{enumerate}
-\item \emph{The two pitfalls, made precise.} A study of filtered unique indexes in ten
-  application schemas and of what PostgreSQL~18, SQLite, CockroachDB and SQL Server do with them
-  (Section~\ref{sec:practice}), and the two conditions a sound proof needs: base restrictions
-  only, and the rewrite's \nul\ semantics.
-\item \emph{The complexity of the planner's question.} Conditional \sql{UNIQUE} constraints
-  under both \nul\ semantics of SQL: implication is polynomial for join-shaped rewrites with
-  conjunctive indexes under two side conditions, coNP-complete for group-shaped ones and, under
-  the same conditions, fixed-parameter tractable, and coNP-complete when either condition fails
-  on a key column (Sections~\ref{sec:model} and~\ref{sec:reasoning}). A finite axiomatisation
-  and two-record counterexamples for failed implications are in \ifextended the appendix\else the
-  extended version\fi.
-\item \emph{A sound prover} in PostgreSQL~18.6, exact for implication on one relation over the
-  indexes it translates, up to a search limit, a template limit and a premise filter, serving its join rewrites and
-  \sql{GROUP BY} reduction, adding \sql{DISTINCT} removal, reading \sql{CHECK} constraints, and
-  carrying both semantics through inner, left, semi- and anti-joins, and a port to CockroachDB that adds
-  the keys it proves to the optimiser's functional dependencies (Section~\ref{sec:planner}).
-\item \emph{Evidence} of soundness, of exactness against four systems on real catalogs, of
-  cost, and of gains on workloads by who writes them, from application code to users' queries
-  over Stack Exchange, SkyServer and Wikimedia (Section~\ref{sec:experiments}).
+\item \emph{The state of practice.} We study filtered unique indexes in ten application schemas, and what
+  PostgreSQL, SQLite, CockroachDB and SQL Server do with them (Section~\ref{sec:practice}).
+\item \emph{The complexity of the planner's question.} For conditional \sql{UNIQUE} constraints under both \nul\
+  semantics, implication is polynomial for join-shaped rewrites under two side conditions. It is coNP-complete for
+  group-shaped rewrites, but fixed-parameter tractable under the same conditions. It is coNP-complete whenever a side
+  condition fails (Sections~\ref{sec:model} and~\ref{sec:reasoning}). A finite axiomatisation is in \ifextended the
+  appendix\else the extended version\fi.
+\item \emph{A sound prover} in PostgreSQL~18.6. It is exact for one relation over the indexes it translates. It serves
+  the existing join rewrites and the reduction of \sql{GROUP BY}, adds the removal of \sql{DISTINCT}, reads \sql{CHECK}
+  constraints, and carries both semantics through inner, left, semi- and anti-joins. We also port it to CockroachDB
+  (Section~\ref{sec:planner}).
+\item \emph{Evidence} of soundness, of exactness against four systems on real catalogs, of cost, and of gains on
+  workloads grouped by who writes the queries (Section~\ref{sec:experiments}).
 \end{enumerate}
-\ifextended The appendix \else The extended version~\cite{EXT} \fi contains the proofs, the
-axiomatisation, a recommender for filtered unique indexes and further experiments.
+\ifextended The appendix \else The extended version~\cite{EXT} \fi contains the proofs, the axiomatisation, a
+recommender for filtered unique indexes, and further experiments.
 
 
 %=====================================================================
@@ -241,11 +264,11 @@ axiomatisation, a recommender for filtered unique indexes and further experiment
 
 \subsection{In application schemas}\label{sec:schemas}
 
-We took the schema dumps of ten open-source applications that use PostgreSQL---GitLab
-(\sql{structure.sql}), Mastodon, Forem, Chatwoot, Loomio, Consul, Open Food Network, Maybe,
-DocuSeal and Campsite (Rails \sql{schema.rb})---and parsed their unique indexes, primary keys,
-\sql{UNIQUE} constraints and \sql{NOT NULL} columns (GitLab's per-partition copies of an index are
-counted once). Table~\ref{tab:schemas} summarises them.
+We took the schemas of ten open-source applications that use PostgreSQL: GitLab, Mastodon, Forem, Chatwoot,
+Loomio, Consul, Open Food Network, Maybe, DocuSeal and Campsite. For GitLab we read its \sql{structure.sql}, and for
+the others their Rails \sql{schema.rb}. We parsed their unique indexes, primary keys, \sql{UNIQUE} constraints and
+\sql{NOT NULL} columns. GitLab keeps a copy of some indexes for each partition, and we count these copies once.
+Table~\ref{tab:schemas} summarises the schemas.
 
 \begin{table}[t]
 \caption{Unique indexes in ten application schemas}\label{tab:schemas}
@@ -271,54 +294,60 @@ Total & 1{,}999 & 1{,}513 & 174 & 37 \\
 \smallskip\footnotesize $^{*}$Campsite, Consul, Open Food Network
 \end{table}
 
-The predicates fall into few shapes:
+The predicates fall into a few shapes:
 \begin{itemize}
-\item \emph{Excluding \nul\ keys} (87): \sql{UNIQUE (k) WHERE k IS NOT NULL}; all of Mastodon's 14 and
-  63 of GitLab's. Under \sql{NULLS DISTINCT} the predicate changes nothing---such an index states
-  an unconditional key---and serves only to keep the index small, or is the habit of SQL Server,
-  where it is the only way to allow several \nul s.
-\item \emph{A constant or flag} (33): \sql{status = 0}, \sql{published IS TRUE},
-  \sql{rule\_type = 2}.
-\item \emph{A missing value on another column} (26): \sql{ended\_at IS NULL},
-  \sql{resolved\_at IS NULL}---soft deletion, current versions, open episodes.
+\item \emph{Excluding \nul\ keys} (87), as in \sql{UNIQUE (k) WHERE k IS NOT NULL}. All 14 of Mastodon's filtered
+  indexes and 63 of GitLab's have this shape. Under \sql{NULLS DISTINCT} the predicate changes nothing, so such an
+  index states an ordinary key. The predicate only keeps the index small, or it is a habit from SQL Server, where it is
+  the only way to allow several \nul s.
+\item \emph{A constant or flag} (33): \sql{status = 0}, \sql{published IS TRUE}, \sql{rule\_type = 2}.
+\item \emph{A missing value in another column} (26): \sql{ended\_at IS NULL}, \sql{resolved\_at IS NULL}. These express
+  soft deletion, current versions and open episodes.
 \item \emph{IN-lists} (9): \sql{status = ANY (ARRAY[0, 1])}.
-\item \emph{Conjunctions of the above} (5), e.g.\ Chatwoot's three scopes for e-mail templates:
-  per installation (\sql{account\_id IS NULL AND inbox\_id IS NULL}), per account
-  (\sql{account\_id IS NOT NULL AND inbox\_id IS NULL}) and per inbox.
-\item \emph{Inequalities} (14): \sql{package\_type = 7 AND status <> 4},
-  \sql{custom\_domain <> ''}.
+\item \emph{Conjunctions of the above} (5). For example, Chatwoot has three scopes for e-mail templates: one per
+  installation (\sql{account\_id IS NULL AND inbox\_id IS NULL}), one per account (\sql{account\_id IS NOT NULL AND
+  inbox\_id IS NULL}), and one per inbox.
+\item \emph{Inequalities} (14): \sql{package\_type = 7 AND status <> 4}, \sql{custom\_domain <> ''}.
 \end{itemize}
-Six indexes have expression keys such as \sql{lower(email)}; all 168 others have predicates
-built from \sql{=}, \sql{<>}, \sql{IN}, \sql{IS [NOT] NULL}, \sql{AND} and \sql{OR}, and all 168 are
-one-template conditions in the sense of Section~\ref{sec:model}: 159 conjunctions and 9
-\sql{IN}-lists, which SQL writes as disjunctions but a template holds in one entry. 37 tables carry two or more filtered unique indexes, where
-reasoning about one at a time can miss what they say together. Only two filtered indexes are
-implied by others (both by the primary key); filtered indexes are not declared redundantly.
-Beyond these applications, in the SQL files of SchemaPile~\cite{SchemaPile} (its 22{,}989
-permissively licensed schemas from GitHub) filtered indexes are 12.9\% of the
-\sql{CREATE UNIQUE INDEX} statements in SQL Server files (118 of 913) and 5.4\% in PostgreSQL files
-(182 of 3{,}362). Their predicates have the same shapes: constants and flags, \nul\ tests on other
-columns, and the exclusion of \nul\ keys, with conjunctions far more common than \sql{OR} (69
-against 8 of the 356 filtered unique indexes in all dialects) and 6 range comparisons.
+Six indexes have keys that are expressions, such as \sql{lower(email)}. The other 168 have predicates built from
+\sql{=}, \sql{<>}, \sql{IN}, \sql{IS [NOT] NULL}, \sql{AND} and \sql{OR}. In the terms of Section~\ref{sec:model}, all
+168 are conditions with one template: 159 are conjunctions, and 9 are \sql{IN}-lists. SQL writes an \sql{IN}-list as a
+disjunction, but one template entry can hold it. In the 37 tables with two or more filtered unique indexes, a planner that
+looks at one index at a time can miss what the indexes say together. Only two filtered indexes are
+implied by others, in both cases by the primary key. Developers thus do not declare filtered indexes redundantly.
+\ifextended
+Beyond these applications, we looked at the SQL files of SchemaPile~\cite{SchemaPile}, which holds 22{,}989
+permissively licensed schemas from GitHub. There, filtered indexes make up 12.9\% of the \sql{CREATE UNIQUE INDEX}
+statements in SQL Server files (118 of 913) and 5.4\% in PostgreSQL files (182 of 3{,}362). Their predicates have the
+same shapes: constants and flags, \nul\ tests on other columns, and the exclusion of \nul\ keys. Of the 356 filtered
+unique indexes in all dialects, 69 use conjunctions, only 8 use \sql{OR}, and 6 use range comparisons.
 
-\paragraph*{In analytics code and open data} Warehouses built with dbt assert keys as tests, and in
-the two largest public dbt projects we found, 38 of 369 uniqueness tests carry a scope
-(\sql{where:}), 27 of them keys with documented exceptions.
+\paragraph*{In analytics code} Data warehouses built with dbt state keys as tests. In the two largest public dbt
+projects we found, 38 of 369 uniqueness tests have a scope (\sql{where:}). In 27 of them, the scope expresses a
+documented exception to the key.
 
-\paragraph*{In open data} MusicBrainz publishes its PostgreSQL schema and data, with 17 filtered unique
-indexes: at most one primary alias per entity and locale, \sql{(entity, locale) WHERE
-primary\_for\_locale AND locale IS NOT NULL}, on 13 alias tables, and artists and labels unique by
-name split by a comment, \sql{(name) WHERE comment IS NULL} and \sql{(name, comment) WHERE comment
-IS NOT NULL}, the encoding of $\Ueq{}$ of Proposition~\ref{prop:translate}. Since \sql{comment}
-became \sql{NOT NULL}, the second states an unconditional key, which PostgreSQL ignores for being
-partial. Every key holds in the data of 28 October 2026.
+\paragraph*{In open data} MusicBrainz publishes its PostgreSQL schema and data, with 17 filtered unique indexes. On
+13 alias tables, \sql{(entity, locale) WHERE primary\_for\_locale AND locale IS NOT NULL} allows at most one primary
+alias per entity and locale. Artists and labels are unique by name, and a comment tells namesakes apart: \sql{(name) WHERE comment IS
+NULL} and \sql{(name, comment) WHERE comment IS NOT NULL}. This pair is the encoding of $\Ueq{}$ in
+Proposition~\ref{prop:translate}. Since \sql{comment} became \sql{NOT NULL}, the second index states an ordinary key,
+which PostgreSQL ignores because the index is partial. Every key holds in the data of 28 October 2026.
 
+\else
+The same shapes occur beyond these applications. In SchemaPile~\cite{SchemaPile}, a corpus of 22{,}989 schemas from
+GitHub, filtered indexes make up 12.9\% of the unique indexes in SQL Server files and 5.4\% in PostgreSQL files. In the
+two largest public dbt projects, 38 of 369 uniqueness tests have a scope. MusicBrainz, whose schema and data are
+public, declares 17 filtered unique indexes, and all of them hold in its data. Among them are \sql{(name) WHERE comment
+IS NULL} and \sql{(name, comment) WHERE comment IS NOT NULL}, the encoding of $\Ueq{}$ in
+Proposition~\ref{prop:translate}.
+
+\fi
 \subsection{In optimisers}\label{sec:systems}
 
-Table~\ref{tab:systems} lists the uniqueness-based optimisations of PostgreSQL~18.6,
-SQLite~3.54, CockroachDB~26.3 and SQL Server~2025 and whether a filtered unique index enables them, measured with an unconditional
-index on $k$ and a partial index on $k$ \sql{WHERE d IS NULL}, queried with exactly that
-predicate, and traced to the source.
+Table~\ref{tab:systems} lists the uniqueness-based optimisations of PostgreSQL~18.6, SQLite~3.54, CockroachDB~26.3
+and SQL Server~2025. For each, it shows whether a filtered unique index enables it. We tested each system with an
+ordinary unique index on $k$ and a partial unique index on $k$ \sql{WHERE d IS NULL}, using queries with exactly that
+predicate. We then traced each behaviour to the source code.
 
 \begin{table}[t]
 \caption{Uniqueness-based optimisations with a plain and a filtered unique
@@ -350,82 +379,91 @@ SQL Server & left-join removal & yes & no \\
 \end{tabular}
 \end{table}
 
-\paragraph*{PostgreSQL} Before planning, \sql{check\_index\_predicates} sets a partial index's
-\sql{predOK} flag if \sql{predicate\_implied\_by} proves its predicate from the relation's
-restrictions. Until 2023, \sql{relation\_has\_unique\_index\_for}---the uniqueness test behind
-left-join removal, semi-join reduction and inner-unique joins---accepted partial indexes with
-\sql{predOK} set. But \sql{predOK} may be proved from join clauses that are evaluated only after
-the inner relation is read, so the planner could treat a relation as unique that is not. The fix
-(commit \sql{7fcd7ef2a9}, back-patched to all supported versions) excludes every index with a
-predicate from \sql{relation\_has\_unique\_index\_for} and \sql{rel\_supports\_distinctness};
-the reduction of \sql{GROUP BY} by unique indexes and self-join elimination, both added in
-version~18, skip partial indexes from the start. Partial indexes with \sql{predOK} remain only in the estimate of the number of
-distinct values. PostgreSQL removes \sql{DISTINCT} for no base table, filtered or not.
+\ifextended
+\paragraph*{PostgreSQL} Before planning, \sql{check\_index\_predicates} sets the \sql{predOK} flag of a partial index
+if \sql{predicate\_implied\_by} proves the index's predicate from the relation's restrictions. Until 2023,
+\sql{relation\_has\_unique\_index\_for} accepted partial indexes with \sql{predOK} set. This function is the uniqueness
+test behind left-join removal, semi-join reduction and inner-unique joins. But \sql{predOK} may be proved from join
+clauses that are evaluated only after the inner relation is read. The planner could therefore treat a relation as unique
+when it is not. The fix (commit \sql{7fcd7ef2a9}, back-patched to all supported versions) excludes every index with a
+predicate from \sql{relation\_has\_unique\_index\_for} and \sql{rel\_supports\_distinctness}. Version~18 added the reduction
+of \sql{GROUP BY} by unique indexes and the elimination of self-joins, and both skip partial indexes from the start.
+Partial indexes with \sql{predOK} now matter only for the estimated number of distinct values. PostgreSQL removes
+\sql{DISTINCT} for no base table, filtered or not.
 
-\paragraph*{SQLite} \sql{isDistinctRedundant} skips partial indexes. Left-join omission uses the
-one-row flag of the access path chosen for the inner table, which a partial unique index gets
-when \sql{whereUsablePartialIndex} finds, for each conjunct of the predicate, one term of the
-\sql{ON} or \sql{WHERE} clause on that table that implies it by \sql{sqlite3ExprImpliesExpr}:
-the same expression, one branch of an \sql{OR}, or \sql{IS NOT NULL} after a null-rejecting
-comparison. This is sound but fragile: \sql{b.st = 0} against \sql{WHERE st IN (0, 1)} and
-\sql{NOT (b.d IS NOT NULL)} against \sql{WHERE d IS NULL} keep the join, and two indexes are never
-combined.
+\paragraph*{SQLite} The function \sql{isDistinctRedundant} skips partial indexes. Left-join omission relies on a flag
+that marks the access path of the inner table as returning at most one row. A partial unique index sets this flag when
+\sql{whereUsablePartialIndex} finds, for each conjunct of the predicate, a term of the \sql{ON} or \sql{WHERE} clause on
+that table that implies it. The test, \sql{sqlite3ExprImpliesExpr}, accepts the same expression, one branch of an
+\sql{OR}, or \sql{IS NOT NULL} after a comparison that rejects \nul. This is sound but fragile. Both \sql{b.st = 0}
+against \sql{WHERE st IN (0, 1)} and \sql{NOT (b.d IS NOT NULL)} against \sql{WHERE d IS NULL} keep the join, and two
+indexes are never combined.
 
-\paragraph*{CockroachDB} The optimiser derives a table's keys in \sql{MakeTableFuncDep}, which
-skips partial unique indexes and partial \sql{UNIQUE WITHOUT INDEX} constraints, as their keys
-hold on part of the table only. It adds such a key to a scan \emph{of} the partial index, but that
-scan is an alternative found during exploration, while join elimination, \sql{DISTINCT} removal
-and grouping reduction are normalisation rules applied to the table's canonical scan. None of
-them used a partial key in our probes: \sql{DISTINCT k} stays above a scan of the partial unique
-index on \sql{k}, also for \sql{UNIQUE (k) WHERE k IS NOT NULL}.
+\paragraph*{CockroachDB} The optimiser derives a table's keys in \sql{MakeTableFuncDep}. This function skips partial
+unique indexes and partial \sql{UNIQUE WITHOUT INDEX} constraints, because their keys hold on part of the table only. It
+does add such a key to a scan \emph{of} the partial index. But that scan is an alternative found during exploration,
+while join elimination, \sql{DISTINCT} removal and grouping reduction are normalisation rules applied to the table's
+canonical scan. None of these rules used a partial key in our tests. For example, \sql{DISTINCT k} stays above a scan of
+the partial unique index on \sql{k}, even for \sql{UNIQUE (k) WHERE k IS NOT NULL}.
 
-\paragraph*{SQL Server} Filtered unique indexes have conjunctive predicates of comparisons and
-\sql{IN}-lists (range comparisons among them are outside our language, so an index with one
-would not serve as a premise), and \sql{UNIQUE} treats \nul\ as a value~\cite{SQLServerDoc}. White~\cite{White13}
-shows that the optimiser costs a one-to-one join over filtered unique indexes as many-to-many,
-and recommends redundant predicates or indexed views as workarounds. We probed SQL Server~2025
-(RTM-CU10, Developer edition) as the other systems. With a unique constraint it removes the left
-join and \sql{DISTINCT}, reduces \sql{GROUP BY} and turns the semi-join into a join; with a
-filtered unique index on the query's own predicate it does none of these, and it keeps the
-aggregate for \sql{DISTINCT k} even when it reads the filtered index \sql{UNIQUE (k) WHERE k IS
-NOT NULL}.
+\paragraph*{SQL Server} Filtered unique indexes have conjunctive predicates of comparisons and \sql{IN}-lists, and their
+\sql{UNIQUE} treats \nul\ as a value~\cite{SQLServerDoc}. Range comparisons are outside our language, so an index that
+uses one cannot serve as a premise. White~\cite{White13} shows that the optimiser costs a one-to-one join over filtered
+unique indexes as many-to-many, and he recommends redundant predicates or indexed views as workarounds. We tested SQL
+Server~2025 (RTM-CU10, Developer edition) in the same way as the other systems. With a unique constraint, it removes the
+left join and \sql{DISTINCT}, reduces \sql{GROUP BY}, and turns the semi-join into a join. With a filtered unique index on
+the query's own predicate, it does none of these. It even keeps the aggregate for \sql{DISTINCT k} when it reads the
+filtered index \sql{UNIQUE (k) WHERE k IS NOT NULL}.
+
+\else
+\paragraph*{Why each system declines} \emph{PostgreSQL} proves a partial index's predicate from the query's clauses,
+including join clauses that are evaluated only after the table is read. Until 2023, its uniqueness test accepted such
+indexes, and this caused bug \#17975. The fix excludes every index with a predicate from all uniqueness-based rewrites.
+A partial index now affects only the estimated number of distinct values. PostgreSQL removes \sql{DISTINCT} for no base
+table. \emph{SQLite} marks the inner table of a left join as returning at most one row if, for every conjunct of the
+index predicate, one term of the query implies it word for word. It accepts the same expression, one branch of an
+\sql{OR}, or \sql{IS NOT NULL} after a comparison. This is sound but fragile, and it never combines two indexes.
+\emph{CockroachDB} derives a table's keys from its unique indexes but skips partial ones, because their keys hold on part
+of the table only. Its rules for join elimination, \sql{DISTINCT} removal and grouping reduction therefore never see
+them. \emph{SQL Server}'s filtered unique indexes treat \nul\ as a value~\cite{SQLServerDoc}. Its optimiser costs a
+one-to-one join over them as many-to-many~\cite{White13}. In our tests of SQL Server~2025, it used them for none of the
+rewrites, not even for \sql{DISTINCT k} over a scan of \sql{UNIQUE (k) WHERE k IS NOT NULL}.
 
 
+\fi
 %=====================================================================
 \section{Conditional UNIQUE}\label{sec:model}
 %=====================================================================
 
-A table schema is a finite set $R$ of columns with a subset $\NN\subseteq R$ declared
-\sql{NOT NULL}. A \emph{table} over $R$ is a finite multiset of records, which map each column to a
-value or to \nul, and \nul\ on no column of $\NN$; duplicates are allowed, as in SQL.
+A table schema is a finite set $R$ of columns, with a subset $\NN\subseteq R$ of columns declared \sql{NOT NULL}. A
+\emph{table} over $R$ is a finite multiset of records. A record maps each column to a value or to \nul, and it has no
+\nul\ on a column of $\NN$. As in SQL, a table may contain duplicate records.
 
-\paragraph*{Predicates as templates} A \emph{template} $\tau$ maps each column to an entry:
-$\any$ (anything), $\top$ (\sql{IS NOT NULL}), $\bot$ (\sql{IS NULL}), ${\in}S$ (\sql{= c} or
-\sql{IN (S)}) or ${\notin}S$ (\sql{<> c} or \sql{NOT IN (S)}), for a finite non-empty set $S$ of
-constants. A \nul\ matches only $\any$ and $\bot$---a comparison with \nul\ is never true in a
-\sql{WHERE} clause---and a value $v$ matches $\any$, $\top$, ${\in}S$ if $v\in S$, and ${\notin}S$
-if $v\notin S$. A record \emph{matches} $\tau$ if it matches every entry. A \emph{condition} is a
-finite set of templates, matched by a record that matches one of them. Every predicate built
-from \sql{=}, \sql{<>}, \sql{IN}, \sql{NOT IN}, \sql{IS [NOT] NULL}, \sql{AND} and \sql{OR} over
-columns and constants is a condition (a disjunctive normal form; conjunctions of entries on one
-column are again entries or contradictory), and a conjunctive predicate is a condition with one
-template. Range comparisons are outside the language. We write $\tpl{d{:}\,\bot}$ for the template with
-$\bot$ on $d$ and $\any$ elsewhere.
+\paragraph*{Predicates as templates} We bring index predicates and query restrictions into one normal form, so that
+we can reason about both alike. A \emph{template} $\tau$ maps each column to an entry. The entries are $\any$
+(anything), $\top$ (\sql{IS NOT NULL}), $\bot$ (\sql{IS NULL}), ${\in}S$ (\sql{= c} or \sql{IN (S)}), and ${\notin}S$
+(\sql{<> c} or \sql{NOT IN (S)}), for a finite non-empty set $S$ of constants. A \nul\ matches only $\any$ and $\bot$,
+because a comparison with \nul\ is never true in a \sql{WHERE} clause. A value $v$ matches $\any$ and $\top$. It matches
+${\in}S$ if $v\in S$, and ${\notin}S$ if $v\notin S$. A record \emph{matches} $\tau$ if it matches every entry. A
+\emph{condition} is a finite set of templates, and a record matches it if the record matches one of them. Every
+predicate built from \sql{=}, \sql{<>}, \sql{IN}, \sql{NOT IN}, \sql{IS [NOT] NULL}, \sql{AND} and \sql{OR} over columns
+and constants is a condition. To see this, bring the predicate into disjunctive normal form. Two entries on the same
+column combine into one entry, or into a contradiction. A conjunctive predicate is a condition with one template. Range
+comparisons are outside the language. We write $\tpl{d{:}\,\bot}$ for the template with $\bot$ on $d$ and $\any$
+elsewhere.
 
 \begin{definition}
 A \emph{conditional} \sql{UNIQUE} \emph{constraint} has the form $C:\U{K}$ or $C:\Ueq{K}$ for a
-condition $C$ and a set $K\subseteq R$. A table $r$ satisfies it if no two records of $r$ (at
-different positions) both match $C$ and agree on $K$, where for $\U{K}$ (\sql{NULLS DISTINCT})
-agreeing means having the same value on every column of $K$, and for $\Ueq{K}$ (\sql{NULLS NOT
-DISTINCT}) also counts \nul\ as equal to \nul.
+condition $C$ and a set $K\subseteq R$. A table $r$ satisfies it if no two records of $r$, at different positions,
+both match $C$ and agree on $K$. For $\U{K}$ (\sql{NULLS DISTINCT}), two records agree on $K$ if they have the same value
+on every column of $K$. For $\Ueq{K}$ (\sql{NULLS NOT DISTINCT}), \nul\ also counts as equal to \nul.
 \end{definition}
 
-The filtered unique index of the introduction is $\{\tpl{\mathit{deleted\_at}{:}\,\bot}\}:
-\U{\mathit{email}}$. PostgreSQL's and SQLite's \sql{CREATE UNIQUE INDEX \ldots\ WHERE P} is $C_P:\U{K}$,
-PostgreSQL's \sql{NULLS NOT DISTINCT} variant and SQL Server's filtered unique index are
-$C_P:\Ueq{K}$, and a primary key is $\{\tpl{}\}:\U{K}$ with $K\subseteq\NN$. A key over no
-columns, $C:\U{\emptyset}$, says that at most one record matches $C$; PostgreSQL writes it as a
-unique index on a constant expression.
+The filtered unique index of the introduction is $\{\tpl{\mathit{deleted\_at}{:}\,\bot}\}:\U{\mathit{email}}$. In
+PostgreSQL and SQLite, \sql{CREATE UNIQUE INDEX \ldots\ WHERE P} states $C_P:\U{K}$. PostgreSQL's \sql{NULLS NOT DISTINCT}
+variant and SQL Server's filtered unique index state $C_P:\Ueq{K}$. A primary key is $\{\tpl{}\}:\U{K}$ with
+$K\subseteq\NN$. A key over no columns, $C:\U{\emptyset}$, says that at most one record matches $C$. PostgreSQL can state
+it as a unique index on a constant expression.
 
 \begin{lemma}[Pairs]\label{lem:pairs}
 A set $\Sig$ of conditional \sql{UNIQUE} constraints implies $\varphi$ iff every table of at most
@@ -437,11 +475,10 @@ Violations are witnessed by two records, and every constraint holds on a sub-tab
 that satisfies it.
 \end{proof}
 
-\paragraph*{Between the dialects} The two \nul\ semantics are inter-definable, which is what a
-migration between systems needs. For a nullable key column, $\U{}$ is $\Ueq{}$ restricted to
-records without \nul\ on $K$---the idiom \sql{WHERE k IS NOT NULL} that SQL Server users write.
-Conversely, SQLite and PostgreSQL before version~15 can express $\Ueq{}$ only by one index per
-pattern of \nul s on the key:
+\paragraph*{Between the dialects} Each \nul\ semantics can be expressed by the other, which matters when a schema
+moves between systems. For a nullable key column, $\U{}$ is $\Ueq{}$ restricted to the records without \nul\ on $K$. SQL
+Server users write this as \sql{WHERE k IS NOT NULL}. In the other direction, SQLite and PostgreSQL before version~15
+can express $\Ueq{}$ only with one index for each pattern of \nul s on the key:
 
 \begin{proposition}[Translation]\label{prop:translate}
 Let $F$ be the nullable columns of $K$. Then
@@ -454,30 +491,31 @@ of $C$ by $p$ (dropping contradictory ones). The second equivalence uses $2^{|F|
 one per pattern of \nul s on the nullable key columns.
 \end{proposition}
 
+\ifextended
 \begin{proof}
-By Lemma~\ref{lem:pairs} it suffices to compare which pairs of records the two sides forbid.
-First equivalence: a pair that matches $C$ and agrees on $K$ with values has no \nul\ on $K$, so
-it matches $C\wedge\tpl{F{:}\,\top}$ and agrees on $K$ with \nul\ equal to \nul; conversely, a pair
-that matches $C\wedge\tpl{F{:}\,\top}$ has no \nul\ on $F$, and none on $K\setminus F\subseteq\NN$,
-so agreeing on $K$ with \nul\ equal to \nul\ is agreeing with values. Second equivalence: if two
-records match $C$ and agree on $K$ with \nul\ equal to \nul, then on each column of $K$ both are
-\nul\ or both carry the same value, so they have the same set $N\subseteq F$ of \nul\ columns on
-$K$, both match $C\wedge p_N$, and they agree on $K\setminus N$ with values; they violate the
-translated constraint for $N$. Conversely, two records that match $C\wedge p_N$ and agree on
-$K\setminus N$ with values are \nul\ on $N$ in both, so they match $C$ and agree on $K$ with \nul\
-equal to \nul.
+By Lemma~\ref{lem:pairs}, it suffices to compare which pairs of records the two sides forbid. Consider the first
+equivalence. A pair that matches $C$ and agrees on $K$ with values has no \nul\ on $K$. So it matches
+$C\wedge\tpl{F{:}\,\top}$, and it agrees on $K$ with \nul\ equal to \nul. Conversely, a pair that matches
+$C\wedge\tpl{F{:}\,\top}$ has no \nul\ on $F$, and none on $K\setminus F\subseteq\NN$. For such a pair, agreeing on $K$
+with \nul\ equal to \nul\ is the same as agreeing with values. Now consider the second equivalence. Suppose two records
+match $C$ and agree on $K$ with \nul\ equal to \nul. On each column of $K$, they are both \nul\ or carry the same value.
+So they have the same set $N\subseteq F$ of \nul\ columns on $K$, they both match $C\wedge p_N$, and they agree on
+$K\setminus N$ with values. They therefore violate the translated constraint for $N$. Conversely, two records that match
+$C\wedge p_N$ and agree on $K\setminus N$ with values are \nul\ on $N$ in both. So they match $C$, and they agree on $K$
+with \nul\ equal to \nul.
 \end{proof}
 
-\noindent Whether fewer than $2^{|F|}$ nulls-distinct constraints can express $C:\Ueq{K}$ in
-general is open; we checked both equivalences on 5{,}000 random instances.
+\else
+\noindent The proof compares, by Lemma~\ref{lem:pairs}, which pairs of records the two sides forbid~\cite{EXT}.
+\fi
+\noindent It is open whether fewer than $2^{|F|}$ constraints with \nul s distinct can express $C:\Ueq{K}$ in
+general. We checked both equivalences on 5{,}000 random instances.
 
-
-Conditional \sql{UNIQUE} strictly generalises the embedded uniqueness constraints
-of~\cite{WLL19}, which are the case $\{\tpl{E{:}\,\top}\}:\U{U}$ with $U\subseteq E$: no set of
-those is equivalent to $\{\tpl{d{:}\,\bot}\}:\U{k}$ or to $\{\tpl{s{:}\,{\in}\{c\}}\}:\U{k}$. It is
-incomparable with conditional functional dependencies~\cite{FGJK08}: two identical records
-satisfy every CFD and violate every conditional \sql{UNIQUE} whose scope contains them, and a
-one-record table satisfies every conditional \sql{UNIQUE} but not every CFD
+Conditional \sql{UNIQUE} strictly generalises the embedded uniqueness constraints of~\cite{WLL19}. These are the case
+$\{\tpl{E{:}\,\top}\}:\U{U}$ with $U\subseteq E$, and no set of them is equivalent to $\{\tpl{d{:}\,\bot}\}:\U{k}$ or to
+$\{\tpl{s{:}\,{\in}\{c\}}\}:\U{k}$. Conditional \sql{UNIQUE} is incomparable with conditional functional
+dependencies~\cite{FGJK08}. Two identical records satisfy every CFD, but they violate every conditional \sql{UNIQUE} whose
+scope contains them. A table with one record satisfies every conditional \sql{UNIQUE}, but not every CFD
 \ifextended(Appendix~\ref{app:reason})\fi.
 
 
@@ -485,36 +523,43 @@ one-record table satisfies every conditional \sql{UNIQUE} but not every CFD
 \section{Reasoning}\label{sec:reasoning}
 %=====================================================================
 
-Every rewrite of Section~\ref{sec:planner} asks one question: given the filtered unique indexes
-$\Sig$ of a table, its \sql{NOT NULL} columns, and the restriction $C$ that a query block places on
-the table, does every table satisfying $\Sig$ have at most one record per value of the columns
-$K$ among those matching $C$? Which equality is meant depends on the rewrite:
+Every rewrite of Section~\ref{sec:planner} asks the same question. We are given the filtered unique indexes $\Sig$ of
+a table, its \sql{NOT NULL} columns, and the restriction $C$ that a query block places on the table. Does every table that
+satisfies $\Sig$ have at most one record per value of the columns $K$, among the records that match $C$? Which equality
+is meant depends on the rewrite:
 \begin{itemize}
-\item \emph{Join-shaped} rewrites---left-join removal, semi-join to join, inner-unique joins,
-  self-join elimination---compare $K$ with an equality predicate, which never matches \nul. They
-  need $\Sig\models C:\U{K}$.
-\item \emph{Group-shaped} rewrites---removing \sql{DISTINCT}, removing \sql{GROUP BY} or
-  grouping columns---put all \nul s into one group. They need $\Sig\models C:\Ueq{K}$.
+\item \emph{Join-shaped} rewrites compare $K$ with an equality predicate, which never matches \nul. They are left-join
+  removal, semi-join to join, inner-unique joins and self-join elimination. They need $\Sig\models C:\U{K}$.
+\item \emph{Group-shaped} rewrites put all \nul s into one group. They remove \sql{DISTINCT}, \sql{GROUP BY}, or
+  grouping columns. They need $\Sig\models C:\Ueq{K}$.
 \end{itemize}
-Naive use of a filtered index answers the first question for the second, which is the \nul\
-pitfall of the introduction. The complexity, too, is set by the rewrite.
+A planner that uses a filtered index naively answers the first question when the rewrite asks the second. This is the \nul\ pitfall of the
+introduction. The rewrite also determines the complexity, as we show below.
 
 \begin{example}\label{ex:mixed}
-Premises of both semantics combine. Let $k$ be nullable. $\{\tpl{}\}:\U{k}$ alone does not imply
-$\{\tpl{}\}:\Ueq{k}$, as it admits two rows with $k$ \nul, so a \sql{DISTINCT k} cannot be removed.
-Together with $\{\tpl{k{:}\,\bot}\}:\U{\emptyset}$---at most one row with $k$ \nul, in PostgreSQL a
-unique index on a constant \sql{WHERE k IS NULL}, an expression key our prover does not read---it does: two rows that agree on $k$ with
-\nul\ equal to \nul\ either share a value, which the first index forbids, or are both \nul, which
-the second forbids. Conversely, scopes do not combine by union: $\{\tpl{d{:}\,\bot}\}:\Ueq{k}$
-and $\{\tpl{d{:}\,\top}\}:\U{k}$ cover every row, yet imply neither $\{\tpl{x{:}\,{\in}\{1\}}\}:\U{k}$ nor
-$\{\tpl{x{:}\,{\in}\{1\}}\}:\Ueq{k}$: two rows with $x=1$ and the same $k$, one with $d$ \nul\ and one
-without, lie in no common scope.
+Premises of both semantics can combine. Let $k$ be nullable. The constraint $\{\tpl{}\}:\U{k}$ alone does not imply
+$\{\tpl{}\}:\Ueq{k}$, because it allows two rows with \nul\ in $k$. A \sql{DISTINCT k} therefore cannot be removed. Now add
+$\{\tpl{k{:}\,\bot}\}:\U{\emptyset}$, which allows at most one row with \nul\ in $k$. In PostgreSQL this is a unique index
+on a constant \sql{WHERE k IS NULL}, an expression key that our prover does not read. Together the two constraints imply
+$\{\tpl{}\}:\Ueq{k}$. Two rows that agree on $k$ with \nul\ equal to \nul\ either share a value, which the first index
+forbids, or are both \nul, which the second forbids. On the other hand, scopes do not combine by union. The constraints
+$\{\tpl{d{:}\,\bot}\}:\Ueq{k}$ and $\{\tpl{d{:}\,\top}\}:\U{k}$ cover every row. Yet they imply neither
+$\{\tpl{x{:}\,{\in}\{1\}}\}:\U{k}$ nor $\{\tpl{x{:}\,{\in}\{1\}}\}:\Ueq{k}$. Two rows with $x=1$ and the same $k$, one with
+\nul\ in $d$ and one without, lie in no common scope.
 \end{example}
 
-Call a column \emph{value-forced} for templates $\tau_i,\tau_j$ of the goal if a pair violating
-$C:\U{K}$ with $t_1$ matching $\tau_i$ and $t_2$ matching $\tau_j$ must carry a value in both
-records on it: a column of $K$ or of $\NN$, or one on which both templates have $\top$, ${\in}S$
-or ${\notin}S$.
+\paragraph*{The idea} By Lemma~\ref{lem:pairs}, an implication fails exactly when two records satisfy every premise
+and violate the goal. The search for such a pair is easy when each column can be treated on its own. A premise is
+defeated if one of the two records lies outside its scope, or if the records differ on its key. For each column, we pick
+the values of the two records that defeat as many premises as possible. If one choice is best for every premise at
+once, the pair made of these choices settles the question. The side conditions of Theorem~\ref{thm:pos} are exactly
+what makes one choice per column best. This choice is a \nul\ in one record and a value of its own in the other, or two
+different values. Inequalities in the premises and \sql{IN}-lists in the goal break this, because the best choice then
+depends on the premise.
+
+Call a column \emph{value-forced} for templates $\tau_i,\tau_j$ of the goal if every pair that violates $C:\U{K}$, with
+$t_1$ matching $\tau_i$ and $t_2$ matching $\tau_j$, carries a value on it in both records. These are the columns of $K$
+and of $\NN$, and the columns on which both templates have $\top$, ${\in}S$ or ${\notin}S$.
 
 \begin{theorem}[Join-shaped rewrites]\label{thm:pos}
 Let every constraint of $\Sig$ have a one-template condition (any mix of $\U{}$ and $\Ueq{}$),
@@ -525,25 +570,25 @@ $O(|C|^2\cdot|\Sig|\cdot|R|)$.
 \end{theorem}
 
 \begin{proof}
-By Lemma~\ref{lem:pairs}, $\Sig\not\models C:\U{K}$ iff some pair $t_1,t_2$ with $t_1$ matching
-$\tau_i\in C$ and $t_2$ matching $\tau_j\in C$, equal and \nul-free on $K$, satisfies $\Sig$. A pair
-satisfies a one-template constraint $\sigma=\{\rho\}:\U{K_\sigma}$ iff some column $A$ \emph{kills}
-$\sigma$: $t_1[A]$ or $t_2[A]$ fails $\rho(A)$, or $A\in K_\sigma$ and $t_1[A],t_2[A]$ are not
-equal values (for $\Ueq{}$: not equal values and not both \nul). Killing is thus a disjunction over
-columns, and what $A$ kills depends only on $(t_1[A],t_2[A])$. Call $(t_1[A],t_2[A])$
-\emph{admissible} if it matches $\tau_i(A)$ and $\tau_j(A)$, respects $\NN$, and, for $A\in K$,
-consists of two equal values. We claim that for every column one admissible state kills
-everything any admissible state kills; the pair made of these states then satisfies $\Sig$ iff
-some admissible pair does. Let a \emph{fresh} value be one that no constraint mentions. For
-$A\notin K$: if one record may be \nul\ and the other a value, a \nul\ and a fresh value (or the
-constant the template forces) fail every entry other than $\any$---the \nul\ fails $\top$,
-${\in}S$ and ${\notin}S$, the value fails $\bot$ and ${\in}S$---and separate the records for both
-semantics. Otherwise the column is value-forced or forced to \nul. If value-forced, two different
-values, fresh unless the templates fix them to single constants, fail $\bot$ and every ${\in}S$
-that a fresh value fails, and separate the records; no constraint has a ${\notin}$-entry there,
-so nothing else can be killed. For $A\in K$ the records share a value, fresh unless a template
-fixes it to a single constant, which again kills everything a value can kill there. Building and
-checking the $|C|^2$ pairs takes the stated time.
+By Lemma~\ref{lem:pairs}, $\Sig\not\models C:\U{K}$ iff some pair $t_1,t_2$ satisfies $\Sig$, where $t_1$ matches a
+template $\tau_i\in C$, $t_2$ matches a template $\tau_j\in C$, and the two records are equal and free of \nul\ on $K$. A
+pair satisfies a one-template constraint $\sigma=\{\rho\}:\U{K_\sigma}$ iff some column $A$ \emph{kills} $\sigma$. This
+means that $t_1[A]$ or $t_2[A]$ fails $\rho(A)$, or that $A\in K_\sigma$ and $t_1[A],t_2[A]$ are not equal values. For
+$\Ueq{}$, they must also not both be \nul. Killing is thus a disjunction over columns, and what a column $A$ kills
+depends only on $(t_1[A],t_2[A])$. Call $(t_1[A],t_2[A])$ \emph{admissible} if it matches $\tau_i(A)$ and $\tau_j(A)$,
+respects $\NN$, and consists of two equal values when $A\in K$. We claim that on every column, one admissible state
+kills everything that any admissible state kills. The pair made of these states then satisfies $\Sig$ iff some
+admissible pair does.
+
+Let a \emph{fresh} value be one that no constraint mentions. Take first a column $A\notin K$ on which one record may be
+\nul\ and the other a value. A \nul\ and a fresh value fail every entry other than $\any$. (If a template forces the
+value to a constant, we use that constant.) The \nul\ fails $\top$, ${\in}S$ and ${\notin}S$, and the value fails $\bot$
+and ${\in}S$. The two records also differ on $A$ under both semantics. Otherwise the column is value-forced or forced to
+\nul. On a value-forced column, two different values fail $\bot$ and every ${\in}S$ that a fresh value fails, and they
+separate the records. The values are fresh unless the templates fix them to single constants. No constraint has a
+${\notin}$-entry on such a column, so nothing else can be killed there. Finally, for $A\in K$ the records share a value.
+This value is fresh unless a template fixes it to a single constant, and again it kills everything that a value can kill
+on $A$. Building and checking the $|C|^2$ pairs takes the stated time.
 \end{proof}
 
 \begin{theorem}[Group-shaped rewrites]\label{thm:dom}
@@ -554,24 +599,25 @@ $O(2^b\cdot|C|^2\cdot|\Sig|\cdot|R|)$, where $b$ is the number of columns of $K$
 \end{theorem}
 
 \begin{proof}
-Membership: guess a pair (Lemma~\ref{lem:pairs}). For the bound, a pair violating $C:\Ueq{K}$
-must, on each of the $b$ open key columns, be \nul\ in both records or share a value; the two
-states kill incomparable sets ($\top$, constants and $\U{}$-keys on that column, against $\bot$),
-and every other column is as in Theorem~\ref{thm:pos}, so $2^b$ canonical pairs per pair of
-templates suffice. Hardness: from CNF satisfiability over variables $x_1,\dots,x_n$, take columns
-$A_1,\dots,A_n$ (nullable) and $B\in\NN$, the goal $\{\tpl{}\}:\Ueq{A_1\cdots A_nB}$, and for each
-clause one constraint $\{\rho\}:\U{B}$ with $\rho(A_i)=\bot$ if $x_i$ occurs positively, $\top$ if
-negatively, and $\any$ otherwise. A pair violating the goal agrees on all $A_i$, \nul\ (``$x_i$
-false'') or a shared value (``true''), and satisfies the clause constraint iff some literal kills
-it, i.e.\ iff the assignment satisfies the clause. Hence $\Sig\models\varphi$ iff the CNF is
-unsatisfiable. The constraints are equivalent to $\Ueq{B}$ as $B\in\NN$, so hardness holds in
-SQL Server's semantics alone, and they meet the side conditions of Theorem~\ref{thm:pos}. Without
-these, $b$ does not bound the search: Theorem~\ref{thm:neq} below is hard with $K\subseteq\NN$, where
-$b=0$.
+Membership in coNP holds because a violating pair can be guessed and checked (Lemma~\ref{lem:pairs}). For the
+bound, consider a pair that violates $C:\Ueq{K}$. On each of the $b$ open key columns, the two records are either both
+\nul\ or share a value. These two states kill incomparable sets: the first kills $\top$, constants and $\U{}$-keys on
+that column, and the second kills $\bot$. Every other column behaves as in Theorem~\ref{thm:pos}. Hence $2^b$ canonical
+pairs per pair of templates suffice.
+
+For hardness, we reduce from CNF satisfiability over variables $x_1,\dots,x_n$. Take nullable columns
+$A_1,\dots,A_n$, a column $B\in\NN$, and the goal $\{\tpl{}\}:\Ueq{A_1\cdots A_nB}$. For each clause, add one constraint
+$\{\rho\}:\U{B}$, where $\rho(A_i)=\bot$ if $x_i$ occurs positively in the clause, $\rho(A_i)=\top$ if it occurs
+negatively, and $\rho(A_i)=\any$ otherwise. A pair that violates the goal agrees on every $A_i$. Either both records are
+\nul\ there, which we read as ``$x_i$ is false'', or they share a value, which we read as ``true''. The pair satisfies a
+clause's constraint iff some literal kills it, that is, iff the assignment satisfies the clause. Hence
+$\Sig\models\varphi$ iff the CNF is unsatisfiable. Since $B\in\NN$, the constraints are equivalent to $\Ueq{B}$, so
+hardness holds in SQL Server's semantics alone. They also meet the side conditions of Theorem~\ref{thm:pos}. Without
+these conditions, $b$ does not bound the search: Theorem~\ref{thm:neq} below is hard with $K\subseteq\NN$, where $b=0$.
 \end{proof}
 
-Neither side condition of Theorem~\ref{thm:pos} can be dropped, on key columns or elsewhere
-(only \sql{IN}-lists of two constants outside the key are left open):
+Neither side condition of Theorem~\ref{thm:pos} can be dropped, on key columns or elsewhere. The only case left open
+is \sql{IN}-lists of two constants outside the key.
 
 \begin{theorem}[Inequalities and IN-lists]\label{thm:neq}
 Deciding $\Sig\models\{\tau\}:\U{K}$ is coNP-complete for one-template conditions when
@@ -581,6 +627,7 @@ $|S|=3$ on other value-forced columns.
 \end{theorem}
 
 The cases on $K$ reduce from CNF satisfiability as Theorem~\ref{thm:dom} does \ifextended(Appendix~\ref{app:reason})\else\cite{EXT}\fi.
+\ifextended
 The cases outside $K$ reduce from 3-colourability: take \sql{NOT NULL} columns $A_u$, one per
 vertex, and $B$, the goal $\{\tpl{}\}:\U{B}$, and for every edge $uv$ and colour $c$ the
 constraint $\{\tpl{A_u{:}\,{\notin}\{c\},A_v{:}\,{\notin}\{c\}}\}:\U{B}$ (for ${\in}$: $\tau$ has
@@ -588,92 +635,91 @@ ${\in}\{1,2,3\}$ on every $A_u$, and the constraint ${\in}\{1,2,3\}\setminus\{c\
 violating the goal satisfies the constraint for $uv$ and $c$ iff $c$ is among its four values on
 $A_u$ and $A_v$. Given a proper colouring, let both records carry on $A_u$ the two colours other
 than that of $u$: every edge then shows all three. Conversely, two records show at most two
-colours per vertex; colour each vertex with one that its records miss, and no edge is monochromatic,
-as its endpoints together show every colour. So $\Sig\models\{\tau\}:\U{B}$ iff the graph is not
-3-colourable; we checked both reductions by brute force on 240 random graphs.
-
-\paragraph*{The general procedure} Without the side conditions the argument of
-Theorem~\ref{thm:pos} still applies column by column. Whether a pair satisfies $\Sig$ is a
-monotone function of per-column features---``a record fails this entry'', ``the records separate
-on this key column''---so on each column only states with a maximal feature set matter, and the
-values worth trying are the constants mentioned on the column, two fresh values and \nul. With
-$\mu_A$ maximal states on column $A$, implication is decided in time
-$O(|C|^2\cdot\prod_A\mu_A\cdot|\Sig|\cdot|R|)$; Theorems~\ref{thm:pos} and~\ref{thm:dom} are the cases
-$\mu_A=1$ and $\mu_A\le2$. For indexes whose predicates have several templates (\sql{OR}) the features are kept per record, and implication is
-coNP-complete for both semantics already for a single premise: a record escapes such a scope
-only by failing every template, which encodes clauses. We implemented this procedure for the full
-language. It agrees with exhaustive search over all pairs on 3{,}000 random instances with
-\sql{IN}, \sql{NOT IN}, both semantics and up to two templates per condition, and with a SAT
-encoding of the existence of a violating pair on 3{,}000 instances without ${\notin}$. Under the
-side conditions of Theorem~\ref{thm:pos} no column had two maximal states in 10{,}640 random
-instances, and Theorems~\ref{thm:pos}--\ref{thm:neq} were checked against SAT on 40{,}000 random
-instances and the reductions on 700 random 3-CNFs.
-
-\paragraph*{Axiomatisation} Implication also has a finite axiomatisation: seven rules, sound and
-complete for the full language under both \nul\ semantics and any mix of them
-\ifextended(Appendix~\ref{app:axiom})\else\cite{EXT}\fi. Its completeness proof rests on a
-\emph{cell lemma}: fixing the constants of an instance, every record has a \emph{profile} (per
-column a constant, \nul, or ``another value''), and $\Sig$ implies a goal iff, for every two
-profiles in the goal's scope, the pair of records of these profiles that agrees on the fewest
-columns violates some member of $\Sig$. The theory
-assumes infinite domains: for finite types such as \sql{boolean} every decision is sound, but an
-implication that holds only because a type is finite can be missed.
-
-\paragraph*{Refusals have witnesses} A cell that no premise covers yields a two-record
-counterexample: a table that satisfies every unique index, \sql{NOT NULL} and \sql{CHECK}
-constraint of the relation, yet has two rows in the query's scope that agree on the key. Our
-prover's search ends at such a pair when it refuses a rewrite; it does not yet report it, but a
-planner could show it as the reason. On the real catalogs of Section~\ref{sec:exp-decisions}, where the prover decides implication
-exactly, every rewrite it refuses has such a witness; for 167 \sql{DISTINCT}s that ignoring the
-\nul\ semantics would remove, the data itself holds one.
+colours per vertex. Colour each vertex with one that its records miss. Then no edge is monochromatic,
+because its endpoints together show every colour. So $\Sig\models\{\tau\}:\U{B}$ iff the graph is not
+3-colourable. We checked both reductions by brute force on 240 random graphs.\else
+The cases outside $K$ reduce from 3-colourability. A pair of records shows at most two values per column, so
+every vertex column misses a colour, and the constraints force the endpoints of each edge to miss different
+colours~\cite{EXT}. We checked both reductions by brute force
+on 240 random graphs.\fi
 
 
-\paragraph*{What the theory says to the planner} In the schemas of Section~\ref{sec:schemas}, all 168
-predicates are one-template conditions, and the hard cases do not arise. Taking each of the 1{,}480
-unique indexes that are not primary keys and have plain-column keys in turn as the goal, with the
-other unique indexes of its table as $\Sig$, under both semantics, 2{,}953 of the 2{,}960
-implications needed one canonical pair per pair of templates, as in the case of
-Theorem~\ref{thm:pos}; this is an observation, not membership in that case, as it includes all
-34 on the six tables with \sql{<>} predicates. The other 7 (all $\Ueq{}$) had a single column
-with more than one maximal state. A decision took
-$0.04$\,ms in the median and at most $2.9$\,ms in Python. Under these side conditions, group-shaped rewrites are hard only
-through nullable grouping columns left open by the query; for a \sql{DISTINCT} over \sql{NOT NULL} columns, or a \sql{GROUP BY} whose
-block filters its columns with \sql{IS NOT NULL} or equalities, $b=0$. And the 84 indexes on plain columns
-that only exclude \nul\ keys are recognised as unconditional keys, which PostgreSQL currently ignores
-for being partial.
+\paragraph*{The general procedure} Without the side conditions, the argument of Theorem~\ref{thm:pos} still works
+column by column. Whether a pair satisfies $\Sig$ is a monotone function of features of each column, such as ``a record
+fails this entry'' or ``the records differ on this key column''. On each column, therefore, only the states with a maximal set
+of features matter. The values worth trying are the constants mentioned on the column, two fresh values, and \nul. Let
+$\mu_A$ be the number of maximal states on column $A$. Then implication is decided in time
+$O(|C|^2\cdot\prod_A\mu_A\cdot|\Sig|\cdot|R|)$. Theorems~\ref{thm:pos} and~\ref{thm:dom} are the cases $\mu_A=1$ and
+$\mu_A\le2$. For indexes whose predicates have several templates, that is, predicates with \sql{OR}, the features are kept for
+each record separately. Implication is then coNP-complete for both semantics, already for a single premise. A record escapes such a
+scope only by failing every template, and this encodes clauses.
+
+\ifextended
+We implemented this procedure for the full language. It agrees with exhaustive search over all pairs on 3{,}000 random
+instances with \sql{IN}, \sql{NOT IN}, both semantics and up to two templates per condition. It also agrees with a SAT
+encoding of the existence of a violating pair on 3{,}000 instances without ${\notin}$. Under the side conditions of
+Theorem~\ref{thm:pos}, no column had two maximal states in 10{,}640 random instances. We checked
+Theorems~\ref{thm:pos}--\ref{thm:neq} against SAT on 40{,}000 random instances, and the reductions on 700 random 3-CNFs.
+
+\else
+We implemented this procedure for the full language and checked it against exhaustive search and a SAT encoding on
+thousands of random instances~\cite{EXT}.
+
+\fi
+\paragraph*{Axiomatisation} Implication also has a finite axiomatisation. Its seven rules are sound and complete
+for the full language, under both \nul\ semantics and any mix of them \ifextended(Appendix~\ref{app:axiom})\else\cite{EXT}\fi.
+The completeness proof rests on a \emph{cell lemma}. Fix the constants of an instance. Then every record has a \emph{profile}, which gives for each column a constant, \nul, or ``another value''. Take any two
+profiles in the goal's scope. Among the pairs of records with these profiles, take the pair that agrees on the
+fewest columns. $\Sig$ implies the goal iff every such pair violates some member of $\Sig$. The theory assumes infinite domains. For finite types such as
+\sql{boolean}, every decision is still sound. But an implication that holds only because a type is finite can be missed.
+
+\paragraph*{Refusals have witnesses} A cell that no premise covers gives a counterexample of two records. This is a
+table that satisfies every unique index, \sql{NOT NULL} and \sql{CHECK} constraint of the relation, and that still has
+two rows in the query's scope that agree on the key. When our prover refuses a rewrite, its search ends at such a pair.
+It does not report the pair yet, but a planner could show it as the reason. On the real catalogs of
+Section~\ref{sec:exp-decisions}, where the prover decides implication exactly, every rewrite it refuses has such a
+witness. For 167 \sql{DISTINCT}s that a planner ignoring the \nul\ semantics would remove, the data itself contains one.
+
+
+\paragraph*{What the theory says to the planner} In the schemas of Section~\ref{sec:schemas}, all 168 predicates are
+conditions with one template, and the hard cases do not arise. We took each of the 1{,}480 unique indexes that are not
+primary keys and have keys of plain columns. We used it as the goal, with the other unique indexes of its table as
+$\Sig$, under both semantics. Of these 2{,}960 implications, 2{,}953 needed one canonical pair per pair of templates, as
+in the case of Theorem~\ref{thm:pos}. This is an observation about the instances, not membership in that case, since the count
+includes all 34 implications on the six tables with \sql{<>} predicates. Each of the other 7, all with $\Ueq{}$, had a single column with
+more than one maximal state. A decision took $0.04$\,ms in the median and at most $2.9$\,ms, in Python. Under the side
+conditions, group-shaped rewrites are hard only through nullable grouping columns that the query leaves open. For a
+\sql{DISTINCT} over \sql{NOT NULL} columns, or a \sql{GROUP BY} whose block filters its columns with \sql{IS NOT NULL} or
+equalities, $b=0$. Finally, the 84 indexes on plain columns that only exclude \nul\ keys are recognised as the ordinary
+keys they are, which PostgreSQL ignores because they are partial.
 
 %=====================================================================
 \section{A Uniqueness Prover for the Planner}\label{sec:planner}
 %=====================================================================
 
 \paragraph*{Interface} PostgreSQL's planner asks for uniqueness in one function,
-\sql{relation\_has\_unique\_index\_for(root, rel, clauses, \ldots)}, plus its cheap pre-check
-\sql{rel\_supports\_distinctness} and the \sql{GROUP BY} pass \sql{remove\_useless\_groupby\_columns}.
-Each asks whether a base relation \sql{rel} is unique on the columns equated by
-\sql{clauses}. Our prover replaces the line that skips partial indexes by a call
-\[
-\textsc{Unique}(\Sig_{\mathit{rel}}, \NN_{\mathit{rel}}, C_{\mathit{rel}}, K, \mathit{mode})
-\]
-where $\Sig_{\mathit{rel}}$ are all unique indexes of the relation with translatable predicates,
-$C_{\mathit{rel}}$ is the condition of the relation's \emph{base} restrictions
-(\sql{baserestrictinfo})---never join clauses, which removes the cause of bug \#17975---and
-$\mathit{mode}$ is $\U{}$ for the join-shaped callers and $\Ueq{}$ for the \sql{GROUP BY} pass.
+\sql{relation\_has\_unique\_index\_for(root, rel, clauses, \ldots)}. It also has a cheap pre-check,
+\sql{rel\_supports\_distinctness}, and a pass that removes grouping columns, \sql{remove\_useless\_groupby\_columns}. Each
+of them asks whether a base relation \sql{rel} is unique on the columns that \sql{clauses} equate. Our prover replaces the
+line that skips partial indexes with a call
+$\textsc{Unique}(\Sig_{\mathit{rel}}, \NN_{\mathit{rel}}, C_{\mathit{rel}}, K, \mathit{mode})$.
+Here $\Sig_{\mathit{rel}}$ is the set of all unique indexes of the relation whose predicates can be translated.
+$C_{\mathit{rel}}$ is the condition of the relation's \emph{base} restrictions (\sql{baserestrictinfo}). It never includes
+join clauses, which removes the cause of bug \#17975. The $\mathit{mode}$ is $\U{}$ for the join-shaped callers and
+$\Ueq{}$ for the \sql{GROUP BY} pass.
 
-\paragraph*{Translation} Index predicates are translated exactly or the index is ignored (in
-the schemas of Section~\ref{sec:schemas}, only indexes with expression keys are); query
-restrictions are over-approximated: a range comparison such as \sql{x > 3}, or any other
-conjunct the language cannot express, is dropped, which only makes the scope larger and so keeps
-every answer sound; reading it as $\top$ on its column would not, as \sql{x IS DISTINCT FROM 3}
-admits \nul.
+\paragraph*{Translation} An index predicate is translated exactly, or the index is ignored. In the schemas of
+Section~\ref{sec:schemas}, only the indexes with expression keys are ignored. Query restrictions may be translated with
+a larger scope than they have. A range comparison such as \sql{x > 3}, or any other conjunct that the language cannot
+express, is dropped. This only makes the scope larger, so every answer stays sound. Reading such a conjunct as $\top$
+on its column would not be sound, because \sql{x IS DISTINCT FROM 3} admits \nul.
 
-
-\paragraph*{Decision} The prover runs the general procedure, which needs one canonical
-pair per pair of templates in the case of Theorem~\ref{thm:pos}. Otherwise it searches the column
-states depth first, keeping maximal feature sets only, and answers ``not proven'' after $10^5$
-nodes, which loses proofs but never soundness. On one relation it is thus exact for the indexes
-it translates until the search gives up; the premise filter and template limit below, and the
-rules for joins, which are sufficient but not complete, lose further proofs, never soundness.
-
+\paragraph*{Decision} The prover runs the general procedure of Section~\ref{sec:reasoning}. In the case of
+Theorem~\ref{thm:pos}, this needs one canonical pair per pair of templates. Otherwise the prover searches the states of
+the columns depth first, keeping only maximal sets of features. It answers ``not proven'' after $10^5$ nodes, which loses
+proofs but never soundness. On one relation, the prover is thus exact for the indexes it translates, unless the search
+gives up. The premise filter and the template limit described below, and the join rules, which are sufficient but not
+complete, lose further proofs. None of these losses affects soundness.
 
 \paragraph*{Rewrites} Table~\ref{tab:rewrites} lists the rewrites and their goals.
 \begin{table}[t]
@@ -694,62 +740,66 @@ Self-join elimination (not yet hooked) & $C:\U{K}$ \\
 \\[2pt]{\footnotesize $^*$ also over joins\quad $^\dagger$ only with \sql{enable\_conditional\_unique\_costing}}
 \end{table}
 
-\paragraph*{Implementation} We implemented the prover in PostgreSQL~18.6: one new file of
-1{,}683 lines of C, 38 changed lines in six planner files, and two settings:
-\sql{enable\_conditional\_unique} and \sql{enable\_conditional\_unique\_costing}, off by default,
-which lets a proof over a filtered index also mark a join \sql{Inner Unique}: the executor then
-stops the inner scan after the first match and the planner costs the join as one-to-one, physical
-choices that can hurt before data is cached (Section~\ref{sec:exp-gain}). When no unique index without predicate settles a
-question, \sql{relation\_has\_unique\_index\_ext} asks the prover. This one test serves left-join
-removal, inner-unique joins, semi-join reduction and the unique-ification of \sql{IN}
-sub-queries; \sql{rel\_supports\_distinctness} accepts partial unique indexes. A second
-\sql{GROUP BY} pass runs after the restriction clauses are distributed, before pathkeys are
-computed, with a $\Ueq$ goal, and skips relations that an outer join can null (a null-extended
-row agrees with any row whose key is \nul). It also uses keys without predicates, whose columns the
-restriction may fix: \sql{WHERE ns = 0} makes \sql{UNIQUE (ns, title)} a key on \sql{title}. The goal's condition comes from the relation's own
-restriction clauses, never from join clauses, which caused bug \#17975. Soundness rests on three
-translation rules. An untranslatable conjunct is dropped from the goal, which only strengthens
-it, and makes an index unusable as a premise. Every equality belongs to the default btree
-operator family of the column's type, cross-type members included (\sql{int2 = int4}, as
-generated for ORM enum columns), under a deterministic collation, and an index may use any
-operator class with the same equality (\sql{text\_pattern\_ops}, say). Constants are identified
-by the family's equality, not by their representation. Templates are limited to 16, and an index is a premise only if its
-key lies in the goal's key or in the columns the goal fixes to one constant or to \nul; dropping
-premises loses proofs, never soundness. Which indexes can serve as premises at all (no
-expressions, the default equality on every key column) needs catalog lookups but not the
-question, so it is computed once per relation and planning run and kept in a new field of
-\sql{RelOptInfo}; only the premise filter and the translation of the surviving predicates are
-done per question. PostgreSQL removes no \sql{DISTINCT} over a base
-relation, with or without a predicate; we add the rewrite. Before \sql{DISTINCT} paths are built,
-the prover is asked for a $\Ueq$ goal on the \sql{DISTINCT} columns if the query reads a single
-base relation and has no \sql{DISTINCT ON}, grouping, aggregates, window functions, set
-operations or set-returning functions in its target list. A proof means that the rows reaching
-\sql{DISTINCT} are already distinct, and the operator is dropped. \sql{DISTINCT} items other than
-plain columns are ignored: they can only make rows more distinct.
+\paragraph*{Implementation} We implemented the prover in PostgreSQL~18.6 as one new file of 1{,}683 lines of C and
+38 changed lines in six planner files. Two settings, both off by default, control it: \sql{enable\_conditional\_unique} turns the prover on,
+and \sql{enable\_conditional\_unique\_costing} also lets a proof over a filtered index mark a join as
+\sql{Inner Unique}. This changes physical choices. The executor stops the
+inner scan after the first match, and the planner costs the join as one-to-one. Before the data is cached, this can make
+queries slower (Section~\ref{sec:exp-gain}).
 
-\paragraph*{CHECK constraints} A validated, enforced \sql{CHECK} constraint is a fact about every
-row, so it narrows the goal's scope as a restriction does. A row passes \sql{CHECK} $c$ when $c$ is
-true or \nul, so the scope is narrowed by $c$ or by ``a column that $c$ compares is \nul''; columns
-that $c$ only tests with \sql{IS [NOT] NULL} or \sql{IS TRUE/FALSE} cannot make it \nul.
-MusicBrainz's \sql{CHECK ((locale IS NULL AND primary\_for\_locale IS FALSE) OR locale IS NOT
-NULL)}, for instance, gives every primary alias a locale. \sql{NOT VALID} and \sql{NOT ENFORCED}
-constraints, which old rows may violate, are ignored.
+\paragraph*{Where the prover is asked} When no unique index without a predicate settles a question,
+\sql{relation\_has\_unique\_index\_ext} asks the prover. This one test serves left-join removal, inner-unique joins,
+semi-join reduction, and the removal of duplicates from \sql{IN} subqueries. In addition, \sql{rel\_supports\_distinctness}
+now accepts partial unique indexes.
 
-\paragraph*{Through joins} Uniqueness also carries through joins. Call a relation
-\emph{determined} by the \sql{DISTINCT} or \sql{GROUP BY} columns $G$ if its part of every
-joined row, one of its rows or nulls, is a function of the values of $G$. A relation is determined
-if its rows passing its restrictions are unique, nulls equal ($\Ueq$), on its columns in $G$ that
-no outer join can null, or unique ($\U$) on columns equated with columns of determined relations,
-by an equivalence class with two or more members or by an outer join clause read from a
-determined outer side; equality is strict, so $\U$ suffices there. Inner sides of semi- and
-anti-joins add no columns to a joined row and need not be determined, but their columns
-determine nothing, and a block with a full join is left alone. A relation on the nullable side of a left join is determined only once its
-whole outer side is, because the \sql{ON} clause decides whether a row is null-extended and may
-read any outer column. Single-member equivalence classes, which the planner builds for sort keys,
-equate nothing. If every other relation is determined, \sql{DISTINCT} is dropped, and so is a
-\sql{GROUP BY} without aggregates; with aggregates, the \sql{GROUP BY} columns of a relation
-that the other columns determine are dropped, as long as one remains. The pass uses keys without
-predicates too, which stock PostgreSQL uses for \sql{GROUP BY} within one relation only.
+A second pass over \sql{GROUP BY} runs after the restriction clauses are distributed and before pathkeys are computed.
+It asks for a $\Ueq$ goal. It skips relations that an outer join can null, because a null-extended row agrees with any row
+whose key is \nul. It also uses keys without predicates whose columns the restriction may fix. For example,
+\sql{WHERE ns = 0} makes \sql{UNIQUE (ns, title)} a key on \sql{title}.
+
+PostgreSQL removes no \sql{DISTINCT} over a base relation, with or without a predicate, so we add this rewrite. Before
+the paths for \sql{DISTINCT} are built, the prover is asked for a $\Ueq$ goal on the \sql{DISTINCT} columns. This happens
+if the query reads a single base relation and has no \sql{DISTINCT ON}, grouping, aggregates, window functions, set
+operations, or set-returning functions in its target list. A proof means that the rows reaching \sql{DISTINCT} are already
+distinct, so the operator is dropped. \sql{DISTINCT} items other than plain columns are ignored, because they can only make
+rows more distinct. In every case, the goal's condition comes from the relation's own restriction clauses, never from join
+clauses.
+
+\paragraph*{Safeguards in translation} Soundness rests on three rules. First, a conjunct that cannot be translated is
+dropped from the goal, which only enlarges its scope. It also makes an index unusable as a premise. Second, every
+equality must belong to the default btree operator family of the column's type, under a deterministic collation.
+Cross-type members of the family count too, such as \sql{int2 = int4}, which ORMs generate for enum columns. An index may
+use any operator class with the same equality, for example \sql{text\_pattern\_ops}. Third, constants are identified by
+the family's equality, not by how they are written. To keep the search small, templates are limited to 16. An index is a
+premise only if its key lies in the goal's key, or in the columns that the goal fixes to one constant or to \nul. Dropping
+premises loses proofs, but never soundness. Which indexes can serve as premises at all depends on catalog lookups but not
+on the question: an index qualifies if it has no expressions and uses the default equality on every key column. This set
+is therefore computed once per relation and planning run, and kept in a new field of \sql{RelOptInfo}.
+
+\paragraph*{CHECK constraints} A validated and enforced \sql{CHECK} constraint is a fact about every row. It
+therefore narrows the goal's scope, as a restriction does. A row passes a \sql{CHECK} constraint $c$ when $c$ is true or \nul.
+The scope is therefore narrowed by the disjunction of $c$ and ``some column that $c$ compares is \nul''. A column that $c$ only tests with
+\sql{IS [NOT] NULL} or \sql{IS TRUE/FALSE} cannot make $c$ \nul. For example, MusicBrainz's \sql{CHECK ((locale IS NULL
+AND primary\_for\_locale IS FALSE) OR locale IS NOT NULL)} gives every primary alias a locale. Constraints marked
+\sql{NOT VALID} or \sql{NOT ENFORCED} may be violated by old rows, so the prover ignores them.
+
+\paragraph*{Through joins} Uniqueness also carries through joins. Let $G$ be the \sql{DISTINCT} or \sql{GROUP BY}
+columns. We call a relation \emph{determined} by $G$ if its part of every joined row is a function of the values of $G$.
+This part is one of its rows, or \nul s. A relation is determined in two cases. In the first, its rows that
+pass its restrictions are unique, with \nul s equal ($\Ueq$), on its columns in $G$ that no outer join can null. In the
+second, they are unique ($\U$) on columns equated with columns of determined relations. The equality must come from an
+equivalence class with two or more members, or from an outer join clause read from a determined outer side. Equality is
+strict, so $\U$ suffices in the second case.
+
+Some relations need special rules. Inner sides of semi- and anti-joins add no columns to a joined row. They need not be
+determined, but their columns determine nothing. A block with a full join is left alone. A relation on the nullable side
+of a left join is determined only once its whole outer side is determined. The reason is that the \sql{ON} clause decides
+whether a row is null-extended, and it may read any outer column. The planner builds equivalence classes with a single
+member for sort keys, and these equate nothing.
+
+If every other relation is determined, \sql{DISTINCT} is dropped, and so is a \sql{GROUP BY} without aggregates. With
+aggregates, the \sql{GROUP BY} columns of a relation that the other columns determine are dropped, as long as one column
+remains. The pass also uses ordinary keys, which stock PostgreSQL uses for \sql{GROUP BY} within one relation only.
 \begin{lemma}[Determination]\label{lem:det}
 Let the relations of a query block be joined by inner, left, semi- and anti-joins, and let the
 database satisfy the unique indexes, \sql{NOT NULL} and validated \sql{CHECK} constraints of
@@ -759,40 +809,38 @@ or \nul s in both. If every relation outside the inner sides of semi- and anti-j
 determined, no two rows of the join agree on $G$.
 \end{lemma}
 
-\noindent The proof is by induction on the order in which relations become determined; each
-rule supplies one step, and the side conditions are exactly what the step needs
-\ifextended(Appendix~\ref{app:det})\else\cite{EXT}\fi. Deriving the keys of a join from those of its inputs is classical~\cite{PL94,Dar92,Pau00}; what
-filtered keys add is that the premise of each step holds only under the relation's own
-restrictions, and that the step's semantics changes along the way: $\Ueq$ where a relation is
-entered through the grouping columns, $\U$ where it is entered through an equality. The planner
-adds traps of its own. Our differential testing caught two errors in our first version
-(single-member classes read as equalities, an outer join entered from a partly known outer side),
-and TPC-DS caught a third (semi-join columns read as fixed values); Section~\ref{sec:exp-sound}
-reports how the final version and these mutants fare.
+\noindent The proof is by induction on the order in which relations become determined. Each rule supplies one step,
+and the side conditions are exactly what the step needs \ifextended(Appendix~\ref{app:det})\else\cite{EXT}\fi. Deriving
+the keys of a join from those of its inputs is classical~\cite{PL94,Dar92,Pau00}. Filtered keys add two things. The
+premise of each step holds only under the relation's own restrictions. The semantics of the step also changes along
+the way: $\Ueq$ where a relation is entered through the grouping columns, $\U$ where it is entered through an equality. The
+planner also has traps of its own. Our differential testing caught two errors in our first version: we read
+single-member classes as equalities, and we entered an outer join from a partly known outer side. TPC-DS caught a third:
+we read the columns of a semi-join as fixed values. Section~\ref{sec:exp-sound} reports how the final version and these
+mutants fare.
 
-\paragraph*{In a second optimiser} The prover is not tied to PostgreSQL. CockroachDB's optimiser
-removes joins, \sql{DISTINCT} and grouping columns and carries keys through joins, all from the
-functional dependencies of each expression, and leaves partial unique indexes out of them
-(Section~\ref{sec:systems}). We ported the prover to Go (793 lines) on CockroachDB~26.2.9, the newest release in its public
-repository, whose stock optimiser behaves as 26.3 in our probes, and call it, behind a session
-setting, where the dependencies of a filter over a table scan are built (4 changed lines in the
-optimiser, 31 for the setting): a key it proves is added as strict if it holds with \nul s equal
-and as lax if only with \nul s distinct, the two kinds CockroachDB already distinguishes. Filters
-that read another table stay in the join, so the prover sees base restrictions only. One
-gap is CockroachDB's own: a lax key of an inner relation does not become a strict key of a join
-whose equality makes it non-null, so the running example keeps its \sql{DISTINCT} unless
-\sql{user\_id} is \sql{NOT NULL}.
+\paragraph*{In a second optimiser} The prover is not tied to PostgreSQL. CockroachDB's optimiser removes joins,
+\sql{DISTINCT} and grouping columns, and carries keys through joins. It does all of this from the functional
+dependencies of each expression, and it leaves partial unique indexes out of them (Section~\ref{sec:systems}). We ported
+the prover to Go, in 793 lines, on CockroachDB~26.2.9, the newest release in its public repository, whose stock
+optimiser behaves like 26.3 in our tests. Behind a session setting, we call the prover where the dependencies of a
+filter over a table scan are built. This takes 4 changed lines in the optimiser and 31 for the setting. A key that the
+prover proves is added as strict if it holds with \nul s equal, and as lax if it holds only with \nul s distinct.
+CockroachDB already distinguishes these two kinds. Filters that read another table stay in the join, so the prover sees
+base restrictions only. One gap is CockroachDB's own. A lax key of an inner relation does not become a strict key of a
+join whose equality makes it non-null. The running example therefore keeps its \sql{DISTINCT} unless \sql{user\_id} is
+\sql{NOT NULL}.
 
 \ifextended
 %=====================================================================
 \section{Recommending Filtered Unique Indexes}\label{sec:discovery}
 %=====================================================================
 
-A filtered unique index that an application enforces only in code, or that nobody declared, can
-be recommended. A recommendation is a condition and a key. Conditions are cheap to propose from
-two sources: the schema (\sql{IS [NOT] NULL} on nullable columns, boolean values, the values of
-status-, type- and kind-like columns) and the workload (the atoms its queries apply to the
-table). Keys under a condition come from data, and there a reduction does the work.
+Some filtered unique indexes are enforced only in application code, and others are declared by nobody. Such indexes
+can be recommended. A recommendation consists of a condition and a key. Conditions are cheap to propose, and they come
+from two sources. The schema proposes \sql{IS [NOT] NULL} on nullable columns, boolean values, and the values of columns
+that look like a status, type or kind. The workload proposes the atoms that its queries apply to the table. Keys under a
+condition come from the data, and there a reduction does the work.
 
 \begin{proposition}[Reduction]\label{prop:reduce}
 For a condition $C$, the minimal keys $K$ such that $C:\U{K}$ (respectively $C:\Ueq{K}$) holds on
@@ -800,141 +848,168 @@ a table $r$ are the minimal unique column combinations of the records of $r$ tha
 after each \nul\ is replaced by a value of its own (respectively all \nul s by one value).
 \end{proposition}
 
-Any algorithm for unique column combinations~\cite{PN17,BBFNPS20} therefore discovers conditional
-keys, and the complexity carries over: whether a key of at most $k$ columns exists is NP-complete,
-and W[2]-complete in $k$, already for the empty condition~\cite{BFS22}, while the conditions of at
-most $a$ atoms are polynomially many for fixed $a$. Without such a bound the problem degenerates:
-conditions over the constants of $r$ can single out any set of rows, so the largest scope on which
-a key is unique is found by keeping one row per key value. The difficulty in practice is not
-search but \emph{accidental} keys, which hold on the data but not by design. A recommender
-should prefer conditions that the workload applies and keys that keep holding as the data
-changes. \ifextended Appendix~\ref{app:disc} \else The extended version~\cite{EXT} \fi gives
-the theory and two miners: one fixes the condition and follows the hybrid scheme
-of~\cite{PN17}, the other fixes the key and finds all valid conditions of at most two atoms in
-one pass over the pairs of records that agree on it.
+Any algorithm for unique column combinations~\cite{PN17,BBFNPS20} therefore discovers conditional keys, and the
+complexity carries over. Whether a key of at most $k$ columns exists is NP-complete, and W[2]-complete in $k$, already for
+the empty condition~\cite{BFS22}. For fixed $a$, there are polynomially many conditions of at most $a$ atoms. Without such
+a bound, the problem becomes trivial in an unhelpful way. Conditions over the constants of $r$ can single out any set of
+rows. So the largest scope on which a key is unique is found by keeping one row per value of the key. In practice, the
+difficulty is not the search but \emph{accidental} keys, which hold on the data but not by design. A recommender should
+prefer conditions that the workload applies, and keys that keep holding as the data changes.
+\ifextended Appendix~\ref{app:disc} \else The extended version~\cite{EXT} \fi gives the theory and two miners. One fixes
+the condition and follows the hybrid scheme of~\cite{PN17}. The other fixes the key and finds all valid conditions of at
+most two atoms, in one pass over the pairs of records that agree on the key.
 \fi
 
 %=====================================================================
 \section{Evaluation}\label{sec:experiments}
 %=====================================================================
 
-We ask whether the prover is sound (\ref{sec:exp-sound}), which decisions it makes that systems
-miss (\ref{sec:exp-decisions}), what it costs (\ref{sec:exp-cost}), what it gains
-(\ref{sec:exp-gain}), and where the keys we declare on Stack Exchange and TPC-DS come from
-(\ref{sec:exp-rec}). All runs used one core of an Apple M5 Max with 36\,GB of memory; PostgreSQL
-ran with default settings unless stated.\ifextended\else{} The patches, scripts and results, and how to
-obtain the data, are at \url{https://github.com/lshelloworld/conditional-unique}.\fi
+We ask five questions. Is the prover sound (Section~\ref{sec:exp-sound})? Which rewrites does it find that the
+systems miss (Section~\ref{sec:exp-decisions})? What does it cost (Section~\ref{sec:exp-cost})? What does it gain
+(Section~\ref{sec:exp-gain})? And where do the keys that we declare on Stack Exchange and TPC-DS come from
+(Section~\ref{sec:exp-rec})? All runs used one core of an Apple M5 Max with 36\,GB of memory. PostgreSQL ran with
+default settings unless stated otherwise.\ifextended\else{} The patches, scripts and results are at
+\url{https://github.com/lshelloworld/conditional-unique}, with instructions for obtaining the data.\fi
 
 \subsection{Soundness}\label{sec:exp-sound}
 
 
-\paragraph*{Regression and feature tests} With the setting off, all 231 regression tests of PostgreSQL~18.6
-pass; only the list of settings changes. With the setting on for every test, no result changes;
-the pass through joins drops 11
-\sql{GROUP BY}s and \sql{DISTINCT}s in the tests of aggregation and join removal, all correctly. With the \sql{Inner Unique} setting on as well, one more plan changes: a test that a partial index
-\sql{UNIQUE (id2) WHERE id2 IS NOT NULL} must not prove an inner join unique now gets
-\sql{Inner Unique}, which is correct, because the join on \sql{id2} admits only non-null values.
-Our own 35 feature tests compare plans and results with the setting off and on. They include the
-shape of bug \#17975, a predicate that holds only through a join clause, where the join is kept,
-the union of two per-status scopes, where it is kept as well, the running example of
-Fig.~\ref{fig:example} over inner, left, semi- and full joins, and \sql{CHECK} constraints that
-\nul s pass, that are \sql{NOT VALID} or \sql{NOT ENFORCED}, where nothing is removed, and keys
-without predicates whose columns a restriction fixes.
+\paragraph*{Regression and feature tests} With the setting off, all 231 regression tests of PostgreSQL~18.6 pass, and
+only the output that lists the settings changes. With the setting on for every test, no result changes. The pass through joins drops
+11 \sql{GROUP BY}s and \sql{DISTINCT}s in the tests of aggregation and join removal, all of them correctly. With the
+\sql{Inner Unique} setting on as well, one more plan changes. This test checks that the partial index \sql{UNIQUE (id2)
+WHERE id2 IS NOT NULL} does not make an inner join unique. The join now gets \sql{Inner Unique}, which is correct,
+because a join on \sql{id2} admits only values that are not \nul.
 
-\paragraph*{Differential testing} We generated 5{,}000 random schemas: 3--6 columns
-over small domains; 1--4 unique indexes, mostly partial, with random predicates over
-\sql{=}, \sql{<>}, \sql{IN}, \sql{NOT IN}, \sql{IS [NOT] NULL}, boolean columns, \sql{AND} and
-\sql{OR}; random \sql{NULLS NOT DISTINCT}; and data whose keys repeat freely outside the scopes.
-On these we ran 200{,}000 random queries in seven shapes: left, inner and semi-joins, a
-scope through a clause of the same join, and \sql{GROUP BY} over a table, an inner join and the nullable side of a
-left join. Each query ran with the setting off and on under random join and aggregation
-methods. 20{,}737 plans changed, among them 8{,}723 removed left joins, and no result
-changed. Ignoring the index predicates would have licensed 14{,}845 left-join removals, 5{,}269
-of them wrong on the data. The test has power: a mutant that ignores index predicates changed
-2{,}706 of 20{,}000 results. Proving \sql{GROUP BY} with $\U$
-instead of $\Ueq$ changed 232, and dropping both guards against outer-join nulling changed 3.
-Dropping either guard alone changed nothing, since the other one catches the case. Bug
-\#17975 itself needs an index predicate that only another join's clause implies, as in
-\sql{o JOIN t ON o.k = t.k JOIN u ON t.c = u.c} over \sql{UNIQUE (k) WHERE c IS NOT NULL}: on
-200{,}000 such queries the prover changed 6{,}713 plans and no result, while a mutant that,
-like PostgreSQL before 2023, accepts an index whose predicate the planner proved from any
-clause changed 442 of 20{,}000 results. A second run
-of 200{,}000 queries, \sql{SELECT DISTINCT} over a table or an inner join with a random scope,
-changed 27{,}809 plans, removed 26{,}331 \sql{DISTINCT}s, and changed no result; ignoring the
-index predicates would have removed 78{,}619, 23{,}796 of them wrongly, and proving
-\sql{DISTINCT} with $\U$ instead of $\Ueq$ changed 551 of 20{,}000 results. After the premise cache
-was added, 80{,}000 further queries of each of the two kinds changed no result.
-A third run tested uniqueness through joins: 200{,}000 queries with \sql{DISTINCT}, or
-\sql{GROUP BY} with and without \sql{count(*)}, over inner and left joins of two and three
-tables that all carry random unique indexes, \sql{ON} clauses that may read two outer tables,
-and a semi-join a third of the time. 30{,}011 plans changed, 3{,}031 \sql{DISTINCT}s and
-\sql{GROUP BY}s were dropped and 12{,}829 grouping keys shortened, and no result changed. Three
-mutants restore the errors of our first version: reading single-member classes as equalities
-changed 34 of 20{,}000 results, reading semi-join columns as fixed values (found on TPC-DS q35)
-changed 11, and entering an outer join from a partly known outer side changed none of 40{,}000,
-as it needs an undetermined outer row that decides a match; feature tests with such data catch
-the last two. Two final runs of 200{,}000 queries each, all shapes so far with 0--2 random
-\sql{CHECK} constraints per table (enforced, \sql{NOT ENFORCED}, or added \sql{NOT VALID} after
-rows that violate them), changed 44{,}887 and 31{,}088 plans and no result; reading a \sql{CHECK}
-as if \nul s failed it changed 120 of 20{,}000 results, and trusting unvalidated constraints 327. All these runs had the \sql{Inner Unique} setting on, which only adds to what the default does; under the
-default, 80{,}000 further queries of all shapes changed 14{,}351 plans and no result, and 80{,}000
-more after the single-table \sql{GROUP BY} pass was extended to tables without filtered indexes
-changed 13{,}862 plans and no result. The five main runs make up the 1{,}000{,}000 queries and
-154{,}532 changed plans of the introduction; with the further runs, that of bug \#17975 among them, no result changed on
-1{,}520{,}000.
+Our own 35 feature tests compare plans and results with the setting off and on. One test has the shape of bug
+\#17975, a predicate that holds only through a join clause, and there the join is kept. In another, the query's scope
+is the union of two scopes, one per status, and the join is kept as well. The tests also run the example of
+Fig.~\ref{fig:example} over inner, left, semi- and full joins. Further tests use \sql{CHECK} constraints that \nul s
+pass, or that are \sql{NOT VALID} or \sql{NOT ENFORCED}, and in these nothing is removed. The last tests use ordinary keys
+whose columns a restriction fixes.
+
+\paragraph*{Differential testing} We generated 5{,}000 random schemas. Each has 3 to 6 columns over small domains,
+and 1 to 4 unique indexes, most of them partial. The predicates are random combinations of \sql{=}, \sql{<>}, \sql{IN},
+\sql{NOT IN}, \sql{IS [NOT] NULL}, boolean columns, \sql{AND} and \sql{OR}, and some indexes use \sql{NULLS NOT DISTINCT}.
+The data repeat keys freely outside the scopes, because that is where unsound rewrites go wrong. We ran each random query
+with the setting off and on, under randomly chosen join and aggregation methods, and compared the two results as
+multisets.
+
+Table~\ref{tab:runs} lists the runs. The first run uses seven shapes of queries. Three are left, inner and semi-joins,
+and one has a scope established by a clause of the same join. The other three use \sql{GROUP BY} over a table, over an
+inner join, and over the nullable side of a left join. The runs through joins use two and three tables that all carry random indexes. Their \sql{ON}
+clauses may read two outer tables, and a third of the queries add a semi-join. The two runs with \sql{CHECK}s add up to two random
+\sql{CHECK} constraints per table. These are enforced, \sql{NOT ENFORCED}, or added as \sql{NOT VALID} after rows that
+violate them. No run changed a result.
+
+\begin{table}[t]\centering\footnotesize\setlength{\tabcolsep}{3pt}
+\caption{Differential testing: queries run with the prover off and on}\label{tab:runs}
+\begin{tabular}{@{}lrrr@{}}\toprule
+run & queries & plans changed & results\\\midrule
+joins and grouping, 7 shapes & 200{,}000 & 20{,}737 & 0\\
+\sql{DISTINCT} over a table or join & 200{,}000 & 27{,}809 & 0\\
+grouping through joins & 200{,}000 & 30{,}011 & 0\\
+all shapes with \sql{CHECK}s & 400{,}000 & 75{,}975 & 0\\\midrule
+\emph{main runs} & 1{,}000{,}000 & 154{,}532 & 0\\\midrule
+bug \#17975 shape & 200{,}000 & 6{,}713 & 0\\
+further runs & 320{,}000 & -- & 0\\\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]\centering\footnotesize\setlength{\tabcolsep}{3pt}
+\caption{Mutants, each removing one safeguard: results changed of 20{,}000 queries}\label{tab:mutants}
+\begin{tabular}{@{}lr@{}}\toprule
+mutant & results changed\\\midrule
+index predicates ignored & 2{,}706\\
+predicate from any clause (bug \#17975) & 442\\
+\sql{DISTINCT} proved with $\U$ instead of $\Ueq$ & 551\\
+\sql{GROUP BY} proved with $\U$ instead of $\Ueq$ & 232\\
+both outer-join guards dropped & 3\\
+single-member classes as equalities$^*$ & 34\\
+semi-join columns as fixed$^*$ & 11\\
+partly known outer side$^*$ & 0 of 40{,}000$^\dagger$\\
+\sql{CHECK} as if \nul s failed it & 120\\
+unvalidated \sql{CHECK}s trusted & 327\\\bottomrule
+\end{tabular}
+\\[2pt]{\footnotesize $^*$errors of our first version\quad $^\dagger$caught by a feature test. The semi-join error was found on TPC-DS q35.}
+\end{table}
+
+The test can detect errors. Ignoring the index predicates would have removed 14{,}845 left joins in the first run and
+78{,}619 \sql{DISTINCT}s in the second, of which 5{,}269 and 23{,}796 would have been wrong on the data. Table~\ref{tab:mutants} shows the mutants, each of which removes one
+safeguard. Bug \#17975 needs a predicate that only another join's clause implies, as in \sql{o JOIN t ON o.k = t.k JOIN
+u ON t.c = u.c} over \sql{UNIQUE (k) WHERE c IS NOT NULL}. None of the seven shapes generates such a query, but a run of that
+shape catches the bug. Dropping only one of the two guards against \nul s from outer joins changes nothing, because the
+other guard catches the case. The mutant that enters an outer join from a partly known outer side needs an outer row
+that is not determined and that decides a match. The feature tests supply such data. All main runs had the
+\sql{Inner Unique} setting on, which only adds to what the default does. Of the further 320{,}000 queries, 160{,}000 ran under the
+default setting, in two runs that changed 14{,}351 and 13{,}862 plans. In all, no result changed on 1{,}520{,}000 queries.
 
 \subsection{Decisions}\label{sec:exp-decisions}
 
-For nine tables of four real datasets (Hockey, VOC, NCVoter with 1.02M records, UniProt) we
-declared up to 40 conditional keys per table, mined with the key-first miner of
-Section~\ref{sec:discovery}, the way an application would, as filtered unique indexes only:
-\sql{NULLS NOT DISTINCT} for keys that hold with \nul\ equal to \nul, one index per \nul\ pattern
-on the key (Proposition~\ref{prop:translate}) for certain keys~\cite{KLZ15}, which hold whatever
-value a \nul\ stands for and so imply that, and no \sql{CHECK}s. That gives 32--166 indexes per table; 19
-UniProt indexes exceed PostgreSQL's 8\,kB index-row limit and were left out everywhere. We
-generated 1{,}454 left joins and 1{,}454 \sql{DISTINCT} queries whose predicates differ from the
-index predicates: a scope refined by an atom of another index, a key extended by a column, the
-union of two scopes, and random controls. We asked the real optimisers, reading their plans, and
-checked every decision on the data. Table~\ref{tab:x4} shows the result. Stock PostgreSQL~18
-uses no partial unique index. PostgreSQL~15.3, the last release before the fix for bug \#17975,
-removes no join either: it computes \sql{predOK} only after join removal. It marks 1{,}033 joins
-\sql{Inner Unique}, one index at a time. SQLite~3.54 removes 33 joins by syntactic predicate
-matching, and on 14 queries it fails with an internal planner error: two partial unique indexes
-on the same column with disjoint predicates and an \sql{OR} of both in the \sql{ON} clause are
-enough to trigger it. The patched planner removes 1{,}094 joins and agrees with implication from
-the whole catalog on all 1{,}454 queries; it gains 61 joins over one index at a time. Neither
-stock system removes \sql{DISTINCT} over a base table. The patched planner removes 171, none
-wrong, exactly those that implication from the whole catalog licenses, and 54 more than one
-index at a time. The other removable rewrites are removable on this data only: the catalog
-admits a table on which they are wrong, so no sound planner may apply them, and the patched
-planner is exact for what these catalogs imply. Ignoring the \nul\ semantics---using each
-index for \sql{DISTINCT} as if it had \sql{NULLS NOT DISTINCT}---licenses 1{,}033, of which
-167 are wrong---113 on NCVoter, where nulls-distinct keys over sparse name suffixes put records
-without a suffix into one \sql{DISTINCT} group. Combining indexes pays off on catalogs this dense;
-on the real workloads of Section~\ref{sec:exp-gain} it never mattered: a build that tries one
-premise index at a time, with restrictions, \sql{NOT NULL} and \sql{CHECK}s still combined, makes
-all 46 plan changes there that need a filtered key with the \sql{Inner Unique} setting on (37 on Stack
-Exchange, 3 in Discourse, 6 in application code). CockroachDB has no \sql{NULLS NOT DISTINCT},
-so there every key becomes nulls-distinct indexes, one per \nul\ pattern but the all-\nul\ one
-(Proposition~\ref{prop:translate}); this catalog implies fewer \sql{DISTINCT}s, and more left
-joins, as the 19 oversized UniProt indexes fit CockroachDB. On the same queries the stock optimiser removes 6 left joins, all joins that can never match, and no
-\sql{DISTINCT}; the port removes 1{,}146 of the 1{,}148 left joins and all 83 \sql{DISTINCT}s
-that the catalog implies, none wrong, against 1{,}087 and none one index at a time. The 2 it
-misses it refuses soundly, at the search limit or for want of a candidate key.
+\paragraph*{Setup} This experiment asks whether the prover finds every rewrite that a catalog implies and no other,
+and what the deployed systems find instead. We took nine tables from four real datasets: Hockey, VOC, NCVoter with
+1.02M records, and UniProt. On each table we declared up to 40 conditional keys, mined with the key-first miner of
+Section~\ref{sec:discovery}. We declared them as an application would, using filtered unique indexes only and no
+\sql{CHECK}s. Keys that hold with \nul\ equal to \nul\ became indexes with \sql{NULLS NOT DISTINCT}. Certain
+keys~\cite{KLZ15}, which hold whatever value a \nul\ stands for, imply this property. We declared them with one index per
+pattern of \nul s on the key (Proposition~\ref{prop:translate}). This gives 32 to 166 indexes per table. Nineteen UniProt
+indexes exceed PostgreSQL's limit of 8\,kB per index row, and we left them out everywhere.
 
-\paragraph*{On open data} From the USA and Singapore archives of LakeBench~\cite{LakeBench} we
-took 285 tables whose first rows show a status-like column, an identifier and partly \nul\
-columns; 217 of them (738--210{,}552 rows) have verified conditional keys, 6{,}917 in all, declared
-as 15{,}173 indexes, of which 119 exceed the index-row limit and are left out. On 29{,}408 left
-joins and as many \sql{DISTINCT}s generated as above, the patched planner agrees with implication
-from the whole catalog on every query: it removes 23{,}692 joins and 4{,}962 \sql{DISTINCT}s, none
-wrong, 1{,}483 and 963 more than one index at a time. Stock PostgreSQL removes none; SQLite removes
-4{,}192 joins and fails on 1{,}123 queries over 50 tables with the internal error above. Ignoring the
-\nul\ semantics removes 22{,}171 \sql{DISTINCT}s, 3{,}121 of them wrongly, on 133 of the 217 tables. On 40 of
-them, the CockroachDB port makes 4{,}535 of the 4{,}543 join removals and 225 of the 229
-\sql{DISTINCT} removals the catalog implies, none wrong, and refuses the other 12.
+We generated 1{,}454 left joins and 1{,}454 \sql{DISTINCT} queries whose predicates differ from the index predicates.
+Some refine a scope with an atom of another index, some extend a key by a column, some use the union of two scopes, and
+some are random controls. We asked the real optimisers, read their plans, and checked every decision on the data.
+Table~\ref{tab:x4} shows the result.
+
+\paragraph*{What the systems find} Stock PostgreSQL~18 uses no partial unique index. PostgreSQL~15.3 is the last
+release before the fix for bug \#17975, and it removes no join either, because it sets \sql{predOK} only after join
+removal. It does mark 1{,}033 joins as \sql{Inner Unique}, using one index at a time. SQLite~3.54 removes 33 joins by
+matching predicates word for word. On 14 queries it fails with an internal planner error. Two partial unique indexes with
+disjoint predicates on one column, and an \sql{OR} of both predicates in the \sql{ON} clause, trigger it.
+
+\paragraph*{What the prover finds} The patched planner removes 1{,}094 joins and agrees with implication from the whole
+catalog on all 1{,}454 queries. That is 61 joins more than one index at a time allows. Neither stock system removes
+\sql{DISTINCT} over a base table. The patched planner removes 171, none of them wrongly. These are exactly the removals
+that implication from the whole catalog allows, and 54 more than one index at a time allows. The caption of Table~\ref{tab:x4}
+also counts the rewrites that happen to be correct on this data. For each of the remaining ones, the catalog admits a
+table on which it is wrong, so no sound planner may apply it. A planner that ignores the \nul\ semantics uses each index for \sql{DISTINCT} as
+if it had \sql{NULLS NOT DISTINCT}. It allows 1{,}033 removals, and 167 of them are wrong. Of these, 113 are on NCVoter.
+There, keys with \nul s distinct over sparse name suffixes put all records without a suffix into one \sql{DISTINCT}
+group.
+
+\paragraph*{When combining indexes matters} Combining indexes pays off on catalogs this dense. On the real workloads of
+Section~\ref{sec:exp-gain}, it never mattered. We built a version of the prover that tries one premise index at a time,
+while still combining restrictions, \sql{NOT NULL} and \sql{CHECK}s. With the \sql{Inner Unique} setting on, it makes
+all 46 plan changes there that need a filtered key: 37 on Stack Exchange, 3 in Discourse, and 6 in application code.
+
+\ifextended
+\paragraph*{CockroachDB} CockroachDB has no \sql{NULLS NOT DISTINCT}. There, every key becomes indexes with \nul s
+distinct, one for each pattern of \nul s except the one where all key columns are \nul\
+(Proposition~\ref{prop:translate}). This catalog implies fewer \sql{DISTINCT} removals. It implies more left-join
+removals, because the 19 oversized UniProt indexes fit in CockroachDB. On the same queries, the stock optimiser removes 6
+left joins, all of them joins that can never match, and no \sql{DISTINCT}. The port removes 1{,}146 of the 1{,}148 left
+joins and all 83 \sql{DISTINCT}s that the catalog implies, none of them wrongly. One index at a time allows 1{,}087 and
+none. The port refuses the 2 that it misses, either at the search limit or because a candidate key is missing.
+
+\else
+\paragraph*{CockroachDB} CockroachDB has no \sql{NULLS NOT DISTINCT}, so we declared each key with one index per
+pattern of \nul s (Proposition~\ref{prop:translate}). On the same queries, the stock optimiser removes 6 left joins, all
+of them joins that can never match, and no \sql{DISTINCT}. The port removes 1{,}146 of the 1{,}148 left joins and all 83
+\sql{DISTINCT}s that this catalog implies, none of them wrongly. It refuses the other 2.
+
+\fi
+\paragraph*{On open data} From the USA and Singapore archives of LakeBench~\cite{LakeBench}, we took 285 tables whose
+first rows show a status-like column, an identifier, and columns that are partly \nul. Of these, 217 tables with 738 to
+210{,}552 rows have verified conditional keys, 6{,}917 in all. We declared them as 15{,}173 indexes, of which 119 exceed
+the limit on index rows and were left out. We generated 29{,}408 left joins and as many \sql{DISTINCT}s, as above. The
+patched planner agrees with implication from the whole catalog on every query. It removes 23{,}692 joins and 4{,}962
+\sql{DISTINCT}s, none of them wrongly. These are 1{,}483 and 963 more than one index at a time allows. Stock PostgreSQL
+removes none. SQLite removes 4{,}192 joins, and fails on 1{,}123 queries over 50 tables with the internal error
+described above. A planner that ignores the \nul\ semantics removes 22{,}171 \sql{DISTINCT}s, and 3{,}121 of these
+removals, on 133 of the 217 tables, are wrong. On 40 of the tables, the CockroachDB port makes 4{,}535 of the 4{,}543 join
+removals and 225 of the 229 \sql{DISTINCT} removals that the catalog implies. None of them is wrong, and it refuses the
+other 12.
 \begin{table}[t]\centering\small\setlength{\tabcolsep}{4pt}
-\caption{Rewrites licensed (wrong) on catalogs of filtered unique indexes only: 1{,}454 left
+\caption{Rewrites allowed (wrong) on catalogs of filtered unique indexes only: 1{,}454 left
 joins (1{,}208 removable on the data) and 1{,}454 \sql{DISTINCT}s (985 removable).}\label{tab:x4}
 \begin{tabular}{@{}lrr@{}}\toprule
 decider & left join & \sql{DISTINCT}\\\midrule
@@ -951,33 +1026,34 @@ one at a time, \nul s ignored (model) & 1{,}033 & 1{,}033 (167)\\\bottomrule
 
 \subsection{Cost}\label{sec:exp-cost}
 
-On the 97 TPC-DS queries that PostgreSQL can plan (scale factor~1), with the five current-version
-business keys declared as partial unique indexes, planning took $0.14$\,ms in the median and the
-prover added $0.026$\,ms in the median, a fifth of it, and $0.29$\,ms at most (medians of 15 runs), most of it in
-the pass through joins, which runs for every query that groups or de-duplicates. As a stress
-test we declared the keys mined on the dimension tables that hold at scale factors 1 and
-10 (Section~\ref{sec:exp-rec}), all 3{,}996 of the 4{,}002 that a unique index can state, 4{,}001 indexes with the five, up to 1{,}771 indexes on one table. Planning then took $1.5$\,ms in the median without the
-prover, and the prover added $0.15$\,ms in the median, a tenth, and $2.8$\,ms at most; the 95th
-percentile of the ratio of planning times was $2.4$. Without the premise cache of
-Section~\ref{sec:planner} the maximum was $45$\,ms, on queries that join \sql{item} with its
-948 indexes and plan in 2--8\,ms without the prover, and without the premise filter it was
-$830$\,ms. Two TPC-DS plans changed, q46 and q68, whose \sql{GROUP BY} loses \sql{ca\_city} of a
-customer address joined on its primary key; no filtered key changed a plan, for the reason given in
-Section~\ref{sec:exp-gain}.
+We measured planning time on the 97 TPC-DS queries that PostgreSQL can plan, at scale factor~1, with the five
+business keys of current versions declared as partial unique indexes. Planning took $0.14$\,ms in the median. The prover
+added $0.026$\,ms in the median, about a fifth, and $0.29$\,ms at most, as medians of 15 runs. Most of this time goes to
+the pass through joins, which runs for every query that groups or removes duplicates.
+
+As a stress test, we also declared the keys mined on the dimension tables that hold at scale factors 1 and 10
+(Section~\ref{sec:exp-rec}). A unique index can state 3{,}996 of these 4{,}002 keys, and we declared all of them. With
+the five keys above, this gives 4{,}001 indexes, and up to 1{,}771 on one table. Planning then took $1.5$\,ms in the median
+without the prover. The prover added $0.15$\,ms in the median, about a tenth, and $2.8$\,ms at most. In the 95th
+percentile, planning with the prover took $2.4$ times as long as without it. Without the premise cache of
+Section~\ref{sec:planner}, the maximum was $45$\,ms, on queries that join \sql{item} with its 948 indexes and plan in 2 to
+8\,ms without the prover. Without the premise filter, the maximum was $830$\,ms. Two TPC-DS plans changed, q46 and q68.
+Their \sql{GROUP BY} loses \sql{ca\_city} of a customer address that is joined on its primary key. No filtered key changed a
+plan, for the reason given in Section~\ref{sec:exp-gain}.
 
 \subsection{Gains}\label{sec:exp-gain}
 
-Table~\ref{tab:workloads} summarises the workloads by who wrote their queries. For each it gives
-the queries that plan, those that name a table with a filtered unique index together with the
-columns of its predicate (for SEDE, the stricter count of queries in which a table's own
-restriction implies the predicate), the plans that change with the prover on (in parentheses, those
-that change only if the filtered indexes are declared), and the speed-up of the changed queries that take over 1\,ms
-(medians of ten rounds alternating the setting, for SEDE with the data cached; for soft delete
-medians of five runs after two warm-ups; through views one run after a warm-up), all under the
-default. The \sql{Inner Unique} setting changes 24 more plans on Stack Exchange and one more in Discourse, all
-through filtered keys, and two over MusicBrainz. Every changed query returned the same result,
-compared in one transaction and without a trailing \sql{LIMIT}, whose ties a shorter key may
-break differently.
+Table~\ref{tab:workloads} groups the workloads by who wrote their queries. For each workload, the table gives four
+numbers. The first is the queries that PostgreSQL can plan. The second counts the queries that name a table
+with a filtered unique index together with the columns of its predicate. For SEDE we give a stricter count, of the
+queries in which a table's own restriction implies the predicate. The third is the number of plans that change with the
+prover on. In parentheses are the changes that occur only if the filtered indexes are declared. The last column gives
+the speed-up of the changed queries that take more than 1\,ms. We report medians of ten rounds that alternate the
+setting, with the data cached for SEDE. For soft deletion we report medians of five runs after two warm-up runs, and for
+the views one run after a warm-up run. All timings are under the default setting. The \sql{Inner Unique} setting changes
+24 more plans on Stack Exchange and one more in Discourse, all through filtered keys, and two over MusicBrainz. Every
+changed query returned the same result, compared in one transaction and without a trailing \sql{LIMIT}, since a
+shorter grouping key may break ties differently.
 
 \begin{table}[t]\centering\scriptsize\setlength{\tabcolsep}{2.5pt}
 \caption{Workloads by who wrote the queries}\label{tab:workloads}
@@ -1000,74 +1076,102 @@ MusicBrainz consumers & us & 10 & 10 & 7 (7) & $1.15$--$4.94$\\\bottomrule
 \end{tabular}
 \end{table}
 
-\paragraph*{Application code} Code written for an application rarely reads filtered keys by
-their scopes. Of the
-325 code sites that read a table with one in seven applications (with the SQL ActiveRecord
-generates), 221 are point queries, upserts and uniqueness validations: the indexes serve
-integrity first. On generated data every changed query runs in under 1\,ms except one Chatwoot query
-($0.93\times$). The MusicBrainz server picks a primary alias in its own code, and ListenBrainz
-reaches artists by identifier. Discourse's administrators join e-mail addresses on
-\sql{primary} in 22 reports, for every one of which the prover proves the join unique, yet only
-2 plans change because of it (3 with the \sql{Inner Unique} setting): the reports de-duplicate over common
-table expressions, expressions or aggregates that no base-table key reaches; 27 of the 29 plan
-changes there come from primary keys carried through joins. dbt materialises its models, so the
-planner sees their joins once, and all 12 joins to current-version scopes fetch columns. TPC-DS
-declares current-version keys but never selects current versions, and the 146 queries of
-STATS-CEB~\cite{STATSCEB} select a recommended scope in 40 but count over joins on non-key columns. The workloads also exposed
-two translation gaps, now closed: \sql{smallint} enum columns compared with \sql{integer}
-constants (GitLab) and indexes with \sql{text\_pattern\_ops} (Mastodon). Users who query
-their own copy of MusicBrainz are no different: the 15 queries posted on the MetaBrainz forum
-that plan name no scope, and none changes plan.
+\paragraph*{Application code} Application code rarely filters on the scope of a filtered key. In
+seven applications we found 325 places in the code that read a table with a filtered key, including the SQL that
+ActiveRecord generates. Of these, 221 are point queries, upserts and uniqueness validations, so the indexes serve
+integrity first. On generated data, every changed query runs in less than 1\,ms, except one Chatwoot query
+($0.93\times$). The MusicBrainz server picks a primary alias in its own code, and ListenBrainz reaches artists by their
+identifiers. Discourse's administrators join e-mail addresses on \sql{primary} in 22 reports. The prover proves the join
+unique in every one of them, yet only 2 plans change because of it, or 3 with the \sql{Inner Unique} setting. The reports
+remove duplicates over common table expressions, expressions or aggregates that no key of a base table reaches. Of the
+29 plan changes there, 27 come from primary keys carried through joins. dbt materialises its models, so the planner sees
+their joins only once. All 12 joins to scopes of current versions also fetch columns. TPC-DS declares keys of current
+versions but never selects current versions. In 40 of its 146 queries, STATS-CEB~\cite{STATSCEB} selects a recommended
+scope, but it counts over joins on columns that are not keys. The workloads also exposed two gaps in translation, which
+we have closed: \sql{smallint} enum columns compared with \sql{integer} constants (GitLab), and indexes with
+\sql{text\_pattern\_ops} (Mastodon). Users of their own MusicBrainz copies behave no differently: the 15 plannable queries posted on the
+MetaBrainz forum name no scope, and none of their plans changes.
 
-\paragraph*{Queries written against the data} These filter on the scopes more often. The SEDE
-corpus~\cite{SEDE} holds 12{,}023 queries that users of the Stack Exchange Data Explorer wrote
-against the schema of Section~\ref{sec:exp-rec}; 6{,}578 translate from T-SQL and plan on the
-\sql{stats.stackexchange.com} data with the 56 filtered unique indexes our recommender proposed
-(Section~\ref{sec:exp-rec}). A third mention a table with such an index and its predicate columns;
-in 555 the table's own restriction implies the predicate, most often users with a location, accepted
-answers, close events and duplicate links. Under the default the prover changes 118 plans: 105 with primary keys alone, through joins or
-in \sql{DISTINCT} removal, and 13 because of a recommended key. With 4\,GB of shared buffers,
-which hold the 2.8\,GB of data, 15 of the 104 changed queries that take over 1\,ms run more than
-$1.1\times$ faster (up to $3.30\times$), all through primary keys, and 1 more than $1.1\times$
-slower, taking 13\,ms instead of 5; the 10 timed changes through a filtered key run at
-$0.91$--$1.07\times$. With PostgreSQL's default of 128\,MB, 10 run faster and 4 slower. The \sql{Inner Unique} setting changes 24 more
-plans, 142 in all and 37 through a recommended key: 28 through such a restriction, one through a
-restriction that the planner derives from equalities with a constant (\sql{PostHistoryTypeId =
-Pt.Id = 2}), and 8 through joins on the accepted answer, whose key excludes only \nul\ keys: an
-unconditional key under $\U{}$, which PostgreSQL ignores for being partial. With the data cached,
-8 of the 32 timed changes through a filtered key are then faster (up to $1.67\times$) and 3 slower
-(down to $0.88\times$); at 128\,MB, 13 of all changed queries run faster and 15 slower. The slower
-ones are physical choices the cost model makes with the new knowledge, a hash join instead of a
-merge join over an index, or, where a \sql{GROUP BY} goes and rows need no longer arrive in key
-order, a sequential scan instead of an index scan; with the data out of the cache these choices
-cost, with it they mostly do not. On Stack Exchange, the recommended keys pay off through join
-costing only; whether that is worth its risk depends on the cache, so
-\sql{enable\_conditional\_unique\_costing} leaves it to the administrator.
+\ifextended
+\paragraph*{Queries written against the data} Users who write queries against the data filter on the scopes more
+often. The SEDE corpus~\cite{SEDE} holds 12{,}023 queries that users of the Stack Exchange Data Explorer wrote against
+the schema of Section~\ref{sec:exp-rec}. Of these, 6{,}578 translate from T-SQL and can be planned on the
+\sql{stats.stackexchange.com} data with the 56 filtered unique indexes that our recommender proposed
+(Section~\ref{sec:exp-rec}). A third of them mention a table with such an index together with the columns of its
+predicate. In 555, the table's own restriction implies the predicate. Most often these are users with a location,
+accepted answers, close events and duplicate links. Under the default setting, the prover changes 118 plans. Of these,
+105 use primary keys alone, carried through joins or removing \sql{DISTINCT}, and 13 use a recommended key.
 
+We timed the changed queries that take more than 1\,ms. With 4\,GB of shared buffers, which hold the 2.8\,GB of data,
+15 of these 104 queries run more than $1.1\times$ faster, up to $3.30\times$, all through primary keys. One runs more
+than $1.1\times$ slower, taking 13\,ms instead of 5. The 10 timed changes through a filtered key run at $0.91$ to
+$1.07\times$. With PostgreSQL's default of 128\,MB of shared buffers, 10 queries run faster and 4 slower.
+
+The \sql{Inner Unique} setting changes 24 more plans, 142 in all, and 37 of them through a recommended key. Of these
+37, 28 use a restriction to the key's scope directly. One uses a restriction that the planner derives from equalities with a constant
+(\sql{PostHistoryTypeId = Pt.Id = 2}). The other 8 use joins on the accepted answer. That key excludes only \nul\ keys, so
+under $\U{}$ it is an ordinary key, which PostgreSQL ignores because the index is partial. With the data cached, 8 of the
+32 timed changes through a filtered key are then faster, up to $1.67\times$, and 3 are slower, down to $0.88\times$. At
+128\,MB, 13 of all changed queries run faster and 15 slower. The slower ones result from physical choices that the cost
+model makes with the new knowledge. It picks a hash join instead of a merge join over an index. Or, where a \sql{GROUP BY}
+disappears and rows no longer need to arrive in key order, it picks a sequential scan instead of an index scan. These
+choices are costly when the data is not cached, and mostly cheap when it is. On Stack Exchange, the recommended keys pay
+off only through join costing. Whether that is worth the risk depends on the cache, so we leave
+\sql{enable\_conditional\_unique\_costing} to the administrator.
+
+\else
+\paragraph*{Queries written against the data} Users who write queries against the data filter on the scopes more
+often. The SEDE corpus~\cite{SEDE} holds 12{,}023 queries that users of the Stack Exchange Data Explorer wrote. Of these,
+6{,}578 translate from T-SQL and can be planned on the \sql{stats.stackexchange.com} data with the 56 filtered unique
+indexes that our recommender proposed (Section~\ref{sec:exp-rec}). In 555 of them, a table's own restriction implies an
+index predicate. Under the default setting, the prover changes 118 plans. Of these, 105 use primary keys, carried through
+joins or removing \sql{DISTINCT}, and 13 use a recommended key.
+
+We timed the changed queries that take more than 1\,ms. With 4\,GB of shared buffers, which hold the 2.8\,GB of data,
+15 of these 104 queries run more than $1.1\times$ faster, up to $3.30\times$, all through primary keys. One runs more
+than $1.1\times$ slower. The 10 timed changes through a filtered key run at $0.91$ to $1.07\times$. With PostgreSQL's
+default of 128\,MB, 10 queries run faster and 4 slower. The \sql{Inner Unique} setting lets a filtered key mark a join as
+one-to-one. It changes 24 more plans, and 37 plans in all now use a recommended key. With the data cached, 8 of the 32
+timed ones are then faster, up to $1.67\times$, and 3 are slower. At 128\,MB, however, 13 of all changed queries run faster
+and 15 slower. The cost model now picks hash joins or sequential scans, which pay off only when the data is cached. We
+therefore leave this setting to the administrator.
+
+\fi
+\ifextended
 Astronomers who query the Sloan Digital Sky Survey through SkyServer~\cite{SkyServer} filter on scopes all the
-time, as its schema is built on them: \sql{PhotoPrimary} is \sql{PhotoObjAll} with \sql{mode = 1}
-and documented to hold one row per object on the sky, \sql{UNIQUE (thingID) WHERE mode = 1};
-\sql{SpecObj} is \sql{SpecObjAll} with \sql{sciencePrimary = 1}. Of the 17{,}738 distinct queries
-typed into its SQL form from January 2025 to July 2026 that plan on its schema, 10{,}444 read
-science-primary spectra, but only 1{,}158 de-duplicate, group or left-join, and the prover changes
-26 plans, all through primary keys carried through joins. No query needs the documented key. 376
-left-join \sql{SpecObj} on \sql{bestObjID} as if it were a key of the science-primary scope; in the
-data it is not, as 69 objects have two such spectra. A planner must prove uniqueness from declared
-constraints, not from what a schema is meant to say. Wikimedia's Quarry users~\cite{Quarry} behave
-alike: of their queries, 8{,}736 plan on MediaWiki's schema and 178 change, mostly a \sql{GROUP BY}
-or \sql{DISTINCT} on \sql{page\_title} within one namespace, where the key \sql{(page\_namespace,
-page\_title)} is a key on the title under the query's restriction, which PostgreSQL does not see.
-The 26 keys we mined on Simple English Wikipedia that also hold on Afrikaans Wikipedia change none;
-14 queries select their scopes.
+time, because its schema is built on them. \sql{PhotoPrimary} is \sql{PhotoObjAll} with \sql{mode = 1}, and its
+documentation says that it holds one row per object on the sky, that is, \sql{UNIQUE (thingID) WHERE mode = 1}.
+\sql{SpecObj} is \sql{SpecObjAll} with \sql{sciencePrimary = 1}. We collected the distinct queries typed into its SQL form
+from January 2025 to July 2026, and 17{,}738 of them can be planned on its schema. Of these, 10{,}444 read
+science-primary spectra, but only 1{,}158 remove duplicates, group or left-join. The prover changes 26 plans, all through
+primary keys carried through joins. No query needs the documented key. In 376 queries, users left-join \sql{SpecObj} on
+\sql{bestObjID} as if it were a key of the science-primary spectra. In the data it is not, as 69 objects have two such
+spectra. A planner must prove uniqueness from declared constraints, not from what a schema is meant to say.
 
-Over MusicBrainz, the queries a
-consumer of its data would write gain most where a partial index is a key outright ($4.94\times$
-for distinct names and comments) and where an unused join to the primary alias is removed
-($3.58\times$); one needs the \sql{CHECK} constraint that gives every primary alias a locale. On
-soft-deleted and tenant-scoped data (users 1M rows, orders 5M), removing a left join gains
-$1.64$ and $4.46\times$, and removing a \sql{DISTINCT} $5.75\times$; an earlier run with the same
-plans gave $3.65$, $5.61$ and $3.87\times$, so these factors vary by up to $2\times$ between runs,
-and the times include fetching up to 5M rows, which no rewrite changes. The \sql{Inner Unique} setting changes two more plans over MusicBrainz, both to $1.2$--$1.8\times$ faster, and none of the others.
+Users of Wikimedia's Quarry~\cite{Quarry} behave in the same way. Of their queries, 8{,}736 can be planned on
+MediaWiki's schema, and 178 plans change. Most of these are a \sql{GROUP BY} or \sql{DISTINCT} on \sql{page\_title} within
+one namespace. There, the key \sql{(page\_namespace, page\_title)} becomes a key on the title under the query's
+restriction, which stock PostgreSQL does not see. We mined 26 keys on Simple English Wikipedia that also hold on Afrikaans
+Wikipedia. They change no plan, and only 14 queries select their scopes.
+
+\else
+Astronomers who query the Sloan Digital Sky Survey through SkyServer~\cite{SkyServer}, and editors who query Wikimedia's
+Quarry~\cite{Quarry}, also filter on scopes. SkyServer's schema is built on them: \sql{PhotoPrimary} is \sql{PhotoObjAll}
+with \sql{mode = 1}. Of 17{,}738 SkyServer queries, the prover changes 26 plans, and of 8{,}736 Quarry queries, 178. These
+changes use primary keys carried through joins. On Quarry they also use the key \sql{(page\_namespace, page\_title)},
+which a query's restriction to one namespace turns into a key on the title. No query needed a filtered key. In 376 SkyServer queries, users left-join \sql{SpecObj} on \sql{bestObjID} as if it were a key of the
+science-primary spectra, but 69 objects have two such spectra. A planner must prove uniqueness from declared
+constraints, not from what a schema is meant to say.
+
+\fi
+\paragraph*{Queries we wrote} Over MusicBrainz, we wrote queries of the kind a consumer of its data would write. They
+gain most where a partial index states a key outright ($4.94\times$, for distinct names and comments), and where an
+unused join to the primary alias is removed ($3.58\times$). One of these needs the \sql{CHECK} constraint that gives every
+primary alias a locale. We also built soft-deleted and tenant-scoped data, with 1M users and 5M orders. There, removing a
+left join gains $1.64$ and $4.46\times$, and removing a \sql{DISTINCT} gains $5.75\times$. An earlier run with the same
+plans gave $3.65$, $5.61$ and $3.87\times$. These factors thus vary by up to $2\times$ between runs, and the times include
+fetching up to 5M rows, which no rewrite changes. Over MusicBrainz, the \sql{Inner Unique} setting changes two more
+plans, which become $1.2$ to $1.8\times$ faster. It changes none of the others.
 
 \begin{figure}[t]
 \centering
@@ -1090,113 +1194,91 @@ on the base tables.}
 \label{fig:views}
 \end{figure}
 
-\paragraph*{Views over versioned data} BI layers restate history with current attributes, so we
-offered each history-keeping dimension of TPC-DS as a view of the same name,
-\sql{SELECT h.*, c.i\_brand AS cur\_i\_brand, \ldots\ FROM item h LEFT JOIN item c ON c.i\_item\_id =
-h.i\_item\_id AND c.i\_rec\_end\_date IS NULL}, ran the unchanged queries through it with the
-five current-version keys declared, and compared with the base tables (Fig.~\ref{fig:views}).
-Stock PostgreSQL keeps every join the views add, 141 in the 73 queries that read such a
-dimension at scale factor~10, and the prover removes all of them, with identical results. Without
-q72, which the view's \sql{FROM} list keeps from being flattened whether or not the join goes
-(it is fast again with \sql{from\_collapse\_limit} at 20), the views cost 7\% with stock
-PostgreSQL ($836$ against $783$\,s) and nothing with the prover ($778$\,s); at scale factor~1 they
-cost 2\% (17\% with q6, whose time the views raise from 29 to 48\,s). The joins go whatever their
-size, but what they cost depends on the dimension, and TPC-DS dimensions are small next to its
-facts (\sql{item} has 102{,}000 rows at scale factor~10, \sql{store\_sales} 28.8 million).
+\paragraph*{Views over versioned data} Reporting layers often show historical facts together with current
+attributes. To test this pattern, we offered each history-keeping dimension of TPC-DS as a view of the same name. For
+\sql{item}, the view is
+\sql{SELECT h.*, c.i\_brand AS cur\_i\_brand, \ldots\ FROM item h LEFT JOIN item c ON c.i\_item\_id = h.i\_item\_id AND
+c.i\_rec\_end\_date IS NULL}. We ran the unchanged queries through these views, with the five keys of current versions
+declared, and compared them with the queries on the base tables (Fig.~\ref{fig:views}). At scale factor~10, the 73 queries
+that read such a dimension contain 141 joins added by the views. Stock PostgreSQL keeps all of them, and the prover
+removes all of them, with identical results. Query q72 is an exception: the view's \sql{FROM} list prevents it from being
+flattened, whether or not the join is removed. It is fast again with \sql{from\_collapse\_limit} set to 20. Without q72,
+the views cost 7\% with stock PostgreSQL ($836$ against $783$\,s), and nothing with the prover ($778$\,s). At scale
+factor~1, they cost 2\%, or 17\% with q6, whose time the views raise from 29 to 48\,s. The joins are removed whatever
+their size, but what they cost depends on the dimension. TPC-DS dimensions are small next to its facts: at scale
+factor~10, \sql{item} has 102{,}000 rows and \sql{store\_sales} 28.8 million.
 
 
 \ifextended
 \subsection{Recommendation}\label{sec:exp-rec}
 
 
-\paragraph*{Would a recommender find them?} We hid the declared indexes and generated candidate
-conditions from two sources. Schema roles propose \sql{IS [NOT] NULL} on nullable columns,
-boolean values, and constants of status-, type- and kind-like columns. The workload contributes
-the atoms its queries apply, constants included. Of the 168 declared conditions on plain
-columns, half (84) only exclude \nul\ keys and follow from the key itself. Of the other 84, schema roles recover 78 (at
-the level of column and atom kind; the constants come from the data), the workload 68 with
-their constants, and both together 79. The misses are non-empty-string conditions
-(\sql{<> ''}) and two predicates our parser does not read. On the indexed tables schema roles
-propose 2{,}776 candidate atoms against 524 from the workload, so the workload is the sharper
-source and the schema the broader one. Choosing keys under these conditions needs data, which
-these applications do not publish; we leave it to deployments with real instances.
+\paragraph*{Would a recommender find them?} We hid the declared indexes and generated candidate conditions from two
+sources. The schema proposes \sql{IS [NOT] NULL} on nullable columns, boolean values, and the constants of columns
+that look like a status, type or kind. The workload contributes the atoms that its queries apply, with their constants.
+Of the 168 declared conditions on plain columns, half (84) only exclude \nul\ keys and follow from the key itself. Of the
+other 84, the schema recovers 78, at the level of column and kind of atom, since the constants come from the data. The
+workload recovers 68 with their constants, and both sources together recover 79. The misses are conditions that require
+a non-empty string (\sql{<> ''}), and two predicates that our parser does not read. On the tables with these indexes, the
+schema proposes 2{,}776 candidate atoms and the workload 524. The workload is thus the sharper source, and the schema the
+broader one. Choosing keys under these conditions needs data, which these applications do not publish. We leave this to
+deployments with real instances.
 
-\paragraph*{Stability under updates} We mined the 15 dimension tables of TPC-DS at scale
-factor~1 (11{,}988 keys of at most three columns under conditions of at most two atoms, 10{,}645
-of them conditional) and kept the 4{,}002 that also hold at scale factor~10. DuckDB's generator produces no refresh sets, so we emulated
-the dimension maintenance of the specification on scale factor~1: three rounds. In each round,
-5\% of the current versions of the history-keeping dimensions get a successor version, 5\% of
-the rows of the other maintained dimensions are updated in place, and 2.5\% new entities are
-added; new attribute values are drawn from each column's existing values. After three rounds,
-79\% of the 3{,}126 conditional keys on maintained tables that held at both scale factors still hold, against 58\% of
-those that held at scale factor~1 only. Unconditional mined keys fare worse (45\% and 26\%): they
-are mostly accidents of small tables. The keys on the seven static dimensions all hold. Holding
-at a second scale factor is therefore a useful but weak significance filter. Of the keys it
-keeps, 79\% survive, against 64\% of all conditional keys, and it keeps only 36\% of the
-survivors. Because the emulation samples columns independently, it breaks correlations that the
-real generator keeps, so these rates are lower bounds.
+\paragraph*{Stability under updates} We mined the 15 dimension tables of TPC-DS at scale factor~1. We found 11{,}988
+keys of at most three columns under conditions of at most two atoms, 10{,}645 of them conditional. We kept the 4{,}002
+that also hold at scale factor~10. DuckDB's generator produces no refresh sets, so we emulated the dimension maintenance
+of the specification on scale factor~1, in three rounds. In each round, 5\% of the current versions of the
+history-keeping dimensions get a successor version, 5\% of the rows of the other maintained dimensions are updated in
+place, and 2.5\% new entities are added. New attribute values are drawn from the existing values of each column. After
+three rounds, 79\% of the 3{,}126 conditional keys on maintained tables that held at both scale factors still hold. Of
+those that held at scale factor~1 only, 58\% still hold. Mined keys without conditions fare worse (45\% and 26\%), as they
+are mostly accidents of small tables. The keys on the seven static dimensions all hold. Holding at a second scale factor
+is therefore a useful but weak filter. Of the keys it keeps, 79\% survive, against 64\% of all conditional keys, but it
+keeps only 36\% of the keys that survive. The emulation samples columns independently, so it breaks correlations that the
+real generator keeps. These rates are therefore lower bounds.
 
-\paragraph*{A public dataset} On the Stack Exchange data of \sql{stats.stackexchange.com} (April
-2024; 5.6M rows in 8 tables), conditions from schema roles (values of type, status and flag
-columns, null tests, and conjunctions of one of each: 457 conditions) and keys of at most three
-columns from HPIValid on each scope, under both semantics, gave 107 recommendations in 147\,s.
-Under $\U{}$ a column that is \nul\ throughout a scope is a key vacuously; requiring 50 rows with
-the key non-null removed 46 such candidates. Mined on the data before 2020, 97 of the 103 that
-carry dates still hold in 2024. By our reading, 81 recommendations state invariants of the
-platform: a revision has one history row per kind of change; a post has one initial body, title
-and tag set and at most one accepted-by-asker vote; an answer is accepted by at most one question
-(a $\Ueq{}$ key among non-null values); two posts are linked once per link type; a user earns a
-tag badge once per class. The 26 others follow correlations, such as licence versions that
-follow time, and the hold-out rejects only 2 of them, together with 4 invariants that turned out
-false: a post can become community wiki, or a hot network question, twice. All Stack Exchange
-sites share the schema, so we checked the 101 recommendations that hold in 2024 on three other
-sites (dba, academia, travel; 0.5M posts). 86 of the 99 that can be tested hold on all of them. The
-13 that fail include 7 of the 24 correlations and 6 we had read as invariants: a post can be
-protected, or tweeted, twice, and on some sites receive several spam votes. Other sites are thus a
-sharper filter than later data, but the 17 correlations that pass follow the platform's history,
-which all sites share; choosing among recommendations stays a decision for whoever owns the
-schema.
+\paragraph*{A public dataset} We used the Stack Exchange data of \sql{stats.stackexchange.com} from April 2024, with
+5.6M rows in 8 tables. The schema proposed 457 conditions: values of type, status and flag columns, \nul\ tests, and
+conjunctions of one of each. HPIValid found the keys of at most three columns on each scope, under both semantics. This
+gave 107 recommendations in 147\,s. Under $\U{}$, a column that is \nul\ throughout a scope is trivially a key. Requiring
+50 rows where the key is not \nul\ removed 46 such candidates. We also mined the data before 2020, and 97 of the 103
+recommendations that carry dates still hold in 2024.
 
-\paragraph*{Keys from data} By Proposition~\ref{prop:reduce} an off-the-shelf algorithm finds the
-keys under a fixed condition. On seven real tables with 21 conditions each under both semantics
-(288 non-trivial scopes), HyUCC and HPIValid of Desbordante~\cite{Desb} returned the same minimal
-keys as our miner on every encoded scope where the miner finished within 20\,s; HPIValid took
-$0.1$--$61$\,ms per table in the median (Appendix~\ref{app:disc}).
+By our reading, 81 recommendations state invariants of the platform. A revision has one history row per kind of
+change. A post has one initial body, title and tag set, and at most one vote that accepts an answer. An answer is
+accepted by at most one question, which is a $\Ueq{}$ key among values that are not \nul. Two posts are linked once per
+type of link. A user earns a tag badge once per class. The other 26 recommendations follow correlations, such as
+licence versions that follow time. The hold-out data rejects only 2 of them, together with 4 invariants that turned out
+to be false: a post can become community wiki, or a hot network question, twice.
+
+All Stack Exchange sites share the same schema. We therefore checked the 101 recommendations that hold in 2024 on three
+other sites (dba, academia and travel, with 0.5M posts). Of the 99 that can be tested, 86 hold on all three. The 13 that
+fail include 7 of the 24 correlations, and 6 that we had read as invariants. A post can be protected or tweeted twice,
+and on some sites it can receive several spam votes. Other sites are thus a sharper filter than later data. But the 17
+correlations that pass follow the platform's history, which all sites share. Choosing among recommendations remains a
+decision for the owner of the schema.
+
+\paragraph*{Keys from data} By Proposition~\ref{prop:reduce}, an existing algorithm for unique column combinations
+finds the keys under a fixed condition. We took seven real tables with 21 conditions each, under both semantics, which
+gives 288 scopes that are not trivial. HyUCC and HPIValid of Desbordante~\cite{Desb} returned the same minimal keys as our
+miner on every scope where our miner finished within 20\,s. HPIValid took $0.1$ to $61$\,ms per table in the median
+(Appendix~\ref{app:disc}).
 \else
 \subsection{Where the keys come from}\label{sec:exp-rec}\label{sec:discovery}
 
-Stack Exchange and TPC-DS declare no filtered unique indexes, so we recommended them. A
-recommendation is a condition and a key. Conditions come from schema roles (\sql{IS [NOT] NULL} on
-nullable columns, boolean values, constants of status-, type- and kind-like columns) and from the
-workload. Under a fixed condition, the minimal keys are the minimal unique column combinations of
-the matching rows, after each \nul\ is replaced by a value of its own for $\U{}$, or all \nul s
-by one value for $\Ueq{}$, so any algorithm for them~\cite{PN17,BBFNPS20} finds conditional keys;
-a second miner fixes the key and finds all valid conditions of at most two atoms. With the
-declared indexes of the ten application schemas hidden, schema roles recover 78 of the 84
-conditions, among the 168 without expression keys, that do more than exclude \nul\ keys, and the workload 68 with their constants.
+Stack Exchange and TPC-DS declare no filtered unique indexes, so we recommended some. A recommendation consists of a
+condition and a key. Conditions come from the schema, such as \nul\ tests and the values of columns that look like a
+status or type, and from the workload. Under a fixed condition, the minimal keys are the minimal unique column
+combinations of the rows that match it, after each \nul\ is replaced by a value of its own for $\U{}$, or all \nul s by
+one value for $\Ueq{}$. Any algorithm for unique column combinations~\cite{PN17,BBFNPS20} therefore finds conditional keys. When
+we hid the declared indexes of the ten applications, the schema recovered 78 of the 84 conditions that do more than
+exclude \nul\ keys.
 
-\paragraph*{Stack Exchange} On \sql{stats.stackexchange.com} (April 2024; 5.6M rows in 8 tables),
-457 conditions and keys of at most three columns from HPIValid~\cite{Desb} gave 107
-recommendations in 147\,s, requiring 50 rows with the key non-null. By our reading, 81 state
-invariants of the platform: a revision has one history row per kind of change; a post has one
-initial body, title and tag set and at most one accepted-by-asker vote; an answer is accepted by
-at most one question (a $\Ueq{}$ key among non-null values); two posts are linked once per link
-type. The 26 others follow correlations, such as licence versions that follow time. Mined on the
-data before 2020, 97 of the 103 that carry dates still hold in 2024. Of the 99 that can be tested
-on three other sites (dba, academia, travel), 86 hold on all of them; the 13 that fail are 7 of
-the 24 correlations and 6 that we had read as invariants: a post can be protected, or tweeted,
-twice. Other sites are a sharper filter than later data, but choosing among recommendations stays
-a decision for whoever owns the schema.
-
-\paragraph*{TPC-DS} On the 15 dimension tables at scale factor~1 we mined 11{,}988 keys of at most
-three columns under conditions of at most two atoms and kept the 4{,}002 that also hold at scale
-factor~10. DuckDB's generator produces no refresh sets, so we emulated the specification's
-dimension maintenance for three rounds: 5\% of current versions get a successor, 5\% of the rows of
-other maintained dimensions are updated in place, and 2.5\% new entities arrive. Afterwards 79\% of
-the 3{,}126 conditional keys on maintained tables that held at both scale factors still hold,
-against 58\% of those that held at scale factor~1 only; unconditional mined keys, mostly accidents
-of small tables, fare worse (45\% and 26\%). As the emulation draws columns independently, these
-rates are lower bounds. The extended version~\cite{EXT} gives the theory and the miners.
+On \sql{stats.stackexchange.com}, HPIValid~\cite{Desb} found 107 recommendations in 147\,s. By our reading, 81 of them
+state invariants of the platform, for example that an answer is accepted by at most one question. The other 26 follow
+correlations in the data. On TPC-DS, we kept the 4{,}002 mined keys that hold at scale factors 1 and 10. After three
+rounds of emulated maintenance, 79\% of the conditional ones on maintained tables still hold. The extended
+version~\cite{EXT} describes the miners and these experiments in detail.
 \fi
 
 
@@ -1204,69 +1286,63 @@ rates are lower bounds. The extended version~\cite{EXT} gives the theory and the
 \section{Related Work}\label{sec:related}
 %=====================================================================
 
-\paragraph*{Uniqueness in optimisation} Semantic query optimisation rewrites queries with
-integrity constraints~\cite{King81,CGM90}; filtered unique indexes are such constraints, and
-the question is which rewrites they license. PostgreSQL answered it unsoundly and then not at all
-(bug \#17975); the distinction between base restrictions and join clauses that we use for
-uniqueness was proposed by Rowley and is under discussion for estimates~\cite{Yan26}. Paulley and Larson~\cite{PL94} derive uniqueness of
-query results from keys; Simmen et al.~\cite{SSM96} and Neumann and Moerkotte~\cite{NM04}
-propagate functional dependencies for order optimisation; Kossmann et al.~\cite{KPN22} survey dependency-based optimisation. Godfrey et
-al.~\cite{GGZ01} exploit constraint-like characterisations of data. None of these treats keys
-that hold on part of a table. Deriving the keys of a join from those of its inputs goes back to
-Darwen~\cite{Dar92} and Paulley~\cite{Pau00}; Section~\ref{sec:planner} adds what filtered keys
-need, a premise per relation that holds under its own restrictions and a semantics ($\U$ or
-$\Ueq$) per step. Lazy, workload-driven discovery of dependencies for the optimiser~\cite{KLNP22}
-fits the recommender of Section~\ref{sec:discovery}.
+\paragraph*{Uniqueness in optimisation} Semantic query optimisation rewrites queries using integrity
+constraints~\cite{King81,CGM90}. Filtered unique indexes are such constraints, and the question is which rewrites they
+allow. PostgreSQL first answered this question unsoundly, and then not at all (bug \#17975). Rowley proposed the
+distinction between base restrictions and join clauses that we use for uniqueness, and it is under discussion for
+estimates~\cite{Yan26}. Paulley and Larson~\cite{PL94} derive the uniqueness of query results from keys. Simmen et
+al.~\cite{SSM96} and Neumann and Moerkotte~\cite{NM04} propagate functional dependencies for order optimisation, and
+Kossmann et al.~\cite{KPN22} survey optimisation based on dependencies.\ifextended{} Godfrey et al.~\cite{GGZ01} exploit characterisations of the data that behave like constraints.\fi None of these works treats keys that hold on part of a table.
+Deriving the keys of a join from those of its inputs goes back to Darwen~\cite{Dar92} and Paulley~\cite{Pau00}.
+Section~\ref{sec:planner} adds what filtered keys need: a premise for each relation that holds under its own
+restrictions, and a semantics ($\U$ or $\Ueq$) for each step.\ifextended{} The recommender of Section~\ref{sec:discovery} fits with lazy discovery of dependencies for
+the optimiser, driven by the workload~\cite{KLNP22}.\fi
 
-\paragraph*{Partial indexes} Stonebraker proposed partial indexes~\cite{Sto89} and Seshadri and
-Swami generalised them~\cite{SS95}; work since then concerns their selection and use as access
-paths. Using a query restriction to choose a partial index is the implication test of
-predicate subsumption~\cite{LY85,GL01}; using a partial \emph{unique} index for uniqueness is
-an implication between constraints, which is what this paper decides.
+\paragraph*{Partial indexes} Stonebraker proposed partial indexes~\cite{Sto89}, and Seshadri and Swami generalised
+them~\cite{SS95}. Later work concerns how to select them and how to use them as access paths. Choosing a partial index
+for a query restriction is the implication test of predicate subsumption~\cite{LY85,GL01}. Using a partial \emph{unique}
+index to prove uniqueness is an implication between constraints, which is what this paper decides.
 
-\paragraph*{Declared but unenforced keys} DB2 eliminates joins using declared
-constraints~\cite{CGK99}, and Snowflake, Databricks and Oracle remove joins (Databricks also
-\sql{DISTINCT}) using primary and unique keys marked \sql{RELY}~\cite{RELYsf,RELYdb,RELYora}, which the system trusts but does not check. Those
-keys are unconditional and may be false; filtered unique indexes are enforced but hold on part of
-a table, so the question is not whether to trust them but what they imply.
+\paragraph*{Declared but unenforced keys} DB2 eliminates joins using declared constraints~\cite{CGK99}. Snowflake,
+Databricks and Oracle remove joins using primary and unique keys marked \sql{RELY}~\cite{RELYsf,RELYdb,RELYora}, and
+Databricks also removes \sql{DISTINCT}. The system trusts such keys but does not check them. These keys hold on the whole
+table and may be false. Filtered unique indexes, in contrast, are enforced but hold on part of a table. The question
+is therefore not whether to trust them, but what they imply.
 
-\paragraph*{Testing optimisers} Our differential testing follows the logic-bug oracles of
-Rigger and Su~\cite{RS20a,RS20b,RS20c}, which compare a query against a semantically equivalent
-one; we compare the planner with the rewrites off and on, and use mutants to show that the test
-detects the errors the safeguards prevent.
+\paragraph*{Testing optimisers} Our differential testing follows the oracles for logic bugs of Rigger and
+Su~\cite{RS20a,RS20b,RS20c}. We compare the planner with the rewrites off and on, and use mutants to show that the test
+detects errors.
 
 \paragraph*{Keys with nulls and conditions} Possible and certain keys~\cite{KLZ15,KLLZ16} and key
-sets~\cite{Thalheim89,HLL11,HLL23} fix \nul\ semantics of keys; $\U{K}$ is the possible key, and a certain key implies $\Ueq{K}$ but is not expressible; embedded
-uniqueness constraints~\cite{WLL19} and contextual keys~\cite{WLL17} scope keys by completeness
-or by context. CFDs~\cite{BFGJK07,FGJK08}, and extended CFDs with disjunction and
-inequality~\cite{BFGM08}, bind FDs to patterns over complete relations; over such relations and
-sets, a conditional key with a constant condition is a CFD, and what our model adds is \nul\ in
-conditions and keys, which filtered indexes mostly state. The hardness of
-Theorems~\ref{thm:dom} and~\ref{thm:neq} is the finite-domain effect of CFD implication,
-coNP-complete with finite domains and polynomial without~\cite{FGJK08}: \nul\ against a value,
-and an \sql{IN}-list, act as a domain of two or three values. Discovery of unique
-column combinations~\cite{PN17,BBFNPS20,AGN15} and of CFDs~\cite{FGLX11} informs the miner.
+sets~\cite{Thalheim89,HLL11,HLL23} give keys a semantics for \nul. Here $\U{K}$ is the possible key. A certain key implies
+$\Ueq{K}$, but filtered unique indexes cannot express it. Embedded uniqueness constraints~\cite{WLL19} and contextual
+keys~\cite{WLL17} restrict keys by completeness or by context. CFDs~\cite{BFGJK07,FGJK08}, and extended CFDs with
+disjunction and inequality~\cite{BFGM08}, bind functional dependencies to patterns over complete relations. Over complete
+relations that are sets, a conditional key with a constant condition is a CFD. What our model adds is \nul\ in conditions
+and keys, which is what filtered indexes mostly state. The hardness of Theorems~\ref{thm:dom} and~\ref{thm:neq} comes from
+the same effect of finite domains that makes CFD implication coNP-complete, whereas it is polynomial over infinite
+domains~\cite{FGJK08}.
+Here, \nul\ against a value, and an \sql{IN}-list, act as a domain of two or three values. Discovery of unique column
+combinations~\cite{PN17,BBFNPS20,AGN15} and of CFDs~\cite{FGLX11} informs our miner.
 
 
 %=====================================================================
 \section{Conclusion}\label{sec:conclusion}
 %=====================================================================
 
-A planner can trust a filtered unique index when it proves uniqueness from the table's own
-restrictions, all its unique indexes and its \sql{CHECK} constraints, under the \nul\ semantics of
-the rewrite. Join-shaped rewrites are then decided in polynomial time for the predicates of almost
-all real decisions, group-shaped rewrites are, under the same conditions, hard only through nullable
-columns that the query leaves open, and every implication that fails has a two-record counterexample. A prover built on this fits
-into PostgreSQL's planner through 38 changed lines and into CockroachDB's through 4, costs tens of microseconds in the median, licensed exactly what real
-catalogs imply, and changed no result on 1{,}000{,}000 random queries, while each of the errors we
-made on the way was caught. Turned on, it rarely loses, and what it gains depends on who writes the
-queries: little in application code, transformation code and reports, which use filtered keys for
-integrity; up to $3.3\times$ in users' queries over Stack Exchange, mostly through keys carried
-through joins, as filtered keys gain there only through the \sql{Inner Unique} setting that can hurt before data
-is cached and stays off by default; every join that views over versioned data add; and, on queries we wrote,
-up to $4.9\times$ where a partial index turns out to be a key outright.
-Range predicates and expression keys are not translated, derived tables are not reasoned about,
-and self-join elimination is not yet hooked, as it needs the clauses that established uniqueness.
+A planner can trust a filtered unique index when it proves uniqueness from the table's own restrictions, all its
+unique indexes and its \sql{CHECK} constraints, under the \nul\ semantics of the rewrite. For the predicates of almost all
+real decisions, join-shaped rewrites can then be decided in polynomial time. Under the same conditions, group-shaped
+rewrites are hard only through nullable columns that the query leaves open.
+
+A prover built on these results fits into PostgreSQL's planner with 38 changed lines, and into CockroachDB's with 4. It
+adds tens of microseconds to planning in the median. It allowed exactly what real catalogs imply, and it changed no
+result on 1{,}000{,}000 random queries. What it gains depends on who writes the queries. Application code and reports use filtered
+keys for integrity, and gain little. Users' queries over Stack Exchange gain up to $3.3\times$, mostly through keys
+carried through joins. Views over versioned data lose every join they add.
+
+Some limits remain. Range predicates and expression keys are not translated, and derived tables are not reasoned about.
+Self-join elimination is not yet connected to the prover, because it needs the clauses that established uniqueness.
 
 
 \ifextended
@@ -1274,7 +1350,7 @@ and self-join elimination is not yet hooked, as it needs the clauses that establ
 \section{Proofs for Reasoning}\label{app:reason}
 
 \begin{proof}[Proof of Theorem~\ref{thm:neq}, cases on $K$]
-Both by reduction from CNF satisfiability with \sql{NOT NULL} columns $A_1,\dots,A_n,B$ and the goal
+Both cases reduce from CNF satisfiability with \sql{NOT NULL} columns $A_1,\dots,A_n,B$ and the goal
 $\{\tau\}:\U{A_1\cdots A_nB}$, so a violating pair shares a value $v_i$ on each $A_i$ (``$x_i$ is
 true'' iff $v_i=1$). For ${\notin}$: $\tau$ has $\any$ everywhere, and clause constraints
 $\{\rho\}:\U{B}$ have $\rho(A_i)={\notin}\{1\}$ for a positive and ${\notin}\{0\}$ for a negative
@@ -1290,7 +1366,7 @@ when $\Sig$ consists of a single constraint whose condition is built from \sql{I
 \end{proposition}
 
 \begin{proof}
-Membership by Lemma~\ref{lem:pairs}. Hardness from CNF satisfiability with clauses
+Membership in coNP follows from Lemma~\ref{lem:pairs}. Hardness is by reduction from CNF satisfiability with clauses
 $c_1,\dots,c_m$ over $x_1,\dots,x_n$: take nullable columns $A_1,\dots,A_n$ and $B\in\NN$, read
 ``$A_i$ is not \nul'' as ``$x_i$ is true'', and let $\Sig=\{C:\U{B}\}$, where $C$ has one template
 per clause $c_j$, with $\bot$ on $A_i$ if $x_i$ occurs positively in $c_j$ and $\top$ if negatively:
@@ -1843,6 +1919,9 @@ figures, checked the reductions of Section~\ref{sec:reasoning} by brute force on
 and reviewed drafts. The authors directed the work and are responsible for the correctness and
 originality of the paper.
 
+% The last page is balanced by a column break before reference 47 (extended) or 20 (submission).
+% Re-check the numbers when the text or references move.
+\ifextended\IEEEtriggeratref{47}\else\IEEEtriggeratref{20}\fi
 \begin{thebibliography}{99}
 \bibitem{AGN15} Z.~Abedjan, L.~Golab, F.~Naumann. Profiling relational data: a survey.
   \emph{VLDB J.} 24(4), 2015.
@@ -1896,8 +1975,10 @@ optimization. \emph{ACM Trans. Database Syst.} 15(2):162--207, 1990.
   C.~J. Date, H.~Darwen, \emph{Relational Database Writings 1989--1991}, Addison-Wesley, 1992.
 \bibitem{Pau00} G.~N. Paulley. \emph{Exploiting Functional Dependence in Query Optimization}.
   PhD thesis, University of Waterloo, 2000.
+\ifextended
 \bibitem{KLNP22} J.~Kossmann, D.~Lindner, F.~Naumann, T.~Papenbrock. Workload-driven, lazy
   discovery of data dependencies for query optimization. In \emph{CIDR}, 2022.
+\fi
 \bibitem{RS20a} M.~Rigger, Z.~Su. Testing database engines via pivoted query synthesis. In
   \emph{OSDI}, pp.~667--682, 2020.
 \bibitem{RS20b} M.~Rigger, Z.~Su. Detecting optimization bugs in database engines via
@@ -1906,7 +1987,8 @@ optimization. \emph{ACM Trans. Database Syst.} 15(2):162--207, 1990.
   \emph{Proc. ACM Program. Lang.} 4(OOPSLA), 211:1--211:30, 2020.
 \ifextended\else
 \bibitem{EXT} Z.~Wei, S.~Link. When can the planner trust a filtered unique index? Extended version
-  with appendix, 2026. \url{https://github.com/lshelloworld/conditional-unique/blob/main/paper/conditional-unique-extended.pdf}
+  with appendix, 2026. Repository \url{https://github.com/lshelloworld/conditional-unique}, file
+  \href{https://github.com/lshelloworld/conditional-unique/blob/main/paper/conditional-unique-extended.pdf}{\nolinkurl{paper/conditional-unique-extended.pdf}}.
 \fi
 \ifextended
 \bibitem{EG95} T.~Eiter, G.~Gottlob. Identifying the minimal transversals of a hypergraph and
@@ -1923,8 +2005,10 @@ optimization. \emph{ACM Trans. Database Syst.} 15(2):162--207, 1990.
   dependencies. \emph{IEEE Trans. Knowl. Data Eng.} 23(5):683--698, 2011.
 \bibitem{GL01} J.~Goldstein, P.-{\AA}. Larson. Optimizing queries using materialized views: a
   practical, scalable solution. In \emph{SIGMOD}, 2001.
+\ifextended
 \bibitem{GGZ01} P.~Godfrey, J.~Gryz, C.~Zuzarte. Exploiting constraint-like data
   characterizations in query optimization. In \emph{SIGMOD}, 2001.
+\fi
 \bibitem{HLL11} S.~Hartmann, U.~Leck, S.~Link. On Codd families of keys over incomplete
   relations. \emph{Comput. J.} 54(7):1166--1180, 2011.
 \bibitem{HLL23} M.~Hannula, X.~Li, S.~Link. Controlling entity integrity with key sets.
